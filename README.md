@@ -1,6 +1,6 @@
 <p align="center">
   <a href="#">
-    <img width="200" src="">
+    <img width="200" src="https://github.com/mojitoinc/mixers/blob/main/public/logo.svg">
   </a>
 </p>
 
@@ -24,13 +24,13 @@ A high-quality & reliable React Hooks library.
 ## 📦 Install
 
 ```bash
-$ npm install --save @mojito/mixers-hooks
+$ npm install --save @mojito-mixers/hooks
 # or
-$ yarn add @mojito/mixers-hooks
+$ yarn add @mojito-mixers/hooks
 ```
 
 ## 🔨 Usage
 
 ```ts
-import { useRequest } from '@mojito/mixers-hooks';
+import { useRequest } from '@mojito-mixers/hooks';
 ```
