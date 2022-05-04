@@ -34,7 +34,15 @@
     "README.md"
   ],
   "dependencies": {
-    "@babel/runtime": "^7.17.9"
+    "@babel/runtime": "^7.17.9",
+    "@auth0/auth0-react": "^1.6.0",
+    "@sentry/react": "^6.15.0",
+    "graphql-request": "^4.0.0",
+    "graphql-subscriptions-client": "^0.16.2",
+    "react-query": "^3.34.12",
+    "moment": "^2.29.3",
+    "ahooks": "^3.3.10",
+    "axios": "^0.21.4"
   },
   "peerDependencies": {
     "react": "^16.8.0 || ^17.0.0 || ^18.0.0"

@@ -3,5 +3,4 @@ const isBrowser = !!(
   window.document &&
   window.document.createElement
 );
-
 export default isBrowser;
