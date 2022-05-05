@@ -1,7 +1,7 @@
-import { IContentfulLotData } from '@interfaces/contentful.interface';
-import { EMojitoMutations } from 'data/graph_ql/mojito.mutations';
 import { Variables } from 'graphql-request';
 import { useCallback } from 'react';
+import { EMojitoMutations } from '../data/graph_ql/mojito.mutations';
+import { IContentfulLotData } from '../domain/interfaces/contentful.interface';
 import {
   useCollectionItemBidsList,
   useCollectionItemCurrentBids,

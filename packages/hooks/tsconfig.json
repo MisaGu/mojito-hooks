@@ -1,16 +1,6 @@
 {
   "extends": "../../tsconfig.json",
   "compilerOptions": {
-    "rootDir": "src",
-    "baseUrl": "./src",
-    "paths": {
-      "@queries/*": ["data/graph_ql/queries/*"],
-      "@mutations/*": ["data/graph_ql/mutations/*"],
-      "@interfaces/*": ["domain/interfaces/*"],
-      "@enums/*": ["domain/enums/*"],
-      "@constants": ["domain/general.constants.ts"],
-      "@hooks/*": ["hooks/*"],
-      "@utils/*": ["utils/*"]
-    }
+    "rootDir": "src"
   }
 }

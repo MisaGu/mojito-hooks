@@ -1,18 +1,16 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { config } from '@constants';
+import { SubscriptionClient } from 'graphql-subscriptions-client';
+import { useEffect, useRef } from 'react';
+import { EMojitoQueries, EMojitoSubscriptions, mojitoSubscriptions } from '../data';
+import { config } from '../domain/general.constants';
 import {
   IMojitoCollection,
   IMojitoCollectionItemDetailsBid,
   IUseMojitoCollectionSubscription,
   IUseMojitoOneLotSubscription,
-} from '@interfaces/mojito.interface';
-import { mojitoNormalizer } from '@utils/gqlDataNormalizer.util';
-import { queryClient } from '@utils/gqlRequest.util';
-import isBrowser from '@utils/isBrowser';
-import { EMojitoQueries } from 'data/graph_ql/mojito.query';
-import { EMojitoSubscriptions, mojitoSubscriptions } from 'data/graph_ql/mojito.subscriptions';
-import { SubscriptionClient } from 'graphql-subscriptions-client';
-import { useEffect, useRef } from 'react';
+} from '../domain/interfaces';
+import { mojitoNormalizer, queryClient } from '../utils';
+import isBrowser from '../utils/isBrowser';
 
 let client: SubscriptionClient | null = null;
 

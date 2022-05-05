@@ -1,4 +1,8 @@
-import { config } from '@constants';
+import * as Sentry from '@sentry/react';
+import { useEffect } from 'react';
+import { UseQueryOptions } from 'react-query';
+import { EMojitoQueries } from '../data/graph_ql/mojito.query';
+import { config } from '../domain/general.constants';
 import {
   IMojitoCollectionItem,
   IMojitoCollectionItemAuctionLot,
@@ -9,11 +13,7 @@ import {
   IMojitoProfileCustomOrgs,
   IMojitoProfileUserOrg,
   IMojitoWallet,
-} from '@interfaces/mojito.interface';
-import * as Sentry from '@sentry/react';
-import { EMojitoQueries } from 'data/graph_ql/mojito.query';
-import { useEffect } from 'react';
-import { UseQueryOptions } from 'react-query';
+} from '../domain/interfaces';
 import { useLazyMojito, useMojito } from './useMojito';
 
 export function useProfile(props?: { force?: boolean }): {

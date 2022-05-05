@@ -1,5 +1,5 @@
 import { gql } from 'graphql-request';
-import { UseQueryResult } from 'react-query/types/react/types';
+import { UseQueryResult } from 'react-query';
 import {
   COLLECTION_ITEM_AUCTION_LOT_BIDS_LIST_FIELD,
   COLLECTION_ITEM_AUCTION_LOT_CURRENT_BID_FIELD,

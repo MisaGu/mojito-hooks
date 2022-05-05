@@ -1,7 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { config } from '@constants';
 import axios from 'axios';
 import { useQuery } from 'react-query';
+import { config } from '../domain/general.constants';
 
 const downloadPDF = (pdfBase64String: string, fileName: string) => {
   if (!pdfBase64String) return;

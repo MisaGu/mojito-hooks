@@ -1,13 +1,21 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { config } from '@constants';
-import { IMojitoCollection } from '@interfaces';
-import { contentfulQueries, EContentfulQueries, EMojitoQueries, mojitoQueries } from '@state';
-import { gqlRequest, queryClient } from '@utils';
-import { contentfulNormalizer, mojitoNormalizer } from '@utils/gqlDataNormalizer.util';
-import { useRouter } from 'next/router';
 import { QueryObserverResult, useQuery, UseQueryOptions } from 'react-query';
-import { contentfulGqlClient, useContentfulAuctionsSlugList } from './useContentful';
-import { mojitoGqlClient, useMarketplaceCollectionsSlugWithItemsId } from './useMojito';
+import { contentfulQueries, EContentfulQueries, EMojitoQueries, mojitoQueries } from '../../data';
+import { config } from '../../domain/general.constants';
+import { IMojitoCollection } from '../../domain/interfaces';
+import {
+  contentfulGqlClient,
+  mojitoGqlClient,
+  useContentfulAuctionsSlugList,
+  useMarketplaceCollectionsSlugWithItemsId,
+} from '../../hooks';
+import {
+  contentfulNormalizer,
+  getPath,
+  gqlRequest,
+  mojitoNormalizer,
+  queryClient,
+} from '../../utils';
 
 export function useCollection<TSelectorResult = undefined>(
   props: {
@@ -28,10 +36,8 @@ export function useCollection<TSelectorResult = undefined>(
   const { getIdTokenClaims } = useAuth0();
   const { marketplaceCollectionsSlugWithItemsId } = useMarketplaceCollectionsSlugWithItemsId();
   const { auctionsSlugList } = useContentfulAuctionsSlugList();
-  const router = useRouter();
 
-  const auctionSlug =
-    props?.slug ?? (props?.url ?? router.asPath).split('#')[0].split('?')[0].split('/')[1];
+  const auctionSlug = getPath?.[1];
   const collectionByPath = marketplaceCollectionsSlugWithItemsId?.find(
     (e) => e.slug == auctionSlug,
   );
@@ -55,7 +61,7 @@ export function useCollection<TSelectorResult = undefined>(
       }
 
       if (!isAuction && !isFakeAuction) return null;
-      const collectionItems = collectionByPath.items.map((e) => e.id);
+      const collectionItems = collectionByPath?.items?.map((e) => e.id);
 
       await Promise.all([
         queryClient.prefetchQuery(

@@ -1,4 +1,7 @@
-import { config } from '@constants';
+import { GraphQLClient, Variables } from 'graphql-request';
+import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
+import { contentfulQueries, EContentfulQueries, IUseQueryResult } from '../data';
+import { config } from '../domain/general.constants';
 import {
   IContentfulAuction,
   IContentfulAuthor,
@@ -6,13 +9,8 @@ import {
   IContentfulCollector,
   IContentfulCollectorsQuery,
   IContentfulLotData,
-} from '@interfaces/contentful.interface';
-import { contentfulNormalizer } from '@utils/gqlDataNormalizer.util';
-import { gqlRequest } from '@utils/gqlRequest.util';
-import { contentfulQueries, EContentfulQueries } from 'data/graph_ql/contentful.query';
-import { IUseQueryResult } from 'data/graph_ql/mojito.query';
-import { GraphQLClient, Variables } from 'graphql-request';
-import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
+} from '../domain/interfaces';
+import { contentfulNormalizer, gqlRequest } from '../utils';
 
 export const contentfulGqlClient = new GraphQLClient(config.CONTENTFUL_URL, {
   headers: {

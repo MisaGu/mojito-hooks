@@ -1,20 +1,23 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { config } from '@constants';
-import { useCollection } from '@hooks/useCollection';
+import { useIsomorphicLayoutEffect, usePrevious } from 'ahooks';
+import { GraphQLClient, Variables } from 'graphql-request';
+import { useMutation, UseMutationResult, useQuery, UseQueryOptions } from 'react-query';
+import {
+  EMojitoMutations,
+  EMojitoQueries,
+  IUseQueryResult,
+  mojitoMutations,
+  mojitoQueries,
+} from '../data';
+import { config } from '../domain/general.constants';
 import {
   IMojitoCollection,
   IMojitoCollectionItem,
   IMojitoCollectionItemCurrentBids,
   IMojitoCollectionItemDetailsBid,
-} from '@interfaces/mojito.interface';
-import { mojitoNormalizer } from '@utils/gqlDataNormalizer.util';
-import { gqlRequest, queryClient } from '@utils/gqlRequest.util';
-import { useIsomorphicLayoutEffect, usePrevious } from 'ahooks';
-import { EMojitoMutations, mojitoMutations } from 'data/graph_ql/mojito.mutations';
-import { EMojitoQueries, IUseQueryResult, mojitoQueries } from 'data/graph_ql/mojito.query';
-import { GraphQLClient, Variables } from 'graphql-request';
-import { useMutation, useQuery } from 'react-query';
-import { UseMutationResult, UseQueryOptions } from 'react-query/types/react/types';
+} from '../domain/interfaces';
+import { gqlRequest, mojitoNormalizer, queryClient } from '../utils';
+import { useCollection } from './useCollection';
 
 export const mojitoGqlClient = new GraphQLClient(config.MOJITO_API_URL);
 

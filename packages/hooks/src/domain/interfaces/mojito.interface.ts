@@ -1,8 +1,10 @@
-import { EMojitoCollectionItemAuctionLotStatus } from '@enums/auctionLotStatus.enum';
-import { EMojitoCollectionItemStatus } from '@enums/collectionItemStatus.enum';
-import { InvoiceStatus } from '@enums/invoiceStatus.enum';
-import { EKycStatus } from '@enums/kycStatus.enum';
-import { SaleType } from '@enums/saleType';
+import {
+  EKycStatus,
+  EMojitoCollectionItemAuctionLotStatus,
+  EMojitoCollectionItemStatus,
+  InvoiceStatus,
+  SaleType,
+} from '../enums';
 import { IContentfulAuction, IContentfulLotData } from './contentful.interface';
 
 export interface IMojitoProfileUserOrg {

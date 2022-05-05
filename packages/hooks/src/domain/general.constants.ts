@@ -1,25 +1,9 @@
 export const config = {
-  ENVIRONMENT: process.env.ENVIRONMENT || 'prod',
-  AUTH0_DOMAIN: process.env.NEXT_PUBLIC_AUTH0_DOMAIN,
-  AUTH0_CLIENTID: process.env.NEXT_PUBLIC_AUTH0_CLIENTID,
-  AUTH0_REDIRECT_URI:
-    process.env.NEXT_PUBLIC_AUTH0_REDIRECT_URI ||
-    (typeof document !== 'undefined' && document.location.origin) ||
-    undefined,
   CONTENTFUL_URL: process.env.NEXT_PUBLIC_CONTENTFUL_URL || '',
   CONTENTFUL_AUTH_TOKEN: process.env.NEXT_PUBLIC_CONTENTFUL_AUTH_TOKEN,
   MOJITO_API_URL: process.env.NEXT_PUBLIC_MOJITO_API_URL || '',
   INVOICE_URL: process.env.NEXT_PUBLIC_INVOICE_URL || '',
-  SYNC_REGISTRATION_URL: process.env.NEXT_PUBLIC_SYNC_REGISTRATION_URL || '',
-  CUSTOMER_AUDIENCE: process.env.NEXT_PUBLIC_CUSTOMER_AUDIENCE,
-  CUSTOMER_SCOPE: process.env.NEXT_PUBLIC_CUSTOMER_SCOPE,
-  SOTHEBYS_DOMAIN: process.env.NEXT_PUBLIC_SOTHEBYS_DOMAIN || 'https://staging.sothebys.com',
-  SEGMENT_WRITE_KEY: process.env.NEXT_PUBLIC_ANALYTICS_WRITE_KEY || '',
   ORGANIZATION_ID:
     process.env.NEXT_PUBLIC_API_ORGANIZATION_ID || '8fb128bd-f55d-4bcc-8b6c-0beb684e4d4e',
   MARKETPLACE_ID: process.env.NEXT_PUBLIC_MARKETPLACE_ID || 'c5ac4f84-b78b-4cb7-a24f-7f0c38da0eb2',
-  SENTRY_DSN: process.env.NEXT_PUBLIC_SENTRY_DSN || '',
-  SENTRY_ENV: process.env.NEXT_PUBLIC_SENTRY_ENV || 'dev',
-  SENTRY_AUTH_TOKEN: process.env.NEXT_PUBLIC_SENTRY_AUTH_TOKEN || '',
-  APP_METADATA_URL: process.env.NEXT_PUBLIC_APP_METADATA_URL || '',
 };

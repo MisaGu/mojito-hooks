@@ -1,7 +1,10 @@
-import { config } from '@constants';
-import { IContentfulAuctionsQuery, IContentfulLotData } from '@interfaces/contentful.interface';
+import moment from 'moment';
+import { EContentfulQueries, EMojitoQueries } from '../data';
+import { config } from '../domain/general.constants';
 import {
   ICollectionItemByIdBidsList,
+  IContentfulAuctionsQuery,
+  IContentfulLotData,
   IIMojitoCollectionItemCurrentBidsItems,
   IMojitoCollection,
   IMojitoCollectionItem,
@@ -10,10 +13,7 @@ import {
   IMojitoInvoiceDetailsItem,
   IMojitoProfileRequest,
   IMojitoWallet,
-} from '@interfaces/mojito.interface';
-import { EContentfulQueries } from 'data/graph_ql/contentful.query';
-import { EMojitoQueries } from 'data/graph_ql/mojito.query';
-import moment from 'moment';
+} from '../domain/interfaces';
 import { queryClient } from './gqlRequest.util';
 
 type ILotBidsOrCurrentBid = IMojitoCollectionItemCurrentBids & ICollectionItemByIdBidsList;

@@ -7,11 +7,6 @@
     "downlevelIteration": true,
     "sourceMap": true,
     "baseUrl": ".",
-    "paths": {
-      "@/*": ["src/*"],
-      "hooks": ["./packages/hooks/src/index.ts"],
-      "hooks/lib/*": ["./packages/hooks/src/*"]
-    },
     "allowSyntheticDefaultImports": true,
     "skipLibCheck": true,
     "declaration": false,

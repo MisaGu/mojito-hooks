@@ -1,12 +1,10 @@
 import { useAuth0 } from '@auth0/auth0-react';
-import { config } from '@constants';
-import { IMojitoCollection } from '@interfaces/mojito.interface';
-import { contentfulNormalizer, mojitoNormalizer } from '@utils/gqlDataNormalizer.util';
-import { gqlRequest, queryClient } from '@utils/gqlRequest.util';
-import { getPath } from '@utils/path.util';
-import { contentfulQueries, EContentfulQueries } from 'data/graph_ql/contentful.query';
-import { EMojitoQueries, mojitoQueries } from 'data/graph_ql/mojito.query';
 import { QueryObserverResult, useQuery, UseQueryOptions } from 'react-query';
+import { EMojitoQueries, mojitoQueries } from '../data';
+import { contentfulQueries, EContentfulQueries } from '../data/graph_ql/contentful.query';
+import { config } from '../domain/general.constants';
+import { IMojitoCollection } from '../domain/interfaces';
+import { contentfulNormalizer, getPath, gqlRequest, mojitoNormalizer, queryClient } from '../utils';
 import { contentfulGqlClient, useContentfulAuctionsSlugList } from './useContentful';
 import { mojitoGqlClient, useMarketplaceCollectionsSlugWithItemsId } from './useMojito';
 
@@ -54,7 +52,7 @@ export function useCollection<TSelectorResult = undefined>(
       }
 
       if (!isAuction && !isFakeAuction) return null;
-      const collectionItems = collectionByPath.items.map((e) => e.id);
+      const collectionItems = collectionByPath?.items?.map((e) => e.id);
 
       await Promise.all([
         queryClient.prefetchQuery(

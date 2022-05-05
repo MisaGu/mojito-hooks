@@ -1,7 +1,6 @@
 export * from './useContentful';
 export * from './useMojito';
 export * from './useMojitoSubscription';
-export * from './useProtectedApi';
 export * from './useProfile';
 export * from './usePlaceBidMutation';
 export * from './useInvoiceDownload';

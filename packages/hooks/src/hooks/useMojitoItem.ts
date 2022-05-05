@@ -1,11 +1,11 @@
+import { useMemo } from 'react';
+import { UseQueryOptions } from 'react-query';
 import {
   IMojitoCollectionItem,
   IMojitoCollectionItemAuctionLot,
   IMojitoCollectionItemBuyNowLot,
-} from '@interfaces/mojito.interface';
-import { getPath } from '@utils/path.util';
-import { useMemo } from 'react';
-import { UseQueryOptions } from 'react-query';
+} from '../domain/interfaces';
+import { getPath } from '../utils';
 import { useCollection } from './useCollection';
 
 export function useMojitoItem<

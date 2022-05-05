@@ -1,7 +1,7 @@
-import { SaleType } from '@enums/saleType';
-import { IMojitoCollectionItem } from '@interfaces/mojito.interface';
 import { useSetState } from 'ahooks';
 import { useEffect } from 'react';
+import { SaleType } from '../domain/enums';
+import { IMojitoCollectionItem } from '../domain/interfaces/mojito.interface';
 
 export const useCheckCollectionItemsSaleStatus = (
   items: IMojitoCollectionItem<any>[] | undefined,

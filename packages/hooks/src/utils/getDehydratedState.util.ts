@@ -1,10 +1,8 @@
-import { config } from '@constants';
-import { contentfulGqlClient } from '@hooks/useContentful';
-import { mojitoGqlClient } from '@hooks/useMojito';
-import { IMojitoCollection } from '@interfaces/mojito.interface';
-import { contentfulQueries, EContentfulQueries } from 'data/graph_ql/contentful.query';
-import { EMojitoQueries, mojitoQueries } from 'data/graph_ql/mojito.query';
 import { dehydrate, DehydratedState } from 'react-query';
+import { contentfulQueries, EContentfulQueries, EMojitoQueries, mojitoQueries } from '../data';
+import { config } from '../domain/general.constants';
+import { IMojitoCollection } from '../domain/interfaces';
+import { contentfulGqlClient, mojitoGqlClient } from '../hooks';
 import { contentfulNormalizer, mojitoNormalizer } from './gqlDataNormalizer.util';
 import { gqlRequest, queryClient } from './gqlRequest.util';
 
