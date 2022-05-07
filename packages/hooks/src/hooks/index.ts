@@ -1,5 +1,6 @@
 export * from './useContentful';
 export * from './useMojito';
+export * from './useMojitoItem';
 export * from './useMojitoSubscription';
 export * from './useProfile';
 export * from './usePlaceBidMutation';
