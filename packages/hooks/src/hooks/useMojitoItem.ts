@@ -10,14 +10,15 @@ import { useCollection } from './useCollection';
 
 export function useMojitoItem<
   TItem = IMojitoCollectionItemAuctionLot | IMojitoCollectionItemBuyNowLot,
->(
-  props: {
-    url?: string;
-    slug?: string;
-    id?: string;
-    options?: UseQueryOptions<any>;
-  } = {},
-): {
+>({
+  id,
+  ...props
+}: {
+  url?: string;
+  slug?: string;
+  id?: string;
+  options?: UseQueryOptions<any>;
+} = {}): {
   slug: string;
   isLoading: boolean;
   mojitoItem:
@@ -30,18 +31,15 @@ export function useMojitoItem<
       >
     | undefined;
 } {
-  const { collection, isAuction, isFakeAuction, isLoading } = useCollection({
-    url: props.url,
-    slug: props.slug,
-    options: props.options,
-  });
+  const { collection, isAuction, isFakeAuction, isLoading } = useCollection(props);
   const itemSlug = getPath[3];
+
   const mojitoItemByPath = useMemo(
     () =>
-      props?.id
-        ? collection?.items?.find((e) => e.id == props.id)
+      id
+        ? collection?.items?.find((e) => e.id == id)
         : collection?.items?.find((e) => e.slug == itemSlug),
-    [itemSlug, props?.id, collection?.items],
+    [itemSlug, id, collection?.items],
   );
 
   return {

@@ -126,6 +126,9 @@ export function useLazyMojitoOneLot(variables: { marketplaceAuctionLotId: string
 ] {
   const [getData, result] = useLazyMojito({
     query: EMojitoQueries.oneLot,
+    options: {
+      enabled: false,
+    },
     variables,
   });
 
