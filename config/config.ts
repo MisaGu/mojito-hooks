@@ -17,7 +17,7 @@ export default {
   manifest: {},
   hash: true,
   resolve: {
-    includes: ['docs', 'packages/hooks/src'],
+    includes: ['docs', 'packages/hooks/src/v0.2/hooks'],
   },
   links: [
     {

@@ -5,8 +5,8 @@ const path = require('path');
 module.exports = merge(common, {
   entry: './es/index.js',
   output: {
-    filename: 'mojito-mixers-hooks.js',
-    library: 'mojito-mixers-hooks',
+    filename: 'mojitonft-hooks.js',
+    library: 'mojitonft-hooks',
     path: path.resolve(__dirname, './dist'),
   },
 });

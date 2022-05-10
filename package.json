@@ -6,7 +6,7 @@
     "url": "git+https://github.com/mojitoinc/mixers.git"
   },
   "scripts": {
-    "init": "yarn global add gulp webpack-cli && yarn install && yarn run clean && yarn run bootstrap && yarn run dev",
+    "init": "yarn global add gulp webpack-cli && yarn install && yarn run clean && yarn run bootstrap && yarn run build",
     "start": "yarn run dev",
     "dev": "dumi dev",
     "bootstrap": "lerna bootstrap",

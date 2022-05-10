@@ -7,24 +7,20 @@
  */
 
 import React from 'react';
-import { useToggle } from 'hooks';
+import { useActiveBids } from 'hooks';
 
 export default () => {
-  const [state, { toggle, setLeft, setRight }] = useToggle();
+  const state = useActiveBids();
 
   return (
     <div>
       <p>Effects：{`${state}`}</p>
       <p>
-        <button type="button" onClick={toggle}>
-          Toggle
-        </button>
-        <button type="button" onClick={setLeft} style={{ margin: '0 8px' }}>
+        <button type="button">Toggle</button>
+        <button type="button" style={{ margin: '0 8px' }}>
           Toggle False
         </button>
-        <button type="button" onClick={setRight}>
-          Toggle True
-        </button>
+        <button type="button">Toggle True</button>
       </p>
     </div>
   );

@@ -7,30 +7,19 @@
  */
 
 import React from 'react';
-import { useToggle } from 'hooks';
+import { useActiveBids } from 'hooks';
 
 export default () => {
-  const [state, { toggle, set, setLeft, setRight }] = useToggle('Hello', 'World');
+  const state = useActiveBids();
 
   return (
     <div>
-      <p>Effects：{state}</p>
       <p>
-        <button type="button" onClick={toggle}>
-          Toggle
-        </button>
-        <button type="button" onClick={() => set('Hello')} style={{ margin: '0 8px' }}>
-          Set Hello
-        </button>
-        <button type="button" onClick={() => set('World')}>
-          Set World
-        </button>
-        <button type="button" onClick={setLeft} style={{ margin: '0 8px' }}>
-          Set Left
-        </button>
-        <button type="button" onClick={setRight}>
-          Set Right
-        </button>
+        <button type="button">Toggle</button>
+        <button type="button">Set Hello</button>
+        <button type="button">Set World</button>
+        <button type="button">Set Left</button>
+        <button type="button">Set Right</button>
       </p>
     </div>
   );
