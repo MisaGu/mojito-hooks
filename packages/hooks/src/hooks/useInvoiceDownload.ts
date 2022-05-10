@@ -3,22 +3,22 @@ import axios from 'axios';
 import { useQuery } from 'react-query';
 import { config } from '../domain/general.constants';
 
-const downloadPDF = (pdfBase64String: string, fileName: string) => {
-  if (!pdfBase64String) return;
-
-  let downloadLink: HTMLAnchorElement | null = document.createElement('a');
-  downloadLink.href = `data:application/pdf;base64,${pdfBase64String}`;
-  downloadLink.download = fileName;
-  downloadLink.click();
-  downloadLink = null;
-};
-
 export function useInvoiceDownload(invoiceId: string): {
   downloadInvoice: ReturnType<typeof useQuery>['refetch'];
   invoiceLoading: boolean;
   error: ReturnType<typeof useQuery>['error'];
 } {
   const { getIdTokenClaims } = useAuth0();
+
+  const downloadPDF = (pdfBase64String: string, fileName: string) => {
+    if (!pdfBase64String) return;
+
+    let downloadLink: HTMLAnchorElement | null = document.createElement('a');
+    downloadLink.href = `data:application/pdf;base64,${pdfBase64String}`;
+    downloadLink.download = fileName;
+    downloadLink.click();
+    downloadLink = null;
+  };
 
   const result = useQuery(
     [`Mojito Invoice ${invoiceId}`],
