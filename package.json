@@ -1,12 +1,12 @@
 {
-  "name": "mojito-mixers",
+  "name": "mojitonft",
   "private": true,
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mojitoinc/mixers-hooks.git"
+    "url": "git+https://github.com/mojitoinc/mixers.git"
   },
   "scripts": {
-    "init": "yarn global add gulp webpack-cli && yarn install && yarn run clean && yarn run bootstrap && yarn run build",
+    "init": "yarn global add gulp webpack-cli && yarn install && yarn run clean && yarn run bootstrap && yarn run dev",
     "start": "yarn run dev",
     "dev": "dumi dev",
     "bootstrap": "lerna bootstrap",

@@ -28,14 +28,14 @@ async function genMetaData() {
     functions: [],
   };
   const hooks = fg
-    .sync('src/use*', {
+    .sync('src/v0.2/hooks/use*', {
       onlyDirectories: true,
     })
-    .map((hook) => hook.replace('src/', ''))
+    .map((hook) => hook.replace('src/v0.2/hooks/', ''))
     .sort();
   await Promise.allSettled(
     hooks.map(async (hook) => {
-      const description = await genDesc(`src/${hook}/index.en-US.md`);
+      const description = await genDesc(`src/v0.2/hooks/${hook}/index.en-US.md`);
       // FIXME: GITHUB_PAGE url
       return {
         name: hook,

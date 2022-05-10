@@ -13,15 +13,15 @@
   "main": "./lib/index.js",
   "module": "./es/index.js",
   "types": "./lib/index.d.ts",
-  "unpkg": "dist/mojito-mixers-hooks.js",
+  "unpkg": "dist/mojitonft-hooks.js",
   "sideEffects": false,
   "publishConfig": {
     "registry": "https://registry.npmjs.com/",
     "access": "restricted",
-    "scope": "@mojito-mixers"
+    "scope": "@mojitonft"
   },
-  "repository": "https://github.com/mojitoinc/mixers-hooks",
-  "homepage": "https://github.com/mojitoinc/mixers-hooks",
+  "repository": "https://github.com/mojitoinc/mixers",
+  "homepage": "https://github.com/mojitoinc/mixers",
   "scripts": {
     "build": "gulp && webpack-cli"
   },
