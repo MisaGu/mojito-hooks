@@ -68,17 +68,17 @@
     },
     function (e, t, n) {
       'use strict';
+      function o() {
+        return !0;
+      }
       n.r(t),
+        n.d(t, 'useActiveBids', function () {
+          return o;
+        }),
         n.d(t, 'useCheckCollectionItemsSaleStatus', function () {
           return i;
-        }),
-        n.d(t, 'useActiveBids', function () {
-          return r;
         });
-      var o,
-        r = function () {
-          return !0;
-        },
+      var r,
         u = n(0);
       function i(e) {
         return Object(u.useMemo)(
@@ -86,13 +86,13 @@
             return (function (e) {
               var t;
               void 0 === e && (e = []);
-              for (var n = e.length, r = 0, u = !1, i = !1; r < n && (!i || !u); ) {
-                var c = e[r++],
+              for (var n = e.length, o = 0, u = !1, i = !1; o < n && (!i || !u); ) {
+                var c = e[o++],
                   f = c.details,
                   l = c.saleType;
                 (null === (t = null == f ? void 0 : f.saleView) || void 0 === t
                   ? void 0
-                  : t.isDuringSale) && (l === o.BuyNow && (u = !0), l === o.Auction && (i = !0));
+                  : t.isDuringSale) && (l === r.BuyNow && (u = !0), l === r.Auction && (i = !0));
               }
               return { hasActiveBuyNowItems: u, hasActiveAuctionItems: i };
             })(e);
@@ -102,7 +102,7 @@
       }
       !(function (e) {
         (e.Auction = 'Auction'), (e.BuyNow = 'BuyNow');
-      })(o || (o = {}));
+      })(r || (r = {}));
     },
   ]);
 });
