@@ -1,26 +1,26 @@
 import { Variables } from 'graphql-request/dist/types';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useQuery, UseQueryOptions } from 'react-query/types/react';
 import { mojitoGqlClient } from '../../hooks';
 import { gqlRequest, mojitoNormalizer, queryClient } from '../../utils';
 import { useAuthContext } from '../domain/context/auth.context';
 import { EMojitoQueries, IUseQueryResult, mojitoQueries } from '../domain/gql/queries';
 
-interface IUseMojitoOptions<T = any, V = Variables> {
+interface IUseMojitoOptions<T = any> {
   query: EMojitoQueries;
-  variables?: V;
+  variables?: Variables;
   options?: UseQueryOptions<T>;
   force?: boolean;
   onlyAuthenticated?: boolean;
 }
 
-function useMojitoFactory<T = any, V = Variables>({
+function useMojitoFactory<T = any>({
   query,
   variables,
   options,
   force = false,
   onlyAuthenticated,
-}: IUseMojitoOptions<T, V>): IUseQueryResult {
+}: IUseMojitoOptions<T>): IUseQueryResult {
   const {
     state: { token, isAuthenticated },
   } = useAuthContext();
@@ -34,16 +34,17 @@ function useMojitoFactory<T = any, V = Variables>({
   const result = useQuery<T>(
     queryKey,
     async () => {
+      if (Object.values(variables ?? {}).some((e) => !e)) {
+        console.error('Some of vars is undefined', variables);
+        return null;
+      }
+
       if (isAuthenticated) {
         mojitoGqlClient.setHeader('authorization', `Bearer ${token}`);
       } else if (onlyAuthenticated) {
         return null;
       }
 
-      if (Object.values(variables ?? {}).some((e) => !e)) {
-        console.error('Some of vars is undefined', variables);
-        return null;
-      }
       return await gqlRequest<T>({
         query: mojitoQueries[query],
         variables,
