@@ -3,12 +3,12 @@ import { SaleType } from '../../domain/enums';
 import { IMojitoCollectionItem } from '../../domain/interfaces';
 
 export interface ItemsSaleStatus {
-  hasActiveAuctionItems: boolean;
   hasActiveBuyNowItems: boolean;
+  hasActiveAuctionItems: boolean;
 }
 
 export function checkCollectionItemsSaleStatus(
-  items: IMojitoCollectionItem<any>[] = [],
+  items: IMojitoCollectionItem[] = [],
 ): ItemsSaleStatus {
   const totalItems = items.length;
 
@@ -16,8 +16,8 @@ export function checkCollectionItemsSaleStatus(
   let hasActiveBuyNowItems = false;
   let hasActiveAuctionItems = false;
 
-  while (i++ < totalItems && !(hasActiveAuctionItems && hasActiveBuyNowItems)) {
-    const { details, saleType } = items[i];
+  while (i < totalItems && !(hasActiveAuctionItems && hasActiveBuyNowItems)) {
+    const { details, saleType } = items[i++];
 
     if (!details?.saleView?.isDuringSale) continue;
 
@@ -37,7 +37,7 @@ export function checkCollectionItemsSaleStatus(
 }
 
 export function useCheckCollectionItemsSaleStatus(
-  items?: IMojitoCollectionItem<any>[],
+  items?: IMojitoCollectionItem[],
 ): ItemsSaleStatus {
   return useMemo(() => checkCollectionItemsSaleStatus(items), [items]);
 }

@@ -7,22 +7,37 @@ import { checkCollectionItemsSaleStatus } from '../useCheckCollectionItemsSaleSt
 
 describe('checkCollectionItemsSaleStatus()', () => {
   it('returns two falses if nothing provided', () => {
-    expect(checkCollectionItemsSaleStatus()).toBeDefined();
+    expect(checkCollectionItemsSaleStatus()).toMatchObject({
+      hasActiveBuyNowItems: false,
+      hasActiveAuctionItems: false,
+    });
   });
 
   it('returns two falses if called with an empty array', () => {
-    expect(checkCollectionItemsSaleStatus([])).toBeDefined();
-  });
-
-  it('returns hasActiveAuctionItems: true if called with auction items', () => {
-    expect(checkCollectionItemsSaleStatus(AUCTION_COLLECTION_ITEMS)).toBeDefined();
+    expect(checkCollectionItemsSaleStatus([])).toMatchObject({
+      hasActiveBuyNowItems: false,
+      hasActiveAuctionItems: false,
+    });
   });
 
   it('returns hasActiveBuyNowItems: true if called with buy now items', () => {
-    expect(checkCollectionItemsSaleStatus(BUY_NOW_COLLECTION_ITEMS)).toBeDefined();
+    expect(checkCollectionItemsSaleStatus(BUY_NOW_COLLECTION_ITEMS)).toMatchObject({
+      hasActiveBuyNowItems: true,
+      hasActiveAuctionItems: false,
+    });
+  });
+
+  it('returns hasActiveAuctionItems: true if called with auction items', () => {
+    expect(checkCollectionItemsSaleStatus(AUCTION_COLLECTION_ITEMS)).toMatchObject({
+      hasActiveBuyNowItems: false,
+      hasActiveAuctionItems: true,
+    });
   });
 
   it('returns hasActiveAuctionItems: true and hasActiveBuyNowItems: true if called with mixed type items', () => {
-    expect(checkCollectionItemsSaleStatus(MIXED_COLLECTION_ITEMS)).toBeDefined();
+    expect(checkCollectionItemsSaleStatus(MIXED_COLLECTION_ITEMS)).toMatchObject({
+      hasActiveBuyNowItems: true,
+      hasActiveAuctionItems: true,
+    });
   });
 });

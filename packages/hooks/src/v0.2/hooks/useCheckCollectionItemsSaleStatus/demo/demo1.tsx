@@ -9,7 +9,7 @@ import {
 export default () => {
   const [state, setState] = useState(MIXED_COLLECTION_ITEMS);
 
-  const itemsSaleStatus = useCheckCollectionItemsSaleStatus();
+  const itemsSaleStatus = useCheckCollectionItemsSaleStatus(state);
 
   return (
     <div>

@@ -1,21 +1,32 @@
 import { useCheckCollectionItemsSaleStatus } from '../useCheckCollectionItemsSaleStatus';
-import * as UseCheckCollectionItemsSaleStatusModule from '../useCheckCollectionItemsSaleStatus';
 import { BUY_NOW_COLLECTION_ITEMS, AUCTION_COLLECTION_ITEMS } from '../demo/demo.constants';
-
-const checkCollectionItemsSaleStatusSpy = jest.spyOn(
-  UseCheckCollectionItemsSaleStatusModule,
-  'checkCollectionItemsSaleStatus',
-);
+import { renderHook } from '@testing-library/react-hooks';
 
 describe('useCheckCollectionItemsSaleStatus()', () => {
-  it("only re-computes if items don' change", () => {
-    useCheckCollectionItemsSaleStatus();
-    useCheckCollectionItemsSaleStatus(BUY_NOW_COLLECTION_ITEMS);
-    useCheckCollectionItemsSaleStatus(BUY_NOW_COLLECTION_ITEMS);
-    useCheckCollectionItemsSaleStatus(AUCTION_COLLECTION_ITEMS);
-    useCheckCollectionItemsSaleStatus(AUCTION_COLLECTION_ITEMS);
-    useCheckCollectionItemsSaleStatus();
+  it('only re-computes if items change', () => {
+    const { result, rerender } = renderHook(useCheckCollectionItemsSaleStatus);
 
-    expect(checkCollectionItemsSaleStatusSpy).toHaveBeenCalledTimes(3);
+    expect(result.current).toMatchObject({
+      hasActiveBuyNowItems: false,
+      hasActiveAuctionItems: false,
+    });
+
+    rerender();
+    const result1 = result.current;
+
+    rerender();
+    const result2 = result.current;
+
+    expect(result2).toBe(result1);
+
+    rerender(BUY_NOW_COLLECTION_ITEMS);
+    const result3 = result.current;
+
+    expect(result3).not.toBe(result2);
+
+    rerender(BUY_NOW_COLLECTION_ITEMS);
+    const result4 = result.current;
+
+    expect(result4).toBe(result3);
   });
 });
