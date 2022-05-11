@@ -56,7 +56,17 @@ async function genMetaData() {
 
 gulp.task('metadata', async function () {
   const metadata = await genMetaData();
+
   await fse.writeJson('metadata.json', metadata, { spaces: 2 });
+
+  const menus = [
+    {
+      title: 'Advanced',
+      children: metadata.map((hookItem) => hookItem.name),
+    },
+  ];
+
+  // await fse.writeFile('../../config.hooks.ts', `export const menus = ${ JSON.stringify(menus, null, "  ") }`);
 });
 
 exports.default = gulp.series(commonConfig.default, 'metadata');

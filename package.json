@@ -8,7 +8,7 @@
   "scripts": {
     "init": "yarn global add gulp webpack-cli && yarn install && yarn run clean && yarn run bootstrap && yarn run build",
     "start": "yarn run dev",
-    "dev": "dumi dev",
+    "dev": "yarn --cwd app build && dumi dev",
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean --yes",
     "build": "lerna run build",

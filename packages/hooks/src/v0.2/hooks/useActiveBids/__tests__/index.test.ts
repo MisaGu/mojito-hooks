@@ -1,4 +1,4 @@
-import useActiveBids from '../index';
+import { useActiveBids } from '../useActiveBids';
 
 describe('useToggle', () => {
   it('should be defined', () => {

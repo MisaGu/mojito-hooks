@@ -1,12 +1,12 @@
 !(function (e, t) {
   'object' == typeof exports && 'object' == typeof module
-    ? (module.exports = t())
+    ? (module.exports = t(require('React')))
     : 'function' == typeof define && define.amd
-    ? define([], t)
+    ? define(['React'], t)
     : 'object' == typeof exports
-    ? (exports['mojitonft-hooks'] = t())
-    : (e['mojitonft-hooks'] = t());
-})(this, function () {
+    ? (exports['mojitonft-hooks'] = t(require('React')))
+    : (e['mojitonft-hooks'] = t(e.React));
+})(this, function (e) {
   return (function (e) {
     var t = {};
     function n(o) {
@@ -60,18 +60,49 @@
         return Object.prototype.hasOwnProperty.call(e, t);
       }),
       (n.p = ''),
-      n((n.s = 0))
+      n((n.s = 1))
     );
   })([
+    function (t, n) {
+      t.exports = e;
+    },
     function (e, t, n) {
       'use strict';
       n.r(t),
+        n.d(t, 'useCheckCollectionItemsSaleStatus', function () {
+          return i;
+        }),
         n.d(t, 'useActiveBids', function () {
-          return o;
+          return r;
         });
-      var o = function () {
-        return !0;
-      };
+      var o,
+        r = function () {
+          return !0;
+        },
+        u = n(0);
+      function i(e) {
+        return Object(u.useMemo)(
+          function () {
+            return (function (e) {
+              var t;
+              void 0 === e && (e = []);
+              for (var n = e.length, r = 0, u = !1, i = !1; r < n && (!i || !u); ) {
+                var c = e[r++],
+                  f = c.details,
+                  l = c.saleType;
+                (null === (t = null == f ? void 0 : f.saleView) || void 0 === t
+                  ? void 0
+                  : t.isDuringSale) && (l === o.BuyNow && (u = !0), l === o.Auction && (i = !0));
+              }
+              return { hasActiveBuyNowItems: u, hasActiveAuctionItems: i };
+            })(e);
+          },
+          [e],
+        );
+      }
+      !(function (e) {
+        (e.Auction = 'Auction'), (e.BuyNow = 'BuyNow');
+      })(o || (o = {}));
     },
   ]);
 });
