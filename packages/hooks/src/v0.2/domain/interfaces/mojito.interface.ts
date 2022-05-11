@@ -247,13 +247,15 @@ export type IMojitoCollectionItemDetails<
   : IMojitoCollectionItemAuctionLot & IMojitoCollectionItemBuyNowLot;
 
 export interface IMojitoCollectionItem<
-  T = IMojitoCollectionItemAuctionLot | IMojitoCollectionItemBuyNowLot,
+  T extends IMojitoCollectionItemAuctionLot | IMojitoCollectionItemBuyNowLot =
+    | IMojitoCollectionItemAuctionLot
+    | IMojitoCollectionItemBuyNowLot,
 > {
   id: string;
   slug: string;
   collectionId: string;
   marketplaceTokenId: string;
-  saleType: SaleType;
+  saleType: T extends IMojitoCollectionItemAuctionLot ? SaleType.Auction : SaleType.BuyNow;
   status: EMojitoCollectionItemStatus;
   details: IMojitoCollectionItemDetails<T>;
   contentfulData: IContentfulLotData;
@@ -319,7 +321,9 @@ export type IMojitoMarketplaceResponse = {
   marketplace: IMojitoMarketplace;
 };
 export interface IMojitoCollection<
-  TItem = IMojitoCollectionItemAuctionLot | IMojitoCollectionItemBuyNowLot,
+  TItem extends IMojitoCollectionItemAuctionLot | IMojitoCollectionItemBuyNowLot =
+    | IMojitoCollectionItemAuctionLot
+    | IMojitoCollectionItemBuyNowLot,
 > {
   id: string;
   slug: string;
