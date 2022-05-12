@@ -1,18 +1,19 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { QueryObserverResult, useQuery, UseQueryOptions } from 'react-query';
-import { EMojitoQueries, mojitoQueries } from '../data';
-import { contentfulQueries, EContentfulQueries } from '../data/graph_ql/contentful.query';
-import { config } from '../domain/general.constants';
-import { IMojitoCollection } from '../domain/interfaces';
-import { contentfulNormalizer, getPath, gqlRequest, mojitoNormalizer, queryClient } from '../utils';
-import { contentfulGqlClient, useContentfulAuctionsSlugList } from './useContentful';
-import { mojitoGqlClient, useMarketplaceCollectionsSlugWithItemsId } from './useMojito';
-
-/*
-
-THIS WHOLE FILE HAS BEEN MOVED TO V2.
-
-*/
+import { EMojitoQueries, mojitoQueries } from '../../../data';
+import { contentfulQueries, EContentfulQueries } from '../../../data/graph_ql/contentful.query';
+import { config } from '../../domain/constants/general.constants';
+import {
+  contentfulNormalizer,
+  getPath,
+  gqlRequest,
+  mojitoNormalizer,
+  queryClient,
+} from '../../../utils';
+import { contentfulGqlClient, useContentfulAuctionsSlugList } from '../../../hooks/useContentful';
+import { mojitoGqlClient } from '../../../hooks/useMojito';
+import { IMojitoCollection } from '../../domain/interfaces';
+import { useMarketplaceCollectionsSlugWithItemsId } from '../useMarketplaceCollectionsSlugWithItemsId/useMarketplaceCollectionsSlugWithItemsId';
 
 export function useCollection<TSelectorResult = undefined>(
   props: {

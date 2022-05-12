@@ -17,7 +17,13 @@ import {
   IMojitoCollectionItemDetailsBid,
 } from '../domain/interfaces';
 import { gqlRequest, mojitoNormalizer, queryClient } from '../utils';
-import { useCollection } from './useCollection';
+import { useCollection } from '../v0.2/hooks/useCollection/useCollection';
+
+/*
+
+SOME HOOKS IN THIS FILE HAVE BEEN MOVED TO V2.
+
+*/
 
 export const mojitoGqlClient = new GraphQLClient(config.MOJITO_API_URL);
 
@@ -147,6 +153,8 @@ export function useMojitoMutation<T = any, V = Variables>(
   });
   return [res.mutateAsync, res];
 }
+
+// BELOW HERE HAS BEEN MOVED TO V2:
 
 export function useCollectionLotsIdList(slug: string): {
   collectionLotsIdList: Pick<IMojitoCollectionItem<any>, 'id' | 'name'>[];

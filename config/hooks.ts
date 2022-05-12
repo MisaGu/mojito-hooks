@@ -1,6 +1,15 @@
 export const menus = [
   {
     title: 'Advanced',
-    children: ['useActiveBids'],
+    children: [
+      'useActiveBids',
+      'useCollection',
+      'useCollectionItemBidsList',
+      'useCollectionItemCurrentBids',
+      'useCollectionItemRemainingCount',
+      'useCollectionLotsIdList',
+      'useMarketplaceCollectionsSlugWithItemsId',
+      'useMojitoFactory',
+    ],
   },
 ];
