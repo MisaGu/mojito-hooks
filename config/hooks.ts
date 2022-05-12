@@ -1,6 +1,6 @@
 export const menus = [
   {
     title: 'Advanced',
-    children: ['useActiveBids', 'useCheckCollectionItemsSaleStatus'],
+    children: ['useActiveBids'],
   },
 ];

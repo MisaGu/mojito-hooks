@@ -1,5 +1,6 @@
 import moment from 'moment';
 import { EContentfulQueries, EMojitoQueries } from '../data';
+import { SaleType } from '../domain/enums';
 import { config } from '../domain/general.constants';
 import {
   ICollectionItemByIdBidsList,
@@ -34,11 +35,36 @@ const extendCollection = (
   const auctionEndUnix = moment(collection.endDate ?? null).unix();
   const nowUnix = moment().unix();
 
+  const { items } = collection;
+  const totalItems = items.length;
+
+  let i = 0;
+  let hasBuyNowItems = false;
+  let hasAuctionItems = false;
+
+  while (i < totalItems && !(hasBuyNowItems && hasAuctionItems)) {
+    const { saleType } = items[i++];
+
+    if (saleType === SaleType.BuyNow) {
+      hasBuyNowItems = true;
+    }
+
+    if (saleType === SaleType.Auction) {
+      hasAuctionItems = true;
+    }
+  }
+
+  const isPreSale = nowUnix < auctionStartUnix;
+  const isDuringSale = nowUnix > auctionStartUnix && nowUnix < auctionEndUnix;
+  const isPostSale = nowUnix > auctionEndUnix;
+
   Object.assign(collection, {
     viewStatus: {
-      isPreSale: nowUnix < auctionStartUnix,
-      isDuringSale: nowUnix > auctionStartUnix && nowUnix < auctionEndUnix,
-      isPostSale: nowUnix > auctionEndUnix,
+      isPreSale,
+      isDuringSale,
+      isPostSale,
+      hasActiveBuyNowItems: isDuringSale && hasBuyNowItems,
+      hasActiveAuctionItems: isDuringSale && hasAuctionItems,
     },
   });
 

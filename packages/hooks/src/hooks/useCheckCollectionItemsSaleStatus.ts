@@ -3,14 +3,6 @@ import { useEffect } from 'react';
 import { SaleType } from '../domain/enums';
 import { IMojitoCollectionItem } from '../domain/interfaces/mojito.interface';
 
-/*
-
-  DO NOT TOUCH.
-
-  DANI'S WORKING ON THIS:
-
-*/
-
 export const useCheckCollectionItemsSaleStatus = (
   items: IMojitoCollectionItem<any>[] | undefined,
 ): {

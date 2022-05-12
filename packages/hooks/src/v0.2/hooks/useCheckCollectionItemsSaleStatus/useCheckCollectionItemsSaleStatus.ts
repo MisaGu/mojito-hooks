@@ -7,9 +7,7 @@ export interface ItemsSaleStatus {
   hasActiveAuctionItems: boolean;
 }
 
-export function checkCollectionItemsSaleStatus(
-  items: IMojitoCollectionItem[] = [],
-): ItemsSaleStatus {
+function checkCollectionItemsSaleStatus(items: IMojitoCollectionItem[] = []): ItemsSaleStatus {
   const totalItems = items.length;
 
   let i = 0;

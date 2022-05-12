@@ -145,10 +145,7 @@ export interface IMojitoProfile {
   user: IMojitoProfileUser;
   userOrgs: IMojitoProfileUserOrg[];
   apiKeys: IApiKeys;
-  favoriteItems: (
-    | IMojitoCollectionItem<IMojitoCollectionItemAuctionLot>
-    | IMojitoCollectionItem<IMojitoCollectionItemBuyNowLot>
-  )[];
+  favoriteItems: IMojitoCollectionItem[];
   activeBids: IMojitoCollectionItemDetailsBid[];
 }
 
@@ -162,7 +159,10 @@ export interface IMojitoViewType {
   isPreSale: boolean;
 }
 
-export type IMojitoCollectionView = IMojitoViewType;
+export interface IMojitoCollectionView extends IMojitoViewType {
+  hasActiveBuyNowItems: boolean;
+  hasActiveAuctionItems: boolean;
+}
 
 export interface IMojitoFeeStructure {
   from: number;
@@ -196,26 +196,43 @@ export interface IMojitoInvoice {
   status: InvoiceStatus;
 }
 
+// Collection items and collection item details common data:
+
+interface IMojitoCollectionItemDetailsCommonProps {
+  id: string;
+  marketplaceCollectionItemId: string;
+  startDate: string;
+  endDate: string;
+  endTimestamp: number;
+  saleView: IMojitoViewType;
+}
+
+interface IMojitoCollectionItemGeneric<S extends SaleType, D extends IMojitoCollectionItemDetails> {
+  id: string;
+  slug: string;
+  collectionId: string;
+  marketplaceTokenId: string;
+  saleType: S;
+  status: EMojitoCollectionItemStatus;
+  details: D;
+  contentfulData: IContentfulLotData;
+  name: string;
+}
+
+// Collection item auction lot:
+
 export interface IMojitoCollectionFeeStructure {
   buyersPremiumRate: IMojitoFeeStructure[];
   overheadPremiumRate: IMojitoFeeStructure[];
 }
 
-interface IMojitoCollectionItemDetailsCustomProps {
-  endTimestamp: number;
-  saleView: IMojitoViewType;
-}
-
-export interface IMojitoCollectionItemAuctionLot extends IMojitoCollectionItemDetailsCustomProps {
-  id: string;
+export interface IMojitoCollectionItemDetailsAuctionLot
+  extends IMojitoCollectionItemDetailsCommonProps {
   lotNumber: number;
-  marketplaceCollectionItemId: string;
   startingBid: number;
   reservePrice: number;
   reserveMet: number;
   previewDate: string;
-  startDate: string;
-  endDate: string;
   status: EMojitoCollectionItemAuctionLotStatus;
   // currentBid: IMojitoCollectionItemDetailsBid;
   // myBid: IMojitoCollectionItemDetailsBid | null;
@@ -225,42 +242,37 @@ export interface IMojitoCollectionItemAuctionLot extends IMojitoCollectionItemDe
   //custom props
 }
 
-export interface IMojitoCollectionItemBuyNowLot extends IMojitoCollectionItemDetailsCustomProps {
-  id: string;
-  marketplaceCollectionItemId: string;
+export type IMojitoCollectionItemAuctionLot = IMojitoCollectionItemGeneric<
+  SaleType.Auction,
+  IMojitoCollectionItemDetailsAuctionLot
+>;
+
+// Collection item buy now lot:
+
+export interface IMojitoCollectionItemDetailsBuyNowLot
+  extends IMojitoCollectionItemDetailsCommonProps {
   unitPrice: number;
   totalUnits: number;
   totalAvailableUnits: number;
-  startDate: string;
-  endDate: string;
   sortNumber: number;
   invoice: IMojitoInvoice;
   remainingCount: number;
 }
 
-export type IMojitoCollectionItemDetails<
-  T = IMojitoCollectionItemAuctionLot | IMojitoCollectionItemBuyNowLot,
-> = T extends IMojitoCollectionItemAuctionLot
-  ? IMojitoCollectionItemAuctionLot
-  : T extends IMojitoCollectionItemBuyNowLot
-  ? IMojitoCollectionItemBuyNowLot
-  : IMojitoCollectionItemAuctionLot & IMojitoCollectionItemBuyNowLot;
+export type IMojitoCollectionItemBuyNowLot = IMojitoCollectionItemGeneric<
+  SaleType.BuyNow,
+  IMojitoCollectionItemDetailsBuyNowLot
+>;
 
-export interface IMojitoCollectionItem<
-  T extends IMojitoCollectionItemAuctionLot | IMojitoCollectionItemBuyNowLot =
-    | IMojitoCollectionItemAuctionLot
-    | IMojitoCollectionItemBuyNowLot,
-> {
-  id: string;
-  slug: string;
-  collectionId: string;
-  marketplaceTokenId: string;
-  saleType: T extends IMojitoCollectionItemAuctionLot ? SaleType.Auction : SaleType.BuyNow;
-  status: EMojitoCollectionItemStatus;
-  details: IMojitoCollectionItemDetails<T>;
-  contentfulData: IContentfulLotData;
-  name: string;
-}
+// Mixed collection items details and collection items:
+
+export type IMojitoCollectionItemDetails =
+  | IMojitoCollectionItemDetailsBuyNowLot
+  | IMojitoCollectionItemDetailsAuctionLot;
+
+export type IMojitoCollectionItem =
+  | IMojitoCollectionItemBuyNowLot
+  | IMojitoCollectionItemAuctionLot;
 
 export interface IMojitoCollectionItemCurrentBids {
   id: string;
@@ -271,7 +283,9 @@ export interface IMojitoCollectionItemCurrentBids {
     startingBid: number;
     currentBid: IMojitoCollectionItemDetailsBid;
     myBid: IMojitoCollectionItemDetailsBid | null;
-  } & IMojitoCollectionItemDetailsCustomProps;
+    endTimestamp: number;
+    saleView: IMojitoViewType;
+  };
 }
 
 export interface ICollectionItemByIdBidsList {
@@ -320,18 +334,15 @@ export interface IMojitoMarketplace {
 export type IMojitoMarketplaceResponse = {
   marketplace: IMojitoMarketplace;
 };
-export interface IMojitoCollection<
-  TItem extends IMojitoCollectionItemAuctionLot | IMojitoCollectionItemBuyNowLot =
-    | IMojitoCollectionItemAuctionLot
-    | IMojitoCollectionItemBuyNowLot,
-> {
+
+export interface IMojitoCollection {
   id: string;
   slug: string;
   description: string;
   startDate: string;
   endDate: string;
   contentfulData: IContentfulAuction;
-  items: IMojitoCollectionItem<TItem>[];
+  items: IMojitoCollectionItem[];
   hasMultipleLots: boolean;
   name: string;
   viewStatus: IMojitoCollectionView;
