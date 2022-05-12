@@ -7,7 +7,20 @@
  */
 
 import React from 'react';
+import { DemoInterface } from '../../../components/demo/interface/DemoInterface';
+import { DemoProviders } from '../../../components/demo/provider/DemoProvider';
+import { useCollection } from '../useCollection';
+
+const DemoContent: React.FC = () => {
+  const result = useCollection();
+
+  return <pre>{JSON.stringify(result, null, '  ')}</pre>;
+};
 
 export default () => {
-  return <pre>useCollection()</pre>;
+  return (
+    <DemoProviders>
+      <DemoInterface demoComponent={DemoContent} />
+    </DemoProviders>
+  );
 };

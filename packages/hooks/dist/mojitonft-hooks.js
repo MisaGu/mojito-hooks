@@ -260,7 +260,7 @@
               '[object Function]' === Object.prototype.toString.call(e)
             );
           }
-          function x(e, t) {
+          function E(e, t) {
             var n,
               r = m({}, e);
             for (n in t)
@@ -273,7 +273,7 @@
             for (n in e) s(e, n) && !s(t, n) && o(e[n]) && (r[n] = m({}, r[n]));
             return r;
           }
-          function E(e) {
+          function x(e) {
             null != e && this.set(e);
           }
           function O(e, t, n) {
@@ -548,7 +548,7 @@
               ? i
               : null;
           }
-          function xe(e, t) {
+          function Ee(e, t) {
             var n;
             if (!e.isValid()) return e;
             if ('string' == typeof t)
@@ -560,8 +560,8 @@
               e
             );
           }
-          function Ee(e) {
-            return null != e ? (xe(this, e), i.updateOffset(this, !0), this) : J(this, 'Month');
+          function xe(e) {
+            return null != e ? (Ee(this, e), i.updateOffset(this, !0), this) : J(this, 'Month');
           }
           function Oe() {
             function e(e, t) {
@@ -1006,7 +1006,7 @@
                   r = n._config;
                 }
               return (
-                (tt[e] = new E(x(r, t))),
+                (tt[e] = new x(E(r, t))),
                 nt[e] &&
                   nt[e].forEach(function (e) {
                     st(e.name, e.config);
@@ -1458,13 +1458,13 @@
                 return this.isValid() && e.isValid() ? (e > this ? this : e) : y();
               },
             );
-          function xt(e, t) {
+          function Et(e, t) {
             var n, r;
             if ((1 === t.length && a(t[0]) && (t = t[0]), !t.length)) return Yt();
             for (n = t[0], r = 1; r < t.length; ++r) (t[r].isValid() && !t[r][e](n)) || (n = t[r]);
             return n;
           }
-          var Et = [
+          var xt = [
             'year',
             'quarter',
             'month',
@@ -1490,13 +1490,13 @@
               var t,
                 n,
                 r = !1,
-                i = Et.length;
+                i = xt.length;
               for (t in e)
-                if (s(e, t) && (-1 === ye.call(Et, t) || (null != e[t] && isNaN(e[t])))) return !1;
+                if (s(e, t) && (-1 === ye.call(xt, t) || (null != e[t] && isNaN(e[t])))) return !1;
               for (n = 0; n < i; ++n)
-                if (e[Et[n]]) {
+                if (e[xt[n]]) {
                   if (r) return !1;
-                  parseFloat(e[Et[n]]) !== q(e[Et[n]]) && (r = !0);
+                  parseFloat(e[xt[n]]) !== q(e[xt[n]]) && (r = !0);
                 }
               return !0;
             })(t)),
@@ -1661,7 +1661,7 @@
               s = jt(t._months);
             e.isValid() &&
               ((r = null == r || r),
-              s && xe(e, J(e, 'Month') + s * n),
+              s && Ee(e, J(e, 'Month') + s * n),
               o && Z(e, 'Date', J(e, 'Date') + o * n),
               a && e._d.setTime(e._d.valueOf() + a * n),
               r && i.updateOffset(e, o || s));
@@ -2365,7 +2365,7 @@
                   ? Math.ceil((this.month() + 1) / 3)
                   : this.month(3 * (e - 1) + (this.month() % 3));
               }),
-            (yn.month = Ee),
+            (yn.month = xe),
             (yn.daysInMonth = function () {
               return Le(this.year(), this.month());
             }),
@@ -2506,7 +2506,7 @@
               return this._isUTC ? 'Coordinated Universal Time' : '';
             }),
             (yn.dates = w('dates accessor is deprecated. Use date instead.', cn)),
-            (yn.months = w('months accessor is deprecated. Use month instead', Ee)),
+            (yn.months = w('months accessor is deprecated. Use month instead', xe)),
             (yn.years = w('years accessor is deprecated. Use year instead', je)),
             (yn.zone = w(
               'moment().zone is deprecated, use moment().utcOffset instead. http://momentjs.com/guides/#/warnings/zone/',
@@ -2542,7 +2542,7 @@
                 );
               },
             ));
-          var gn = E.prototype;
+          var gn = x.prototype;
           function Mn(e, t, n, r) {
             var i = ut(),
               a = h().set(r, t);
@@ -2924,8 +2924,8 @@
               return this.as(e);
             };
           }
-          var xn = Sn('ms'),
-            En = Sn('s'),
+          var En = Sn('ms'),
+            xn = Sn('s'),
             On = Sn('m'),
             In = Sn('h'),
             jn = Sn('d'),
@@ -3049,8 +3049,8 @@
                     throw new Error('Unknown unit ' + e);
                 }
             }),
-            (Qn.asMilliseconds = xn),
-            (Qn.asSeconds = En),
+            (Qn.asMilliseconds = En),
+            (Qn.asSeconds = xn),
             (Qn.asMinutes = On),
             (Qn.asHours = In),
             (Qn.asDays = jn),
@@ -3186,11 +3186,11 @@
             (i.fn = yn),
             (i.min = function () {
               var e = [].slice.call(arguments, 0);
-              return xt('isBefore', e);
+              return Et('isBefore', e);
             }),
             (i.max = function () {
               var e = [].slice.call(arguments, 0);
-              return xt('isAfter', e);
+              return Et('isAfter', e);
             }),
             (i.now = function () {
               return Date.now ? Date.now() : +new Date();
@@ -3228,11 +3228,11 @@
                   r,
                   i = et;
                 null != tt[e] && null != tt[e].parentLocale
-                  ? tt[e].set(x(tt[e]._config, t))
+                  ? tt[e].set(E(tt[e]._config, t))
                   : (null != (r = at(e)) && (i = r._config),
-                    (t = x(i, t)),
+                    (t = E(i, t)),
                     null == r && (t.abbr = e),
-                    ((n = new E(t)).parentLocale = tt[e]),
+                    ((n = new x(t)).parentLocale = tt[e]),
                     (tt[e] = n)),
                   ot(e);
               } else
@@ -4901,12 +4901,12 @@ PERFORMANCE OF THIS SOFTWARE.
                 return Y.apply(Y, arguments);
               },
           S = {}.propertyIsEnumerable,
-          x = Object.getOwnPropertyDescriptor,
-          E = {
+          E = Object.getOwnPropertyDescriptor,
+          x = {
             f:
-              x && !S.call({ 1: 2 }, 1)
+              E && !S.call({ 1: 2 }, 1)
                 ? function (e) {
-                    var t = x(this, e);
+                    var t = E(this, e);
                     return !!t && t.enumerable;
                   }
                 : S,
@@ -5054,15 +5054,15 @@ PERFORMANCE OF THIS SOFTWARE.
           Ye = L.Symbol,
           De = Ye && Ye.for,
           Se = ie ? Ye : (Ye && Ye.withoutSetter) || we,
-          xe = function (e) {
+          Ee = function (e) {
             if (!Me(Te, e) || (!re && 'string' != typeof Te[e])) {
               var t = 'Symbol.' + e;
               re && Me(Ye, e) ? (Te[e] = Ye[e]) : (Te[e] = ie && De ? De(t) : Se(t));
             }
             return Te[e];
           },
-          Ee = L.TypeError,
-          Oe = xe('toPrimitive'),
+          xe = L.TypeError,
+          Oe = Ee('toPrimitive'),
           Ie = function (e) {
             var t = (function (e, t) {
               if (!q(e) || oe(e)) return e;
@@ -5070,7 +5070,7 @@ PERFORMANCE OF THIS SOFTWARE.
                 r = ce(e, Oe);
               if (r) {
                 if ((void 0 === t && (t = 'default'), (n = D(r, e, t)), !q(n) || oe(n))) return n;
-                throw Ee("Can't convert object to primitive value");
+                throw xe("Can't convert object to primitive value");
               }
               return (
                 void 0 === t && (t = 'number'),
@@ -5111,7 +5111,7 @@ PERFORMANCE OF THIS SOFTWARE.
                     try {
                       return He(e, t);
                     } catch (e) {}
-                  if (Me(e, t)) return O(!D(E.f, e, t), e[t]);
+                  if (Me(e, t)) return O(!D(x.f, e, t), e[t]);
                 },
           },
           Fe =
@@ -5304,14 +5304,14 @@ PERFORMANCE OF THIS SOFTWARE.
           },
           Dt = { includes: Yt(!0), indexOf: Yt(!1) },
           St = Dt.indexOf,
-          xt = C([].push),
-          Et = function (e, t) {
+          Et = C([].push),
+          xt = function (e, t) {
             var n,
               r = K(e),
               i = 0,
               a = [];
-            for (n in r) !Me(rt, n) && Me(r, n) && xt(a, n);
-            for (; t.length > i; ) Me(r, (n = t[i++])) && (~St(a, n) || xt(a, n));
+            for (n in r) !Me(rt, n) && Me(r, n) && Et(a, n);
+            for (; t.length > i; ) Me(r, (n = t[i++])) && (~St(a, n) || Et(a, n));
             return a;
           },
           Ot = [
@@ -5328,7 +5328,7 @@ PERFORMANCE OF THIS SOFTWARE.
             f:
               Object.getOwnPropertyNames ||
               function (e) {
-                return Et(e, It);
+                return xt(e, It);
               },
           },
           At = { f: Object.getOwnPropertySymbols },
@@ -5382,10 +5382,10 @@ PERFORMANCE OF THIS SOFTWARE.
               }
           },
           qt = {};
-        qt[xe('toStringTag')] = 'z';
+        qt[Ee('toStringTag')] = 'z';
         var Gt,
           Jt = '[object z]' === String(qt),
-          Zt = xe('toStringTag'),
+          Zt = Ee('toStringTag'),
           Xt = L.Object,
           Qt =
             'Arguments' ==
@@ -5420,7 +5420,7 @@ PERFORMANCE OF THIS SOFTWARE.
             if ('Symbol' === $t(e)) throw TypeError('Cannot convert a Symbol value to a string');
             return en(e);
           },
-          nn = xe('match'),
+          nn = Ee('match'),
           rn = L.TypeError,
           an = function (e) {
             if (
@@ -5432,7 +5432,7 @@ PERFORMANCE OF THIS SOFTWARE.
               throw rn("The method doesn't accept regular expressions");
             return e;
           },
-          on = xe('match'),
+          on = Ee('match'),
           sn = function (e) {
             var t = /./;
             try {
@@ -5519,7 +5519,7 @@ PERFORMANCE OF THIS SOFTWARE.
             })
               ? wn
               : kn,
-          Yn = xe('species'),
+          Yn = Ee('species'),
           Dn = L.Array,
           Sn = function (e, t) {
             return new ((function (e) {
@@ -5533,14 +5533,14 @@ PERFORMANCE OF THIS SOFTWARE.
               );
             })(e))(0 === t ? 0 : t);
           },
-          xn = xe('species'),
-          En = xe('isConcatSpreadable'),
+          En = Ee('species'),
+          xn = Ee('isConcatSpreadable'),
           On = L.TypeError,
           In =
             ne >= 51 ||
             !k(function () {
               var e = [];
-              return (e[En] = !1), e.concat()[0] !== e;
+              return (e[xn] = !1), e.concat()[0] !== e;
             }),
           jn =
             ('concat',
@@ -5548,7 +5548,7 @@ PERFORMANCE OF THIS SOFTWARE.
               !k(function () {
                 var e = [];
                 return (
-                  ((e.constructor = {})[xn] = function () {
+                  ((e.constructor = {})[En] = function () {
                     return { foo: 1 };
                   }),
                   1 !== e.concat(Boolean).foo
@@ -5556,7 +5556,7 @@ PERFORMANCE OF THIS SOFTWARE.
               })),
           An = function (e) {
             if (!q(e)) return !1;
-            var t = e[En];
+            var t = e[xn];
             return void 0 !== t ? !!t : _n(e);
           };
         Vt(
@@ -5604,7 +5604,7 @@ PERFORMANCE OF THIS SOFTWARE.
           Un =
             Object.keys ||
             function (e) {
-              return Et(e, Ot);
+              return xt(e, Ot);
             },
           Wn = {
             f:
@@ -5693,7 +5693,7 @@ PERFORMANCE OF THIS SOFTWARE.
             },
           },
           tr = C([].slice),
-          nr = { f: xe },
+          nr = { f: Ee },
           rr = L,
           ir = Ve.f,
           ar = function (e) {
@@ -5701,7 +5701,7 @@ PERFORMANCE OF THIS SOFTWARE.
             Me(t, e) || ir(t, e, { value: nr.f(e) });
           },
           or = Ve.f,
-          sr = xe('toStringTag'),
+          sr = Ee('toStringTag'),
           ur = function (e, t, n) {
             e && !n && (e = e.prototype),
               e && !Me(e, sr) && or(e, sr, { configurable: !0, value: t });
@@ -5767,7 +5767,7 @@ PERFORMANCE OF THIS SOFTWARE.
           },
           mr = [fr(0), fr(1), fr(2), fr(3), fr(4), fr(5), fr(6), fr(7)][0],
           hr = nt('hidden'),
-          _r = xe('toPrimitive'),
+          _r = Ee('toPrimitive'),
           pr = ct.set,
           yr = ct.getterFor('Symbol'),
           vr = Object.prototype,
@@ -5779,10 +5779,10 @@ PERFORMANCE OF THIS SOFTWARE.
           wr = Ne.f,
           Tr = Ve.f,
           Yr = er.f,
-          Dr = E.f,
+          Dr = x.f,
           Sr = C([].push),
-          xr = pe('symbols'),
-          Er = pe('op-symbols'),
+          Er = pe('symbols'),
+          xr = pe('op-symbols'),
           Or = pe('string-to-symbol-registry'),
           Ir = pe('symbol-to-string-registry'),
           jr = pe('wks'),
@@ -5807,15 +5807,15 @@ PERFORMANCE OF THIS SOFTWARE.
                 }
               : Tr,
           Cr = function (e, t) {
-            var n = (xr[e] = Jn(Mr));
+            var n = (Er[e] = Jn(Mr));
             return pr(n, { type: 'Symbol', tag: e, description: t }), w || (n.description = t), n;
           },
           Hr = function (e, t, n) {
-            e === vr && Hr(Er, t, n), We(e);
+            e === vr && Hr(xr, t, n), We(e);
             var r = Ie(t);
             return (
               We(n),
-              Me(xr, r)
+              Me(Er, r)
                 ? (n.enumerable
                     ? (Me(e, hr) && e[hr][r] && (e[hr][r] = !1),
                       (n = Jn(n, { enumerable: O(0, !1) })))
@@ -5839,16 +5839,16 @@ PERFORMANCE OF THIS SOFTWARE.
             var t = Ie(e),
               n = D(Dr, this, t);
             return (
-              !(this === vr && Me(xr, t) && !Me(Er, t)) &&
-              (!(n || !Me(this, t) || !Me(xr, t) || (Me(this, hr) && this[hr][t])) || n)
+              !(this === vr && Me(Er, t) && !Me(xr, t)) &&
+              (!(n || !Me(this, t) || !Me(Er, t) || (Me(this, hr) && this[hr][t])) || n)
             );
           },
           Rr = function (e, t) {
             var n = K(e),
               r = Ie(t);
-            if (n !== vr || !Me(xr, r) || Me(Er, r)) {
+            if (n !== vr || !Me(Er, r) || Me(xr, r)) {
               var i = wr(n, r);
-              return !i || !Me(xr, r) || (Me(n, hr) && n[hr][r]) || (i.enumerable = !0), i;
+              return !i || !Me(Er, r) || (Me(n, hr) && n[hr][r]) || (i.enumerable = !0), i;
             }
           },
           Ur = function (e) {
@@ -5856,18 +5856,18 @@ PERFORMANCE OF THIS SOFTWARE.
               n = [];
             return (
               mr(t, function (e) {
-                Me(xr, e) || Me(rt, e) || Sr(n, e);
+                Me(Er, e) || Me(rt, e) || Sr(n, e);
               }),
               n
             );
           },
           Wr = function (e) {
             var t = e === vr,
-              n = Yr(t ? Er : K(e)),
+              n = Yr(t ? xr : K(e)),
               r = [];
             return (
               mr(n, function (e) {
-                !Me(xr, e) || (t && !Me(vr, e)) || Sr(r, xr[e]);
+                !Me(Er, e) || (t && !Me(vr, e)) || Sr(r, Er[e]);
               }),
               r
             );
@@ -5879,7 +5879,7 @@ PERFORMANCE OF THIS SOFTWARE.
               var e = arguments.length && void 0 !== arguments[0] ? tn(arguments[0]) : void 0,
                 t = we(e),
                 n = function (e) {
-                  this === vr && D(n, Er, e),
+                  this === vr && D(n, xr, e),
                     Me(this, hr) && Me(this[hr], t) && (this[hr][t] = !1),
                     Pr(this, t, O(1, e));
                 };
@@ -5891,14 +5891,14 @@ PERFORMANCE OF THIS SOFTWARE.
             pt(gr, 'withoutSetter', function (e) {
               return Cr(we(e), e);
             }),
-            (E.f = Fr),
+            (x.f = Fr),
             (Ve.f = Hr),
             (Wn.f = Nr),
             (Ne.f = Rr),
             (jt.f = er.f = Ur),
             (At.f = Wr),
             (nr.f = function (e) {
-              return Cr(xe(e), e);
+              return Cr(Ee(e), e);
             }),
             w &&
               (Tr(Mr, 'description', {
@@ -6088,7 +6088,7 @@ PERFORMANCE OF THIS SOFTWARE.
                 var n = t.constructor;
                 return V(n) && t instanceof n ? n.prototype : t instanceof fi ? mi : null;
               },
-          _i = xe('iterator'),
+          _i = Ee('iterator'),
           pi = !1;
         [].keys &&
           ('next' in (ii = [].keys())
@@ -6143,11 +6143,11 @@ PERFORMANCE OF THIS SOFTWARE.
           Ti = _t.CONFIGURABLE,
           Yi = yi.IteratorPrototype,
           Di = yi.BUGGY_SAFARI_ITERATORS,
-          Si = xe('iterator'),
-          xi = function () {
+          Si = Ee('iterator'),
+          Ei = function () {
             return this;
           },
-          Ei = function (e, t, n, r, i, a, o) {
+          xi = function (e, t, n, r, i, a, o) {
             !(function (e, t, n, r) {
               var i = t + ' Iterator';
               (e.prototype = Jn(gi, { next: O(1, n) })), ur(e, i, !1), (vi[i] = Mi);
@@ -6180,7 +6180,7 @@ PERFORMANCE OF THIS SOFTWARE.
               (p &&
                 (s = hi(p.call(new e()))) !== Object.prototype &&
                 s.next &&
-                (hi(s) !== Yi && (ki ? ki(s, Yi) : V(s[Si]) || pt(s, Si, xi)), ur(s, c, !0)),
+                (hi(s) !== Yi && (ki ? ki(s, Yi) : V(s[Si]) || pt(s, Si, Ei)), ur(s, c, !0)),
               wi &&
                 'values' == i &&
                 h &&
@@ -6203,7 +6203,7 @@ PERFORMANCE OF THIS SOFTWARE.
           Oi = li.charAt,
           Ii = ct.set,
           ji = ct.getterFor('String Iterator');
-        Ei(
+        xi(
           String,
           'String',
           function (e) {
@@ -6242,12 +6242,12 @@ PERFORMANCE OF THIS SOFTWARE.
               Ai(e, 'throw', t);
             }
           },
-          Ci = xe('iterator'),
+          Ci = Ee('iterator'),
           Hi = Array.prototype,
           Ni = function (e) {
             return void 0 !== e && (vi.Array === e || Hi[Ci] === e);
           },
-          Fi = xe('iterator'),
+          Fi = Ee('iterator'),
           Ri = function (e) {
             if (null != e) return ce(e, Fi) || ce(e, '@@iterator') || vi[$t(e)];
           },
@@ -6258,7 +6258,7 @@ PERFORMANCE OF THIS SOFTWARE.
             throw Ui(ue(e) + ' is not iterable');
           },
           Bi = L.Array,
-          zi = xe('iterator'),
+          zi = Ee('iterator'),
           Ki = !1;
         try {
           var Vi = 0,
@@ -6338,7 +6338,7 @@ PERFORMANCE OF THIS SOFTWARE.
           oa = na && hi(na),
           sa = Object.prototype,
           ua = L.TypeError,
-          la = xe('toStringTag'),
+          la = Ee('toStringTag'),
           da = we('TYPED_ARRAY_TAG'),
           ca = we('TYPED_ARRAY_CONSTRUCTOR'),
           fa = $i && !!ki && 'Opera' !== $t(L.opera),
@@ -6438,7 +6438,7 @@ PERFORMANCE OF THIS SOFTWARE.
             TypedArrayPrototype: oa,
           },
           va = L.TypeError,
-          ga = xe('species'),
+          ga = Ee('species'),
           Ma = ya.TYPED_ARRAY_CONSTRUCTOR,
           ba = ya.aTypedArrayConstructor,
           La = ya.aTypedArray;
@@ -6472,7 +6472,7 @@ PERFORMANCE OF THIS SOFTWARE.
             new Int8Array(1).slice();
           }),
         );
-        var ka = xe('unscopables'),
+        var ka = Ee('unscopables'),
           wa = Array.prototype;
         null == wa[ka] && Ve.f(wa, ka, { configurable: !0, value: Jn(null) });
         var Ta = function (e) {
@@ -6500,16 +6500,16 @@ PERFORMANCE OF THIS SOFTWARE.
         ),
           hn('String', 'includes');
         var Sa = Ve.f,
-          xa = ct.set,
-          Ea = ct.getterFor('Array Iterator');
-        Ei(
+          Ea = ct.set,
+          xa = ct.getterFor('Array Iterator');
+        xi(
           Array,
           'Array',
           function (e, t) {
-            xa(this, { type: 'Array Iterator', target: K(e), index: 0, kind: t });
+            Ea(this, { type: 'Array Iterator', target: K(e), index: 0, kind: t });
           },
           function () {
-            var e = Ea(this),
+            var e = xa(this),
               t = e.target,
               n = e.kind,
               r = e.index++;
@@ -6652,7 +6652,7 @@ PERFORMANCE OF THIS SOFTWARE.
             for (var r in t) pt(e, r, t[r], n);
             return e;
           },
-          za = xe('species'),
+          za = Ee('species'),
           Ka = Ve.f,
           Va = Ca.fastKey,
           qa = ct.set,
@@ -6909,7 +6909,7 @@ PERFORMANCE OF THIS SOFTWARE.
               var r = t + ' Iterator',
                 i = Ga(t),
                 a = Ga(r);
-              Ei(
+              xi(
                 e,
                 t,
                 function (e, t) {
@@ -8020,7 +8020,7 @@ PERFORMANCE OF THIS SOFTWARE.
               })
               .join('&');
           },
-          xo = function (e) {
+          Eo = function (e) {
             return f(void 0, void 0, void 0, function () {
               var t;
               return m(this, function (n) {
@@ -8051,7 +8051,7 @@ PERFORMANCE OF THIS SOFTWARE.
               });
             });
           },
-          Eo = function (e) {
+          xo = function (e) {
             return (function (e) {
               return decodeURIComponent(
                 atob(e)
@@ -8647,7 +8647,7 @@ PERFORMANCE OF THIS SOFTWARE.
                 a = n[2];
               if (3 !== t.length || !r || !i || !a)
                 throw new Error('ID token could not be decoded');
-              var o = JSON.parse(Eo(i)),
+              var o = JSON.parse(xo(i)),
                 s = { __raw: e },
                 u = {};
               return (
@@ -8656,7 +8656,7 @@ PERFORMANCE OF THIS SOFTWARE.
                 }),
                 {
                   encoded: { header: r, payload: i, signature: a },
-                  header: JSON.parse(Eo(r)),
+                  header: JSON.parse(xo(r)),
                   claims: s,
                   user: u,
                 }
@@ -9224,7 +9224,7 @@ PERFORMANCE OF THIS SOFTWARE.
                               (i = Do(Yo())),
                               (a = Do(Yo())),
                               (o = Yo()),
-                              [4, xo(o)]
+                              [4, Eo(o)]
                             );
                           case 1:
                             return (
@@ -9283,7 +9283,7 @@ PERFORMANCE OF THIS SOFTWARE.
                               'Unable to open a popup for loginWithPopup - window.open returned `null`',
                             );
                           return (
-                            (n = c(e, [])), (r = Do(Yo())), (i = Do(Yo())), (a = Yo()), [4, xo(a)]
+                            (n = c(e, [])), (r = Do(Yo())), (i = Do(Yo())), (a = Yo()), [4, Eo(a)]
                           );
                         case 1:
                           return (
@@ -9816,7 +9816,7 @@ PERFORMANCE OF THIS SOFTWARE.
                     return m(this, function (m) {
                       switch (m.label) {
                         case 0:
-                          return (t = Do(Yo())), (n = Do(Yo())), (r = Yo()), [4, xo(r)];
+                          return (t = Do(Yo())), (n = Do(Yo())), (r = Yo()), [4, Eo(r)];
                         case 1:
                           (i = m.sent()),
                             (a = Oo(i)),
@@ -10156,6 +10156,10 @@ PERFORMANCE OF THIS SOFTWARE.
             e.env.NEXT_PUBLIC_API_ORGANIZATION_ID || '8fb128bd-f55d-4bcc-8b6c-0beb684e4d4e',
           MARKETPLACE_ID:
             e.env.NEXT_PUBLIC_MARKETPLACE_ID || 'c5ac4f84-b78b-4cb7-a24f-7f0c38da0eb2',
+          AUTH0_DOMAIN: e.env.NEXT_PUBLIC_RUNTIME_AUTH0_DOMAIN || '',
+          AUTH0_CLIENTID: e.env.NEXT_PUBLIC_RUNTIME_AUTH0_CLIENTID || '',
+          AUTH_REDIRECT_URI: e.env.NEXT_PUBLIC_RUNTIME_AUTH_REDIRECT_URI || '',
+          API_HOSTNAME: e.env.NEXT_PUBLIC_RUNTIME_API_HOSTNAME || '',
         };
       }.call(this, n(28)));
     },
@@ -23475,8 +23479,8 @@ PERFORMANCE OF THIS SOFTWARE.
                         u = T(y, Y, D);
                       } else if (p) {
                         var S = void 0 !== h,
-                          x = S ? h : f(e.options, y);
-                        u = T(y, S, x, !0);
+                          E = S ? h : f(e.options, y);
+                        u = T(y, S, E, !0);
                       } else
                         !(function () {
                           b = [];
@@ -23500,14 +23504,14 @@ PERFORMANCE OF THIS SOFTWARE.
                             r(i);
                         })();
                     else u = T([]);
-                    var E = u.then(function (e) {
+                    var x = u.then(function (e) {
                       return { pages: e, pageParams: b };
                     });
                     return (
-                      (E.cancel = function () {
+                      (x.cancel = function () {
                         (L = !0), null == g || g.abort(), Object(d.b)(u) && u.cancel();
                       }),
-                      E
+                      x
                     );
                   };
                 },
@@ -24029,7 +24033,7 @@ PERFORMANCE OF THIS SOFTWARE.
           for (e || (e = 'utf8'); ; )
             switch (e) {
               case 'hex':
-                return x(this, t, n);
+                return E(this, t, n);
               case 'utf8':
               case 'utf-8':
                 return Y(this, t, n);
@@ -24044,7 +24048,7 @@ PERFORMANCE OF THIS SOFTWARE.
               case 'ucs-2':
               case 'utf16le':
               case 'utf-16le':
-                return E(this, t, n);
+                return x(this, t, n);
               default:
                 if (r) throw new TypeError('Unknown encoding: ' + e);
                 (e = (e + '').toLowerCase()), (r = !0);
@@ -24473,13 +24477,13 @@ PERFORMANCE OF THIS SOFTWARE.
           for (var i = t; i < n; ++i) r += String.fromCharCode(e[i]);
           return r;
         }
-        function x(e, t, n) {
+        function E(e, t, n) {
           var r = e.length;
           (!t || t < 0) && (t = 0), (!n || n < 0 || n > r) && (n = r);
           for (var i = '', a = t; a < n; ++a) i += F(e[a]);
           return i;
         }
-        function E(e, t, n) {
+        function x(e, t, n) {
           for (var r = e.slice(t, n), i = '', a = 0; a < r.length; a += 2)
             i += String.fromCharCode(r[a] + 256 * r[a + 1]);
           return i;
@@ -25168,8 +25172,8 @@ PERFORMANCE OF THIS SOFTWARE.
           void 0 === window.document.createElement
         ),
         S = null,
-        x = null,
-        E = null;
+        E = null,
+        x = null;
       function O(e) {
         if ((e = _(e))) {
           if ('function' != typeof S) throw Error(o(280));
@@ -25178,13 +25182,13 @@ PERFORMANCE OF THIS SOFTWARE.
         }
       }
       function I(e) {
-        x ? (E ? E.push(e) : (E = [e])) : (x = e);
+        E ? (x ? x.push(e) : (x = [e])) : (E = e);
       }
       function j() {
-        if (x) {
-          var e = x,
-            t = E;
-          if (((E = x = null), O(e), t)) for (e = 0; e < t.length; e++) O(t[e]);
+        if (E) {
+          var e = E,
+            t = x;
+          if (((x = E = null), O(e), t)) for (e = 0; e < t.length; e++) O(t[e]);
         }
       }
       function A(e, t) {
@@ -25198,7 +25202,7 @@ PERFORMANCE OF THIS SOFTWARE.
         N = !1,
         F = !1;
       function R() {
-        (null === x && null === E) || (C(), j());
+        (null === E && null === x) || (C(), j());
       }
       function U(e, t, n) {
         if (F) return e(t, n);
@@ -25585,7 +25589,7 @@ PERFORMANCE OF THIS SOFTWARE.
           e
         );
       }
-      function xe(e, t, n, r) {
+      function Ee(e, t, n, r) {
         if (((e = e.options), t)) {
           t = {};
           for (var i = 0; i < n.length; i++) t['$' + n[i]] = !0;
@@ -25602,7 +25606,7 @@ PERFORMANCE OF THIS SOFTWARE.
           null !== t && (t.selected = !0);
         }
       }
-      function Ee(e, t) {
+      function xe(e, t) {
         if (null != t.dangerouslySetInnerHTML) throw Error(o(91));
         return i({}, t, {
           value: void 0,
@@ -25991,7 +25995,7 @@ PERFORMANCE OF THIS SOFTWARE.
           container: r,
         };
       }
-      function xt(e, t) {
+      function Et(e, t) {
         switch (e) {
           case 'focus':
           case 'blur':
@@ -26014,7 +26018,7 @@ PERFORMANCE OF THIS SOFTWARE.
             wt.delete(t.pointerId);
         }
       }
-      function Et(e, t, n, r, i, a) {
+      function xt(e, t, n, r, i, a) {
         return null === e || e.nativeEvent !== a
           ? ((e = St(t, n, r, i, a)), null !== t && null !== (t = Sn(t)) && pt(t), e)
           : ((e.eventSystemFlags |= r), e);
@@ -26227,27 +26231,27 @@ PERFORMANCE OF THIS SOFTWARE.
           if (0 < gt.length && -1 < Yt.indexOf(e)) (e = St(null, e, t, n, r)), gt.push(e);
           else {
             var i = Qt(e, t, n, r);
-            if (null === i) xt(e, r);
+            if (null === i) Et(e, r);
             else if (-1 < Yt.indexOf(e)) (e = St(i, e, t, n, r)), gt.push(e);
             else if (
               !(function (e, t, n, r, i) {
                 switch (t) {
                   case 'focus':
-                    return (Mt = Et(Mt, e, t, n, r, i)), !0;
+                    return (Mt = xt(Mt, e, t, n, r, i)), !0;
                   case 'dragenter':
-                    return (bt = Et(bt, e, t, n, r, i)), !0;
+                    return (bt = xt(bt, e, t, n, r, i)), !0;
                   case 'mouseover':
-                    return (Lt = Et(Lt, e, t, n, r, i)), !0;
+                    return (Lt = xt(Lt, e, t, n, r, i)), !0;
                   case 'pointerover':
                     var a = i.pointerId;
-                    return kt.set(a, Et(kt.get(a) || null, e, t, n, r, i)), !0;
+                    return kt.set(a, xt(kt.get(a) || null, e, t, n, r, i)), !0;
                   case 'gotpointercapture':
-                    return (a = i.pointerId), wt.set(a, Et(wt.get(a) || null, e, t, n, r, i)), !0;
+                    return (a = i.pointerId), wt.set(a, xt(wt.get(a) || null, e, t, n, r, i)), !0;
                 }
                 return !1;
               })(i, e, t, n, r)
             ) {
-              xt(e, r), (e = ft(e, r, null, t));
+              Et(e, r), (e = ft(e, r, null, t));
               try {
                 U(mt, e);
               } finally {
@@ -26534,11 +26538,11 @@ PERFORMANCE OF THIS SOFTWARE.
           ? null
           : e;
       }
-      function xn(e) {
+      function En(e) {
         if (5 === e.tag || 6 === e.tag) return e.stateNode;
         throw Error(o(33));
       }
-      function En(e) {
+      function xn(e) {
         return e[Tn] || null;
       }
       function On(e) {
@@ -26890,7 +26894,7 @@ PERFORMANCE OF THIS SOFTWARE.
         st(e);
       }
       function _r(e) {
-        if (be(xn(e))) return e;
+        if (be(En(e))) return e;
       }
       function pr(e, t) {
         if ('change' === e) return t;
@@ -26930,7 +26934,7 @@ PERFORMANCE OF THIS SOFTWARE.
           eventTypes: dr,
           _isInputEventSupported: yr,
           extractEvents: function (e, t, n, r) {
-            var i = t ? xn(t) : window,
+            var i = t ? En(t) : window,
               a = i.nodeName && i.nodeName.toLowerCase();
             if ('select' === a || ('input' === a && 'file' === i.type)) var o = pr;
             else if (lr(i))
@@ -26962,8 +26966,8 @@ PERFORMANCE OF THIS SOFTWARE.
       function Sr() {
         return Dr;
       }
-      var xr = 0,
-        Er = 0,
+      var Er = 0,
+        xr = 0,
         Or = !1,
         Ir = !1,
         jr = Tr.extend({
@@ -26987,16 +26991,16 @@ PERFORMANCE OF THIS SOFTWARE.
           },
           movementX: function (e) {
             if ('movementX' in e) return e.movementX;
-            var t = xr;
+            var t = Er;
             return (
-              (xr = e.screenX), Or ? ('mousemove' === e.type ? e.screenX - t : 0) : ((Or = !0), 0)
+              (Er = e.screenX), Or ? ('mousemove' === e.type ? e.screenX - t : 0) : ((Or = !0), 0)
             );
           },
           movementY: function (e) {
             if ('movementY' in e) return e.movementY;
-            var t = Er;
+            var t = xr;
             return (
-              (Er = e.screenY), Ir ? ('mousemove' === e.type ? e.screenY - t : 0) : ((Ir = !0), 0)
+              (xr = e.screenY), Ir ? ('mousemove' === e.type ? e.screenY - t : 0) : ((Ir = !0), 0)
             );
           },
         }),
@@ -27053,8 +27057,8 @@ PERFORMANCE OF THIS SOFTWARE.
               ('pointerout' !== e && 'pointerover' !== e) ||
                 ((s = Ar), (u = Pr.pointerLeave), (l = Pr.pointerEnter), (d = 'pointer'));
             if (
-              ((e = null == o ? a : xn(o)),
-              (a = null == t ? a : xn(t)),
+              ((e = null == o ? a : En(o)),
+              (a = null == t ? a : En(t)),
               ((u = s.getPooled(u, o, n, r)).type = d + 'leave'),
               (u.target = e),
               (u.relatedTarget = a),
@@ -27157,7 +27161,7 @@ PERFORMANCE OF THIS SOFTWARE.
               a = !i;
             }
             if (a) return null;
-            switch (((i = t ? xn(t) : window), e)) {
+            switch (((i = t ? En(t) : window), e)) {
               case 'focus':
                 (lr(i) || 'true' === i.contentEditable) && ((Wr = i), (Br = t), (zr = null));
                 break;
@@ -27397,9 +27401,9 @@ PERFORMANCE OF THIS SOFTWARE.
         ),
       )),
         M(),
-        (h = En),
+        (h = xn),
         (_ = Sn),
-        (p = xn),
+        (p = En),
         Y({
           SimpleEventPlugin: ai,
           EnterLeaveEventPlugin: Cr,
@@ -27481,8 +27485,8 @@ PERFORMANCE OF THIS SOFTWARE.
         Yi = a.unstable_getCurrentPriorityLevel,
         Di = a.unstable_ImmediatePriority,
         Si = a.unstable_UserBlockingPriority,
-        xi = a.unstable_NormalPriority,
-        Ei = a.unstable_LowPriority,
+        Ei = a.unstable_NormalPriority,
+        xi = a.unstable_LowPriority,
         Oi = a.unstable_IdlePriority,
         Ii = {},
         ji = a.unstable_shouldYield,
@@ -27503,9 +27507,9 @@ PERFORMANCE OF THIS SOFTWARE.
             return 99;
           case Si:
             return 98;
-          case xi:
-            return 97;
           case Ei:
+            return 97;
+          case xi:
             return 96;
           case Oi:
             return 95;
@@ -27520,9 +27524,9 @@ PERFORMANCE OF THIS SOFTWARE.
           case 98:
             return Si;
           case 97:
-            return xi;
-          case 96:
             return Ei;
+          case 96:
+            return xi;
           case 95:
             return Oi;
           default:
@@ -27604,7 +27608,7 @@ PERFORMANCE OF THIS SOFTWARE.
           (Qi = Xi = null),
           null !== (e = e.dependencies) &&
             null !== e.firstContext &&
-            (e.expirationTime >= t && (Eo = !0), (e.firstContext = null));
+            (e.expirationTime >= t && (xo = !0), (e.firstContext = null));
       }
       function ra(e, t) {
         if (Qi !== e && !1 !== t && 0 !== t)
@@ -27932,7 +27936,7 @@ PERFORMANCE OF THIS SOFTWARE.
         }
         function u(e, t, n, r) {
           return null === t || 6 !== t.tag
-            ? (((t = xu(n, e.mode, r)).return = e), t)
+            ? (((t = Eu(n, e.mode, r)).return = e), t)
             : (((t = i(t, n)).return = e), t);
         }
         function l(e, t, n, r) {
@@ -27947,7 +27951,7 @@ PERFORMANCE OF THIS SOFTWARE.
             4 !== t.tag ||
             t.stateNode.containerInfo !== n.containerInfo ||
             t.stateNode.implementation !== n.implementation
-            ? (((t = Eu(n, e.mode, r)).return = e), t)
+            ? (((t = xu(n, e.mode, r)).return = e), t)
             : (((t = i(t, n.children || [])).return = e), t);
         }
         function c(e, t, n, r, a) {
@@ -27957,7 +27961,7 @@ PERFORMANCE OF THIS SOFTWARE.
         }
         function f(e, t, n) {
           if ('string' == typeof t || 'number' == typeof t)
-            return ((t = xu('' + t, e.mode, n)).return = e), t;
+            return ((t = Eu('' + t, e.mode, n)).return = e), t;
           if ('object' == typeof t && null !== t) {
             switch (t.$$typeof) {
               case ee:
@@ -27967,7 +27971,7 @@ PERFORMANCE OF THIS SOFTWARE.
                   n
                 );
               case te:
-                return ((t = Eu(t, e.mode, n)).return = e), t;
+                return ((t = xu(t, e.mode, n)).return = e), t;
             }
             if (Ma(t) || _e(t)) return ((t = Su(t, e.mode, n, null)).return = e), t;
             La(e, t);
@@ -28148,7 +28152,7 @@ PERFORMANCE OF THIS SOFTWARE.
                     }
                     t(e, r), (r = r.sibling);
                   }
-                  ((r = Eu(a, e.mode, u)).return = e), (e = r);
+                  ((r = xu(a, e.mode, u)).return = e), (e = r);
                 }
                 return s(e);
             }
@@ -28157,7 +28161,7 @@ PERFORMANCE OF THIS SOFTWARE.
               (a = '' + a),
               null !== r && 6 === r.tag
                 ? (n(e, r.sibling), ((r = i(r, a)).return = e), (e = r))
-                : (n(e, r), ((r = xu(a, e.mode, u)).return = e), (e = r)),
+                : (n(e, r), ((r = Eu(a, e.mode, u)).return = e), (e = r)),
               s(e)
             );
           if (Ma(a)) return _(e, r, a, u);
@@ -28176,13 +28180,13 @@ PERFORMANCE OF THIS SOFTWARE.
         Ya = {},
         Da = { current: Ya },
         Sa = { current: Ya },
-        xa = { current: Ya };
-      function Ea(e) {
+        Ea = { current: Ya };
+      function xa(e) {
         if (e === Ya) throw Error(o(174));
         return e;
       }
       function Oa(e, t) {
-        switch ((li(xa, t), li(Sa, e), li(Da, Ya), (e = t.nodeType))) {
+        switch ((li(Ea, t), li(Sa, e), li(Da, Ya), (e = t.nodeType))) {
           case 9:
           case 11:
             t = (t = t.documentElement) ? t.namespaceURI : He(null, '');
@@ -28193,11 +28197,11 @@ PERFORMANCE OF THIS SOFTWARE.
         ui(Da), li(Da, t);
       }
       function Ia() {
-        ui(Da), ui(Sa), ui(xa);
+        ui(Da), ui(Sa), ui(Ea);
       }
       function ja(e) {
-        Ea(xa.current);
-        var t = Ea(Da.current),
+        xa(Ea.current);
+        var t = xa(Da.current),
           n = He(t, e.type);
         t !== n && (li(Sa, e), li(Da, n));
       }
@@ -28347,7 +28351,7 @@ PERFORMANCE OF THIS SOFTWARE.
             l = l.next;
           } while (null !== l && l !== i);
           null === u ? (a = r) : (u.next = s),
-            Hr(r, t.memoizedState) || (Eo = !0),
+            Hr(r, t.memoizedState) || (xo = !0),
             (t.memoizedState = r),
             (t.baseState = a),
             (t.baseQueue = u),
@@ -28369,7 +28373,7 @@ PERFORMANCE OF THIS SOFTWARE.
           do {
             (a = e(a, s.action)), (s = s.next);
           } while (s !== i);
-          Hr(a, t.memoizedState) || (Eo = !0),
+          Hr(a, t.memoizedState) || (xo = !0),
             (t.memoizedState = a),
             null === t.baseQueue && (t.baseState = a),
             (n.lastRenderedState = a);
@@ -28755,8 +28759,8 @@ PERFORMANCE OF THIS SOFTWARE.
       function So() {
         (bo = Mo = null), (Lo = !1);
       }
-      var xo = Z.ReactCurrentOwner,
-        Eo = !1;
+      var Eo = Z.ReactCurrentOwner,
+        xo = !1;
       function Oo(e, t, n, r) {
         t.child = null === e ? Ta(t, null, n, r) : wa(t, e.child, n, r);
       }
@@ -28766,7 +28770,7 @@ PERFORMANCE OF THIS SOFTWARE.
         return (
           na(t, i),
           (r = qa(e, t, n, r, a, i)),
-          null === e || Eo
+          null === e || xo
             ? ((t.effectTag |= 1), Oo(e, t, r, i), t.child)
             : ((t.updateQueue = e.updateQueue),
               (t.effectTag &= -517),
@@ -28796,7 +28800,7 @@ PERFORMANCE OF THIS SOFTWARE.
         );
       }
       function Ao(e, t, n, r, i, a) {
-        return null !== e && Fr(e.memoizedProps, r) && e.ref === t.ref && ((Eo = !1), i < a)
+        return null !== e && Fr(e.memoizedProps, r) && e.ref === t.ref && ((xo = !1), i < a)
           ? ((t.expirationTime = e.expirationTime), Go(e, t, a))
           : Co(e, t, n, r, a);
       }
@@ -28810,7 +28814,7 @@ PERFORMANCE OF THIS SOFTWARE.
           (a = hi(t, a)),
           na(t, i),
           (n = qa(e, t, n, r, a, i)),
-          null === e || Eo
+          null === e || xo
             ? ((t.effectTag |= 1), Oo(e, t, n, i), t.child)
             : ((t.updateQueue = e.updateQueue),
               (t.effectTag &= -517),
@@ -28922,7 +28926,7 @@ PERFORMANCE OF THIS SOFTWARE.
         Po(e, t);
         var o = 0 != (64 & t.effectTag);
         if (!r && !o) return i && Mi(t, n, !1), Go(e, t, a);
-        (r = t.stateNode), (xo.current = t);
+        (r = t.stateNode), (Eo.current = t);
         var s = o && 'function' != typeof n.getDerivedStateFromError ? null : r.render();
         return (
           (t.effectTag |= 1),
@@ -29163,7 +29167,7 @@ PERFORMANCE OF THIS SOFTWARE.
               null
             );
           case 5:
-            Aa(t), (n = Ea(xa.current));
+            Aa(t), (n = xa(Ea.current));
             var a = t.type;
             if (null !== e && null != t.stateNode)
               Uo(e, t, a, r, n), e.ref !== t.ref && (t.effectTag |= 128);
@@ -29172,7 +29176,7 @@ PERFORMANCE OF THIS SOFTWARE.
                 if (null === t.stateNode) throw Error(o(166));
                 return null;
               }
-              if (((e = Ea(Da.current)), Do(t))) {
+              if (((e = xa(Da.current)), Do(t))) {
                 (r = t.stateNode), (a = t.type);
                 var s = t.memoizedProps;
                 switch (((r[wn] = t), (r[Tn] = s), a)) {
@@ -29293,7 +29297,7 @@ PERFORMANCE OF THIS SOFTWARE.
                       un(n, 'onChange');
                     break;
                   case 'textarea':
-                    Oe(e, r), (l = Ee(e, r)), qt('invalid', e), un(n, 'onChange');
+                    Oe(e, r), (l = xe(e, r)), qt('invalid', e), un(n, 'onChange');
                     break;
                   default:
                     l = r;
@@ -29329,8 +29333,8 @@ PERFORMANCE OF THIS SOFTWARE.
                   case 'select':
                     (e.multiple = !!r.multiple),
                       null != (n = r.value)
-                        ? xe(e, !!r.multiple, n, !1)
-                        : null != r.defaultValue && xe(e, !!r.multiple, r.defaultValue, !0);
+                        ? Ee(e, !!r.multiple, n, !1)
+                        : null != r.defaultValue && Ee(e, !!r.multiple, r.defaultValue, !0);
                     break;
                   default:
                     'function' == typeof l.onClick && (e.onclick = ln);
@@ -29344,8 +29348,8 @@ PERFORMANCE OF THIS SOFTWARE.
             if (e && null != t.stateNode) Wo(0, t, e.memoizedProps, r);
             else {
               if ('string' != typeof r && null === t.stateNode) throw Error(o(166));
-              (n = Ea(xa.current)),
-                Ea(Da.current),
+              (n = xa(Ea.current)),
+                xa(Da.current),
                 Do(t)
                   ? ((n = t.stateNode),
                     (r = t.memoizedProps),
@@ -29526,7 +29530,7 @@ PERFORMANCE OF THIS SOFTWARE.
             var s,
               u,
               l = t.stateNode;
-            switch ((Ea(Da.current), (e = null), n)) {
+            switch ((xa(Da.current), (e = null), n)) {
               case 'input':
                 (o = Le(l, o)), (r = Le(l, r)), (e = []);
                 break;
@@ -29537,7 +29541,7 @@ PERFORMANCE OF THIS SOFTWARE.
                 (o = i({}, o, { value: void 0 })), (r = i({}, r, { value: void 0 })), (e = []);
                 break;
               case 'textarea':
-                (o = Ee(l, o)), (r = Ee(l, r)), (e = []);
+                (o = xe(l, o)), (r = xe(l, r)), (e = []);
                 break;
               default:
                 'function' != typeof o.onClick &&
@@ -29960,11 +29964,11 @@ PERFORMANCE OF THIS SOFTWARE.
                     (t = n._wrapperState.wasMultiple),
                       (n._wrapperState.wasMultiple = !!r.multiple),
                       null != (e = r.value)
-                        ? xe(n, !!r.multiple, e, !1)
+                        ? Ee(n, !!r.multiple, e, !1)
                         : t !== !!r.multiple &&
                           (null != r.defaultValue
-                            ? xe(n, !!r.multiple, r.defaultValue, !0)
-                            : xe(n, !!r.multiple, r.multiple ? [] : '', !1));
+                            ? Ee(n, !!r.multiple, r.defaultValue, !0)
+                            : Ee(n, !!r.multiple, r.multiple ? [] : '', !1));
                 }
               }
             }
@@ -30083,8 +30087,8 @@ PERFORMANCE OF THIS SOFTWARE.
         Ys = 0,
         Ds = Ms,
         Ss = null,
-        xs = 1073741823,
         Es = 1073741823,
+        xs = 1073741823,
         Os = null,
         Is = 0,
         js = !1,
@@ -30255,7 +30259,7 @@ PERFORMANCE OF THIS SOFTWARE.
                   if (
                     (ju(e, n),
                     n === (r = e.lastSuspendedTime) && (e.nextKnownPendingLevel = cu(i)),
-                    1073741823 === xs && 10 < (i = As + 500 - Fi()))
+                    1073741823 === Es && 10 < (i = As + 500 - Fi()))
                   ) {
                     if (js) {
                       var a = e.lastPingedTime;
@@ -30289,11 +30293,11 @@ PERFORMANCE OF THIS SOFTWARE.
                     break;
                   }
                   if (
-                    (1073741823 !== Es
-                      ? (r = 10 * (1073741821 - Es) - Fi())
-                      : 1073741823 === xs
+                    (1073741823 !== xs
+                      ? (r = 10 * (1073741821 - xs) - Fi())
+                      : 1073741823 === Es
                       ? (r = 0)
-                      : ((r = 10 * (1073741821 - xs) - 5e3),
+                      : ((r = 10 * (1073741821 - Es) - 5e3),
                         0 > (r = (i = Fi()) - r) && (r = 0),
                         (n = 10 * (1073741821 - n) - i) <
                           (r =
@@ -30318,8 +30322,8 @@ PERFORMANCE OF THIS SOFTWARE.
                   fu(e);
                   break;
                 case 5:
-                  if (1073741823 !== xs && null !== Os) {
-                    a = xs;
+                  if (1073741823 !== Es && null !== Os) {
+                    a = Es;
                     var s = Os;
                     if (
                       (0 >= (r = 0 | s.busyMinDurationMs)
@@ -30420,7 +30424,7 @@ PERFORMANCE OF THIS SOFTWARE.
           (Ys = t),
           (Ds = Ms),
           (Ss = null),
-          (Es = xs = 1073741823),
+          (xs = Es = 1073741823),
           (Os = null),
           (Is = 0),
           (js = !1);
@@ -30543,7 +30547,7 @@ PERFORMANCE OF THIS SOFTWARE.
         return (vs.current = po), null === e ? po : e;
       }
       function au(e, t) {
-        e < xs && 2 < e && (xs = e), null !== t && e < Es && 2 < e && ((Es = e), (Os = t));
+        e < Es && 2 < e && (Es = e), null !== t && e < xs && 2 < e && ((xs = e), (Os = t));
       }
       function ou(e) {
         e > Is && (Is = e);
@@ -30901,7 +30905,7 @@ PERFORMANCE OF THIS SOFTWARE.
         var r = e.pingCache;
         null !== r && r.delete(t),
           ws === e && Ys === n
-            ? Ds === Ls || (Ds === bs && 1073741823 === xs && Fi() - As < 500)
+            ? Ds === Ls || (Ds === bs && 1073741823 === Es && Fi() - As < 500)
               ? nu(e, Ys)
               : (js = !0)
             : Iu(e, n) &&
@@ -30917,10 +30921,10 @@ PERFORMANCE OF THIS SOFTWARE.
         var r = t.expirationTime;
         if (null !== e) {
           var i = t.pendingProps;
-          if (e.memoizedProps !== i || fi.current) Eo = !0;
+          if (e.memoizedProps !== i || fi.current) xo = !0;
           else {
             if (r < n) {
-              switch (((Eo = !1), t.tag)) {
+              switch (((xo = !1), t.tag)) {
                 case 3:
                   Fo(t), So();
                   break;
@@ -30961,9 +30965,9 @@ PERFORMANCE OF THIS SOFTWARE.
               }
               return Go(e, t, n);
             }
-            Eo = !1;
+            xo = !1;
           }
-        } else Eo = !1;
+        } else xo = !1;
         switch (((t.expirationTime = 0), t.tag)) {
           case 2:
             if (
@@ -31327,10 +31331,10 @@ PERFORMANCE OF THIS SOFTWARE.
       function Su(e, t, n, r) {
         return ((e = wu(7, e, r, t)).expirationTime = n), e;
       }
-      function xu(e, t, n) {
+      function Eu(e, t, n) {
         return ((e = wu(6, e, null, t)).expirationTime = n), e;
       }
-      function Eu(e, t, n) {
+      function xu(e, t, n) {
         return (
           ((t = wu(4, null !== e.children ? e.children : [], e.key, t)).expirationTime = n),
           (t.stateNode = {
@@ -31572,7 +31576,7 @@ PERFORMANCE OF THIS SOFTWARE.
                 ) {
                   var r = n[t];
                   if (r !== e && r.form === e.form) {
-                    var i = En(r);
+                    var i = xn(r);
                     if (!i) throw Error(o(90));
                     be(r), Te(r, i);
                   }
@@ -31583,7 +31587,7 @@ PERFORMANCE OF THIS SOFTWARE.
               Ie(e, n);
               break;
             case 'select':
-              null != (t = n.value) && xe(e, !!n.multiple, t, !1);
+              null != (t = n.value) && Ee(e, !!n.multiple, t, !1);
           }
         }),
         (A = eu),
@@ -31624,8 +31628,8 @@ PERFORMANCE OF THIS SOFTWARE.
         qu = {
           Events: [
             Sn,
-            xn,
             En,
+            xn,
             Y,
             k,
             Hn,
@@ -31939,8 +31943,8 @@ object-assign
         var n = e.sortIndex - t.sortIndex;
         return 0 !== n ? n : e.id - t.id;
       }
-      var x = [],
-        E = [],
+      var E = [],
+        x = [],
         O = 1,
         I = null,
         j = 3,
@@ -31948,20 +31952,20 @@ object-assign
         P = !1,
         C = !1;
       function H(e) {
-        for (var t = Y(E); null !== t; ) {
-          if (null === t.callback) D(E);
+        for (var t = Y(x); null !== t; ) {
+          if (null === t.callback) D(x);
           else {
             if (!(t.startTime <= e)) break;
-            D(E), (t.sortIndex = t.expirationTime), T(x, t);
+            D(x), (t.sortIndex = t.expirationTime), T(E, t);
           }
-          t = Y(E);
+          t = Y(x);
         }
       }
       function N(e) {
         if (((C = !1), H(e), !P))
-          if (null !== Y(x)) (P = !0), r(F);
+          if (null !== Y(E)) (P = !0), r(F);
           else {
-            var t = Y(E);
+            var t = Y(x);
             null !== t && i(N, t.startTime - e);
           }
       }
@@ -31969,20 +31973,20 @@ object-assign
         (P = !1), C && ((C = !1), a()), (A = !0);
         var r = j;
         try {
-          for (H(n), I = Y(x); null !== I && (!(I.expirationTime > n) || (e && !o())); ) {
+          for (H(n), I = Y(E); null !== I && (!(I.expirationTime > n) || (e && !o())); ) {
             var s = I.callback;
             if (null !== s) {
               (I.callback = null), (j = I.priorityLevel);
               var u = s(I.expirationTime <= n);
               (n = t.unstable_now()),
-                'function' == typeof u ? (I.callback = u) : I === Y(x) && D(x),
+                'function' == typeof u ? (I.callback = u) : I === Y(E) && D(E),
                 H(n);
-            } else D(x);
-            I = Y(x);
+            } else D(E);
+            I = Y(E);
           }
           if (null !== I) var l = !0;
           else {
-            var d = Y(E);
+            var d = Y(x);
             null !== d && i(N, d.startTime - n), (l = !1);
           }
           return l;
@@ -32021,7 +32025,7 @@ object-assign
           return j;
         }),
         (t.unstable_getFirstCallbackNode = function () {
-          return Y(x);
+          return Y(E);
         }),
         (t.unstable_next = function (e) {
           switch (j) {
@@ -32080,16 +32084,16 @@ object-assign
             }),
             u > s
               ? ((e.sortIndex = u),
-                T(E, e),
-                null === Y(x) && e === Y(E) && (C ? a() : (C = !0), i(N, u - s)))
-              : ((e.sortIndex = o), T(x, e), P || A || ((P = !0), r(F))),
+                T(x, e),
+                null === Y(E) && e === Y(x) && (C ? a() : (C = !0), i(N, u - s)))
+              : ((e.sortIndex = o), T(E, e), P || A || ((P = !0), r(F))),
             e
           );
         }),
         (t.unstable_shouldYield = function () {
           var e = t.unstable_now();
           H(e);
-          var n = Y(x);
+          var n = Y(E);
           return (
             (n !== I &&
               null !== I &&
@@ -35069,8 +35073,8 @@ object-assign
         Y,
         D,
         S,
-        x,
         E,
+        x,
         O,
         I,
         j,
@@ -35128,8 +35132,8 @@ object-assign
               )),
           )),
           (c[f.userActiveBids] = Object(_.gql)(
-            x ||
-              (x = w(
+            E ||
+              (E = w(
                 [
                   '\n    query GetUserActiveBids($organizationID: UUID!) {\n      serverTime\n      me {\n        id\n        activeBids(orgId: $organizationID) {\n          id\n          amount\n          marketplaceAuctionLot {\n            id\n            marketplaceCollectionItemId\n            status\n            currentBid {\n              amount\n              id\n            }\n            bids {\n              amount\n            }\n          }\n        }\n      }\n    }\n  ',
                 ],
@@ -35139,8 +35143,8 @@ object-assign
               )),
           )),
           (c[f.userFavorites] = Object(_.gql)(
-            E ||
-              (E = w(
+            x ||
+              (x = w(
                 [
                   '\n    ',
                   '\n    query GetUserFavorites {\n      serverTime\n      me {\n        id\n        favoriteItems {\n          ...FavoriteItemsFields\n        }\n      }\n    }\n  ',
@@ -36045,8 +36049,8 @@ object-assign
           (e[(e.transferToken = 4)] = 'transferToken');
       })(Te || (Te = {}));
       ((we = {})[Te.saveCollectionItemToFavorites] = Object(_.gql)(
-        xe ||
-          (xe = Se(
+        Ee ||
+          (Ee = Se(
             [
               '\n    mutation AddCollectionItemToUserFavorites($collectionItemId: UUID1!) {\n      addCollectionItemToUserFavorites(collectionItemId: $collectionItemId)\n    }\n  ',
             ],
@@ -36056,8 +36060,8 @@ object-assign
           )),
       )),
         (we[Te.removeCollectionItemFromFavorites] = Object(_.gql)(
-          Ee ||
-            (Ee = Se(
+          xe ||
+            (xe = Se(
               [
                 '\n    mutation RemoveCollectionItemFromUserFavorites($collectionItemId: UUID1!) {\n      deleteCollectionItemFromUserFavorites(collectionItemId: $collectionItemId)\n    }\n  ',
               ],
@@ -36099,8 +36103,8 @@ object-assign
               ],
             )),
         ));
-      var xe,
-        Ee,
+      var Ee,
+        xe,
         Oe,
         Ie,
         je,
@@ -36849,7 +36853,7 @@ object-assign
               return e;
             }).apply(this, arguments);
         },
-        xt = function (e, t, n, r) {
+        Et = function (e, t, n, r) {
           return new (n || (n = Promise))(function (i, a) {
             function o(e) {
               try {
@@ -36879,7 +36883,7 @@ object-assign
             u((r = r.apply(e, t || [])).next());
           });
         },
-        Et = function (e, t) {
+        xt = function (e, t) {
           var n,
             r,
             i,
@@ -37002,9 +37006,9 @@ object-assign
           d = Object(h.useQuery)(
             l,
             function () {
-              return xt(t, void 0, void 0, function () {
+              return Et(t, void 0, void 0, function () {
                 var e, t, r;
-                return Et(this, function (i) {
+                return xt(this, function (i) {
                   switch (i.label) {
                     case 0:
                       return [4, n()];

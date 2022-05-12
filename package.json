@@ -34,6 +34,7 @@
     "@types/jest": "^26.0.1",
     "babel-loader": "^8.1.0",
     "babel-plugin-import": "^1.12.0",
+    "babel-plugin-inline-dotenv": "^1.7.0",
     "babel-plugin-transform-async-to-promises": "^0.8.15",
     "del": "^5.1.0",
     "dumi": "^1.1.7",
