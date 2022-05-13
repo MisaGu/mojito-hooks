@@ -1,27 +1,31 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { QueryObserverResult, useQuery, UseQueryOptions } from 'react-query';
-import { EMojitoQueries, mojitoQueries } from '../../../data';
-import { contentfulQueries, EContentfulQueries } from '../../../data/graph_ql/contentful.query';
 import { config } from '../../domain/constants/general.constants';
-import {
-  contentfulNormalizer,
-  getPath,
-  gqlRequest,
-  mojitoNormalizer,
-  queryClient,
-} from '../../../utils';
-import { contentfulGqlClient, useContentfulAuctionsSlugList } from '../../../hooks/useContentful';
-import { mojitoGqlClient } from '../../../hooks/useMojito';
 import { IMojitoCollection } from '../../domain/interfaces';
 import { useMarketplaceCollectionsSlugWithItemsId } from '../useMarketplaceCollectionsSlugWithItemsId/useMarketplaceCollectionsSlugWithItemsId';
+import {
+  contentfulGqlClient,
+  gqlRequest,
+  mojitoGqlClient,
+  queryClient,
+} from '../../domain/utils/gqlRequest.util';
+import { useContentfulAuctionsSlugList } from '../useContentfulAuctionsSlugList/useContentfulAuctionsSlugList';
+import { getPath } from '../../domain/utils/path.util';
+import { contentfulNormalizer, mojitoNormalizer } from '../../domain/utils/gqlDataNormalizer.util';
+import { EMojitoQueries, mojitoQueries } from '../../domain/gql/queries';
+import { contentfulQueries, EContentfulQueries } from '../../domain/gql/contentful';
+
+interface UseCollectionProps<TSelectorResult> {
+  url?: string;
+  slug?: string;
+  options?: UseQueryOptions<any>;
+  selector?: (state: IMojitoCollection) => TSelectorResult;
+}
+
+// TODO: Separate props and result interfaces in separate file in this module.
 
 export function useCollection<TSelectorResult = undefined>(
-  props: {
-    url?: string;
-    slug?: string;
-    options?: UseQueryOptions<any>;
-    selector?: (state: IMojitoCollection) => TSelectorResult;
-  } = {},
+  props: UseCollectionProps<TSelectorResult>,
 ): {
   slug: string;
   isAuction: boolean;
@@ -30,12 +34,13 @@ export function useCollection<TSelectorResult = undefined>(
   ? {
       collection: IMojitoCollection | null;
     } & Omit<QueryObserverResult<IMojitoCollection, unknown>, 'data'>
-  : { data?: TSelectorResult }) {
-  const { getIdTokenClaims } = useAuth0();
+  : {
+      data?: TSelectorResult;
+    }) {
+  // const { getIdTokenClaims } = useAuth0();
   const { marketplaceCollectionsSlugWithItemsId } = useMarketplaceCollectionsSlugWithItemsId();
   const { auctionsSlugList } = useContentfulAuctionsSlugList();
-
-  const auctionSlug = getPath[1];
+  const auctionSlug = props.slug || getPath[1];
   const collectionByPath = marketplaceCollectionsSlugWithItemsId?.find(
     (e) => e.slug == auctionSlug,
   );
@@ -50,15 +55,21 @@ export function useCollection<TSelectorResult = undefined>(
     },
   ];
 
+  console.log({ auctionSlug, collectionByPath, queryKey });
+
   const { data, ...result } = useQuery(
     queryKey,
     async () => {
+      /*
       const token = await getIdTokenClaims();
       if (token) {
         mojitoGqlClient.setHeader('authorization', `Bearer ${token.__raw}`);
       }
+      */
 
-      if (!isAuction && !isFakeAuction) return null;
+      // if (!isAuction && !isFakeAuction) return null;
+
+      /*
       const collectionItems = collectionByPath?.items?.map((e) => e.id);
 
       await Promise.all([
@@ -87,6 +98,7 @@ export function useCollection<TSelectorResult = undefined>(
           }),
         ),
       ]);
+      */
 
       return await gqlRequest<IMojitoCollection>({
         query: mojitoQueries[EMojitoQueries.collectionBySlug],
@@ -101,6 +113,8 @@ export function useCollection<TSelectorResult = undefined>(
     // @ts-ignore
     props?.options ? { ...props?.options } : {},
   );
+
+  console.log({ ...result, data });
 
   // @ts-ignore
   return {

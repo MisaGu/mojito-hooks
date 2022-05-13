@@ -8,13 +8,16 @@
 
 import React from 'react';
 import { DemoInterface } from '../../../components/demo/interface/DemoInterface';
+import { Json } from '../../../components/demo/json/Json';
 import { DemoProviders } from '../../../components/demo/provider/DemoProvider';
 import { useCollection } from '../useCollection';
 
 const DemoContent: React.FC = () => {
-  const result = useCollection();
+  const result = useCollection({
+    slug: 'testing',
+  });
 
-  return <pre>{JSON.stringify(result, null, '  ')}</pre>;
+  return <Json obj={result} />;
 };
 
 export default () => {

@@ -31,7 +31,15 @@ export async function gqlRequest<T>({
         document.location.href = '/500';
         console.error(e);
       } else {
-        throw e.response.errors[0];
+        console.log('Using gqlRquest.util.ts v1!');
+
+        // throw e.response.errors[0];
+
+        if (e.response.error) {
+          console.log(e.response.error);
+        }
+
+        throw e;
       }
     })
     .then((data) => normalizerFn?.(data, variables));

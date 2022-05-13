@@ -17,7 +17,7 @@ import {
   IMojitoCollectionItemDetailsBid,
 } from '../domain/interfaces';
 import { gqlRequest, mojitoNormalizer, queryClient } from '../utils';
-import { useCollection } from '../v0.2/hooks/useCollection/useCollection';
+import { useCollection } from './useCollection';
 
 /*
 

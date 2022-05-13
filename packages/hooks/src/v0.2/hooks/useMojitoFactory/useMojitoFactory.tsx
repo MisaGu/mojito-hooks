@@ -1,10 +1,10 @@
 import { Variables } from 'graphql-request/dist/types';
 import { useEffect, useState } from 'react';
 import { useQuery, UseQueryOptions } from 'react-query';
-import { mojitoGqlClient } from '../../../hooks';
-import { gqlRequest, mojitoNormalizer, queryClient } from '../../../utils';
 import { useAuthContext } from '../../domain/context/auth.context';
 import { EMojitoQueries, IUseQueryResult, mojitoQueries } from '../../domain/gql/queries';
+import { mojitoNormalizer } from '../../domain/utils/gqlDataNormalizer.util';
+import { gqlRequest, mojitoGqlClient, queryClient } from '../../domain/utils/gqlRequest.util';
 
 interface IUseMojitoOptions<T = any> {
   query: EMojitoQueries;
