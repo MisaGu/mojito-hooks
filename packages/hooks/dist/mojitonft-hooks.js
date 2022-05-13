@@ -10156,6 +10156,7 @@ PERFORMANCE OF THIS SOFTWARE.
             e.env.NEXT_PUBLIC_API_ORGANIZATION_ID || '8fb128bd-f55d-4bcc-8b6c-0beb684e4d4e',
           MARKETPLACE_ID:
             e.env.NEXT_PUBLIC_MARKETPLACE_ID || 'c5ac4f84-b78b-4cb7-a24f-7f0c38da0eb2',
+          TEST_ENV: e.env.TEST_ENV || '',
           AUTH0_DOMAIN: e.env.NEXT_PUBLIC_RUNTIME_AUTH0_DOMAIN || '',
           AUTH0_CLIENTID: e.env.NEXT_PUBLIC_RUNTIME_AUTH0_CLIENTID || '',
           AUTH_REDIRECT_URI: e.env.NEXT_PUBLIC_RUNTIME_AUTH_REDIRECT_URI || '',
@@ -36796,13 +36797,15 @@ object-assign
               return wt(this, function (e) {
                 switch (e.label) {
                   case 0:
+                    if (
+                      Object.values(null != r ? r : {}).some(function (e) {
+                        return !e;
+                      })
+                    )
+                      return console.error('Some of vars is undefined', r), [2, null];
                     if (d) He.setHeader('authorization', 'Bearer '.concat(l));
                     else if (s) return [2, null];
-                    return Object.values(null != r ? r : {}).some(function (e) {
-                      return !e;
-                    })
-                      ? (console.error('Some of vars is undefined', r), [2, null])
-                      : [4, ie({ query: gt[n], variables: r, normalizerFn: me, gqlClient: He })];
+                    return [4, ie({ query: gt[n], variables: r, normalizerFn: me, gqlClient: He })];
                   case 1:
                     return [2, e.sent()];
                 }

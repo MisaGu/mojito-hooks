@@ -30,6 +30,8 @@ export enum EMojitoQueries {
   collectionBySlugCurrentBids,
   collectionItemByIdBidsList,
   collectionItemByIdRemainingCount,
+  // TODO: Merge EContentfulQueries & contentfulQueries with this file
+  // ... EContentfulQueries
 }
 
 export const mojitoQueries = {

@@ -34,6 +34,15 @@ export function useCollection<TSelectorResult = undefined>(
   const { marketplaceCollectionsSlugWithItemsId } = useMarketplaceCollectionsSlugWithItemsId();
   const { auctionsSlugList } = useContentfulAuctionsSlugList();
 
+  // const marketplaceCollectionsSlugWithItemsId = queryClient.getQueriesData([
+  //   `Mojito ${EMojitoQueries[EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug]}`,
+  //   { id: config.MARKETPLACE_ID },
+  // ]);
+
+  // const auctionsSlugList = queryClient.getQueriesData([
+  //   `Contentful ${EContentfulQueries[EContentfulQueries.auctionsSlugList]}`,
+  // ]);
+
   const auctionSlug = getPath[1];
   const collectionByPath = marketplaceCollectionsSlugWithItemsId?.find(
     (e) => e.slug == auctionSlug,
