@@ -8,6 +8,12 @@ import { contentfulNormalizer, getPath, gqlRequest, mojitoNormalizer, queryClien
 import { contentfulGqlClient, useContentfulAuctionsSlugList } from './useContentful';
 import { mojitoGqlClient, useMarketplaceCollectionsSlugWithItemsId } from './useMojito';
 
+/*
+
+THIS WHOLE FILE HAS BEEN MOVED TO V2.
+
+*/
+
 export function useCollection<TSelectorResult = undefined>(
   props: {
     url?: string;

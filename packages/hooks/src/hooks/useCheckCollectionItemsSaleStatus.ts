@@ -5,9 +5,7 @@ import { IMojitoCollectionItem } from '../domain/interfaces/mojito.interface';
 
 /*
 
-  DO NOT TOUCH.
-
-  DANI'S WORKING ON THIS:
+  THIS LOGIC HAS BEEN MOVED TO gqlDataNormalizer.
 
 */
 

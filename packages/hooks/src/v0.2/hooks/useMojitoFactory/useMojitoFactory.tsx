@@ -1,10 +1,10 @@
 import { Variables } from 'graphql-request/dist/types';
 import { useEffect, useState } from 'react';
-import { useQuery, UseQueryOptions } from 'react-query/types/react';
-import { mojitoGqlClient } from '../../hooks';
-import { gqlRequest, mojitoNormalizer, queryClient } from '../../utils';
-import { useAuthContext } from '../domain/context/auth.context';
-import { EMojitoQueries, IUseQueryResult, mojitoQueries } from '../domain/gql/queries';
+import { useQuery, UseQueryOptions } from 'react-query';
+import { mojitoGqlClient } from '../../../hooks';
+import { gqlRequest, mojitoNormalizer, queryClient } from '../../../utils';
+import { useAuthContext } from '../../domain/context/auth.context';
+import { EMojitoQueries, IUseQueryResult, mojitoQueries } from '../../domain/gql/queries';
 
 interface IUseMojitoOptions<T = any> {
   query: EMojitoQueries;
@@ -14,7 +14,7 @@ interface IUseMojitoOptions<T = any> {
   onlyAuthenticated?: boolean;
 }
 
-function useMojitoFactory<T = any>({
+export function useMojitoFactory<T = any>({
   query,
   variables,
   options,
@@ -82,5 +82,3 @@ function useMojitoFactory<T = any>({
     ...result,
   };
 }
-
-export default useMojitoFactory;

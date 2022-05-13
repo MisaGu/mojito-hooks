@@ -9,7 +9,17 @@ export default {
     type: 'none',
     exclude: [],
   },
-  extraBabelPlugins: [],
+  extraBabelPlugins: [
+    [
+      'inline-dotenv',
+      {
+        path: './packages/hooks/.env.local',
+      },
+    ],
+  ],
+  devServer: {
+    port: 3000,
+  },
   mode: 'site',
   favicon: '/simple-logo.svg',
   logo: '/logo.svg',
