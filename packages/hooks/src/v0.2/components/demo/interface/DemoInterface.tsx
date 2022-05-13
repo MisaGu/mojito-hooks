@@ -2,7 +2,7 @@ import { useAuth0 } from '@auth0/auth0-react';
 import React, { useCallback } from 'react';
 import { useEffect } from 'react';
 import { QueryClientProvider } from 'react-query';
-import { EAuthContextActionTypes, useAuthContext } from '../../../domain/context/auth.context';
+import { EAuthActionTypes, useAuthContext } from '../../../domain/context/auth.context';
 import { queryClient } from '../../../domain/utils/gqlRequest.util';
 
 interface DemoInterfaceProps {
@@ -29,10 +29,18 @@ export const DemoInterface: React.FC<DemoInterfaceProps> = ({ demoComponent: Dem
     async function initAuthentication() {
       const token = await getAuthenticationToken();
 
-      dispatch({
-        type: EAuthContextActionTypes.addIdToken,
-        token,
-      });
+      console.log(`${token ? 'Adding' : 'Removing'} authentication token...`);
+
+      dispatch(
+        token
+          ? {
+              type: EAuthActionTypes.addToken,
+              token,
+            }
+          : {
+              type: EAuthActionTypes.clearToken,
+            },
+      );
     }
 
     initAuthentication();

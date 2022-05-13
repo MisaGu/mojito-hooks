@@ -1,13 +1,14 @@
 import { GraphQLClient, RequestDocument, Variables } from 'graphql-request';
 import { QueryClient } from 'react-query';
 import { config } from '../constants/general.constants';
-import isBrowser from './isBrowser.util';
+import { isBrowser } from './isBrowser.util';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
     queries: {
       staleTime: typeof window === 'undefined' ? 0 : 180000, // 3min
       cacheTime: Infinity, // disable garbage collection
+      // queryFn: gqlRequest,
     },
   },
 });
@@ -36,15 +37,18 @@ export async function gqlRequest<T>({
   return await gqlClient
     .request<T>(query, variables)
     .catch((e) => {
-      if (isBrowser && e.response.status >= 500 && location.pathname != '/500') {
-        document.location.href = '/500';
-        console.error(e);
-      } else {
-        // throw e.response.errors[0];
+      const status = e.response?.status;
 
-        if (e.response.error) {
+      console.log(e);
+
+      if (isBrowser && status >= 500 && window.location.pathname !== '/500') {
+        window.location.href = '/500';
+      } else {
+        if (e.response?.error) {
           console.log(e.response.error);
         }
+
+        // throw e.response.errors[0];
 
         throw e;
       }

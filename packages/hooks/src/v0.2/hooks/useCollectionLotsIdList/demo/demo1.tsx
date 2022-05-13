@@ -7,7 +7,21 @@
  */
 
 import React from 'react';
+import { DemoInterface } from '../../../components/demo/interface/DemoInterface';
+import { Json } from '../../../components/demo/json/Json';
+import { DemoProviders } from '../../../components/demo/provider/DemoProvider';
+import { useCollectionLotsIdList } from '../useCollectionLotsIdList';
+
+const DemoContent: React.FC = () => {
+  const result = useCollectionLotsIdList('549c4f64-ca4d-4087-a8a6-3b8ce1ecf059');
+
+  return <Json obj={result} />;
+};
 
 export default () => {
-  return <pre>useCollectionLotsIdList()</pre>;
+  return (
+    <DemoProviders>
+      <DemoInterface demoComponent={DemoContent} />
+    </DemoProviders>
+  );
 };

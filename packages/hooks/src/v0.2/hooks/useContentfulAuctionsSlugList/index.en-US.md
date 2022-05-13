@@ -3,7 +3,7 @@ nav:
   path: /hooks
 ---
 
-# useCollectionLotsIdList
+# useContentfulAuctionsSlugList
 
 A hook that toggle states.
 

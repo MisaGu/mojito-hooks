@@ -1,5 +1,20 @@
-import isBrowser from './isBrowser.util';
+import { isBrowser } from './isBrowser.util';
 
-export const getPath = isBrowser
-  ? window.location.pathname.split('#')[0].split('?')[0].split('/')
-  : [];
+export function getPath(pathname: string = window.location.pathname): string[] {
+  if (isBrowser) return [];
+
+  return pathname.split('/').filter(Boolean);
+}
+
+export interface GetSlugOptions {
+  pathname?: string;
+  slug?: string;
+}
+
+export function getAuctionSlug({ pathname, slug }: GetSlugOptions = {}) {
+  return slug ? slug : getPath(pathname)[0];
+}
+
+export function getItemSlug({ pathname, slug }: GetSlugOptions = {}) {
+  return slug ? slug : getPath(pathname)[2];
+}

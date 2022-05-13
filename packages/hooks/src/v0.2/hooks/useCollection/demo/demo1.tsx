@@ -14,7 +14,7 @@ import { useCollection } from '../useCollection';
 
 const DemoContent: React.FC = () => {
   const result = useCollection({
-    slug: 'testing',
+    slug: 'bid-test-3',
   });
 
   return <Json obj={result} />;
