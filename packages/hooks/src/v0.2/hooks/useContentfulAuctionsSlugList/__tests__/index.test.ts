@@ -1,7 +1,7 @@
-import { useCollectionLotsIdList } from '../useCollectionLotsIdList';
+import { useContentfulAuctionsSlugList } from '../useContentfulAuctionsSlugList';
 
-describe('useCollectionLotsIdList', () => {
+describe('useContentfulAuctionsSlugList', () => {
   it('should be defined', () => {
-    expect(useCollectionLotsIdList).toBeDefined();
+    expect(useContentfulAuctionsSlugList).toBeDefined();
   });
 });

@@ -1,7 +1,7 @@
-import { useCollectionLotsIdList } from '../useCollectionLotsIdList';
+import { useContentful } from '../useContentful';
 
-describe('useCollectionLotsIdList', () => {
+describe('useContentful', () => {
   it('should be defined', () => {
-    expect(useCollectionLotsIdList).toBeDefined();
+    expect(useContentful).toBeDefined();
   });
 });

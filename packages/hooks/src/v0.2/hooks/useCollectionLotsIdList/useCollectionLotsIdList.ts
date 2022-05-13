@@ -1,6 +1,6 @@
 import { EMojitoQueries, IUseQueryResult } from '../../domain/gql/queries';
 import { IMojitoCollectionItem } from '../../domain/interfaces';
-import { config } from '../../../domain/general.constants';
+import { config } from '../../domain/constants/general.constants';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
 export function useCollectionLotsIdList(slug: string): {

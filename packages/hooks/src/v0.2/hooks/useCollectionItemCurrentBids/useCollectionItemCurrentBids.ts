@@ -1,8 +1,8 @@
-import { useCollection } from '../../../hooks';
 import { EMojitoQueries, IUseQueryResult } from '../../domain/gql/queries';
 import { IMojitoCollectionItemCurrentBids } from '../../domain/interfaces';
 import { config } from '../../domain/constants/general.constants';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
+import { useCollection } from '../useCollection/useCollection';
 
 export function useCollectionItemCurrentBids(
   id?: string,

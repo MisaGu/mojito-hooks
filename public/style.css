@@ -6,7 +6,6 @@
 .__dumi-default-layout-hero img {
   width: 250px;
 }
-
 input,
 button {
   padding: 4px;
@@ -22,4 +21,17 @@ input[type='number'] {
   margin-left: -30px;
   color: #a8a8ad;
   font-size: 16px;
+}
+
+.__dumi-default-previewer-demo {
+  font: monospace;
+}
+
+.__dumi-default-previewer-demo pre {
+  margin: 0;
+}
+
+.__dumi-default-previewer-demo p + p,
+.__dumi-default-previewer-demo pre + p {
+  margin-top: 8px;
 }
