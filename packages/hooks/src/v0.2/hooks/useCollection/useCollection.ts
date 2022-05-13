@@ -87,6 +87,7 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
           }),
         ),
 
+        // queryClient.prefetchQuery(queryKeyGenerator(EContentfulQueries.auctionBySlug, { slug: auctionSlug }),
         // queryClient.prefetchQuery(queryKeyGenerator(EContentfulQueries.shortLots, { slug: auctionSlug, mojitoIds: collectionItems }),
       ]);
 
