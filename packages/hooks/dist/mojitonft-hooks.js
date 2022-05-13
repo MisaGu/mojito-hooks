@@ -4137,6 +4137,9 @@
           }, '');
         });
     },
+    function (t, n) {
+      t.exports = e;
+    },
     function (e, t, n) {
       'use strict';
       n.d(t, 'a', function () {
@@ -4206,9 +4209,6 @@
             e
           );
         })())();
-    },
-    function (t, n) {
-      t.exports = e;
     },
     function (e, t, n) {
       'use strict';
@@ -4586,7 +4586,7 @@
       n.d(t, 'a', function () {
         return u;
       });
-      var r = n(5),
+      var r = n(4),
         a = n.n(r),
         i = a.a.createContext(void 0),
         s = a.a.createContext(!1);
@@ -4607,7 +4607,7 @@
       n.d(t, 'a', function () {
         return o;
       });
-      var r = n(5),
+      var r = n(4),
         a = n.n(r);
       function i() {
         var e = !1;
@@ -4636,7 +4636,7 @@
       var r = n(10),
         a = n(1),
         i = n(2),
-        s = n(4),
+        s = n(5),
         o = n(11),
         u = n(6),
         l = (function () {
@@ -5071,7 +5071,7 @@
         return d;
       });
       var r = n(10),
-        a = n(4),
+        a = n(5),
         i = n(2),
         s = n(11),
         o = n(6),
@@ -5531,7 +5531,7 @@
       var r = n(2),
         a = n(10),
         i = n(1),
-        s = n(4),
+        s = n(5),
         o = n(8),
         u = n(9),
         l = n(11),
@@ -17363,9 +17363,9 @@
       });
       var r = n(25),
         a = n(1),
-        i = n(5),
+        i = n(4),
         s = n.n(i),
-        o = n(4),
+        o = n(5),
         u = n(16),
         l = n(15);
       function d(e, t, n) {
@@ -17455,7 +17455,7 @@
         s = n(18),
         o = n(8),
         u = n(13),
-        l = n(4),
+        l = n(5),
         d = n(6);
       function c(e, t) {
         return null == e.getNextPageParam ? void 0 : e.getNextPageParam(t[t.length - 1], t);
@@ -17849,7 +17849,7 @@
        *
        * This source code is licensed under the MIT license found in the
        * LICENSE file in the root directory of this source tree.
-       */ var r = n(5),
+       */ var r = n(4),
         a = n(184),
         i = n(185);
       function s(e) {
@@ -28165,7 +28165,7 @@ object-assign
               )),
           )),
           c),
-        z = n(5),
+        z = n(4),
         U = n.n(z);
       !(function (e) {
         e[(e.addIdToken = 0)] = 'addIdToken';
@@ -28431,9 +28431,15 @@ object-assign
                   a
                     .request(t, n)
                     .catch(function (e) {
-                      if (!(se && e.response.status >= 500 && '/500' != location.pathname))
-                        throw (e.response.error && console.log(e.response.error), e);
-                      (document.location.href = '/500'), console.error(e);
+                      var t,
+                        n,
+                        r = null === (t = e.response) || void 0 === t ? void 0 : t.status;
+                      if ((console.log(e), !(se && r >= 500 && '/500' !== location.pathname)))
+                        throw (
+                          ((null === (n = e.response) || void 0 === n ? void 0 : n.error) &&
+                            console.log(e.response.error),
+                          e)
+                        );
                     })
                     .then(function (e) {
                       return null == r ? void 0 : r(e, n);
@@ -29316,39 +29322,87 @@ object-assign
                 }),
           u = !!o && i.includes(s),
           l = !!o && !i.includes(s),
-          d =
+          d = u || l,
+          c =
             ((t = _.collectionBySlug),
             (n = { slug: s, marketplaceID: f.a.MARKETPLACE_ID }),
-            ['Mojito '.concat(_[t]), n]),
-          c = Object(m.useQuery)(
-            d,
+            ['Mojito '.concat(_[t]), n]);
+        console.log({ auctionSlug: s, collectionByPath: o, isAuction: u, isFakeAuction: l });
+        var h = Object(m.useQuery)(
+            c,
             function () {
               return Oe(r, void 0, void 0, function () {
-                return je(this, function (e) {
-                  switch (e.label) {
+                var e, t;
+                return je(this, function (n) {
+                  switch (n.label) {
                     case 0:
-                      return u || l
-                        ? [
+                      return d
+                        ? ((e =
+                            null === (t = null == o ? void 0 : o.items) || void 0 === t
+                              ? void 0
+                              : t.map(function (e) {
+                                  return e.id;
+                                })),
+                          [
                             4,
-                            _e({
-                              query: W[_.collectionBySlug],
-                              variables: { slug: s, marketplaceID: f.a.MARKETPLACE_ID },
-                              normalizerFn: ye,
-                              gqlClient: de,
-                            }),
-                          ]
-                        : (console.log('abort'), [2, null]);
+                            Promise.all([
+                              le.prefetchQuery(
+                                ['Contentful '.concat(V[V.auctionBySlug]), { slug: s }],
+                                _e.bind(null, {
+                                  query: ie[V.auctionBySlug],
+                                  variables: { slug: s },
+                                  normalizerFn: Me,
+                                  gqlClient: ce,
+                                }),
+                              ),
+                              le.prefetchQuery(
+                                ['Contentful '.concat(V[V.shortLots]), { slug: s }],
+                                _e.bind(null, {
+                                  query: ie[V.shortLots],
+                                  variables: { slug: s, mojitoIds: e },
+                                  normalizerFn: Me,
+                                  gqlClient: ce,
+                                }),
+                              ),
+                            ]),
+                          ])
+                        : [2, null];
                     case 1:
-                      return [2, e.sent()];
+                      return (
+                        n.sent(),
+                        [
+                          4,
+                          _e({
+                            query: W[_.collectionBySlug],
+                            variables: { slug: s, marketplaceID: f.a.MARKETPLACE_ID },
+                            normalizerFn: ye,
+                            gqlClient: de,
+                          }),
+                        ]
+                      );
+                    case 2:
+                      return [2, n.sent()];
                   }
                 });
               });
             },
-            (null == e ? void 0 : e.options) || {},
+            Ee(Ee({}, null == e ? void 0 : e.options), { enabled: d }),
           ),
-          h = c.data,
-          p = He(c, ['data']);
-        return Ee({ slug: u || l ? s : '', isAuction: u, isFakeAuction: l, collection: h }, p);
+          p = h.data,
+          y = h.refetch,
+          M = He(h, ['data', 'refetch']);
+        return (
+          Object(z.useEffect)(
+            function () {
+              d && y();
+            },
+            [d, y],
+          ),
+          Ee(
+            { slug: u || l ? s : '', isAuction: u, isFakeAuction: l, collection: p, refetch: y },
+            M,
+          )
+        );
       }
       function Ae(e, t) {
         var n,
@@ -29434,7 +29488,7 @@ object-assign
     },
     function (e, t, n) {
       'use strict';
-      var r = n(4),
+      var r = n(5),
         a = n(174),
         i = n.n(a).a.unstable_batchedUpdates;
       r.a.setBatchNotifyFunction(i);

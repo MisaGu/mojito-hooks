@@ -10,7 +10,7 @@ import {
   queryClient,
 } from '../../domain/utils/gqlRequest.util';
 import { useContentfulAuctionsSlugList } from '../useContentfulAuctionsSlugList/useContentfulAuctionsSlugList';
-import { getAuctionSlug, getPath } from '../../domain/utils/path.util';
+import { getAuctionSlug } from '../../domain/utils/path.util';
 import { contentfulNormalizer, mojitoNormalizer } from '../../domain/utils/gqlDataNormalizer.util';
 import { EMojitoQueries, mojitoQueries } from '../../domain/gql/queries';
 import { contentfulQueries, EContentfulQueries } from '../../domain/gql/contentful';
@@ -55,46 +55,42 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
   const { data, refetch, ...result } = useQuery(
     queryKey,
     async () => {
-      /*
-    const token = await getIdTokenClaims();
-
-    if (token) {
-      mojitoGqlClient.setHeader('authorization', `Bearer ${token.__raw}`);
-    }
-    */
-
       if (!isAnyAuction) return null;
 
-      /*
-    const collectionItems = collectionByPath?.items?.map((e) => e.id);
+      const collectionItems = collectionByPath?.items?.map((e) => e.id);
 
-    await Promise.all([
-      queryClient.prefetchQuery(
-        [
-          `Contentful ${EContentfulQueries[EContentfulQueries.auctionBySlug]}`,
-          { slug: auctionSlug },
-        ],
-        gqlRequest.bind(null, {
-          query: contentfulQueries[EContentfulQueries.auctionBySlug],
-          variables: { slug: auctionSlug },
-          normalizerFn: contentfulNormalizer,
-          gqlClient: contentfulGqlClient,
-        }),
-      ),
-      queryClient.prefetchQuery(
-        [`Contentful ${EContentfulQueries[EContentfulQueries.shortLots]}`, { slug: auctionSlug }],
-        gqlRequest.bind(null, {
-          query: contentfulQueries[EContentfulQueries.shortLots],
-          variables: {
-            slug: auctionSlug,
-            mojitoIds: collectionItems,
-          },
-          normalizerFn: contentfulNormalizer,
-          gqlClient: contentfulGqlClient,
-        }),
-      ),
-    ]);
-    */
+      // TODO: This is bad and skips type checking:
+
+      await Promise.all([
+        queryClient.prefetchQuery(
+          [
+            `Contentful ${EContentfulQueries[EContentfulQueries.auctionBySlug]}`,
+            { slug: auctionSlug },
+          ],
+          gqlRequest.bind(null, {
+            query: contentfulQueries[EContentfulQueries.auctionBySlug],
+            variables: { slug: auctionSlug },
+            normalizerFn: contentfulNormalizer,
+            gqlClient: contentfulGqlClient,
+          }),
+        ),
+        queryClient.prefetchQuery(
+          [`Contentful ${EContentfulQueries[EContentfulQueries.shortLots]}`, { slug: auctionSlug }],
+          gqlRequest.bind(null, {
+            query: contentfulQueries[EContentfulQueries.shortLots],
+            variables: {
+              slug: auctionSlug,
+              mojitoIds: collectionItems,
+            },
+            normalizerFn: contentfulNormalizer,
+            gqlClient: contentfulGqlClient,
+          }),
+        ),
+
+        // queryClient.prefetchQuery(
+        //   ...prefetchQueryGenerator(EContentfulQueries.shortLots, { slug: auctionSlug, mojitoIds: collectionItems }),
+        // ),
+      ]);
 
       return await gqlRequest<IMojitoCollection>({
         query: mojitoQueries[EMojitoQueries.collectionBySlug],
@@ -113,11 +109,7 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
   );
 
   useEffect(() => {
-    if (isAnyAuction) {
-      console.log('REFETCH');
-
-      refetch();
-    }
+    if (isAnyAuction) refetch();
   }, [isAnyAuction, refetch]);
 
   return {

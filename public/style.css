@@ -24,7 +24,7 @@ input[type='number'] {
 }
 
 .__dumi-default-previewer-demo {
-  font: monospace;
+  font-family: monospace;
 }
 
 .__dumi-default-previewer-demo pre {
