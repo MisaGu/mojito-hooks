@@ -29150,8 +29150,12 @@ object-assign
           auctionsSlugListError: i,
         };
       }
-      var xe = se ? window.location.pathname.split('#')[0].split('?')[0].split('/') : [],
-        Ee = function () {
+      function xe(e) {
+        return (
+          void 0 === e && (e = window.location.pathname), se ? [] : e.split('/').filter(Boolean)
+        );
+      }
+      var Ee = function () {
           return (Ee =
             Object.assign ||
             function (e) {
@@ -29293,58 +29297,58 @@ object-assign
           return n;
         };
       function Pe(e) {
-        var t = this,
-          n = Ye().marketplaceCollectionsSlugWithItemsId,
-          r = Se().auctionsSlugList,
-          a = (null == e ? void 0 : e.slug) || xe[1],
-          i =
-            null == n
+        var t,
+          n,
+          r = this,
+          a = Ye().marketplaceCollectionsSlugWithItemsId,
+          i = Se().auctionsSlugList,
+          s = (function (e) {
+            var t = void 0 === e ? {} : e,
+              n = t.pathname,
+              r = t.slug;
+            return r || xe(n)[0];
+          })(e),
+          o =
+            null == a
               ? void 0
-              : n.find(function (e) {
-                  return e.slug == a;
+              : a.find(function (e) {
+                  return e.slug == s;
                 }),
-          s = !!i && r.includes(a),
-          o = !!i && !r.includes(a),
-          u = [
-            'Mojito '.concat(_[_.collectionBySlug]),
-            { slug: a, marketplaceID: f.a.MARKETPLACE_ID },
-          ];
-        console.log({ auctionSlug: a, collectionByPath: i, queryKey: u });
-        var l = Object(m.useQuery)(
-            u,
+          u = !!o && i.includes(s),
+          l = !!o && !i.includes(s),
+          d =
+            ((t = _.collectionBySlug),
+            (n = { slug: s, marketplaceID: f.a.MARKETPLACE_ID }),
+            ['Mojito '.concat(_[t]), n]),
+          c = Object(m.useQuery)(
+            d,
             function () {
-              return Oe(t, void 0, void 0, function () {
+              return Oe(r, void 0, void 0, function () {
                 return je(this, function (e) {
                   switch (e.label) {
                     case 0:
-                      return [
-                        4,
-                        _e({
-                          query: W[_.collectionBySlug],
-                          variables: { slug: a, marketplaceID: f.a.MARKETPLACE_ID },
-                          normalizerFn: ye,
-                          gqlClient: de,
-                        }),
-                      ];
+                      return u || l
+                        ? [
+                            4,
+                            _e({
+                              query: W[_.collectionBySlug],
+                              variables: { slug: s, marketplaceID: f.a.MARKETPLACE_ID },
+                              normalizerFn: ye,
+                              gqlClient: de,
+                            }),
+                          ]
+                        : (console.log('abort'), [2, null]);
                     case 1:
                       return [2, e.sent()];
                   }
                 });
               });
             },
-            (null == e ? void 0 : e.options) ? Ee({}, null == e ? void 0 : e.options) : {},
+            (null == e ? void 0 : e.options) || {},
           ),
-          d = l.data,
-          c = He(l, ['data']);
-        return (
-          console.log(Ee(Ee({}, c), { data: d })),
-          Ee(
-            { slug: s || o ? a : '', isAuction: s, isFakeAuction: o },
-            (null == e ? void 0 : e.selector)
-              ? { data: d }
-              : Ee({ collection: null != d ? d : null }, c),
-          )
-        );
+          h = c.data,
+          p = He(c, ['data']);
+        return Ee({ slug: u || l ? s : '', isAuction: u, isFakeAuction: l, collection: h }, p);
       }
       function Ae(e, t) {
         var n,

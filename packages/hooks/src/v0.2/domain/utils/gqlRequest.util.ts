@@ -1,7 +1,7 @@
 import { GraphQLClient, RequestDocument, Variables } from 'graphql-request';
 import { QueryClient } from 'react-query';
 import { config } from '../constants/general.constants';
-import isBrowser from './isBrowser.util';
+import { isBrowser } from './isBrowser.util';
 
 export const queryClient = new QueryClient({
   defaultOptions: {
