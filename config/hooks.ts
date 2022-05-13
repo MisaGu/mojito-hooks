@@ -8,6 +8,8 @@ export const menus = [
       'useCollectionItemCurrentBids',
       'useCollectionItemRemainingCount',
       'useCollectionLotsIdList',
+      'useContentful',
+      'useContentfulAuctionsSlugList',
       'useMarketplaceCollectionsSlugWithItemsId',
       'useMojitoFactory',
     ],

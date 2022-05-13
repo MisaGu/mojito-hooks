@@ -1,15 +1,8 @@
-import { GraphQLClient, Variables } from 'graphql-request';
+import { Variables } from 'graphql-request';
 import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
-import { config } from '../../domain/constants/general.constants';
 import { contentfulQueries, EContentfulQueries } from '../../domain/gql/contentful';
 import { contentfulNormalizer } from '../../domain/utils/gqlDataNormalizer.util';
-import { gqlRequest } from '../../domain/utils/gqlRequest.util';
-
-export const contentfulGqlClient = new GraphQLClient(config.CONTENTFUL_URL, {
-  headers: {
-    Authorization: `Bearer ${config.CONTENTFUL_AUTH_TOKEN}`,
-  },
-});
+import { contentfulGqlClient, gqlRequest } from '../../domain/utils/gqlRequest.util';
 
 export function useContentful<T = any, V = Variables>(
   query: EContentfulQueries,

@@ -41,9 +41,9 @@ export function useMojitoFactory<T = any>({
 
       if (isAuthenticated) {
         mojitoGqlClient.setHeader('authorization', `Bearer ${token}`);
-      } /* else if (onlyAuthenticated) {
+      } else if (onlyAuthenticated) {
         return null;
-      } */
+      }
 
       return await gqlRequest<T>({
         query: mojitoQueries[query],
