@@ -1,5 +1,6 @@
 import { GraphQLClient, RequestDocument, Variables } from 'graphql-request';
 import { QueryClient } from 'react-query';
+import { config } from '../constants/general.constants';
 import isBrowser from './isBrowser.util';
 
 export const queryClient = new QueryClient({
@@ -8,6 +9,14 @@ export const queryClient = new QueryClient({
       staleTime: typeof window === 'undefined' ? 0 : 180000, // 3min
       cacheTime: Infinity, // disable garbage collection
     },
+  },
+});
+
+export const mojitoGqlClient = new GraphQLClient(config.MOJITO_API_URL);
+
+export const contentfulGqlClient = new GraphQLClient(config.CONTENTFUL_URL, {
+  headers: {
+    Authorization: `Bearer ${config.CONTENTFUL_AUTH_TOKEN}`,
   },
 });
 
@@ -31,7 +40,13 @@ export async function gqlRequest<T>({
         document.location.href = '/500';
         console.error(e);
       } else {
-        throw e.response.errors[0];
+        // throw e.response.errors[0];
+
+        if (e.response.error) {
+          console.log(e.response.error);
+        }
+
+        throw e;
       }
     })
     .then((data) => normalizerFn?.(data, variables));

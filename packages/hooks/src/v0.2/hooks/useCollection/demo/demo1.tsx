@@ -12,7 +12,9 @@ import { DemoProviders } from '../../../components/demo/provider/DemoProvider';
 import { useCollection } from '../useCollection';
 
 const DemoContent: React.FC = () => {
-  const result = useCollection();
+  const result = useCollection({
+    slug: 'testing',
+  });
 
   return <pre>{JSON.stringify(result, null, '  ')}</pre>;
 };
