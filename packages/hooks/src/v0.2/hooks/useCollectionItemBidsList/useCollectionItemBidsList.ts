@@ -1,6 +1,6 @@
-import { useCollection } from '../../../hooks';
 import { EMojitoQueries, IUseQueryResult } from '../../domain/gql/queries';
 import { IMojitoCollectionItemDetailsBid } from '../../domain/interfaces';
+import { useCollection } from '../useCollection/useCollection';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
 export function useCollectionItemBidsList(

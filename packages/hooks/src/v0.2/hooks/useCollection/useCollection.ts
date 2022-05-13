@@ -25,7 +25,7 @@ interface UseCollectionProps<TSelectorResult> {
 // TODO: Separate props and result interfaces in separate file in this module.
 
 export function useCollection<TSelectorResult = undefined>(
-  props: UseCollectionProps<TSelectorResult>,
+  props?: UseCollectionProps<TSelectorResult>,
 ): {
   slug: string;
   isAuction: boolean;
@@ -40,7 +40,7 @@ export function useCollection<TSelectorResult = undefined>(
   // const { getIdTokenClaims } = useAuth0();
   const { marketplaceCollectionsSlugWithItemsId } = useMarketplaceCollectionsSlugWithItemsId();
   const { auctionsSlugList } = useContentfulAuctionsSlugList();
-  const auctionSlug = props.slug || getPath[1];
+  const auctionSlug = props?.slug || getPath[1];
   const collectionByPath = marketplaceCollectionsSlugWithItemsId?.find(
     (e) => e.slug == auctionSlug,
   );
@@ -54,8 +54,6 @@ export function useCollection<TSelectorResult = undefined>(
       marketplaceID: config.MARKETPLACE_ID,
     },
   ];
-
-  console.log({ auctionSlug, collectionByPath, queryKey });
 
   const { data, ...result } = useQuery(
     queryKey,
@@ -114,7 +112,7 @@ export function useCollection<TSelectorResult = undefined>(
     props?.options ? { ...props?.options } : {},
   );
 
-  console.log({ ...result, data });
+  // console.log({ ...result, data });
 
   // @ts-ignore
   return {

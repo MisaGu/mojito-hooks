@@ -1,5 +1,5 @@
-import { useCollection } from '../../../hooks';
 import { EMojitoQueries, IUseQueryResult } from '../../domain/gql/queries';
+import { useCollection } from '../useCollection/useCollection';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
 export function useCollectionItemRemainingCount(

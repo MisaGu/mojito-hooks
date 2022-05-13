@@ -50,7 +50,7 @@ const LINK_STYLE: CSSProperties = {
 export const Json: React.FC<JsonProps> = ({ obj }) => {
   return (
     <>
-      <pre style={{ margin: 0 }}>{JSON.stringify(obj, jsonReplacer, '  ')}</pre>
+      <pre>{JSON.stringify(obj, jsonReplacer, '  ')}</pre>
 
       <a
         href="https://react-query.tanstack.com/reference/useQuery"

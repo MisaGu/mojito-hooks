@@ -3,9 +3,8 @@ import { EMojitoQueries, mojitoQueries } from '../gql/queries';
 import { contentfulQueries, EContentfulQueries } from '../gql/contentful';
 import { config } from '../constants/general.constants';
 import { IMojitoCollection } from '../interfaces';
-import { contentfulGqlClient, mojitoGqlClient } from '../../../hooks';
 import { contentfulNormalizer, mojitoNormalizer } from './gqlDataNormalizer.util';
-import { gqlRequest, queryClient } from './gqlRequest.util';
+import { contentfulGqlClient, gqlRequest, mojitoGqlClient, queryClient } from './gqlRequest.util';
 
 export async function getDehydratedState(
   props: any,
