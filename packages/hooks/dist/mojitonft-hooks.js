@@ -28434,12 +28434,15 @@ object-assign
                       var t,
                         n,
                         r = null === (t = e.response) || void 0 === t ? void 0 : t.status;
-                      if ((console.log(e), !(se && r >= 500 && '/500' !== location.pathname)))
+                      if (
+                        (console.log(e), !(se && r >= 500 && '/500' !== window.location.pathname))
+                      )
                         throw (
                           ((null === (n = e.response) || void 0 === n ? void 0 : n.error) &&
                             console.log(e.response.error),
                           e)
                         );
+                      window.location.href = '/500';
                     })
                     .then(function (e) {
                       return null == r ? void 0 : r(e, n);
@@ -29320,15 +29323,14 @@ object-assign
               : a.find(function (e) {
                   return e.slug == s;
                 }),
-          u = !!o && i.includes(s),
-          l = !!o && !i.includes(s),
-          d = u || l,
+          u = !!o,
+          l = u && i.includes(s),
+          d = u && !l,
           c =
             ((t = _.collectionBySlug),
             (n = { slug: s, marketplaceID: f.a.MARKETPLACE_ID }),
-            ['Mojito '.concat(_[t]), n]);
-        console.log({ auctionSlug: s, collectionByPath: o, isAuction: u, isFakeAuction: l });
-        var h = Object(m.useQuery)(
+            ['Mojito '.concat(_[t]), n]),
+          h = Object(m.useQuery)(
             c,
             function () {
               return Oe(r, void 0, void 0, function () {
@@ -29336,7 +29338,7 @@ object-assign
                 return je(this, function (n) {
                   switch (n.label) {
                     case 0:
-                      return d
+                      return u
                         ? ((e =
                             null === (t = null == o ? void 0 : o.items) || void 0 === t
                               ? void 0
@@ -29386,7 +29388,7 @@ object-assign
                 });
               });
             },
-            Ee(Ee({}, null == e ? void 0 : e.options), { enabled: d }),
+            Ee(Ee({}, null == e ? void 0 : e.options), { enabled: u }),
           ),
           p = h.data,
           y = h.refetch,
@@ -29394,12 +29396,12 @@ object-assign
         return (
           Object(z.useEffect)(
             function () {
-              d && y();
+              u && y();
             },
-            [d, y],
+            [u, y],
           ),
           Ee(
-            { slug: u || l ? s : '', isAuction: u, isFakeAuction: l, collection: p, refetch: y },
+            { slug: l || d ? s : '', isAuction: l, isFakeAuction: d, collection: p, refetch: y },
             M,
           )
         );

@@ -23,15 +23,34 @@ input[type='number'] {
   font-size: 16px;
 }
 
+.__dumi-default-code-block {
+  border: 1px solid #ebedf1 !important;
+}
+
 .__dumi-default-previewer-demo {
   font-family: monospace;
+  padding: 24px !important;
 }
 
 .__dumi-default-previewer-demo pre {
   margin: 0;
+  margin: 0 -24px;
+  padding: 24px;
+  border-bottom: 1px solid #ebedf1;
+  max-height: 50vh;
+  background: #f9fafb;
+  overflow: scroll;
+}
+
+.__dumi-default-previewer-demo pre:first-child {
+  margin-top: -24px;
+}
+
+.__dumi-default-previewer-demo p {
+  margin: 0 !important;
 }
 
 .__dumi-default-previewer-demo p + p,
 .__dumi-default-previewer-demo pre + p {
-  margin-top: 8px;
+  margin-top: 16px !important;
 }

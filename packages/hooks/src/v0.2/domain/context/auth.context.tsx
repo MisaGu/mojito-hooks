@@ -3,22 +3,31 @@ import React from 'react';
 /**
  * Actions list that manipulate the context provider
  */
-export enum EAuthContextActionTypes {
-  addIdToken,
+export enum EAuthActionTypes {
+  addToken,
+  clearToken,
 }
 
 /**
  * Interface to describe the actions that manipulate the context provider
  */
-interface IAction {
-  type: EAuthContextActionTypes;
-  token?: string;
+interface AuthActionAdd {
+  type: EAuthActionTypes.addToken;
+  token: string;
 }
+
+interface AuthActionClear {
+  type: EAuthActionTypes.clearToken;
+}
+
+type AuthActions = AuthActionAdd | AuthActionClear;
+
+type AuthDispatch = (action: AuthActions) => void;
 
 /**
  * Interface to describe the data contained within the context provider
  */
-interface State {
+interface AuthState {
   token: string;
   isAuthenticated: boolean;
 }
@@ -26,7 +35,7 @@ interface State {
 /**
  * Data the context provider shares during the initial render
  */
-const initialState: State = {
+const initialState: AuthState = {
   token: '',
   isAuthenticated: false,
 };
@@ -37,54 +46,61 @@ const initialState: State = {
  * @param action the event to manipulate the state
  * @returns updated state
  */
-function Reducer(state: State, action: IAction) {
+function Reducer(state: AuthState, action: AuthActions) {
   switch (action.type) {
-    case EAuthContextActionTypes.addIdToken: {
+    case EAuthActionTypes.addToken: {
       if (!action.token) throw new Error(`action.token MUST be provided for: ${action.type}`);
 
       return {
-        ...state,
         token: action.token,
-        isAuthenticated: !!action.token,
+        isAuthenticated: true,
       };
     }
+
+    case EAuthActionTypes.clearToken: {
+      return {
+        token: '',
+        isAuthenticated: false,
+      };
+    }
+
     default: {
-      throw new Error(`Unhandled action type: ${action.type}`);
+      throw new Error(`Unhandled action type: ${(action as any).type}`);
     }
   }
 }
-
-export const AuthProvider = Provider;
-export const useAuthContext = useContext;
 
 // ========================================================= //
 // ======================== FACTORY ======================== //
 // ========================================================= //
 
-type IDispatch = (action: IAction) => void;
-
 const StateContext = React.createContext<{
-  state?: State;
-  dispatch?: IDispatch;
+  state?: AuthState;
+  dispatch?: AuthDispatch;
 }>({
   state: undefined,
   dispatch: undefined,
 });
 
-function Provider({ children }: { children: React.ReactNode }): JSX.Element {
-  const [state, dispatch] = React.useReducer<React.Reducer<State, IAction>>(Reducer, initialState);
+export function AuthProvider({ children }: { children: React.ReactNode }): JSX.Element {
+  const [state, dispatch] = React.useReducer<React.Reducer<AuthState, AuthActions>>(
+    Reducer,
+    initialState,
+  );
 
   return <StateContext.Provider value={{ state, dispatch }}>{children}</StateContext.Provider>;
 }
 
-function useContext(): {
-  state: State;
-  dispatch: IDispatch;
+export function useAuthContext(): {
+  state: AuthState;
+  dispatch: AuthDispatch;
 } {
   const context = React.useContext(StateContext);
+
   if (context.dispatch === undefined || context.state === undefined) {
     throw new Error('useContext must be used within a Provider');
   }
+
   return {
     state: context.state,
     dispatch: context.dispatch,

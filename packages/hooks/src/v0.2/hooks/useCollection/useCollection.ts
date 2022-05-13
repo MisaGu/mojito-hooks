@@ -42,22 +42,20 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
     (e) => e.slug == auctionSlug,
   );
 
-  const isAuction = !!collectionByPath && auctionsSlugList.includes(auctionSlug);
-  const isFakeAuction = !!collectionByPath && !auctionsSlugList.includes(auctionSlug);
-  const isAnyAuction = isAuction || isFakeAuction;
+  const collectionExists = !!collectionByPath;
+  const isAuction = collectionExists && auctionsSlugList.includes(auctionSlug);
+  const isFakeAuction = collectionExists && !isAuction;
   const queryKey = queryKeyGenerator(EMojitoQueries.collectionBySlug, {
     slug: auctionSlug,
     marketplaceID: config.MARKETPLACE_ID,
   });
 
-  console.log({ auctionSlug, collectionByPath, isAuction, isFakeAuction });
-
   const { data, refetch, ...result } = useQuery(
     queryKey,
     async () => {
-      if (!isAnyAuction) return null;
+      if (!collectionExists) return null;
 
-      const collectionItems = collectionByPath?.items?.map((e) => e.id);
+      const collectionItems = collectionByPath?.items?.map((item) => item.id);
 
       // TODO: This is bad and skips type checking:
 
@@ -87,6 +85,7 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
           }),
         ),
 
+        // TODO: It should work like this:
         // queryClient.prefetchQuery(queryKeyGenerator(EContentfulQueries.auctionBySlug, { slug: auctionSlug }),
         // queryClient.prefetchQuery(queryKeyGenerator(EContentfulQueries.shortLots, { slug: auctionSlug, mojitoIds: collectionItems }),
       ]);
@@ -103,15 +102,16 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
     },
     {
       ...props?.options,
-      enabled: isAnyAuction,
+      enabled: collectionExists,
     },
   );
 
   useEffect(() => {
-    if (isAnyAuction) refetch();
-  }, [isAnyAuction, refetch]);
+    if (collectionExists) refetch();
+  }, [collectionExists, refetch]);
 
   return {
+    // TODO: These 3 props should just go into collection:
     slug: isAuction || isFakeAuction ? auctionSlug : '',
     isAuction,
     isFakeAuction,
