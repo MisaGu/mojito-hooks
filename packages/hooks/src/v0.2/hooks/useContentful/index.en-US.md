@@ -3,7 +3,7 @@ nav:
   path: /hooks
 ---
 
-# useCollectionLotsIdList
+# useContentful
 
 A hook that toggle states.
 
