@@ -22,6 +22,8 @@ interface UseCollectionProps<TSelectorResult> {
   selector?: (state: IMojitoCollection) => TSelectorResult;
 }
 
+// TODO: Separate props and result interfaces in separate file in this module.
+
 export function useCollection<TSelectorResult = undefined>(
   props: UseCollectionProps<TSelectorResult>,
 ): {
@@ -35,7 +37,7 @@ export function useCollection<TSelectorResult = undefined>(
   : {
       data?: TSelectorResult;
     }) {
-  const { getIdTokenClaims } = useAuth0();
+  // const { getIdTokenClaims } = useAuth0();
   const { marketplaceCollectionsSlugWithItemsId } = useMarketplaceCollectionsSlugWithItemsId();
   const { auctionsSlugList } = useContentfulAuctionsSlugList();
   const auctionSlug = props.slug || getPath[1];
@@ -53,15 +55,21 @@ export function useCollection<TSelectorResult = undefined>(
     },
   ];
 
+  console.log({ auctionSlug, collectionByPath, queryKey });
+
   const { data, ...result } = useQuery(
     queryKey,
     async () => {
+      /*
       const token = await getIdTokenClaims();
       if (token) {
         mojitoGqlClient.setHeader('authorization', `Bearer ${token.__raw}`);
       }
+      */
 
-      if (!isAuction && !isFakeAuction) return null;
+      // if (!isAuction && !isFakeAuction) return null;
+
+      /*
       const collectionItems = collectionByPath?.items?.map((e) => e.id);
 
       await Promise.all([
@@ -90,6 +98,7 @@ export function useCollection<TSelectorResult = undefined>(
           }),
         ),
       ]);
+      */
 
       return await gqlRequest<IMojitoCollection>({
         query: mojitoQueries[EMojitoQueries.collectionBySlug],
@@ -104,6 +113,8 @@ export function useCollection<TSelectorResult = undefined>(
     // @ts-ignore
     props?.options ? { ...props?.options } : {},
   );
+
+  console.log({ ...result, data });
 
   // @ts-ignore
   return {
