@@ -15,24 +15,24 @@ export type IUseQueryResult = UseQueryResult & {
 }; // FIXME this is temporary, change loading to isLoading everywhere
 
 export enum EMojitoQueries {
-  serverTime,
-  checkUsername,
-  userFavorites,
-  userActiveBids,
-  userWallets,
-  profile,
-  organization,
-  oneLot,
-  invoices,
-  collectionBySlug,
-  collectionLotsIdList,
-  marketplaceCollectionsInfoWithItemsIdAndSlug,
-  collectionBySlugCurrentBids,
-  collectionItemByIdBidsList,
-  collectionItemByIdRemainingCount,
+  serverTime = 'serverTime',
+  checkUsername = 'checkUsername',
+  userFavorites = 'userFavorites',
+  userActiveBids = 'userActiveBids',
+  userWallets = 'userWallets',
+  profile = 'profile',
+  organization = 'organization',
+  oneLot = 'oneLot',
+  invoices = 'invoices',
+  collectionBySlug = 'collectionBySlug',
+  collectionLotsIdList = 'collectionLotsIdList',
+  marketplaceCollectionsInfoWithItemsIdAndSlug = 'marketplaceCollectionsInfoWithItemsIdAndSlug',
+  collectionBySlugCurrentBids = 'collectionBySlugCurrentBids',
+  collectionItemByIdBidsList = 'collectionItemByIdBidsList',
+  collectionItemByIdRemainingCount = 'collectionItemByIdRemainingCount',
 }
 
-export const mojitoQueries = {
+export const mojitoQueries: Record<EMojitoQueries, string> = {
   [EMojitoQueries.profile]: gql`
     query GetProfile($filter: UserOrgFilter) {
       serverTime

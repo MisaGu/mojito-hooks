@@ -1,16 +1,16 @@
 import { gql } from 'graphql-request';
 
 export enum EContentfulQueries {
-  fullLot,
-  shortLots,
-  auctionBySlug,
-  auctionsSlugList,
-  collectors,
-  authors,
-  organizations,
+  fullLot = 'fullLot',
+  shortLots = 'shortLots',
+  auctionBySlug = 'auctionBySlug',
+  auctionsSlugList = 'auctionsSlugList',
+  collectors = 'collectors',
+  authors = 'authors',
+  organizations = 'organizations',
 }
 
-export const contentfulQueries = {
+export const contentfulQueries: Record<EContentfulQueries, string> = {
   [EContentfulQueries.fullLot]: gql`
     query lot($mojitoId: String) {
       lotCollection(where: { mojitoId: $mojitoId }) {

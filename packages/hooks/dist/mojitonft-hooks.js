@@ -300,7 +300,7 @@
             H = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g,
             P = {},
             A = {};
-          function I(e, t, n, r) {
+          function C(e, t, n, r) {
             var a = r;
             'string' == typeof r &&
               (a = function () {
@@ -316,7 +316,7 @@
                   return this.localeData().ordinal(a.apply(this, arguments), e);
                 });
           }
-          function C(e, t) {
+          function I(e, t) {
             return e.isValid()
               ? ((t = N(t, e.localeData())),
                 (P[t] =
@@ -381,12 +381,12 @@
               n = 0;
             return 0 !== t && isFinite(t) && (n = q(t)), n;
           }
-          function J(e, t) {
+          function Q(e, t) {
             return function (n) {
-              return null != n ? (G(this, e, n), a.updateOffset(this, t), this) : Q(this, e);
+              return null != n ? (G(this, e, n), a.updateOffset(this, t), this) : J(this, e);
             };
           }
-          function Q(e, t) {
+          function J(e, t) {
             return e.isValid() ? e._d['get' + (e._isUTC ? 'UTC' : '') + t]() : NaN;
           }
           function G(e, t, n) {
@@ -479,13 +479,13 @@
                 for (t = 0; t < this.length; ++t) if (this[t] === e) return t;
                 return -1;
               }),
-            I('M', ['MM', 2], 'Mo', function () {
+            C('M', ['MM', 2], 'Mo', function () {
               return this.month() + 1;
             }),
-            I('MMM', 0, 0, function (e) {
+            C('MMM', 0, 0, function (e) {
               return this.localeData().monthsShort(this, e);
             }),
-            I('MMMM', 0, 0, function (e) {
+            C('MMMM', 0, 0, function (e) {
               return this.localeData().months(this, e);
             }),
             R('month', 'M'),
@@ -561,7 +561,7 @@
             );
           }
           function Ee(e) {
-            return null != e ? (xe(this, e), a.updateOffset(this, !0), this) : Q(this, 'Month');
+            return null != e ? (xe(this, e), a.updateOffset(this, !0), this) : J(this, 'Month');
           }
           function Oe() {
             function e(e, t) {
@@ -589,16 +589,16 @@
           function je(e) {
             return K(e) ? 366 : 365;
           }
-          I('Y', 0, 0, function () {
+          C('Y', 0, 0, function () {
             var e = this.year();
             return e <= 9999 ? O(e, 4) : '+' + e;
           }),
-            I(0, ['YY', 2], 0, function () {
+            C(0, ['YY', 2], 0, function () {
               return this.year() % 100;
             }),
-            I(0, ['YYYY', 4], 0, 'year'),
-            I(0, ['YYYYY', 5], 0, 'year'),
-            I(0, ['YYYYYY', 6, !0], 0, 'year'),
+            C(0, ['YYYY', 4], 0, 'year'),
+            C(0, ['YYYYY', 5], 0, 'year'),
+            C(0, ['YYYYYY', 6, !0], 0, 'year'),
             R('year', 'y'),
             B('year', 1),
             fe('Y', de),
@@ -619,7 +619,7 @@
             (a.parseTwoDigitYear = function (e) {
               return V(e) + (V(e) > 68 ? 1900 : 2e3);
             });
-          var He = J('FullYear', !0);
+          var He = Q('FullYear', !0);
           function Pe(e, t, n, r, a, i, s) {
             var o;
             return (
@@ -641,14 +641,14 @@
               t
             );
           }
-          function Ie(e, t, n) {
+          function Ce(e, t, n) {
             var r = 7 + t - n;
             return (-(7 + Ae(e, 0, r).getUTCDay() - t) % 7) + r - 1;
           }
-          function Ce(e, t, n, r, a) {
+          function Ie(e, t, n, r, a) {
             var i,
               s,
-              o = 1 + 7 * (t - 1) + ((7 + n - r) % 7) + Ie(e, r, a);
+              o = 1 + 7 * (t - 1) + ((7 + n - r) % 7) + Ce(e, r, a);
             return (
               o <= 0
                 ? (s = je((i = e - 1)) + o)
@@ -661,7 +661,7 @@
           function Ne(e, t, n) {
             var r,
               a,
-              i = Ie(e.year(), t, n),
+              i = Ce(e.year(), t, n),
               s = Math.floor((e.dayOfYear() - i - 1) / 7) + 1;
             return (
               s < 1
@@ -673,15 +673,15 @@
             );
           }
           function Fe(e, t, n) {
-            var r = Ie(e, t, n),
-              a = Ie(e + 1, t, n);
+            var r = Ce(e, t, n),
+              a = Ce(e + 1, t, n);
             return (je(e) - r + a) / 7;
           }
           function Re(e, t) {
             return e.slice(t, 7).concat(e.slice(0, t));
           }
-          I('w', ['ww', 2], 'wo', 'week'),
-            I('W', ['WW', 2], 'Wo', 'isoWeek'),
+          C('w', ['ww', 2], 'wo', 'week'),
+            C('W', ['WW', 2], 'Wo', 'isoWeek'),
             R('week', 'w'),
             R('isoWeek', 'W'),
             B('week', 5),
@@ -693,18 +693,18 @@
             Le(['w', 'ww', 'W', 'WW'], function (e, t, n, r) {
               t[r.substr(0, 1)] = V(e);
             }),
-            I('d', 0, 'do', 'day'),
-            I('dd', 0, 0, function (e) {
+            C('d', 0, 'do', 'day'),
+            C('dd', 0, 0, function (e) {
               return this.localeData().weekdaysMin(this, e);
             }),
-            I('ddd', 0, 0, function (e) {
+            C('ddd', 0, 0, function (e) {
               return this.localeData().weekdaysShort(this, e);
             }),
-            I('dddd', 0, 0, function (e) {
+            C('dddd', 0, 0, function (e) {
               return this.localeData().weekdays(this, e);
             }),
-            I('e', 0, 0, 'weekday'),
-            I('E', 0, 0, 'isoWeekday'),
+            C('e', 0, 0, 'weekday'),
+            C('E', 0, 0, 'isoWeekday'),
             R('day', 'd'),
             R('weekday', 'e'),
             R('isoWeekday', 'E'),
@@ -784,7 +784,7 @@
               ? a
               : null;
           }
-          function Je() {
+          function Qe() {
             function e(e, t) {
               return t.length - e.length;
             }
@@ -819,32 +819,32 @@
               (this._weekdaysShortStrictRegex = new RegExp('^(' + o.join('|') + ')', 'i')),
               (this._weekdaysMinStrictRegex = new RegExp('^(' + s.join('|') + ')', 'i'));
           }
-          function Qe() {
+          function Je() {
             return this.hours() % 12 || 12;
           }
           function Ge(e, t) {
-            I(e, 0, 0, function () {
+            C(e, 0, 0, function () {
               return this.localeData().meridiem(this.hours(), this.minutes(), t);
             });
           }
           function $e(e, t) {
             return t._meridiemParse;
           }
-          I('H', ['HH', 2], 0, 'hour'),
-            I('h', ['hh', 2], 0, Qe),
-            I('k', ['kk', 2], 0, function () {
+          C('H', ['HH', 2], 0, 'hour'),
+            C('h', ['hh', 2], 0, Je),
+            C('k', ['kk', 2], 0, function () {
               return this.hours() || 24;
             }),
-            I('hmm', 0, 0, function () {
-              return '' + Qe.apply(this) + O(this.minutes(), 2);
+            C('hmm', 0, 0, function () {
+              return '' + Je.apply(this) + O(this.minutes(), 2);
             }),
-            I('hmmss', 0, 0, function () {
-              return '' + Qe.apply(this) + O(this.minutes(), 2) + O(this.seconds(), 2);
+            C('hmmss', 0, 0, function () {
+              return '' + Je.apply(this) + O(this.minutes(), 2) + O(this.seconds(), 2);
             }),
-            I('Hmm', 0, 0, function () {
+            C('Hmm', 0, 0, function () {
               return '' + this.hours() + O(this.minutes(), 2);
             }),
-            I('Hmmss', 0, 0, function () {
+            C('Hmmss', 0, 0, function () {
               return '' + this.hours() + O(this.minutes(), 2) + O(this.seconds(), 2);
             }),
             Ge('a', !0),
@@ -896,7 +896,7 @@
               (t[3] = V(e.substr(0, r))), (t[4] = V(e.substr(r, 2))), (t[5] = V(e.substr(a)));
             });
           var Ze,
-            Xe = J('Hours', !0),
+            Xe = Q('Hours', !0),
             et = {
               calendar: {
                 sameDay: '[Today at] LT',
@@ -1246,7 +1246,7 @@
                           ? (h(e)._overflowWeeks = !0)
                           : null != u
                           ? (h(e)._overflowWeekday = !0)
-                          : ((o = Ce(n, r, a, i, s)),
+                          : ((o = Ie(n, r, a, i, s)),
                             (e._a[0] = o.year),
                             (e._dayOfYear = o.dayOfYear));
                     })(e),
@@ -1514,7 +1514,7 @@
             return e < 0 ? -1 * Math.round(-1 * e) : Math.round(e);
           }
           function Pt(e, t) {
-            I(e, 0, 0, function () {
+            C(e, 0, 0, function () {
               var e = this.utcOffset(),
                 n = '+';
               return e < 0 && ((e = -e), (n = '-')), n + O(~~(e / 60), 2) + t + O(~~e % 60, 2);
@@ -1525,10 +1525,10 @@
             fe('Z', _e),
             fe('ZZ', _e),
             ve(['Z', 'ZZ'], function (e, t, n) {
-              (n._useUTC = !0), (n._tzm = It(_e, e));
+              (n._useUTC = !0), (n._tzm = Ct(_e, e));
             });
           var At = /([\+\-]|\d\d)/gi;
-          function It(e, t) {
+          function Ct(e, t) {
             var n,
               r,
               a = (t || '').match(e);
@@ -1542,7 +1542,7 @@
               ? r
               : -r;
           }
-          function Ct(e, t) {
+          function It(e, t) {
             var n, r;
             return t._isUTC
               ? ((n = t.clone()),
@@ -1605,7 +1605,7 @@
                   (s = Dt(l.to)),
                   (a =
                     i.isValid() && s.isValid()
-                      ? ((s = Ct(s, i)),
+                      ? ((s = It(s, i)),
                         i.isBefore(s)
                           ? (u = Bt(i, s))
                           : (((u = Bt(s, i)).milliseconds = -u.milliseconds),
@@ -1661,8 +1661,8 @@
               o = Ht(t._months);
             e.isValid() &&
               ((r = null == r || r),
-              o && xe(e, Q(e, 'Month') + o * n),
-              s && G(e, 'Date', Q(e, 'Date') + s * n),
+              o && xe(e, J(e, 'Month') + o * n),
+              s && G(e, 'Date', J(e, 'Date') + s * n),
               i && e._d.setTime(e._d.valueOf() + i * n),
               r && a.updateOffset(e, s || o));
           }
@@ -1671,15 +1671,15 @@
               return zt(NaN);
             });
           var Vt = Kt(1, 'add'),
-            Jt = Kt(-1, 'subtract');
-          function Qt(e) {
+            Qt = Kt(-1, 'subtract');
+          function Jt(e) {
             return 'string' == typeof e || e instanceof String;
           }
           function Gt(e) {
             return (
               k(e) ||
               c(e) ||
-              Qt(e) ||
+              Jt(e) ||
               d(e) ||
               (function (e) {
                 var t = i(e),
@@ -1689,7 +1689,7 @@
                     (n =
                       0 ===
                       e.filter(function (t) {
-                        return !d(t) && Qt(e);
+                        return !d(t) && Jt(e);
                       }).length),
                   t && n
                 );
@@ -1805,7 +1805,7 @@
               (this._erasNarrowRegex = new RegExp('^(' + a.join('|') + ')', 'i'));
           }
           function un(e, t) {
-            I(0, [e, e.length], 0, t);
+            C(0, [e, e.length], 0, t);
           }
           function ln(e, t, n, r, a) {
             var i;
@@ -1814,7 +1814,7 @@
               : (t > (i = Fe(e, r, a)) && (t = i), dn.call(this, e, t, n, r, a));
           }
           function dn(e, t, n, r, a) {
-            var i = Ce(e, t, n, r, a),
+            var i = Ie(e, t, n, r, a),
               s = Ae(i.year, 0, i.dayOfYear);
             return (
               this.year(s.getUTCFullYear()),
@@ -1823,15 +1823,15 @@
               this
             );
           }
-          I('N', 0, 0, 'eraAbbr'),
-            I('NN', 0, 0, 'eraAbbr'),
-            I('NNN', 0, 0, 'eraAbbr'),
-            I('NNNN', 0, 0, 'eraName'),
-            I('NNNNN', 0, 0, 'eraNarrow'),
-            I('y', ['y', 1], 'yo', 'eraYear'),
-            I('y', ['yy', 2], 0, 'eraYear'),
-            I('y', ['yyy', 3], 0, 'eraYear'),
-            I('y', ['yyyy', 4], 0, 'eraYear'),
+          C('N', 0, 0, 'eraAbbr'),
+            C('NN', 0, 0, 'eraAbbr'),
+            C('NNN', 0, 0, 'eraAbbr'),
+            C('NNNN', 0, 0, 'eraName'),
+            C('NNNNN', 0, 0, 'eraNarrow'),
+            C('y', ['y', 1], 'yo', 'eraYear'),
+            C('y', ['yy', 2], 0, 'eraYear'),
+            C('y', ['yyy', 3], 0, 'eraYear'),
+            C('y', ['yyyy', 4], 0, 'eraYear'),
             fe('N', sn),
             fe('NN', sn),
             fe('NNN', sn),
@@ -1860,10 +1860,10 @@
                   ? (t[0] = n._locale.eraYearOrdinalParse(e, a))
                   : (t[0] = parseInt(e, 10));
             }),
-            I(0, ['gg', 2], 0, function () {
+            C(0, ['gg', 2], 0, function () {
               return this.weekYear() % 100;
             }),
-            I(0, ['GG', 2], 0, function () {
+            C(0, ['GG', 2], 0, function () {
               return this.isoWeekYear() % 100;
             }),
             un('gggg', 'weekYear'),
@@ -1888,14 +1888,14 @@
             Le(['gg', 'GG'], function (e, t, n, r) {
               t[r] = a.parseTwoDigitYear(e);
             }),
-            I('Q', 0, 'Qo', 'quarter'),
+            C('Q', 0, 'Qo', 'quarter'),
             R('quarter', 'Q'),
             B('quarter', 7),
             fe('Q', Z),
             ve('Q', function (e, t) {
               t[1] = 3 * (V(e) - 1);
             }),
-            I('D', ['DD', 2], 'Do', 'date'),
+            C('D', ['DD', 2], 'Do', 'date'),
             R('date', 'D'),
             B('date', 9),
             fe('D', re),
@@ -1909,8 +1909,8 @@
             ve('Do', function (e, t) {
               t[2] = V(e.match(re)[0]);
             });
-          var cn = J('Date', !0);
-          I('DDD', ['DDDD', 3], 'DDDo', 'dayOfYear'),
+          var cn = Q('Date', !0);
+          C('DDD', ['DDDD', 3], 'DDDo', 'dayOfYear'),
             R('dayOfYear', 'DDD'),
             B('dayOfYear', 4),
             fe('DDD', se),
@@ -1918,14 +1918,14 @@
             ve(['DDD', 'DDDD'], function (e, t, n) {
               n._dayOfYear = V(e);
             }),
-            I('m', ['mm', 2], 0, 'minute'),
+            C('m', ['mm', 2], 0, 'minute'),
             R('minute', 'm'),
             B('minute', 14),
             fe('m', re),
             fe('mm', re, X),
             ve(['m', 'mm'], 4);
-          var _n = J('Minutes', !1);
-          I('s', ['ss', 2], 0, 'second'),
+          var _n = Q('Minutes', !1);
+          C('s', ['ss', 2], 0, 'second'),
             R('second', 's'),
             B('second', 15),
             fe('s', re),
@@ -1933,31 +1933,31 @@
             ve(['s', 'ss'], 5);
           var mn,
             fn,
-            hn = J('Seconds', !1);
+            hn = Q('Seconds', !1);
           for (
-            I('S', 0, 0, function () {
+            C('S', 0, 0, function () {
               return ~~(this.millisecond() / 100);
             }),
-              I(0, ['SS', 2], 0, function () {
+              C(0, ['SS', 2], 0, function () {
                 return ~~(this.millisecond() / 10);
               }),
-              I(0, ['SSS', 3], 0, 'millisecond'),
-              I(0, ['SSSS', 4], 0, function () {
+              C(0, ['SSS', 3], 0, 'millisecond'),
+              C(0, ['SSSS', 4], 0, function () {
                 return 10 * this.millisecond();
               }),
-              I(0, ['SSSSS', 5], 0, function () {
+              C(0, ['SSSSS', 5], 0, function () {
                 return 100 * this.millisecond();
               }),
-              I(0, ['SSSSSS', 6], 0, function () {
+              C(0, ['SSSSSS', 6], 0, function () {
                 return 1e3 * this.millisecond();
               }),
-              I(0, ['SSSSSSS', 7], 0, function () {
+              C(0, ['SSSSSSS', 7], 0, function () {
                 return 1e4 * this.millisecond();
               }),
-              I(0, ['SSSSSSSS', 8], 0, function () {
+              C(0, ['SSSSSSSS', 8], 0, function () {
                 return 1e5 * this.millisecond();
               }),
-              I(0, ['SSSSSSSSS', 9], 0, function () {
+              C(0, ['SSSSSSSSS', 9], 0, function () {
                 return 1e6 * this.millisecond();
               }),
               R('millisecond', 'ms'),
@@ -1974,7 +1974,7 @@
             t[6] = V(1e3 * ('0.' + e));
           }
           for (mn = 'S'; mn.length <= 9; mn += 'S') ve(mn, pn);
-          (fn = J('Milliseconds', !1)), I('z', 0, 0, 'zoneAbbr'), I('zz', 0, 0, 'zoneName');
+          (fn = Q('Milliseconds', !1)), C('z', 0, 0, 'zoneAbbr'), C('zz', 0, 0, 'zoneName');
           var yn = g.prototype;
           function Mn(e) {
             return e;
@@ -1988,7 +1988,7 @@
                     : $t(arguments[0]) && ((t = arguments[0]), (e = void 0))
                   : ((e = void 0), (t = void 0)));
               var n = e || Dt(),
-                r = Ct(n, this).startOf('day'),
+                r = It(n, this).startOf('day'),
                 i = a.calendarFormat(this, r) || 'sameElse',
                 s = t && (S(t[i]) ? t[i].call(this, n) : t[i]);
               return this.format(s || this.localeData().calendar(i, this, Dt(n)));
@@ -1999,7 +1999,7 @@
             (yn.diff = function (e, t, n) {
               var r, a, i;
               if (!this.isValid()) return NaN;
-              if (!(r = Ct(e, this)).isValid()) return NaN;
+              if (!(r = It(e, this)).isValid()) return NaN;
               switch (((a = 6e4 * (r.utcOffset() - this.utcOffset())), (t = W(t)))) {
                 case 'year':
                   i = Zt(this, r) / 12;
@@ -2067,7 +2067,7 @@
             }),
             (yn.format = function (e) {
               e || (e = this.isUtc() ? a.defaultFormatUtc : a.defaultFormat);
-              var t = C(this, e);
+              var t = I(this, e);
               return this.localeData().postformat(t);
             }),
             (yn.from = function (e, t) {
@@ -2201,7 +2201,7 @@
               }
               return this._d.setTime(t), a.updateOffset(this, !0), this;
             }),
-            (yn.subtract = Jt),
+            (yn.subtract = Qt),
             (yn.toArray = function () {
               var e = this;
               return [
@@ -2234,14 +2234,14 @@
               var t = !0 !== e,
                 n = t ? this.clone().utc() : this;
               return n.year() < 0 || n.year() > 9999
-                ? C(n, t ? 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYYYY-MM-DD[T]HH:mm:ss.SSSZ')
+                ? I(n, t ? 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYYYY-MM-DD[T]HH:mm:ss.SSSZ')
                 : S(Date.prototype.toISOString)
                 ? t
                   ? this.toDate().toISOString()
                   : new Date(this.valueOf() + 60 * this.utcOffset() * 1e3)
                       .toISOString()
-                      .replace('Z', C(n, 'Z'))
-                : C(n, t ? 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYY-MM-DD[T]HH:mm:ss.SSSZ');
+                      .replace('Z', I(n, 'Z'))
+                : I(n, t ? 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYY-MM-DD[T]HH:mm:ss.SSSZ');
             }),
             (yn.inspect = function () {
               if (!this.isValid()) return 'moment.invalid(/* ' + this._i + ' */)';
@@ -2442,7 +2442,7 @@
               if (!this.isValid()) return null != e ? this : NaN;
               if (null != e) {
                 if ('string' == typeof e) {
-                  if (null === (e = It(_e, e))) return this;
+                  if (null === (e = Ct(_e, e))) return this;
                 } else Math.abs(e) < 16 && !n && (e *= 60);
                 return (
                   !this._isUTC && t && (r = Nt(this)),
@@ -2474,7 +2474,7 @@
             (yn.parseZone = function () {
               if (null != this._tzm) this.utcOffset(this._tzm, !1, !0);
               else if ('string' == typeof this._i) {
-                var e = It(ce, this._i);
+                var e = Ct(ce, this._i);
                 null != e ? this.utcOffset(e) : this.utcOffset(0, !0);
               }
               return this;
@@ -2833,14 +2833,14 @@
             }),
             (vn.weekdaysRegex = function (e) {
               return this._weekdaysParseExact
-                ? (o(this, '_weekdaysRegex') || Je.call(this),
+                ? (o(this, '_weekdaysRegex') || Qe.call(this),
                   e ? this._weekdaysStrictRegex : this._weekdaysRegex)
                 : (o(this, '_weekdaysRegex') || (this._weekdaysRegex = Be),
                   this._weekdaysStrictRegex && e ? this._weekdaysStrictRegex : this._weekdaysRegex);
             }),
             (vn.weekdaysShortRegex = function (e) {
               return this._weekdaysParseExact
-                ? (o(this, '_weekdaysRegex') || Je.call(this),
+                ? (o(this, '_weekdaysRegex') || Qe.call(this),
                   e ? this._weekdaysShortStrictRegex : this._weekdaysShortRegex)
                 : (o(this, '_weekdaysShortRegex') || (this._weekdaysShortRegex = Ke),
                   this._weekdaysShortStrictRegex && e
@@ -2849,7 +2849,7 @@
             }),
             (vn.weekdaysMinRegex = function (e) {
               return this._weekdaysParseExact
-                ? (o(this, '_weekdaysRegex') || Je.call(this),
+                ? (o(this, '_weekdaysRegex') || Qe.call(this),
                   e ? this._weekdaysMinStrictRegex : this._weekdaysMinRegex)
                 : (o(this, '_weekdaysMinRegex') || (this._weekdaysMinRegex = qe),
                   this._weekdaysMinStrictRegex && e
@@ -2931,8 +2931,8 @@
             Hn = Sn('d'),
             Pn = Sn('w'),
             An = Sn('M'),
-            In = Sn('Q'),
-            Cn = Sn('y');
+            Cn = Sn('Q'),
+            In = Sn('y');
           function Nn(e) {
             return function () {
               return this.isValid() ? this._data[e] : NaN;
@@ -2947,10 +2947,10 @@
             Kn = Nn('years'),
             qn = Math.round,
             Vn = { ss: 44, s: 45, m: 45, h: 22, d: 26, w: null, M: 11 };
-          function Jn(e, t, n, r, a) {
+          function Qn(e, t, n, r, a) {
             return a.relativeTime(t || 1, !!n, e, r);
           }
-          var Qn = Math.abs;
+          var Jn = Math.abs;
           function Gn(e) {
             return (e > 0) - (e < 0) || +e;
           }
@@ -2964,9 +2964,9 @@
               i,
               s,
               o,
-              u = Qn(this._milliseconds) / 1e3,
-              l = Qn(this._days),
-              d = Qn(this._months),
+              u = Jn(this._milliseconds) / 1e3,
+              l = Jn(this._days),
+              d = Jn(this._months),
               c = this.asSeconds();
             return c
               ? ((e = q(u / 60)),
@@ -3056,8 +3056,8 @@
             (Zn.asDays = Hn),
             (Zn.asWeeks = Pn),
             (Zn.asMonths = An),
-            (Zn.asQuarters = In),
-            (Zn.asYears = Cn),
+            (Zn.asQuarters = Cn),
+            (Zn.asYears = In),
             (Zn.valueOf = function () {
               return this.isValid()
                 ? this._milliseconds +
@@ -3153,7 +3153,7 @@
                       (c <= 1 && ['y']) || ['yy', c])[2] = t),
                     (_[3] = +e > 0),
                     (_[4] = r),
-                    Jn.apply(null, _)
+                    Qn.apply(null, _)
                   );
                 })(this, !a, i, n)),
                 a && (r = n.pastFuture(+this, r)),
@@ -3170,8 +3170,8 @@
               $n,
             )),
             (Zn.lang = en),
-            I('X', 0, 0, 'unix'),
-            I('x', 0, 0, 'valueOf'),
+            C('X', 0, 0, 'unix'),
+            C('x', 0, 0, 'valueOf'),
             fe('x', de),
             fe('X', /[+-]?\d+(\.\d{1,3})?/),
             ve('X', function (e, t, n) {
@@ -4464,6 +4464,43 @@
     },
     function (e, t, n) {
       'use strict';
+      var r = n(14);
+      n.o(r, 'QueryClient') &&
+        n.d(t, 'QueryClient', function () {
+          return r.QueryClient;
+        }),
+        n.o(r, 'QueryClientProvider') &&
+          n.d(t, 'QueryClientProvider', function () {
+            return r.QueryClientProvider;
+          }),
+        n.o(r, 'useQuery') &&
+          n.d(t, 'useQuery', function () {
+            return r.useQuery;
+          }),
+        n.o(r, 'useQueryClient') &&
+          n.d(t, 'useQueryClient', function () {
+            return r.useQueryClient;
+          });
+      var a = n(24);
+      n.o(a, 'QueryClient') &&
+        n.d(t, 'QueryClient', function () {
+          return a.QueryClient;
+        }),
+        n.o(a, 'QueryClientProvider') &&
+          n.d(t, 'QueryClientProvider', function () {
+            return a.QueryClientProvider;
+          }),
+        n.o(a, 'useQuery') &&
+          n.d(t, 'useQuery', function () {
+            return a.useQuery;
+          }),
+        n.o(a, 'useQueryClient') &&
+          n.d(t, 'useQueryClient', function () {
+            return a.useQueryClient;
+          });
+    },
+    function (e, t, n) {
+      'use strict';
       n.d(t, 'a', function () {
         return a;
       }),
@@ -4477,27 +4514,6 @@
       function i(e) {
         r = e;
       }
-    },
-    function (e, t, n) {
-      'use strict';
-      var r = n(14);
-      n.o(r, 'QueryClient') &&
-        n.d(t, 'QueryClient', function () {
-          return r.QueryClient;
-        }),
-        n.o(r, 'useQuery') &&
-          n.d(t, 'useQuery', function () {
-            return r.useQuery;
-          });
-      var a = n(24);
-      n.o(a, 'QueryClient') &&
-        n.d(t, 'QueryClient', function () {
-          return a.QueryClient;
-        }),
-        n.o(a, 'useQuery') &&
-          n.d(t, 'useQuery', function () {
-            return a.useQuery;
-          });
     },
     function (e, t, n) {
       'use strict';
@@ -4576,16 +4592,27 @@
         return r.a;
       });
       var a = n(23);
-      n.o(a, 'useQuery') &&
-        n.d(t, 'useQuery', function () {
-          return a.useQuery;
-        });
+      n.o(a, 'QueryClientProvider') &&
+        n.d(t, 'QueryClientProvider', function () {
+          return a.QueryClientProvider;
+        }),
+        n.o(a, 'useQuery') &&
+          n.d(t, 'useQuery', function () {
+            return a.useQuery;
+          }),
+        n.o(a, 'useQueryClient') &&
+          n.d(t, 'useQueryClient', function () {
+            return a.useQueryClient;
+          });
     },
     function (e, t, n) {
       'use strict';
-      n.d(t, 'a', function () {
+      n.d(t, 'b', function () {
         return u;
-      });
+      }),
+        n.d(t, 'a', function () {
+          return l;
+        });
       var r = n(4),
         a = n.n(r),
         i = a.a.createContext(void 0),
@@ -4597,10 +4624,33 @@
           : i;
       }
       var u = function () {
-        var e = a.a.useContext(o(a.a.useContext(s)));
-        if (!e) throw new Error('No QueryClient set, use QueryClientProvider to set one');
-        return e;
-      };
+          var e = a.a.useContext(o(a.a.useContext(s)));
+          if (!e) throw new Error('No QueryClient set, use QueryClientProvider to set one');
+          return e;
+        },
+        l = function (e) {
+          var t = e.client,
+            n = e.contextSharing,
+            r = void 0 !== n && n,
+            i = e.children;
+          a.a.useEffect(
+            function () {
+              return (
+                t.mount(),
+                function () {
+                  t.unmount();
+                }
+              );
+            },
+            [t],
+          );
+          var u = o(r);
+          return a.a.createElement(
+            s.Provider,
+            { value: r },
+            a.a.createElement(u.Provider, { value: t }, i),
+          );
+        };
     },
     function (e, t, n) {
       'use strict';
@@ -4637,7 +4687,7 @@
         a = n(1),
         i = n(2),
         s = n(5),
-        o = n(11),
+        o = n(12),
         u = n(6),
         l = (function () {
           function e(e) {
@@ -5073,7 +5123,7 @@
       var r = n(10),
         a = n(5),
         i = n(2),
-        s = n(11),
+        s = n(12),
         o = n(6),
         u = n(1),
         l = (function () {
@@ -5513,14 +5563,21 @@
     function (e, t, n) {
       'use strict';
       n(210), n(211);
-      var r = n(172);
-      n.d(t, 'useQuery', function () {
+      var r = n(15);
+      n.d(t, 'QueryClientProvider', function () {
         return r.a;
+      }),
+        n.d(t, 'useQueryClient', function () {
+          return r.b;
+        });
+      var a = n(172);
+      n.d(t, 'useQuery', function () {
+        return a.a;
       });
-      var a = n(26);
-      n.o(a, 'QueryClient') &&
+      var i = n(26);
+      n.o(i, 'QueryClient') &&
         n.d(t, 'QueryClient', function () {
-          return a.QueryClient;
+          return i.QueryClient;
         });
     },
     function (e, t, n) {
@@ -5534,7 +5591,7 @@
         s = n(5),
         o = n(8),
         u = n(9),
-        l = n(11),
+        l = n(12),
         d = n(6),
         c = (function (e) {
           function t(t, n) {
@@ -17372,7 +17429,7 @@
         return (function (e, t) {
           var n = s.a.useRef(!1),
             r = s.a.useState(0)[1],
-            a = Object(l.a)(),
+            a = Object(l.b)(),
             i = Object(u.a)(),
             d = a.defaultQueryObserverOptions(e);
           (d.optimisticResults = !0),
@@ -17982,18 +18039,18 @@
       function A(e, t, n, r, a) {
         return e(t, n, r, a);
       }
-      function I() {}
-      var C = P,
+      function C() {}
+      var I = P,
         N = !1,
         F = !1;
       function R() {
-        (null === x && null === E) || (I(), H());
+        (null === x && null === E) || (C(), H());
       }
       function W(e, t, n) {
         if (F) return e(t, n);
         F = !0;
         try {
-          return C(e, t, n);
+          return I(e, t, n);
         } finally {
           (F = !1), R();
         }
@@ -18052,24 +18109,24 @@
         ['rowSpan', 'start'].forEach(function (e) {
           V[e] = new q(e, 5, !1, e.toLowerCase(), null, !1);
         });
-      var J = /[\-:]([a-z])/g;
-      function Q(e) {
+      var Q = /[\-:]([a-z])/g;
+      function J(e) {
         return e[1].toUpperCase();
       }
       'accent-height alignment-baseline arabic-form baseline-shift cap-height clip-path clip-rule color-interpolation color-interpolation-filters color-profile color-rendering dominant-baseline enable-background fill-opacity fill-rule flood-color flood-opacity font-family font-size font-size-adjust font-stretch font-style font-variant font-weight glyph-name glyph-orientation-horizontal glyph-orientation-vertical horiz-adv-x horiz-origin-x image-rendering letter-spacing lighting-color marker-end marker-mid marker-start overline-position overline-thickness paint-order panose-1 pointer-events rendering-intent shape-rendering stop-color stop-opacity strikethrough-position strikethrough-thickness stroke-dasharray stroke-dashoffset stroke-linecap stroke-linejoin stroke-miterlimit stroke-opacity stroke-width text-anchor text-decoration text-rendering underline-position underline-thickness unicode-bidi unicode-range units-per-em v-alphabetic v-hanging v-ideographic v-mathematical vector-effect vert-adv-y vert-origin-x vert-origin-y word-spacing writing-mode xmlns:xlink x-height'
         .split(' ')
         .forEach(function (e) {
-          var t = e.replace(J, Q);
+          var t = e.replace(Q, J);
           V[t] = new q(t, 1, !1, e, null, !1);
         }),
         'xlink:actuate xlink:arcrole xlink:role xlink:show xlink:title xlink:type'
           .split(' ')
           .forEach(function (e) {
-            var t = e.replace(J, Q);
+            var t = e.replace(Q, J);
             V[t] = new q(t, 1, !1, e, 'http://www.w3.org/1999/xlink', !1);
           }),
         ['xml:base', 'xml:lang', 'xml:space'].forEach(function (e) {
-          var t = e.replace(J, Q);
+          var t = e.replace(Q, J);
           V[t] = new q(t, 1, !1, e, 'http://www.w3.org/XML/1998/namespace', !1);
         }),
         ['tabIndex', 'crossOrigin'].forEach(function (e) {
@@ -18428,7 +18485,7 @@
       }
       var Pe = 'http://www.w3.org/1999/xhtml',
         Ae = 'http://www.w3.org/2000/svg';
-      function Ie(e) {
+      function Ce(e) {
         switch (e) {
           case 'svg':
             return 'http://www.w3.org/2000/svg';
@@ -18438,9 +18495,9 @@
             return 'http://www.w3.org/1999/xhtml';
         }
       }
-      function Ce(e, t) {
+      function Ie(e, t) {
         return null == e || 'http://www.w3.org/1999/xhtml' === e
-          ? Ie(t)
+          ? Ce(t)
           : 'http://www.w3.org/2000/svg' === e && 'foreignObject' === t
           ? 'http://www.w3.org/1999/xhtml'
           : e;
@@ -18509,8 +18566,8 @@
         'TransitionEvent' in window || delete ze.transitionend.transition);
       var qe = Ke('animationend'),
         Ve = Ke('animationiteration'),
-        Je = Ke('animationstart'),
-        Qe = Ke('transitionend'),
+        Qe = Ke('animationstart'),
+        Je = Ke('transitionend'),
         Ge =
           'abort canplay canplaythrough durationchange emptied encrypted ended error loadeddata loadedmetadata loadstart pause play playing progress ratechange seeked seeking stalled suspend timeupdate volumechange waiting'.split(
             ' ',
@@ -18732,15 +18789,15 @@
         if (!n.has(e)) {
           switch (e) {
             case 'scroll':
-              Jt(t, 'scroll', !0);
+              Qt(t, 'scroll', !0);
               break;
             case 'focus':
             case 'blur':
-              Jt(t, 'focus', !0), Jt(t, 'blur', !0), n.set('blur', null), n.set('focus', null);
+              Qt(t, 'focus', !0), Qt(t, 'blur', !0), n.set('blur', null), n.set('focus', null);
               break;
             case 'cancel':
             case 'close':
-              lt(e) && Jt(t, e, !0);
+              lt(e) && Qt(t, e, !0);
               break;
             case 'invalid':
             case 'submit':
@@ -18859,7 +18916,7 @@
           ((e.blockedOn = null),
           Mt || ((Mt = !0), i.unstable_scheduleCallback(i.unstable_NormalPriority, Pt)));
       }
-      function It(e) {
+      function Ct(e) {
         function t(t) {
           return At(t, e);
         }
@@ -18884,7 +18941,7 @@
         for (; 0 < Tt.length && null === (n = Tt[0]).blockedOn; )
           Ot(n), null === n.blockedOn && Tt.shift();
       }
-      var Ct = {},
+      var It = {},
         Nt = new Map(),
         Ft = new Map(),
         Rt = [
@@ -18894,7 +18951,7 @@
           'animationEnd',
           Ve,
           'animationIteration',
-          Je,
+          Qe,
           'animationStart',
           'canplay',
           'canPlay',
@@ -18934,7 +18991,7 @@
           'suspend',
           'timeupdate',
           'timeUpdate',
-          Qe,
+          Je,
           'transitionEnd',
           'waiting',
           'waiting',
@@ -18951,7 +19008,7 @@
           }),
             Ft.set(r, t),
             Nt.set(r, i),
-            (Ct[a] = i);
+            (It[a] = i);
         }
       }
       Wt(
@@ -18981,13 +19038,13 @@
         Kt = i.unstable_runWithPriority,
         qt = !0;
       function Vt(e, t) {
-        Jt(t, e, !1);
+        Qt(t, e, !1);
       }
-      function Jt(e, t, n) {
+      function Qt(e, t, n) {
         var r = Ft.get(t);
         switch (void 0 === r ? 2 : r) {
           case 0:
-            r = Qt.bind(null, t, 1, e);
+            r = Jt.bind(null, t, 1, e);
             break;
           case 1:
             r = Gt.bind(null, t, 1, e);
@@ -18997,8 +19054,8 @@
         }
         n ? e.addEventListener(t, r, !0) : e.addEventListener(t, r, !1);
       }
-      function Qt(e, t, n, r) {
-        N || I();
+      function Jt(e, t, n, r) {
+        N || C();
         var a = $t,
           i = N;
         N = !0;
@@ -19390,10 +19447,10 @@
           ((n._dispatchListeners = rt(n._dispatchListeners, t)),
           (n._dispatchInstances = rt(n._dispatchInstances, e)));
       }
-      function In(e) {
+      function Cn(e) {
         e && e.dispatchConfig.registrationName && An(e._targetInst, null, e);
       }
-      function Cn(e) {
+      function In(e) {
         at(e, Pn);
       }
       var Nn = null,
@@ -19514,8 +19571,8 @@
           );
         }),
         Vn(Bn);
-      var Jn = Bn.extend({ data: null }),
-        Qn = Bn.extend({ data: null }),
+      var Qn = Bn.extend({ data: null }),
+        Jn = Bn.extend({ data: null }),
         Gn = [9, 13, 27, 32],
         $n = w && 'CompositionEvent' in window,
         Zn = null;
@@ -19599,9 +19656,9 @@
                     (sr || i !== nr.compositionStart
                       ? i === nr.compositionEnd && sr && (a = Wn())
                       : ((Fn = 'value' in (Nn = r) ? Nn.value : Nn.textContent), (sr = !0))),
-                  (i = Jn.getPooled(i, t, n, r)),
+                  (i = Qn.getPooled(i, t, n, r)),
                   a ? (i.data = a) : null !== (a = ir(n)) && (i.data = a),
-                  Cn(i),
+                  In(i),
                   (a = i))
                 : (a = null),
               (e = Xn
@@ -19637,7 +19694,7 @@
                         return null;
                     }
                   })(e, n))
-                ? (((t = Qn.getPooled(nr.beforeInput, t, n, r)).data = e), Cn(t))
+                ? (((t = Jn.getPooled(nr.beforeInput, t, n, r)).data = e), In(t))
                 : (t = null),
               null === a ? t : null === t ? a : [a, t]
             );
@@ -19671,7 +19728,7 @@
         },
       };
       function cr(e, t, n) {
-        return ((e = Bn.getPooled(dr.change, e, t, n)).type = 'change'), j(n), Cn(e), e;
+        return ((e = Bn.getPooled(dr.change, e, t, n)).type = 'change'), j(n), In(e), e;
       }
       var _r = null,
         mr = null;
@@ -19813,7 +19870,7 @@
             dependencies: ['pointerout', 'pointerover'],
           },
         },
-        Ir = {
+        Cr = {
           eventTypes: Ar,
           extractEvents: function (e, t, n, r, a) {
             var i = 'mouseover' === e || 'pointerover' === e,
@@ -19874,7 +19931,7 @@
             return 0 == (64 & a) ? [u] : [u, n];
           },
         };
-      var Cr =
+      var Ir =
           'function' == typeof Object.is
             ? Object.is
             : function (e, t) {
@@ -19882,12 +19939,12 @@
               },
         Nr = Object.prototype.hasOwnProperty;
       function Fr(e, t) {
-        if (Cr(e, t)) return !0;
+        if (Ir(e, t)) return !0;
         if ('object' != typeof e || null === e || 'object' != typeof t || null === t) return !1;
         var n = Object.keys(e),
           r = Object.keys(t);
         if (n.length !== r.length) return !1;
-        for (r = 0; r < n.length; r++) if (!Nr.call(t, n[r]) || !Cr(e[n[r]], t[n[r]])) return !1;
+        for (r = 0; r < n.length; r++) if (!Nr.call(t, n[r]) || !Ir(e[n[r]], t[n[r]])) return !1;
         return !0;
       }
       var Rr = w && 'documentMode' in document && 11 >= document.documentMode,
@@ -19924,7 +19981,7 @@
               : ((Br = n),
                 ((e = Bn.getPooled(Wr.select, Ur, e, t)).type = 'select'),
                 (e.target = zr),
-                Cn(e),
+                In(e),
                 e));
       }
       var Vr = {
@@ -19969,8 +20026,8 @@
             return null;
           },
         },
-        Jr = Bn.extend({ animationName: null, elapsedTime: null, pseudoElement: null }),
-        Qr = Bn.extend({
+        Qr = Bn.extend({ animationName: null, elapsedTime: null, pseudoElement: null }),
+        Jr = Bn.extend({
           clipboardData: function (e) {
             return 'clipboardData' in e ? e.clipboardData : window.clipboardData;
           },
@@ -20101,7 +20158,7 @@
           deltaMode: null,
         }),
         ia = {
-          eventTypes: Ct,
+          eventTypes: It,
           extractEvents: function (e, t, n, r) {
             var a = Nt.get(e);
             if (!a) return null;
@@ -20146,10 +20203,10 @@
                 break;
               case qe:
               case Ve:
-              case Je:
-                e = Jr;
-                break;
               case Qe:
+                e = Qr;
+                break;
+              case Je:
                 e = ra;
                 break;
               case 'scroll':
@@ -20161,7 +20218,7 @@
               case 'copy':
               case 'cut':
               case 'paste':
-                e = Qr;
+                e = Jr;
                 break;
               case 'gotpointercapture':
               case 'lostpointercapture':
@@ -20176,7 +20233,7 @@
               default:
                 e = Bn;
             }
-            return Cn((t = e.getPooled(a, t, n, r))), t;
+            return In((t = e.getPooled(a, t, n, r))), t;
           },
         };
       if (M) throw Error(s(101));
@@ -20191,7 +20248,7 @@
         (p = xn),
         D({
           SimpleEventPlugin: ia,
-          EnterLeaveEventPlugin: Ir,
+          EnterLeaveEventPlugin: Cr,
           ChangeEventPlugin: Yr,
           SelectEventPlugin: Vr,
           BeforeInputEventPlugin: or,
@@ -20277,8 +20334,8 @@
         Ha = i.unstable_shouldYield,
         Pa = void 0 !== Ya ? Ya : function () {},
         Aa = null,
-        Ia = null,
-        Ca = !1,
+        Ca = null,
+        Ia = !1,
         Na = Ta(),
         Fa =
           1e4 > Na
@@ -20325,18 +20382,18 @@
         return (e = Wa(e)), ka(e, t, n);
       }
       function Ba(e) {
-        return null === Aa ? ((Aa = [e]), (Ia = ka(wa, qa))) : Aa.push(e), ja;
+        return null === Aa ? ((Aa = [e]), (Ca = ka(wa, qa))) : Aa.push(e), ja;
       }
       function Ka() {
-        if (null !== Ia) {
-          var e = Ia;
-          (Ia = null), ba(e);
+        if (null !== Ca) {
+          var e = Ca;
+          (Ca = null), ba(e);
         }
         qa();
       }
       function qa() {
-        if (!Ca && null !== Aa) {
-          Ca = !0;
+        if (!Ia && null !== Aa) {
+          Ia = !0;
           var e = 0;
           try {
             var t = Aa;
@@ -20352,19 +20409,19 @@
           } catch (t) {
             throw (null !== Aa && (Aa = Aa.slice(e + 1)), ka(wa, Ka), t);
           } finally {
-            Ca = !1;
+            Ia = !1;
           }
         }
       }
       function Va(e, t, n) {
         return 1073741821 - (1 + (((1073741821 - e + t / 10) / (n /= 10)) | 0)) * n;
       }
-      function Ja(e, t) {
+      function Qa(e, t) {
         if (e && e.defaultProps)
           for (var n in ((t = a({}, t)), (e = e.defaultProps))) void 0 === t[n] && (t[n] = e[n]);
         return t;
       }
-      var Qa = { current: null },
+      var Ja = { current: null },
         Ga = null,
         $a = null,
         Za = null;
@@ -20372,8 +20429,8 @@
         Za = $a = Ga = null;
       }
       function ei(e) {
-        var t = Qa.current;
-        ua(Qa), (e.type._context._currentValue = t);
+        var t = Ja.current;
+        ua(Ja), (e.type._context._currentValue = t);
       }
       function ti(e, t) {
         for (; null !== e; ) {
@@ -20565,7 +20622,7 @@
           ((a = oi((r = Vo(r, e, a)), a)).payload = t),
             null != n && (a.callback = n),
             ui(e, a),
-            Jo(e, r);
+            Qo(e, r);
         },
         enqueueReplaceState: function (e, t, n) {
           e = e._reactInternalFiber;
@@ -20575,7 +20632,7 @@
             (a.payload = t),
             null != n && (a.callback = n),
             ui(e, a),
-            Jo(e, r);
+            Qo(e, r);
         },
         enqueueForceUpdate: function (e, t) {
           e = e._reactInternalFiber;
@@ -20584,7 +20641,7 @@
           ((r = oi((n = Vo(n, e, r)), r)).tag = 2),
             null != t && (r.callback = t),
             ui(e, r),
-            Jo(e, n);
+            Qo(e, n);
         },
       };
       function pi(e, t, n, r, a, i, s) {
@@ -20974,10 +21031,10 @@
         switch ((la(xi, t), la(Si, e), la(wi, Di), (e = t.nodeType))) {
           case 9:
           case 11:
-            t = (t = t.documentElement) ? t.namespaceURI : Ce(null, '');
+            t = (t = t.documentElement) ? t.namespaceURI : Ie(null, '');
             break;
           default:
-            t = Ce((t = (e = 8 === e ? t.parentNode : t).namespaceURI || null), (e = e.tagName));
+            t = Ie((t = (e = 8 === e ? t.parentNode : t).namespaceURI || null), (e = e.tagName));
         }
         ua(wi), la(wi, t);
       }
@@ -20987,14 +21044,14 @@
       function Hi(e) {
         Ei(xi.current);
         var t = Ei(wi.current),
-          n = Ce(t, e.type);
+          n = Ie(t, e.type);
         t !== n && (la(Si, e), la(wi, n));
       }
       function Pi(e) {
         Si.current === e && (ua(wi), ua(Si));
       }
       var Ai = { current: 0 };
-      function Ii(e) {
+      function Ci(e) {
         for (var t = e; null !== t; ) {
           if (13 === t.tag) {
             var n = t.memoizedState;
@@ -21015,7 +21072,7 @@
         }
         return null;
       }
-      function Ci(e, t) {
+      function Ii(e, t) {
         return { responder: e, props: t };
       }
       var Ni = G.ReactCurrentDispatcher,
@@ -21030,7 +21087,7 @@
       }
       function qi(e, t) {
         if (null === t) return !1;
-        for (var n = 0; n < t.length && n < e.length; n++) if (!Cr(e[n], t[n])) return !1;
+        for (var n = 0; n < t.length && n < e.length; n++) if (!Ir(e[n], t[n])) return !1;
         return !0;
       }
       function Vi(e, t, n, r, a, i) {
@@ -21061,11 +21118,11 @@
           throw Error(s(300));
         return e;
       }
-      function Ji() {
+      function Qi() {
         var e = { memoizedState: null, baseState: null, baseQueue: null, queue: null, next: null };
         return null === Ui ? (Wi.memoizedState = Ui = e) : (Ui = Ui.next = e), Ui;
       }
-      function Qi() {
+      function Ji() {
         if (null === zi) {
           var e = Wi.alternate;
           e = null !== e ? e.memoizedState : null;
@@ -21089,7 +21146,7 @@
         return 'function' == typeof t ? t(e) : t;
       }
       function $i(e) {
-        var t = Qi(),
+        var t = Ji(),
           n = t.queue;
         if (null === n) throw Error(s(311));
         n.lastRenderedReducer = e;
@@ -21136,7 +21193,7 @@
             l = l.next;
           } while (null !== l && l !== a);
           null === u ? (i = r) : (u.next = o),
-            Cr(r, t.memoizedState) || (xs = !0),
+            Ir(r, t.memoizedState) || (xs = !0),
             (t.memoizedState = r),
             (t.baseState = i),
             (t.baseQueue = u),
@@ -21145,7 +21202,7 @@
         return [t.memoizedState, n.dispatch];
       }
       function Zi(e) {
-        var t = Qi(),
+        var t = Ji(),
           n = t.queue;
         if (null === n) throw Error(s(311));
         n.lastRenderedReducer = e;
@@ -21158,7 +21215,7 @@
           do {
             (i = e(i, o.action)), (o = o.next);
           } while (o !== a);
-          Cr(i, t.memoizedState) || (xs = !0),
+          Ir(i, t.memoizedState) || (xs = !0),
             (t.memoizedState = i),
             null === t.baseQueue && (t.baseState = i),
             (n.lastRenderedState = i);
@@ -21166,7 +21223,7 @@
         return [i, r];
       }
       function Xi(e) {
-        var t = Ji();
+        var t = Qi();
         return (
           'function' == typeof e && (e = e()),
           (t.memoizedState = t.baseState = e),
@@ -21193,14 +21250,14 @@
         );
       }
       function ts() {
-        return Qi().memoizedState;
+        return Ji().memoizedState;
       }
       function ns(e, t, n, r) {
-        var a = Ji();
+        var a = Qi();
         (Wi.effectTag |= e), (a.memoizedState = es(1 | t, n, void 0, void 0 === r ? null : r));
       }
       function rs(e, t, n, r) {
-        var a = Qi();
+        var a = Ji();
         r = void 0 === r ? null : r;
         var i = void 0;
         if (null !== zi) {
@@ -21238,16 +21295,16 @@
       }
       function ls() {}
       function ds(e, t) {
-        return (Ji().memoizedState = [e, void 0 === t ? null : t]), e;
+        return (Qi().memoizedState = [e, void 0 === t ? null : t]), e;
       }
       function cs(e, t) {
-        var n = Qi();
+        var n = Ji();
         t = void 0 === t ? null : t;
         var r = n.memoizedState;
         return null !== r && null !== t && qi(t, r[1]) ? r[0] : ((n.memoizedState = [e, t]), e);
       }
       function _s(e, t) {
-        var n = Qi();
+        var n = Ji();
         t = void 0 === t ? null : t;
         var r = n.memoizedState;
         return null !== r && null !== t && qi(t, r[1])
@@ -21297,9 +21354,9 @@
             try {
               var s = t.lastRenderedState,
                 o = i(s, n);
-              if (((a.eagerReducer = i), (a.eagerState = o), Cr(o, s))) return;
+              if (((a.eagerReducer = i), (a.eagerState = o), Ir(o, s))) return;
             } catch (e) {}
-          Jo(e, r);
+          Qo(e, r);
         }
       }
       var hs = {
@@ -21330,11 +21387,11 @@
             return ns(4, 2, e, t);
           },
           useMemo: function (e, t) {
-            var n = Ji();
+            var n = Qi();
             return (t = void 0 === t ? null : t), (e = e()), (n.memoizedState = [e, t]), e;
           },
           useReducer: function (e, t, n) {
-            var r = Ji();
+            var r = Qi();
             return (
               (t = void 0 !== n ? n(t) : t),
               (r.memoizedState = r.baseState = t),
@@ -21350,11 +21407,11 @@
             );
           },
           useRef: function (e) {
-            return (e = { current: e }), (Ji().memoizedState = e);
+            return (e = { current: e }), (Qi().memoizedState = e);
           },
           useState: Xi,
           useDebugValue: ls,
-          useResponder: Ci,
+          useResponder: Ii,
           useDeferredValue: function (e, t) {
             var n = Xi(e),
               r = n[0],
@@ -21395,7 +21452,7 @@
             return $i(Gi);
           },
           useDebugValue: ls,
-          useResponder: Ci,
+          useResponder: Ii,
           useDeferredValue: function (e, t) {
             var n = $i(Gi),
               r = n[0],
@@ -21436,7 +21493,7 @@
             return Zi(Gi);
           },
           useDebugValue: ls,
-          useResponder: Ci,
+          useResponder: Ii,
           useDeferredValue: function (e, t) {
             var n = Zi(Gi),
               r = n[0],
@@ -21607,7 +21664,7 @@
               Vs(e, t, a))
         );
       }
-      function Is(e, t, n, r, a) {
+      function Cs(e, t, n, r, a) {
         if (ha(n)) {
           var i = !0;
           va(t);
@@ -21659,7 +21716,7 @@
           (s = t.stateNode),
             si(e, t),
             (o = t.memoizedProps),
-            (s.props = t.type === t.elementType ? o : Ja(t.type, o)),
+            (s.props = t.type === t.elementType ? o : Qa(t.type, o)),
             (u = s.context),
             'object' == typeof (l = n.contextType) && null !== l
               ? (l = ri(l))
@@ -21705,9 +21762,9 @@
                   (o === e.memoizedProps && u === e.memoizedState) ||
                   (t.effectTag |= 256),
                 (r = !1));
-        return Cs(e, t, n, r, i, a);
+        return Is(e, t, n, r, i, a);
       }
-      function Cs(e, t, n, r, a, i) {
+      function Is(e, t, n, r, a, i) {
         Ps(e, t);
         var s = 0 != (64 & t.effectTag);
         if (!r && !s) return a && La(t, n, !1), Vs(e, t, i);
@@ -21868,7 +21925,7 @@
           switch (a) {
             case 'forwards':
               for (n = t.child, a = null; null !== n; )
-                null !== (e = n.alternate) && null === Ii(e) && (a = n), (n = n.sibling);
+                null !== (e = n.alternate) && null === Ci(e) && (a = n), (n = n.sibling);
               null === (n = a)
                 ? ((a = t.child), (t.child = null))
                 : ((a = n.sibling), (n.sibling = null)),
@@ -21876,7 +21933,7 @@
               break;
             case 'backwards':
               for (n = null, a = t.child, t.child = null; null !== a; ) {
-                if (null !== (e = a.alternate) && null === Ii(e)) {
+                if (null !== (e = a.alternate) && null === Ci(e)) {
                   t.child = a;
                   break;
                 }
@@ -21908,7 +21965,7 @@
         }
         return t.child;
       }
-      function Js(e, t) {
+      function Qs(e, t) {
         switch (e.tailMode) {
           case 'hidden':
             t = e.tail;
@@ -21925,7 +21982,7 @@
               : (r.sibling = null);
         }
       }
-      function Qs(e, t, n) {
+      function Js(e, t, n) {
         var r = t.pendingProps;
         switch (t.tag) {
           case 2:
@@ -22027,7 +22084,7 @@
               } else {
                 switch (
                   ((u = 9 === n.nodeType ? n : n.ownerDocument),
-                  e === on && (e = Ie(i)),
+                  e === on && (e = Ce(i)),
                   e === on
                     ? 'script' === i
                       ? (((e = u.createElement('div')).innerHTML = '<script></script>'),
@@ -22182,13 +22239,13 @@
           case 19:
             if ((ua(Ai), null === (r = t.memoizedState))) return null;
             if (((i = 0 != (64 & t.effectTag)), null === (o = r.rendering))) {
-              if (i) Js(r, !1);
+              if (i) Qs(r, !1);
               else if (wo !== Lo || (null !== e && 0 != (64 & e.effectTag)))
                 for (o = t.child; null !== o; ) {
-                  if (null !== (e = Ii(o))) {
+                  if (null !== (e = Ci(o))) {
                     for (
                       t.effectTag |= 64,
-                        Js(r, !1),
+                        Qs(r, !1),
                         null !== (i = e.updateQueue) && ((t.updateQueue = i), (t.effectTag |= 4)),
                         null === r.lastEffect && (t.firstEffect = null),
                         t.lastEffect = r.lastEffect,
@@ -22231,12 +22288,12 @@
                 }
             } else {
               if (!i)
-                if (null !== (e = Ii(o))) {
+                if (null !== (e = Ci(o))) {
                   if (
                     ((t.effectTag |= 64),
                     (i = !0),
                     null !== (n = e.updateQueue) && ((t.updateQueue = n), (t.effectTag |= 4)),
-                    Js(r, !0),
+                    Qs(r, !0),
                     null === r.tail && 'hidden' === r.tailMode && !o.alternate)
                   )
                     return (
@@ -22247,7 +22304,7 @@
                     1 < n &&
                     ((t.effectTag |= 64),
                     (i = !0),
-                    Js(r, !1),
+                    Qs(r, !1),
                     (t.expirationTime = t.childExpirationTime = n - 1));
               r.isBackwards
                 ? ((o.sibling = t.child), (t.child = o))
@@ -22419,7 +22476,7 @@
               var n = e.memoizedProps,
                 r = e.memoizedState;
               (t = (e = t.stateNode).getSnapshotBeforeUpdate(
-                t.elementType === t.type ? n : Ja(t.type, n),
+                t.elementType === t.type ? n : Qa(t.type, n),
                 r,
               )),
                 (e.__reactInternalSnapshotBeforeUpdate = t);
@@ -22469,7 +22526,7 @@
             if (((e = n.stateNode), 4 & n.effectTag))
               if (null === t) e.componentDidMount();
               else {
-                var r = n.elementType === n.type ? t.memoizedProps : Ja(n.type, t.memoizedProps);
+                var r = n.elementType === n.type ? t.memoizedProps : Qa(n.type, t.memoizedProps);
                 e.componentDidUpdate(r, t.memoizedState, e.__reactInternalSnapshotBeforeUpdate);
               }
             return void (null !== (t = n.updateQueue) && ci(n, t, e));
@@ -22500,7 +22557,7 @@
               null === n.memoizedState &&
               ((n = n.alternate),
               null !== n &&
-                ((n = n.memoizedState), null !== n && ((n = n.dehydrated), null !== n && It(n))))
+                ((n = n.memoizedState), null !== n && ((n = n.dehydrated), null !== n && Ct(n))))
             );
           case 19:
           case 17:
@@ -22762,7 +22819,7 @@
             if (null === t.stateNode) throw Error(s(162));
             return void (t.stateNode.nodeValue = t.memoizedProps);
           case 3:
-            return void ((t = t.stateNode).hydrate && ((t.hydrate = !1), It(t.containerInfo)));
+            return void ((t = t.stateNode).hydrate && ((t.hydrate = !1), Ct(t.containerInfo)));
           case 12:
             return;
           case 13:
@@ -22832,7 +22889,7 @@
         var r = t.value;
         return (
           (n.callback = function () {
-            Io || ((Io = !0), (Co = r)), Xs(e, t);
+            Co || ((Co = !0), (Io = r)), Xs(e, t);
           }),
           n
         );
@@ -22879,8 +22936,8 @@
         Ho = !1,
         Po = 0,
         Ao = null,
-        Io = !1,
-        Co = null,
+        Co = !1,
+        Io = null,
         No = null,
         Fo = !1,
         Ro = null,
@@ -22922,9 +22979,9 @@
           }
         return null !== Yo && e === Do && --e, e;
       }
-      function Jo(e, t) {
+      function Qo(e, t) {
         if (50 < Uo) throw ((Uo = 0), (Bo = null), Error(s(185)));
-        if (null !== (e = Qo(e, t))) {
+        if (null !== (e = Jo(e, t))) {
           var n = Ra();
           1073741823 === t
             ? 0 != (8 & bo) && 0 == (48 & bo)
@@ -22938,7 +22995,7 @@
                 : (void 0 === (n = zo.get(e)) || n > t) && zo.set(e, t));
         }
       }
-      function Qo(e, t) {
+      function Jo(e, t) {
         e.expirationTime < t && (e.expirationTime = t);
         var n = e.alternate;
         null !== n && n.expirationTime < t && (n.expirationTime = t);
@@ -23354,7 +23411,7 @@
         do {
           var t = To.alternate;
           if (((e = To.return), 0 == (2048 & To.effectTag))) {
-            if (((t = Qs(t, To, Do)), 1 === Do || 1 !== To.childExpirationTime)) {
+            if (((t = Js(t, To, Do)), 1 === Do || 1 !== To.childExpirationTime)) {
               for (var n = 0, r = To.child; null !== r; ) {
                 var a = r.expirationTime,
                   i = r.childExpirationTime;
@@ -23613,9 +23670,9 @@
           1073741823 === t ? (e === Bo ? Uo++ : ((Uo = 0), (Bo = e))) : (Uo = 0),
           'function' == typeof gu && gu(n.stateNode, r),
           $o(e),
-          Io)
+          Co)
         )
-          throw ((Io = !1), (e = Co), (Co = null), e);
+          throw ((Co = !1), (e = Io), (Io = null), e);
         return 0 != (8 & bo) || Ka(), null;
       }
       function fu() {
@@ -23662,7 +23719,7 @@
         return (bo = t), Ka(), !0;
       }
       function yu(e, t, n) {
-        ui(e, (t = fo(e, (t = $s(n, t)), 1073741823))), null !== (e = Qo(e, 1073741823)) && $o(e);
+        ui(e, (t = fo(e, (t = $s(n, t)), 1073741823))), null !== (e = Jo(e, 1073741823)) && $o(e);
       }
       function Mu(e, t) {
         if (3 === e.tag) yu(e, e, t);
@@ -23679,7 +23736,7 @@
                 ('function' == typeof r.componentDidCatch && (null === No || !No.has(r)))
               ) {
                 ui(n, (e = ho(n, (e = $s(t, e)), 1073741823))),
-                  null !== (n = Qo(n, 1073741823)) && $o(n);
+                  null !== (n = Jo(n, 1073741823)) && $o(n);
                 break;
               }
             }
@@ -23700,7 +23757,7 @@
         var n = e.stateNode;
         null !== n && n.delete(t),
           0 === (t = 0) && (t = Vo((t = qo()), e, null)),
-          null !== (e = Qo(e, t)) && $o(e);
+          null !== (e = Jo(e, t)) && $o(e);
       }
       po = function (e, t, n) {
         var r = t.expirationTime;
@@ -23726,7 +23783,7 @@
                 case 10:
                   (r = t.memoizedProps.value),
                     (a = t.type._context),
-                    la(Qa, a._currentValue),
+                    la(Ja, a._currentValue),
                     (a._currentValue = r);
                   break;
                 case 13:
@@ -23779,7 +23836,7 @@
                 (t.stateNode = a),
                 (a._reactInternalFiber = t),
                 vi(t, r, e, n),
-                (t = Cs(null, t, r, !0, i, n));
+                (t = Is(null, t, r, !0, i, n));
             } else (t.tag = 0), Es(null, t, a, n), (t = t.child);
             return t;
           case 16:
@@ -23819,20 +23876,20 @@
                     }
                     return 2;
                   })(a)),
-                (e = Ja(a, e)),
+                (e = Qa(a, e)),
                 i)
               ) {
                 case 0:
                   t = As(null, t, a, e, n);
                   break e;
                 case 1:
-                  t = Is(null, t, a, e, n);
+                  t = Cs(null, t, a, e, n);
                   break e;
                 case 11:
                   t = Os(null, t, a, e, n);
                   break e;
                 case 14:
-                  t = js(null, t, a, Ja(a.type, e), r, n);
+                  t = js(null, t, a, Qa(a.type, e), r, n);
                   break e;
               }
               throw Error(s(306, a, ''));
@@ -23842,13 +23899,13 @@
             return (
               (r = t.type),
               (a = t.pendingProps),
-              As(e, t, r, (a = t.elementType === r ? a : Ja(r, a)), n)
+              As(e, t, r, (a = t.elementType === r ? a : Qa(r, a)), n)
             );
           case 1:
             return (
               (r = t.type),
               (a = t.pendingProps),
-              Is(e, t, r, (a = t.elementType === r ? a : Ja(r, a)), n)
+              Cs(e, t, r, (a = t.elementType === r ? a : Qa(r, a)), n)
             );
           case 3:
             if ((Ns(t), (r = t.updateQueue), null === e || null === r)) throw Error(s(282));
@@ -23902,7 +23959,7 @@
             return (
               (r = t.type),
               (a = t.pendingProps),
-              Os(e, t, r, (a = t.elementType === r ? a : Ja(r, a)), n)
+              Os(e, t, r, (a = t.elementType === r ? a : Qa(r, a)), n)
             );
           case 7:
             return Es(e, t, t.pendingProps, n), t.child;
@@ -23913,11 +23970,11 @@
             e: {
               (r = t.type._context), (a = t.pendingProps), (o = t.memoizedProps), (i = a.value);
               var u = t.type._context;
-              if ((la(Qa, u._currentValue), (u._currentValue = i), null !== o))
+              if ((la(Ja, u._currentValue), (u._currentValue = i), null !== o))
                 if (
                   ((u = o.value),
                   0 ===
-                    (i = Cr(u, i)
+                    (i = Ir(u, i)
                       ? 0
                       : 0 |
                         ('function' == typeof r._calculateChangedBits
@@ -23976,21 +24033,21 @@
               t.child
             );
           case 14:
-            return (i = Ja((a = t.type), t.pendingProps)), js(e, t, a, (i = Ja(a.type, i)), r, n);
+            return (i = Qa((a = t.type), t.pendingProps)), js(e, t, a, (i = Qa(a.type, i)), r, n);
           case 15:
             return Hs(e, t, t.type, t.pendingProps, r, n);
           case 17:
             return (
               (r = t.type),
               (a = t.pendingProps),
-              (a = t.elementType === r ? a : Ja(r, a)),
+              (a = t.elementType === r ? a : Qa(r, a)),
               null !== e && ((e.alternate = null), (t.alternate = null), (t.effectTag |= 2)),
               (t.tag = 1),
               ha(r) ? ((e = !0), va(t)) : (e = !1),
               ni(t, n),
               yi(t, r, a),
               vi(t, r, a, n),
-              Cs(null, t, r, !0, e, n)
+              Is(null, t, r, !0, e, n)
             );
           case 19:
             return qs(e, t, n);
@@ -24175,7 +24232,7 @@
         var n = e.lastExpiredTime;
         (0 === n || n > t) && (e.lastExpiredTime = t);
       }
-      function Iu(e, t, n, r) {
+      function Cu(e, t, n, r) {
         var a = t.current,
           i = qo(),
           o = _i.suspense;
@@ -24213,11 +24270,11 @@
           ((t = oi(i, o)).payload = { element: e }),
           null !== (r = void 0 === r ? null : r) && (t.callback = r),
           ui(a, t),
-          Jo(a, i),
+          Qo(a, i),
           i
         );
       }
-      function Cu(e) {
+      function Iu(e) {
         if (!(e = e.current).child) return null;
         switch (e.child.tag) {
           case 5:
@@ -24270,11 +24327,11 @@
           if ('function' == typeof a) {
             var o = a;
             a = function () {
-              var e = Cu(s);
+              var e = Iu(s);
               o.call(e);
             };
           }
-          Iu(t, s, e, a);
+          Cu(t, s, e, a);
         } else {
           if (
             ((i = n._reactRootContainer =
@@ -24296,15 +24353,15 @@
           ) {
             var u = a;
             a = function () {
-              var e = Cu(s);
+              var e = Iu(s);
               u.call(e);
             };
           }
           tu(function () {
-            Iu(t, s, e, a);
+            Cu(t, s, e, a);
           });
         }
-        return Cu(s);
+        return Iu(s);
       }
       function Uu(e, t, n) {
         var r = 3 < arguments.length && void 0 !== arguments[3] ? arguments[3] : null;
@@ -24322,28 +24379,28 @@
         return Uu(e, t, null, n);
       }
       (Ru.prototype.render = function (e) {
-        Iu(e, this._internalRoot, null, null);
+        Cu(e, this._internalRoot, null, null);
       }),
         (Ru.prototype.unmount = function () {
           var e = this._internalRoot,
             t = e.containerInfo;
-          Iu(null, e, null, function () {
+          Cu(null, e, null, function () {
             t[Dn] = null;
           });
         }),
         (ht = function (e) {
           if (13 === e.tag) {
             var t = Va(qo(), 150, 100);
-            Jo(e, t), Fu(e, t);
+            Qo(e, t), Fu(e, t);
           }
         }),
         (pt = function (e) {
-          13 === e.tag && (Jo(e, 3), Fu(e, 3));
+          13 === e.tag && (Qo(e, 3), Fu(e, 3));
         }),
         (yt = function (e) {
           if (13 === e.tag) {
             var t = qo();
-            Jo(e, (t = Vo(t, e, null))), Fu(e, t);
+            Qo(e, (t = Vo(t, e, null))), Fu(e, t);
           }
         }),
         (S = function (e, t, n) {
@@ -24385,7 +24442,7 @@
             0 === (bo = i) && Ka();
           }
         }),
-        (I = function () {
+        (C = function () {
           0 == (49 & bo) &&
             ((function () {
               if (null !== zo) {
@@ -24399,7 +24456,7 @@
             })(),
             hu());
         }),
-        (C = function (e, t) {
+        (I = function (e, t) {
           var n = bo;
           bo |= 2;
           try {
@@ -24417,9 +24474,9 @@
             En,
             D,
             b,
-            Cn,
+            In,
             function (e) {
-              at(e, In);
+              at(e, Cn);
             },
             j,
             H,
@@ -24735,8 +24792,8 @@ object-assign
         H = 3,
         P = !1,
         A = !1,
-        I = !1;
-      function C(e) {
+        C = !1;
+      function I(e) {
         for (var t = D(E); null !== t; ) {
           if (null === t.callback) w(E);
           else {
@@ -24747,7 +24804,7 @@ object-assign
         }
       }
       function N(e) {
-        if (((I = !1), C(e), !A))
+        if (((C = !1), I(e), !A))
           if (null !== D(x)) (A = !0), r(F);
           else {
             var t = D(E);
@@ -24755,17 +24812,17 @@ object-assign
           }
       }
       function F(e, n) {
-        (A = !1), I && ((I = !1), i()), (P = !0);
+        (A = !1), C && ((C = !1), i()), (P = !0);
         var r = H;
         try {
-          for (C(n), j = D(x); null !== j && (!(j.expirationTime > n) || (e && !s())); ) {
+          for (I(n), j = D(x); null !== j && (!(j.expirationTime > n) || (e && !s())); ) {
             var o = j.callback;
             if (null !== o) {
               (j.callback = null), (H = j.priorityLevel);
               var u = o(j.expirationTime <= n);
               (n = t.unstable_now()),
                 'function' == typeof u ? (j.callback = u) : j === D(x) && w(x),
-                C(n);
+                I(n);
             } else w(x);
             j = D(x);
           }
@@ -24870,14 +24927,14 @@ object-assign
             u > o
               ? ((e.sortIndex = u),
                 T(E, e),
-                null === D(x) && e === D(E) && (I ? i() : (I = !0), a(N, u - o)))
+                null === D(x) && e === D(E) && (C ? i() : (C = !0), a(N, u - o)))
               : ((e.sortIndex = s), T(x, e), A || P || ((A = !0), r(F))),
             e
           );
         }),
         (t.unstable_shouldYield = function () {
           var e = t.unstable_now();
-          C(e);
+          I(e);
           var n = D(x);
           return (
             (n !== j &&
@@ -27822,7 +27879,7 @@ object-assign
           return r;
         }),
         n.d(t, 'useCollection', function () {
-          return He;
+          return oe;
         }),
         n.d(t, 'useCollectionItemBidsList', function () {
           return Pe;
@@ -27831,109 +27888,121 @@ object-assign
           return Ae;
         }),
         n.d(t, 'useCollectionItemRemainingCount', function () {
-          return Ie;
-        }),
-        n.d(t, 'useCollectionLotsIdList', function () {
           return Ce;
         }),
+        n.d(t, 'useCollectionLotsIdList', function () {
+          return Ie;
+        }),
         n.d(t, 'useMarketplaceCollectionsSlugWithItemsId', function () {
-          return be;
+          return Ne;
         }),
         n.d(t, 'useMojitoFactory', function () {
-          return ke;
+          return He;
+        }),
+        n.d(t, 'MojitoHooksProvider', function () {
+          return Fe;
+        }),
+        n.d(t, 'setOnErrorCallback', function () {
+          return ge;
         });
-      var a,
-        i,
-        s,
-        o,
-        u,
+      var a = n(11),
+        i = n(7),
+        s = !('undefined' == typeof window || !window.document || !window.document.createElement);
+      function o(e) {
+        return (
+          void 0 === e && (e = window.location.pathname), s ? [] : e.split('/').filter(Boolean)
+        );
+      }
+      var u,
         l,
         d,
         c,
         _,
-        m = n(12),
-        f = n(7),
-        h = n(3),
-        p = function (e, t) {
+        m,
+        f,
+        h,
+        p,
+        y = n(3),
+        M = function (e, t) {
           return (
             Object.defineProperty ? Object.defineProperty(e, 'raw', { value: t }) : (e.raw = t), e
           );
         },
-        y = Object(h.gql)(
-          a ||
-            (a = p(
-              [
-                '\n  fragment CollectionItemAuctionLotBidsList on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    maximumBid\n    marketplaceAuctionLotId\n    marketplaceUser {\n      id\n      username\n      avatar\n    }\n  }\n',
-              ],
-              [
-                '\n  fragment CollectionItemAuctionLotBidsList on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    maximumBid\n    marketplaceAuctionLotId\n    marketplaceUser {\n      id\n      username\n      avatar\n    }\n  }\n',
-              ],
-            )),
-        ),
-        M = Object(h.gql)(
-          i ||
-            (i = p(
-              [
-                '\n  fragment CollectionItemAuctionLotCurrentBid on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    maximumBid\n    nextBidIncrement\n    marketplaceAuctionLotId\n    marketplaceUser {\n      id\n      username\n      avatar\n    }\n  }\n',
-              ],
-              [
-                '\n  fragment CollectionItemAuctionLotCurrentBid on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    maximumBid\n    nextBidIncrement\n    marketplaceAuctionLotId\n    marketplaceUser {\n      id\n      username\n      avatar\n    }\n  }\n',
-              ],
-            )),
-        ),
-        v = Object(h.gql)(
-          s ||
-            (s = p(
-              [
-                '\n  fragment CollectionItemAuctionLotMyBid on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    currentBid\n    maximumBid\n    nextBidIncrement\n    marketplaceAuctionLotId\n  }\n',
-              ],
-              [
-                '\n  fragment CollectionItemAuctionLotMyBid on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    currentBid\n    maximumBid\n    nextBidIncrement\n    marketplaceAuctionLotId\n  }\n',
-              ],
-            )),
-        ),
-        L = Object(h.gql)(
-          o ||
-            (o = p(
-              [
-                '\n  fragment CollectionItemAuctionLotDetailsFields on MarketplaceAuctionLot {\n    id\n    status\n    endDate\n    startDate\n    lotNumber\n    startingBid\n    marketplaceCollectionItemId\n    feeStructure {\n      buyersPremiumRate {\n        from\n        to\n        rate\n      }\n      overheadPremiumRate {\n        from\n        to\n        rate\n      }\n    }\n  }\n',
-              ],
-              [
-                '\n  fragment CollectionItemAuctionLotDetailsFields on MarketplaceAuctionLot {\n    id\n    status\n    endDate\n    startDate\n    lotNumber\n    startingBid\n    marketplaceCollectionItemId\n    feeStructure {\n      buyersPremiumRate {\n        from\n        to\n        rate\n      }\n      overheadPremiumRate {\n        from\n        to\n        rate\n      }\n    }\n  }\n',
-              ],
-            )),
-        ),
-        g = Object(h.gql)(
+        v = Object(y.gql)(
           u ||
-            (u = p(
+            (u = M(
               [
-                '\n  fragment CollectionItemBuyNowDetailsFields on MarketplaceBuyNowOutput {\n    id\n    unitPrice\n    totalUnits\n    totalAvailableUnits\n    startDate\n    endDate\n    sortNumber\n  }\n',
+                '\n  fragment CollectionItemAuctionLotBidsList on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    maximumBid\n    marketplaceAuctionLotId\n    marketplaceUser {\n      id\n      username\n      avatar\n    }\n  }\n',
               ],
               [
-                '\n  fragment CollectionItemBuyNowDetailsFields on MarketplaceBuyNowOutput {\n    id\n    unitPrice\n    totalUnits\n    totalAvailableUnits\n    startDate\n    endDate\n    sortNumber\n  }\n',
+                '\n  fragment CollectionItemAuctionLotBidsList on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    maximumBid\n    marketplaceAuctionLotId\n    marketplaceUser {\n      id\n      username\n      avatar\n    }\n  }\n',
               ],
             )),
         ),
-        k = Object(h.gql)(
+        L = Object(y.gql)(
           l ||
-            (l = p(
+            (l = M(
               [
-                '\n  ',
-                '\n  ',
-                '\n\n  fragment CollectionItemFields on MarketplaceCollectionItem {\n    name\n    id\n    collectionId\n    marketplaceTokenId\n    saleType\n    slug\n    details {\n      __typename\n      ... on MarketplaceBuyNowOutput {\n        ...CollectionItemBuyNowDetailsFields\n      }\n      ... on MarketplaceAuctionLot {\n        ...CollectionItemAuctionLotDetailsFields\n      }\n    }\n  }\n',
+                '\n  fragment CollectionItemAuctionLotCurrentBid on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    maximumBid\n    nextBidIncrement\n    marketplaceAuctionLotId\n    marketplaceUser {\n      id\n      username\n      avatar\n    }\n  }\n',
               ],
               [
-                '\n  ',
-                '\n  ',
-                '\n\n  fragment CollectionItemFields on MarketplaceCollectionItem {\n    name\n    id\n    collectionId\n    marketplaceTokenId\n    saleType\n    slug\n    details {\n      __typename\n      ... on MarketplaceBuyNowOutput {\n        ...CollectionItemBuyNowDetailsFields\n      }\n      ... on MarketplaceAuctionLot {\n        ...CollectionItemAuctionLotDetailsFields\n      }\n    }\n  }\n',
+                '\n  fragment CollectionItemAuctionLotCurrentBid on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    maximumBid\n    nextBidIncrement\n    marketplaceAuctionLotId\n    marketplaceUser {\n      id\n      username\n      avatar\n    }\n  }\n',
               ],
             )),
-          g,
-          L,
         ),
-        b = Object(h.gql)(
+        g = Object(y.gql)(
           d ||
-            (d = p(
+            (d = M(
+              [
+                '\n  fragment CollectionItemAuctionLotMyBid on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    currentBid\n    maximumBid\n    nextBidIncrement\n    marketplaceAuctionLotId\n  }\n',
+              ],
+              [
+                '\n  fragment CollectionItemAuctionLotMyBid on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    currentBid\n    maximumBid\n    nextBidIncrement\n    marketplaceAuctionLotId\n  }\n',
+              ],
+            )),
+        ),
+        k = Object(y.gql)(
+          c ||
+            (c = M(
+              [
+                '\n  fragment CollectionItemAuctionLotDetailsFields on MarketplaceAuctionLot {\n    id\n    status\n    endDate\n    startDate\n    lotNumber\n    startingBid\n    marketplaceCollectionItemId\n    feeStructure {\n      buyersPremiumRate {\n        from\n        to\n        rate\n      }\n      overheadPremiumRate {\n        from\n        to\n        rate\n      }\n    }\n  }\n',
+              ],
+              [
+                '\n  fragment CollectionItemAuctionLotDetailsFields on MarketplaceAuctionLot {\n    id\n    status\n    endDate\n    startDate\n    lotNumber\n    startingBid\n    marketplaceCollectionItemId\n    feeStructure {\n      buyersPremiumRate {\n        from\n        to\n        rate\n      }\n      overheadPremiumRate {\n        from\n        to\n        rate\n      }\n    }\n  }\n',
+              ],
+            )),
+        ),
+        b = Object(y.gql)(
+          _ ||
+            (_ = M(
+              [
+                '\n  fragment CollectionItemBuyNowDetailsFields on MarketplaceBuyNowOutput {\n    id\n    unitPrice\n    totalUnits\n    totalAvailableUnits\n    startDate\n    endDate\n    sortNumber\n  }\n',
+              ],
+              [
+                '\n  fragment CollectionItemBuyNowDetailsFields on MarketplaceBuyNowOutput {\n    id\n    unitPrice\n    totalUnits\n    totalAvailableUnits\n    startDate\n    endDate\n    sortNumber\n  }\n',
+              ],
+            )),
+        ),
+        Y = Object(y.gql)(
+          m ||
+            (m = M(
+              [
+                '\n  ',
+                '\n  ',
+                '\n\n  fragment CollectionItemFields on MarketplaceCollectionItem {\n    name\n    id\n    collectionId\n    marketplaceTokenId\n    saleType\n    slug\n    details {\n      __typename\n      ... on MarketplaceBuyNowOutput {\n        ...CollectionItemBuyNowDetailsFields\n      }\n      ... on MarketplaceAuctionLot {\n        ...CollectionItemAuctionLotDetailsFields\n      }\n    }\n  }\n',
+              ],
+              [
+                '\n  ',
+                '\n  ',
+                '\n\n  fragment CollectionItemFields on MarketplaceCollectionItem {\n    name\n    id\n    collectionId\n    marketplaceTokenId\n    saleType\n    slug\n    details {\n      __typename\n      ... on MarketplaceBuyNowOutput {\n        ...CollectionItemBuyNowDetailsFields\n      }\n      ... on MarketplaceAuctionLot {\n        ...CollectionItemAuctionLotDetailsFields\n      }\n    }\n  }\n',
+              ],
+            )),
+          b,
+          k,
+        ),
+        T = Object(y.gql)(
+          f ||
+            (f = M(
               [
                 '\n  fragment FavoriteItemsFields on MarketplaceCollectionItem {\n    id\n    marketplaceTokenId\n    collectionId\n    saleType\n    name\n    slug\n    details {\n      __typename\n      ... on MarketplaceBuyNowOutput {\n        id\n      }\n      ... on MarketplaceAuctionLot {\n        id\n      }\n    }\n  }\n',
               ],
@@ -27942,7 +28011,7 @@ object-assign
               ],
             )),
         ),
-        Y = function (e, t) {
+        D = function (e, t) {
           return (
             Object.defineProperty ? Object.defineProperty(e, 'raw', { value: t }) : (e.raw = t), e
           );
@@ -27964,10 +28033,8 @@ object-assign
           (e[(e.collectionBySlugCurrentBids = 12)] = 'collectionBySlugCurrentBids'),
           (e[(e.collectionItemByIdBidsList = 13)] = 'collectionItemByIdBidsList'),
           (e[(e.collectionItemByIdRemainingCount = 14)] = 'collectionItemByIdRemainingCount');
-      })(_ || (_ = {}));
-      var T,
-        D,
-        w,
+      })(p || (p = {}));
+      var w,
         S,
         x,
         E,
@@ -27976,206 +28043,199 @@ object-assign
         H,
         P,
         A,
-        I,
         C,
+        I,
         N,
         F,
         R,
-        W =
-          (((c = {})[_.profile] = Object(h.gql)(
-            T ||
-              (T = Y(
-                [
-                  '\n    query GetProfile($filter: UserOrgFilter) {\n      serverTime\n      me {\n        id\n        user {\n          id\n          username\n          email\n        }\n        userOrgs(filter: $filter) {\n          id\n          organizationId\n          role\n          bidAllowed\n          kycStatus\n          avatar\n          username\n          settings\n          externalUserId\n        }\n      }\n    }\n  ',
-                ],
-                [
-                  '\n    query GetProfile($filter: UserOrgFilter) {\n      serverTime\n      me {\n        id\n        user {\n          id\n          username\n          email\n        }\n        userOrgs(filter: $filter) {\n          id\n          organizationId\n          role\n          bidAllowed\n          kycStatus\n          avatar\n          username\n          settings\n          externalUserId\n        }\n      }\n    }\n  ',
-                ],
-              )),
-          )),
-          (c[_.organization] = Object(h.gql)(
-            D ||
-              (D = Y(
-                [
-                  '\n    query GetOrganization($filter: UserOrgFilter) {\n      serverTime\n      me {\n        id\n        userOrgs(filter: $filter) {\n          id\n          role\n          kycStatus\n          bidAllowed\n          avatar\n          username\n          settings\n        }\n      }\n    }\n  ',
-                ],
-                [
-                  '\n    query GetOrganization($filter: UserOrgFilter) {\n      serverTime\n      me {\n        id\n        userOrgs(filter: $filter) {\n          id\n          role\n          kycStatus\n          bidAllowed\n          avatar\n          username\n          settings\n        }\n      }\n    }\n  ',
-                ],
-              )),
-          )),
-          (c[_.userWallets] = Object(h.gql)(
+        W,
+        z,
+        U,
+        B =
+          (((h = {})[p.profile] = Object(y.gql)(
             w ||
-              (w = Y(
+              (w = D(
                 [
-                  '\n    query GetWallets {\n      me {\n        id\n        wallets {\n          id\n          name\n          address\n          parentType\n          parentID\n          networkId\n          network {\n            chainID\n          }\n          tokens {\n            id\n            title\n            contractAddress\n            timeLastUpdated\n            metadata {\n              name\n              description\n              image\n              attributes {\n                traitType\n                value {\n                  ... on AttributeValueInt {\n                    intValue\n                  }\n                  ... on AttributeValueFloat {\n                    floatValue\n                  }\n                  ... on AttributeValueString {\n                    stringValue\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
+                  '\n    query GetProfile($filter: UserOrgFilter) {\n      serverTime\n      me {\n        id\n        user {\n          id\n          username\n          email\n        }\n        userOrgs(filter: $filter) {\n          id\n          organizationId\n          role\n          bidAllowed\n          kycStatus\n          avatar\n          username\n          settings\n          externalUserId\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query GetWallets {\n      me {\n        id\n        wallets {\n          id\n          name\n          address\n          parentType\n          parentID\n          networkId\n          network {\n            chainID\n          }\n          tokens {\n            id\n            title\n            contractAddress\n            timeLastUpdated\n            metadata {\n              name\n              description\n              image\n              attributes {\n                traitType\n                value {\n                  ... on AttributeValueInt {\n                    intValue\n                  }\n                  ... on AttributeValueFloat {\n                    floatValue\n                  }\n                  ... on AttributeValueString {\n                    stringValue\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
+                  '\n    query GetProfile($filter: UserOrgFilter) {\n      serverTime\n      me {\n        id\n        user {\n          id\n          username\n          email\n        }\n        userOrgs(filter: $filter) {\n          id\n          organizationId\n          role\n          bidAllowed\n          kycStatus\n          avatar\n          username\n          settings\n          externalUserId\n        }\n      }\n    }\n  ',
                 ],
               )),
           )),
-          (c[_.invoices] = Object(h.gql)(
+          (h[p.organization] = Object(y.gql)(
             S ||
-              (S = Y(
+              (S = D(
                 [
-                  '\n    query GetInvoices {\n      getMyInvoices {\n        invoiceID\n        invoiceNumber\n        invoiceCreatedAt\n        status\n        items {\n          collectionItemID\n          collectionTitle\n          destinationAddress\n          collectionItemTitle\n          units\n          unitPrice\n          buyersPremium\n          overheadPremium\n          totalPrice\n          saleDate\n          taxes\n          salesTaxRate\n        }\n      }\n    }\n  ',
+                  '\n    query GetOrganization($filter: UserOrgFilter) {\n      serverTime\n      me {\n        id\n        userOrgs(filter: $filter) {\n          id\n          role\n          kycStatus\n          bidAllowed\n          avatar\n          username\n          settings\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query GetInvoices {\n      getMyInvoices {\n        invoiceID\n        invoiceNumber\n        invoiceCreatedAt\n        status\n        items {\n          collectionItemID\n          collectionTitle\n          destinationAddress\n          collectionItemTitle\n          units\n          unitPrice\n          buyersPremium\n          overheadPremium\n          totalPrice\n          saleDate\n          taxes\n          salesTaxRate\n        }\n      }\n    }\n  ',
+                  '\n    query GetOrganization($filter: UserOrgFilter) {\n      serverTime\n      me {\n        id\n        userOrgs(filter: $filter) {\n          id\n          role\n          kycStatus\n          bidAllowed\n          avatar\n          username\n          settings\n        }\n      }\n    }\n  ',
                 ],
               )),
           )),
-          (c[_.userActiveBids] = Object(h.gql)(
+          (h[p.userWallets] = Object(y.gql)(
             x ||
-              (x = Y(
+              (x = D(
                 [
-                  '\n    query GetUserActiveBids($organizationID: UUID!) {\n      serverTime\n      me {\n        id\n        activeBids(orgId: $organizationID) {\n          id\n          amount\n          marketplaceAuctionLot {\n            id\n            marketplaceCollectionItemId\n            status\n            currentBid {\n              amount\n              id\n            }\n            bids {\n              amount\n            }\n          }\n        }\n      }\n    }\n  ',
+                  '\n    query GetWallets {\n      me {\n        id\n        wallets {\n          id\n          name\n          address\n          parentType\n          parentID\n          networkId\n          network {\n            chainID\n          }\n          tokens {\n            id\n            title\n            contractAddress\n            timeLastUpdated\n            metadata {\n              name\n              description\n              image\n              attributes {\n                traitType\n                value {\n                  ... on AttributeValueInt {\n                    intValue\n                  }\n                  ... on AttributeValueFloat {\n                    floatValue\n                  }\n                  ... on AttributeValueString {\n                    stringValue\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query GetUserActiveBids($organizationID: UUID!) {\n      serverTime\n      me {\n        id\n        activeBids(orgId: $organizationID) {\n          id\n          amount\n          marketplaceAuctionLot {\n            id\n            marketplaceCollectionItemId\n            status\n            currentBid {\n              amount\n              id\n            }\n            bids {\n              amount\n            }\n          }\n        }\n      }\n    }\n  ',
+                  '\n    query GetWallets {\n      me {\n        id\n        wallets {\n          id\n          name\n          address\n          parentType\n          parentID\n          networkId\n          network {\n            chainID\n          }\n          tokens {\n            id\n            title\n            contractAddress\n            timeLastUpdated\n            metadata {\n              name\n              description\n              image\n              attributes {\n                traitType\n                value {\n                  ... on AttributeValueInt {\n                    intValue\n                  }\n                  ... on AttributeValueFloat {\n                    floatValue\n                  }\n                  ... on AttributeValueString {\n                    stringValue\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
                 ],
               )),
           )),
-          (c[_.userFavorites] = Object(h.gql)(
+          (h[p.invoices] = Object(y.gql)(
             E ||
-              (E = Y(
+              (E = D(
                 [
-                  '\n    ',
-                  '\n    query GetUserFavorites {\n      serverTime\n      me {\n        id\n        favoriteItems {\n          ...FavoriteItemsFields\n        }\n      }\n    }\n  ',
+                  '\n    query GetInvoices {\n      getMyInvoices {\n        invoiceID\n        invoiceNumber\n        invoiceCreatedAt\n        status\n        items {\n          collectionItemID\n          collectionTitle\n          destinationAddress\n          collectionItemTitle\n          units\n          unitPrice\n          buyersPremium\n          overheadPremium\n          totalPrice\n          saleDate\n          taxes\n          salesTaxRate\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    ',
-                  '\n    query GetUserFavorites {\n      serverTime\n      me {\n        id\n        favoriteItems {\n          ...FavoriteItemsFields\n        }\n      }\n    }\n  ',
+                  '\n    query GetInvoices {\n      getMyInvoices {\n        invoiceID\n        invoiceNumber\n        invoiceCreatedAt\n        status\n        items {\n          collectionItemID\n          collectionTitle\n          destinationAddress\n          collectionItemTitle\n          units\n          unitPrice\n          buyersPremium\n          overheadPremium\n          totalPrice\n          saleDate\n          taxes\n          salesTaxRate\n        }\n      }\n    }\n  ',
                 ],
               )),
-            b,
           )),
-          (c[_.checkUsername] = Object(h.gql)(
+          (h[p.userActiveBids] = Object(y.gql)(
             O ||
-              (O = Y(
+              (O = D(
                 [
-                  '\n    query CheckUsername($organizationID: String!, $username: String!) {\n      orgUsernameAvailable(organizationID: $organizationID, username: $username)\n    }\n  ',
+                  '\n    query GetUserActiveBids($organizationID: UUID!) {\n      serverTime\n      me {\n        id\n        activeBids(orgId: $organizationID) {\n          id\n          amount\n          marketplaceAuctionLot {\n            id\n            marketplaceCollectionItemId\n            status\n            currentBid {\n              amount\n              id\n            }\n            bids {\n              amount\n            }\n          }\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query CheckUsername($organizationID: String!, $username: String!) {\n      orgUsernameAvailable(organizationID: $organizationID, username: $username)\n    }\n  ',
+                  '\n    query GetUserActiveBids($organizationID: UUID!) {\n      serverTime\n      me {\n        id\n        activeBids(orgId: $organizationID) {\n          id\n          amount\n          marketplaceAuctionLot {\n            id\n            marketplaceCollectionItemId\n            status\n            currentBid {\n              amount\n              id\n            }\n            bids {\n              amount\n            }\n          }\n        }\n      }\n    }\n  ',
                 ],
               )),
           )),
-          (c[_.collectionBySlug] = Object(h.gql)(
+          (h[p.userFavorites] = Object(y.gql)(
             j ||
-              (j = Y(
+              (j = D(
                 [
                   '\n    ',
-                  '\n    query collectionBySlug($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        id\n        slug\n        name\n        description\n        startDate\n        endDate\n        items(statuses: [Active]) {\n          ...CollectionItemFields\n        }\n      }\n    }\n  ',
+                  '\n    query GetUserFavorites {\n      serverTime\n      me {\n        id\n        favoriteItems {\n          ...FavoriteItemsFields\n        }\n      }\n    }\n  ',
                 ],
                 [
                   '\n    ',
-                  '\n    query collectionBySlug($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        id\n        slug\n        name\n        description\n        startDate\n        endDate\n        items(statuses: [Active]) {\n          ...CollectionItemFields\n        }\n      }\n    }\n  ',
+                  '\n    query GetUserFavorites {\n      serverTime\n      me {\n        id\n        favoriteItems {\n          ...FavoriteItemsFields\n        }\n      }\n    }\n  ',
                 ],
               )),
-            k,
+            T,
           )),
-          (c[_.collectionBySlugCurrentBids] = Object(h.gql)(
+          (h[p.checkUsername] = Object(y.gql)(
             H ||
-              (H = Y(
+              (H = D(
                 [
-                  '\n    ',
-                  '\n    ',
-                  '\n\n    query collectionBySlugCurrentBids($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        id\n        items(statuses: [Active]) {\n          id\n          details {\n            ... on MarketplaceAuctionLot {\n              id\n              endDate\n              startDate\n              startingBid\n              currentBid {\n                ...CollectionItemAuctionLotCurrentBid\n              }\n              myBid {\n                ...CollectionItemAuctionLotMyBid\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
+                  '\n    query CheckUsername($organizationID: String!, $username: String!) {\n      orgUsernameAvailable(organizationID: $organizationID, username: $username)\n    }\n  ',
                 ],
                 [
-                  '\n    ',
-                  '\n    ',
-                  '\n\n    query collectionBySlugCurrentBids($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        id\n        items(statuses: [Active]) {\n          id\n          details {\n            ... on MarketplaceAuctionLot {\n              id\n              endDate\n              startDate\n              startingBid\n              currentBid {\n                ...CollectionItemAuctionLotCurrentBid\n              }\n              myBid {\n                ...CollectionItemAuctionLotMyBid\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
+                  '\n    query CheckUsername($organizationID: String!, $username: String!) {\n      orgUsernameAvailable(organizationID: $organizationID, username: $username)\n    }\n  ',
                 ],
               )),
-            M,
-            v,
           )),
-          (c[_.collectionItemByIdRemainingCount] = Object(h.gql)(
+          (h[p.collectionBySlug] = Object(y.gql)(
             P ||
-              (P = Y(
+              (P = D(
                 [
-                  '\n    query collectionItemByIdBidsList($id: UUID1!) {\n      collectionItemById(id: $id) {\n        id\n        details {\n          ... on MarketplaceBuyNowOutput {\n            id\n            remainingCount\n          }\n        }\n      }\n    }\n  ',
+                  '\n    ',
+                  '\n    query collectionBySlug($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        id\n        slug\n        name\n        description\n        startDate\n        endDate\n        items(statuses: [Active]) {\n          ...CollectionItemFields\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query collectionItemByIdBidsList($id: UUID1!) {\n      collectionItemById(id: $id) {\n        id\n        details {\n          ... on MarketplaceBuyNowOutput {\n            id\n            remainingCount\n          }\n        }\n      }\n    }\n  ',
+                  '\n    ',
+                  '\n    query collectionBySlug($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        id\n        slug\n        name\n        description\n        startDate\n        endDate\n        items(statuses: [Active]) {\n          ...CollectionItemFields\n        }\n      }\n    }\n  ',
                 ],
               )),
+            Y,
           )),
-          (c[_.collectionItemByIdBidsList] = Object(h.gql)(
+          (h[p.collectionBySlugCurrentBids] = Object(y.gql)(
             A ||
-              (A = Y(
+              (A = D(
                 [
                   '\n    ',
-                  '\n\n    query collectionItemByIdBidsList($id: UUID1!) {\n      collectionItemById(id: $id) {\n        id\n        details {\n          ... on MarketplaceAuctionLot {\n            id\n            endDate\n            startDate\n            bids {\n              ...CollectionItemAuctionLotBidsList\n            }\n          }\n        }\n      }\n    }\n  ',
+                  '\n    ',
+                  '\n\n    query collectionBySlugCurrentBids($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        id\n        items(statuses: [Active]) {\n          id\n          details {\n            ... on MarketplaceAuctionLot {\n              id\n              endDate\n              startDate\n              startingBid\n              currentBid {\n                ...CollectionItemAuctionLotCurrentBid\n              }\n              myBid {\n                ...CollectionItemAuctionLotMyBid\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
                 ],
                 [
                   '\n    ',
-                  '\n\n    query collectionItemByIdBidsList($id: UUID1!) {\n      collectionItemById(id: $id) {\n        id\n        details {\n          ... on MarketplaceAuctionLot {\n            id\n            endDate\n            startDate\n            bids {\n              ...CollectionItemAuctionLotBidsList\n            }\n          }\n        }\n      }\n    }\n  ',
-                ],
-              )),
-            y,
-          )),
-          (c[_.collectionLotsIdList] = Object(h.gql)(
-            I ||
-              (I = Y(
-                [
                   '\n    ',
-                  '\n    query collectionLotsIdList($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        items(statuses: [Active]) {\n          id\n          name\n          saleType\n        }\n      }\n    }\n  ',
-                ],
-                [
-                  '\n    ',
-                  '\n    query collectionLotsIdList($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        items(statuses: [Active]) {\n          id\n          name\n          saleType\n        }\n      }\n    }\n  ',
-                ],
-              )),
-            k,
-          )),
-          (c[_.oneLot] = Object(h.gql)(
-            C ||
-              (C = Y(
-                [
-                  '\n    ',
-                  '\n    query oneLot($marketplaceAuctionLotId: UUID!) {\n      getMarketplaceAuctionLot(marketplaceAuctionLotId: $marketplaceAuctionLotId) {\n        ...CollectionItemAuctionLotDetailsFields\n      }\n    }\n  ',
-                ],
-                [
-                  '\n    ',
-                  '\n    query oneLot($marketplaceAuctionLotId: UUID!) {\n      getMarketplaceAuctionLot(marketplaceAuctionLotId: $marketplaceAuctionLotId) {\n        ...CollectionItemAuctionLotDetailsFields\n      }\n    }\n  ',
+                  '\n\n    query collectionBySlugCurrentBids($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        id\n        items(statuses: [Active]) {\n          id\n          details {\n            ... on MarketplaceAuctionLot {\n              id\n              endDate\n              startDate\n              startingBid\n              currentBid {\n                ...CollectionItemAuctionLotCurrentBid\n              }\n              myBid {\n                ...CollectionItemAuctionLotMyBid\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
                 ],
               )),
             L,
+            g,
           )),
-          (c[_.marketplaceCollectionsInfoWithItemsIdAndSlug] = Object(h.gql)(
+          (h[p.collectionItemByIdRemainingCount] = Object(y.gql)(
+            C ||
+              (C = D(
+                [
+                  '\n    query collectionItemByIdBidsList($id: UUID1!) {\n      collectionItemById(id: $id) {\n        id\n        details {\n          ... on MarketplaceBuyNowOutput {\n            id\n            remainingCount\n          }\n        }\n      }\n    }\n  ',
+                ],
+                [
+                  '\n    query collectionItemByIdBidsList($id: UUID1!) {\n      collectionItemById(id: $id) {\n        id\n        details {\n          ... on MarketplaceBuyNowOutput {\n            id\n            remainingCount\n          }\n        }\n      }\n    }\n  ',
+                ],
+              )),
+          )),
+          (h[p.collectionItemByIdBidsList] = Object(y.gql)(
+            I ||
+              (I = D(
+                [
+                  '\n    ',
+                  '\n\n    query collectionItemByIdBidsList($id: UUID1!) {\n      collectionItemById(id: $id) {\n        id\n        details {\n          ... on MarketplaceAuctionLot {\n            id\n            endDate\n            startDate\n            bids {\n              ...CollectionItemAuctionLotBidsList\n            }\n          }\n        }\n      }\n    }\n  ',
+                ],
+                [
+                  '\n    ',
+                  '\n\n    query collectionItemByIdBidsList($id: UUID1!) {\n      collectionItemById(id: $id) {\n        id\n        details {\n          ... on MarketplaceAuctionLot {\n            id\n            endDate\n            startDate\n            bids {\n              ...CollectionItemAuctionLotBidsList\n            }\n          }\n        }\n      }\n    }\n  ',
+                ],
+              )),
+            v,
+          )),
+          (h[p.collectionLotsIdList] = Object(y.gql)(
             N ||
-              (N = Y(
+              (N = D(
                 [
-                  '\n    query marketplaceCollectionsInfoWithItemsIdAndSlug($id: UUID!) {\n      marketplace(id: $id) {\n        collections {\n          id\n          slug\n          name\n          description\n          startDate\n          endDate\n          items(statuses: [Active]) {\n            slug\n            id\n          }\n        }\n      }\n    }\n  ',
+                  '\n    ',
+                  '\n    query collectionLotsIdList($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        items(statuses: [Active]) {\n          id\n          name\n          saleType\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query marketplaceCollectionsInfoWithItemsIdAndSlug($id: UUID!) {\n      marketplace(id: $id) {\n        collections {\n          id\n          slug\n          name\n          description\n          startDate\n          endDate\n          items(statuses: [Active]) {\n            slug\n            id\n          }\n        }\n      }\n    }\n  ',
+                  '\n    ',
+                  '\n    query collectionLotsIdList($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        items(statuses: [Active]) {\n          id\n          name\n          saleType\n        }\n      }\n    }\n  ',
                 ],
               )),
+            Y,
           )),
-          (c[_.serverTime] = Object(h.gql)(
+          (h[p.oneLot] = Object(y.gql)(
             F ||
-              (F = Y(
+              (F = D(
+                [
+                  '\n    ',
+                  '\n    query oneLot($marketplaceAuctionLotId: UUID!) {\n      getMarketplaceAuctionLot(marketplaceAuctionLotId: $marketplaceAuctionLotId) {\n        ...CollectionItemAuctionLotDetailsFields\n      }\n    }\n  ',
+                ],
+                [
+                  '\n    ',
+                  '\n    query oneLot($marketplaceAuctionLotId: UUID!) {\n      getMarketplaceAuctionLot(marketplaceAuctionLotId: $marketplaceAuctionLotId) {\n        ...CollectionItemAuctionLotDetailsFields\n      }\n    }\n  ',
+                ],
+              )),
+            k,
+          )),
+          (h[p.marketplaceCollectionsInfoWithItemsIdAndSlug] = Object(y.gql)(
+            R ||
+              (R = D(
+                [
+                  '\n    query marketplaceCollectionsInfoWithItemsIdAndSlug($id: UUID!) {\n      marketplace(id: $id) {\n        collections {\n          id\n          slug\n          name\n          description\n          startDate\n          endDate\n          items(statuses: [Active]) {\n            slug\n            id\n          }\n        }\n      }\n    }\n  ',
+                ],
+                [
+                  '\n    query marketplaceCollectionsInfoWithItemsIdAndSlug($id: UUID!) {\n      marketplace(id: $id) {\n        collections {\n          id\n          slug\n          name\n          description\n          startDate\n          endDate\n          items(statuses: [Active]) {\n            slug\n            id\n          }\n        }\n      }\n    }\n  ',
+                ],
+              )),
+          )),
+          (h[p.serverTime] = Object(y.gql)(
+            W ||
+              (W = D(
                 ['\n    query {\n      serverTime\n    }\n  '],
                 ['\n    query {\n      serverTime\n    }\n  '],
               )),
           )),
-          c),
-        z = n(4),
-        U = n.n(z);
-      !(function (e) {
-        (e[(e.addToken = 0)] = 'addToken'), (e[(e.clearToken = 1)] = 'clearToken');
-      })(R || (R = {}));
-      var B = U.a.createContext({ state: void 0, dispatch: void 0 });
-      var K,
-        q,
-        V = n(0),
-        J = n.n(V),
-        Q = function (e, t) {
+          h),
+        K = function (e, t) {
           return (
             Object.defineProperty ? Object.defineProperty(e, 'raw', { value: t }) : (e.raw = t), e
           );
@@ -28188,85 +28248,84 @@ object-assign
           (e[(e.collectors = 4)] = 'collectors'),
           (e[(e.authors = 5)] = 'authors'),
           (e[(e.organizations = 6)] = 'organizations');
-      })(q || (q = {}));
-      var G,
+      })(U || (U = {}));
+      var q,
+        V,
+        Q,
+        J,
+        G,
         $,
         Z,
-        X,
-        ee,
-        te,
-        ne,
-        re,
-        ae =
-          (((K = {})[q.fullLot] = Object(h.gql)(
+        X =
+          (((z = {})[U.fullLot] = Object(y.gql)(
+            q ||
+              (q = K(
+                [
+                  '\n    query lot($mojitoId: String) {\n      lotCollection(where: { mojitoId: $mojitoId }) {\n        items {\n          lotId\n          sys {\n            publishedAt\n          }\n          title\n          subtitle\n          imagesCollection {\n            items {\n              url\n              title\n              contentType\n            }\n          }\n          createdAt\n          estimatePrice\n          purchasedAt\n          smartContractAddress\n          tokenId\n          mojitoId\n          author {\n            about\n            name\n            slug\n            avatar {\n              url\n              title\n            }\n          }\n          collector {\n            name\n            slug\n            about\n            smartContractAddress\n            avatar {\n              url\n              title\n            }\n            videoId\n            twitterLink\n          }\n          aboutLot\n          note\n          history\n          video\n          conditionReportText\n          shortCollectorDescription\n          nftLink\n          slug\n          nftVideoIds\n          lotPreviewBackgroundColor\n          gridPreviewImage {\n            url\n            title\n          }\n        }\n      }\n    }\n  ',
+                ],
+                [
+                  '\n    query lot($mojitoId: String) {\n      lotCollection(where: { mojitoId: $mojitoId }) {\n        items {\n          lotId\n          sys {\n            publishedAt\n          }\n          title\n          subtitle\n          imagesCollection {\n            items {\n              url\n              title\n              contentType\n            }\n          }\n          createdAt\n          estimatePrice\n          purchasedAt\n          smartContractAddress\n          tokenId\n          mojitoId\n          author {\n            about\n            name\n            slug\n            avatar {\n              url\n              title\n            }\n          }\n          collector {\n            name\n            slug\n            about\n            smartContractAddress\n            avatar {\n              url\n              title\n            }\n            videoId\n            twitterLink\n          }\n          aboutLot\n          note\n          history\n          video\n          conditionReportText\n          shortCollectorDescription\n          nftLink\n          slug\n          nftVideoIds\n          lotPreviewBackgroundColor\n          gridPreviewImage {\n            url\n            title\n          }\n        }\n      }\n    }\n  ',
+                ],
+              )),
+          )),
+          (z[U.shortLots] = Object(y.gql)(
+            V ||
+              (V = K(
+                [
+                  '\n    query lots($mojitoIds: [String]) {\n      lotCollection(order: lotId_ASC, where: { mojitoId_in: $mojitoIds }) {\n        items {\n          sys {\n            publishedAt\n          }\n          lotId\n          title\n          subtitle\n          mojitoId\n          author {\n            name\n            slug\n            avatar {\n              url\n            }\n          }\n          collector {\n            name\n            slug\n            avatar {\n              url\n            }\n          }\n          slug\n          gridPreviewImage {\n            url\n            title\n          }\n          imagesCollection(limit: 1) {\n            items {\n              url\n              title\n            }\n          }\n        }\n      }\n    }\n  ',
+                ],
+                [
+                  '\n    query lots($mojitoIds: [String]) {\n      lotCollection(order: lotId_ASC, where: { mojitoId_in: $mojitoIds }) {\n        items {\n          sys {\n            publishedAt\n          }\n          lotId\n          title\n          subtitle\n          mojitoId\n          author {\n            name\n            slug\n            avatar {\n              url\n            }\n          }\n          collector {\n            name\n            slug\n            avatar {\n              url\n            }\n          }\n          slug\n          gridPreviewImage {\n            url\n            title\n          }\n          imagesCollection(limit: 1) {\n            items {\n              url\n              title\n            }\n          }\n        }\n      }\n    }\n  ',
+                ],
+              )),
+          )),
+          (z[U.auctionBySlug] = Object(y.gql)(
+            Q ||
+              (Q = K(
+                [
+                  '\n    query Auction($slug: String) {\n      auctionCollection(order: sys_publishedAt_DESC, where: { slug: $slug }) {\n        items {\n          name\n          title\n          subtitle\n          duration\n          description\n          data\n          startDate\n          endDate\n          videoId\n          slug\n          saleId\n        }\n      }\n    }\n  ',
+                ],
+                [
+                  '\n    query Auction($slug: String) {\n      auctionCollection(order: sys_publishedAt_DESC, where: { slug: $slug }) {\n        items {\n          name\n          title\n          subtitle\n          duration\n          description\n          data\n          startDate\n          endDate\n          videoId\n          slug\n          saleId\n        }\n      }\n    }\n  ',
+                ],
+              )),
+          )),
+          (z[U.auctionsSlugList] = Object(y.gql)(
+            J ||
+              (J = K(
+                [
+                  '\n    query Auction {\n      auctionCollection(order: sys_publishedAt_DESC) {\n        items {\n          slug\n        }\n      }\n    }\n  ',
+                ],
+                [
+                  '\n    query Auction {\n      auctionCollection(order: sys_publishedAt_DESC) {\n        items {\n          slug\n        }\n      }\n    }\n  ',
+                ],
+              )),
+          )),
+          (z[U.collectors] = Object(y.gql)(
             G ||
-              (G = Q(
+              (G = K(
                 [
-                  '\n    query lot($mojitoId: String) {\n      lotCollection(where: { mojitoId: $mojitoId }) {\n        items {\n          lotId\n          sys {\n            publishedAt\n          }\n          title\n          subtitle\n          imagesCollection {\n            items {\n              url\n              title\n              contentType\n            }\n          }\n          createdAt\n          estimatePrice\n          purchasedAt\n          smartContractAddress\n          tokenId\n          mojitoId\n          author {\n            about\n            name\n            slug\n            avatar {\n              url\n              title\n            }\n          }\n          collector {\n            name\n            slug\n            about\n            smartContractAddress\n            avatar {\n              url\n              title\n            }\n            videoId\n            twitterLink\n          }\n          aboutLot\n          note\n          history\n          video\n          conditionReportText\n          shortCollectorDescription\n          nftLink\n          slug\n          nftVideoIds\n          lotPreviewBackgroundColor\n          gridPreviewImage {\n            url\n            title\n          }\n        }\n      }\n    }\n  ',
+                  '\n    query Collector {\n      collectorCollection(order: name_ASC) {\n        items {\n          sys {\n            publishedAt\n          }\n          name\n          about\n          smartContractAddress\n          linkedFrom {\n            lotCollection {\n              items {\n                mojitoId\n                title\n                slug\n              }\n            }\n          }\n          avatar {\n            url\n            title\n          }\n          videoId\n          twitterLink\n          slug\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query lot($mojitoId: String) {\n      lotCollection(where: { mojitoId: $mojitoId }) {\n        items {\n          lotId\n          sys {\n            publishedAt\n          }\n          title\n          subtitle\n          imagesCollection {\n            items {\n              url\n              title\n              contentType\n            }\n          }\n          createdAt\n          estimatePrice\n          purchasedAt\n          smartContractAddress\n          tokenId\n          mojitoId\n          author {\n            about\n            name\n            slug\n            avatar {\n              url\n              title\n            }\n          }\n          collector {\n            name\n            slug\n            about\n            smartContractAddress\n            avatar {\n              url\n              title\n            }\n            videoId\n            twitterLink\n          }\n          aboutLot\n          note\n          history\n          video\n          conditionReportText\n          shortCollectorDescription\n          nftLink\n          slug\n          nftVideoIds\n          lotPreviewBackgroundColor\n          gridPreviewImage {\n            url\n            title\n          }\n        }\n      }\n    }\n  ',
+                  '\n    query Collector {\n      collectorCollection(order: name_ASC) {\n        items {\n          sys {\n            publishedAt\n          }\n          name\n          about\n          smartContractAddress\n          linkedFrom {\n            lotCollection {\n              items {\n                mojitoId\n                title\n                slug\n              }\n            }\n          }\n          avatar {\n            url\n            title\n          }\n          videoId\n          twitterLink\n          slug\n        }\n      }\n    }\n  ',
                 ],
               )),
           )),
-          (K[q.shortLots] = Object(h.gql)(
+          (z[U.authors] = Object(y.gql)(
             $ ||
-              ($ = Q(
+              ($ = K(
                 [
-                  '\n    query lots($mojitoIds: [String]) {\n      lotCollection(order: lotId_ASC, where: { mojitoId_in: $mojitoIds }) {\n        items {\n          sys {\n            publishedAt\n          }\n          lotId\n          title\n          subtitle\n          mojitoId\n          author {\n            name\n            slug\n            avatar {\n              url\n            }\n          }\n          collector {\n            name\n            slug\n            avatar {\n              url\n            }\n          }\n          slug\n          gridPreviewImage {\n            url\n            title\n          }\n          imagesCollection(limit: 1) {\n            items {\n              url\n              title\n            }\n          }\n        }\n      }\n    }\n  ',
+                  '\n    query Author {\n      authorCollection {\n        items {\n          sys {\n            publishedAt\n          }\n          about\n          name\n          slug\n          avatar {\n            url\n            title\n          }\n          linkedFrom {\n            lotCollection {\n              items {\n                mojitoId\n                title\n                slug\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query lots($mojitoIds: [String]) {\n      lotCollection(order: lotId_ASC, where: { mojitoId_in: $mojitoIds }) {\n        items {\n          sys {\n            publishedAt\n          }\n          lotId\n          title\n          subtitle\n          mojitoId\n          author {\n            name\n            slug\n            avatar {\n              url\n            }\n          }\n          collector {\n            name\n            slug\n            avatar {\n              url\n            }\n          }\n          slug\n          gridPreviewImage {\n            url\n            title\n          }\n          imagesCollection(limit: 1) {\n            items {\n              url\n              title\n            }\n          }\n        }\n      }\n    }\n  ',
+                  '\n    query Author {\n      authorCollection {\n        items {\n          sys {\n            publishedAt\n          }\n          about\n          name\n          slug\n          avatar {\n            url\n            title\n          }\n          linkedFrom {\n            lotCollection {\n              items {\n                mojitoId\n                title\n                slug\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
                 ],
               )),
           )),
-          (K[q.auctionBySlug] = Object(h.gql)(
+          (z[U.organizations] = Object(y.gql)(
             Z ||
-              (Z = Q(
-                [
-                  '\n    query Auction($slug: String) {\n      auctionCollection(order: sys_publishedAt_DESC, where: { slug: $slug }) {\n        items {\n          name\n          title\n          subtitle\n          duration\n          description\n          data\n          startDate\n          endDate\n          videoId\n          slug\n          saleId\n        }\n      }\n    }\n  ',
-                ],
-                [
-                  '\n    query Auction($slug: String) {\n      auctionCollection(order: sys_publishedAt_DESC, where: { slug: $slug }) {\n        items {\n          name\n          title\n          subtitle\n          duration\n          description\n          data\n          startDate\n          endDate\n          videoId\n          slug\n          saleId\n        }\n      }\n    }\n  ',
-                ],
-              )),
-          )),
-          (K[q.auctionsSlugList] = Object(h.gql)(
-            X ||
-              (X = Q(
-                [
-                  '\n    query Auction {\n      auctionCollection(order: sys_publishedAt_DESC) {\n        items {\n          slug\n        }\n      }\n    }\n  ',
-                ],
-                [
-                  '\n    query Auction {\n      auctionCollection(order: sys_publishedAt_DESC) {\n        items {\n          slug\n        }\n      }\n    }\n  ',
-                ],
-              )),
-          )),
-          (K[q.collectors] = Object(h.gql)(
-            ee ||
-              (ee = Q(
-                [
-                  '\n    query Collector {\n      collectorCollection(order: name_ASC) {\n        items {\n          sys {\n            publishedAt\n          }\n          name\n          about\n          smartContractAddress\n          linkedFrom {\n            lotCollection {\n              items {\n                mojitoId\n                title\n                slug\n              }\n            }\n          }\n          avatar {\n            url\n            title\n          }\n          videoId\n          twitterLink\n          slug\n        }\n      }\n    }\n  ',
-                ],
-                [
-                  '\n    query Collector {\n      collectorCollection(order: name_ASC) {\n        items {\n          sys {\n            publishedAt\n          }\n          name\n          about\n          smartContractAddress\n          linkedFrom {\n            lotCollection {\n              items {\n                mojitoId\n                title\n                slug\n              }\n            }\n          }\n          avatar {\n            url\n            title\n          }\n          videoId\n          twitterLink\n          slug\n        }\n      }\n    }\n  ',
-                ],
-              )),
-          )),
-          (K[q.authors] = Object(h.gql)(
-            te ||
-              (te = Q(
-                [
-                  '\n    query Author {\n      authorCollection {\n        items {\n          sys {\n            publishedAt\n          }\n          about\n          name\n          slug\n          avatar {\n            url\n            title\n          }\n          linkedFrom {\n            lotCollection {\n              items {\n                mojitoId\n                title\n                slug\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
-                ],
-                [
-                  '\n    query Author {\n      authorCollection {\n        items {\n          sys {\n            publishedAt\n          }\n          about\n          name\n          slug\n          avatar {\n            url\n            title\n          }\n          linkedFrom {\n            lotCollection {\n              items {\n                mojitoId\n                title\n                slug\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
-                ],
-              )),
-          )),
-          (K[q.organizations] = Object(h.gql)(
-            ne ||
-              (ne = Q(
+              (Z = K(
                 [
                   '\n    query Organizations {\n      organizationCollection {\n        items {\n          homepageRedirect {\n            name\n            slug\n          }\n        }\n      }\n    }\n  ',
                 ],
@@ -28275,16 +28334,33 @@ object-assign
                 ],
               )),
           )),
-          K);
-      !(function (e) {
-        (e.Auction = 'Auction'), (e.BuyNow = 'BuyNow');
-      })(re || (re = {}));
-      var ie = !(
-          'undefined' == typeof window ||
-          !window.document ||
-          !window.document.createElement
-        ),
-        se = function (e, t, n, r) {
+          z),
+        ee = ''.concat('MOJITO-HOOKS::', 'API::'),
+        te = ''.concat('MOJITO-HOOKS::', 'CONTENTFUL::');
+      function ne(e, t) {
+        void 0 === t && (t = {});
+        var n = '';
+        p[e] ? (n = ee) : U[e] && (n = te);
+        var r = ''.concat(n).concat(e);
+        return t ? [r, t] : r;
+      }
+      function re(e) {
+        return e.replace(/^MOJITO-HOOKS::(API|CONTENTFUL)::/, '');
+      }
+      var ae = function (e, t) {
+        var n = {};
+        for (var r in e)
+          Object.prototype.hasOwnProperty.call(e, r) && t.indexOf(r) < 0 && (n[r] = e[r]);
+        if (null != e && 'function' == typeof Object.getOwnPropertySymbols) {
+          var a = 0;
+          for (r = Object.getOwnPropertySymbols(e); a < r.length; a++)
+            t.indexOf(r[a]) < 0 &&
+              Object.prototype.propertyIsEnumerable.call(e, r[a]) &&
+              (n[r[a]] = e[r[a]]);
+        }
+        return n;
+      };
+      var ie = function (e, t, n, r) {
           return new (n || (n = Promise))(function (a, i) {
             function s(e) {
               try {
@@ -28314,7 +28390,7 @@ object-assign
             u((r = r.apply(e, t || [])).next());
           });
         },
-        oe = function (e, t) {
+        se = function (e, t) {
           var n,
             r,
             a,
@@ -28401,81 +28477,121 @@ object-assign
               })([i, o]);
             };
           }
-        },
-        ue = new m.QueryClient({
-          defaultOptions: {
-            queries: { staleTime: 'undefined' == typeof window ? 0 : 18e4, cacheTime: 1 / 0 },
-          },
-        }),
-        le = new h.GraphQLClient(f.a.MOJITO_API_URL),
-        de = new h.GraphQLClient(f.a.CONTENTFUL_URL, {
-          headers: { Authorization: 'Bearer '.concat(f.a.CONTENTFUL_AUTH_TOKEN) },
-        });
-      function ce(e) {
-        var t = e.query,
-          n = e.variables,
-          r = e.normalizerFn,
-          a = e.gqlClient;
-        return se(this, void 0, void 0, function () {
-          return oe(this, function (e) {
-            switch (e.label) {
-              case 0:
-                return [
-                  4,
-                  a
-                    .request(t, n)
-                    .catch(function (e) {
-                      var t,
-                        n,
-                        r = null === (t = e.response) || void 0 === t ? void 0 : t.status;
-                      if (
-                        (console.log(e), !(ie && r >= 500 && '/500' !== window.location.pathname))
-                      )
-                        throw (
-                          ((null === (n = e.response) || void 0 === n ? void 0 : n.error) &&
-                            console.log(e.response.error),
-                          e)
-                        );
-                      window.location.href = '/500';
-                    })
-                    .then(function (e) {
-                      return null == r ? void 0 : r(e, n);
-                    }),
-                ];
-              case 1:
-                return [2, e.sent()];
-            }
-          });
-        });
+        };
+      function oe(e) {
+        var t,
+          n,
+          r,
+          s = this,
+          u = Object(a.useQueryClient)(),
+          l = ((r = (n = void 0 === (t = e) ? {} : t).pathname), n.slug || o(r)[0]),
+          d = ne(p.collectionBySlug, { slug: l, marketplaceID: i.a.MARKETPLACE_ID });
+        return (function (e, t) {
+          var n,
+            r = t,
+            a = r.data;
+          return (
+            ((n = {
+              isLoading: r.isLoading,
+              error: r.error,
+              refetch: r.refetch,
+              queryResult: ae(r, ['data', 'isLoading', 'error', 'refetch']),
+            })[e] = a),
+            n
+          );
+        })(
+          'collection',
+          Object(a.useQuery)(
+            d,
+            function () {
+              return ie(s, void 0, void 0, function () {
+                var e, t, n, r, a, s;
+                return se(this, function (o) {
+                  switch (o.label) {
+                    case 0:
+                      return [
+                        4,
+                        u.fetchQuery(
+                          ne(p.marketplaceCollectionsInfoWithItemsIdAndSlug, {
+                            id: i.a.MARKETPLACE_ID,
+                          }),
+                        ),
+                      ];
+                    case 1:
+                      return (
+                        (e = o.sent()),
+                        !0,
+                        (t =
+                          (null === (a = null == e ? void 0 : e.marketplace) || void 0 === a
+                            ? void 0
+                            : a.collections) || []),
+                        (n = t.find(function (e) {
+                          return e.slug == l;
+                        }))
+                          ? ((r =
+                              null === (s = null == n ? void 0 : n.items) || void 0 === s
+                                ? void 0
+                                : s.map(function (e) {
+                                    return e.id;
+                                  })),
+                            [
+                              4,
+                              Promise.all([
+                                u.prefetchQuery(ne(U.auctionBySlug, { slug: l })),
+                                u.prefetchQuery(ne(U.shortLots, { mojitoIds: r })),
+                              ]),
+                            ])
+                          : [2, null]
+                      );
+                    case 2:
+                      o.sent(), (o.label = 3);
+                    case 3:
+                      return [4, u.fetchQuery(d)];
+                    case 4:
+                      return [2, o.sent()];
+                  }
+                });
+              });
+            },
+            null == e ? void 0 : e.options,
+          ),
+        );
       }
-      var _e = function (e) {
-          var t,
-            n,
-            r,
-            a,
-            i,
-            s,
-            o =
-              null ===
-                (r =
-                  null ===
-                    (n =
-                      null ===
-                        (t = ue.getQueryData([
-                          'Contentful '.concat(q[q.auctionBySlug]),
-                          { slug: e.slug },
-                        ])) || void 0 === t
-                        ? void 0
-                        : t.auctionCollection) || void 0 === n
-                    ? void 0
-                    : n.items) || void 0 === r
-                ? void 0
-                : r[0];
-          o && (e.contentfulData = o);
+      var ue,
+        le = n(4),
+        de = n.n(le),
+        ce = n(0),
+        _e = n.n(ce);
+      !(function (e) {
+        (e.Auction = 'Auction'), (e.BuyNow = 'BuyNow');
+      })(ue || (ue = {}));
+      var me = function (e) {
           for (
-            var u = J()(null !== (a = e.startDate) && void 0 !== a ? a : null).unix(),
-              l = J()(null !== (i = e.endDate) && void 0 !== i ? i : null).unix(),
-              d = J()().unix(),
+            var t,
+              n,
+              r,
+              a,
+              i,
+              s,
+              o =
+                null ===
+                  (r =
+                    null ===
+                      (n =
+                        null ===
+                          (t = Se.getQueryData([
+                            'Contentful '.concat(U[U.auctionBySlug]),
+                            { slug: e.slug },
+                          ])) || void 0 === t
+                          ? void 0
+                          : t.auctionCollection) || void 0 === n
+                      ? void 0
+                      : n.items) || void 0 === r
+                  ? void 0
+                  : r[0],
+              u = _e()(null !== (a = e.startDate) && void 0 !== a ? a : null).unix(),
+              l = _e()(null !== (i = e.endDate) && void 0 !== i ? i : null).unix(),
+              d = _e()().unix(),
               c = e.items,
               _ = c.length,
               m = 0,
@@ -28485,13 +28601,15 @@ object-assign
 
           ) {
             var p = c[m++].saleType;
-            p === re.BuyNow && (f = !0), p === re.Auction && (h = !0);
+            p === ue.BuyNow && (f = !0), p === ue.Auction && (h = !0);
           }
           var y = d < u,
             M = d > u && d < l,
             v = d > l;
           return (
             Object.assign(e, {
+              contentfulData: o,
+              isFake: !!o,
               viewStatus: {
                 isPreSale: y,
                 isDuringSale: M,
@@ -28501,11 +28619,11 @@ object-assign
               },
             }),
             (null === (s = null == e ? void 0 : e.items) || void 0 === s ? void 0 : s.length) &&
-              ((e.items = fe(e.items, e.slug)), (e.hasMultipleLots = e.items.length > 1)),
+              ((e.items = he(e.items, e.slug)), (e.hasMultipleLots = e.items.length > 1)),
             e
           );
         },
-        me = function (e, t, n) {
+        fe = function (e, t, n) {
           var r,
             a,
             i,
@@ -28522,7 +28640,7 @@ object-assign
                 ? void 0
                 : i.currentBid))
           ) {
-            var d = ue.getQueryData(['Contentful '.concat(q[q.fullLot]), { mojitoId: e.id }]);
+            var d = Se.getQueryData(['Contentful '.concat(U[U.fullLot]), { mojitoId: e.id }]);
             e.contentfulData =
               null !==
                 (o =
@@ -28534,34 +28652,34 @@ object-assign
                 ? o
                 : { lotId: -1, title: 'NA', subtitle: 'NA', mojitoId: 'NA', slug: 'NA' };
           }
-          return (null == e ? void 0 : e.details) && (e.details = he(e.details, t)), e;
-        },
-        fe = function (e, t) {
-          var n = ue.getQueryData(['Contentful '.concat(q[q.shortLots]), { slug: t }]);
-          return e.map(function (e) {
-            return me(e, t, n);
-          });
+          return (null == e ? void 0 : e.details) && (e.details = pe(e.details, t)), e;
         },
         he = function (e, t) {
+          var n = Se.getQueryData(['Contentful '.concat(U[U.shortLots]), { slug: t }]);
+          return e.map(function (e) {
+            return fe(e, t, n);
+          });
+        },
+        pe = function (e, t) {
           var n,
             r,
             a,
-            i,
             s,
             o,
             u,
             l,
-            d =
-              null === (n = ue.getQueryData(['Mojito '.concat(_[_.profile]), null])) || void 0 === n
+            d,
+            c =
+              null === (n = Se.getQueryData(['Mojito '.concat(p[p.profile]), null])) || void 0 === n
                 ? void 0
                 : n.me,
-            c =
+            _ =
               null ===
                 (a =
                   null ===
-                    (r = ue.getQueryData([
-                      'Mojito '.concat(_[_.collectionBySlugCurrentBids]),
-                      { slug: t, marketplaceID: f.a.MARKETPLACE_ID },
+                    (r = Se.getQueryData([
+                      'Mojito '.concat(p[p.collectionBySlugCurrentBids]),
+                      { slug: t, marketplaceID: i.a.MARKETPLACE_ID },
                     ])) || void 0 === r
                     ? void 0
                     : r.items) || void 0 === a
@@ -28569,14 +28687,14 @@ object-assign
                 : a.find(function (t) {
                     return t.details.id === e.id;
                   }),
-            m = null == c ? void 0 : c.details;
+            m = null == _ ? void 0 : _.details;
           if (e.startDate && e.endDate) {
-            var h = J()(null !== (i = e.startDate) && void 0 !== i ? i : null).unix(),
-              p = J()(null !== (s = e.endDate) && void 0 !== s ? s : null).unix(),
-              y = J()().unix();
+            var f = _e()(null !== (s = e.startDate) && void 0 !== s ? s : null).unix(),
+              h = _e()(null !== (o = e.endDate) && void 0 !== o ? o : null).unix(),
+              y = _e()().unix();
             Object.assign(e, {
-              endTimestamp: p - y,
-              saleView: { isPreSale: y <= h, isDuringSale: y > h && y < p, isPostSale: y >= p },
+              endTimestamp: h - y,
+              saleView: { isPreSale: y <= f, isDuringSale: y > f && y < h, isPostSale: y >= h },
             });
           }
           if (null == e ? void 0 : e.bids) {
@@ -28588,12 +28706,12 @@ object-assign
                   : M.sort(function (e, t) {
                       return e.amount > t.amount ? -1 : 1;
                     })),
-              d)
+              c)
             ) {
               var v = -1;
               (M = M.map(function (e, t) {
                 return (
-                  (e.isMine = d.id === e.marketplaceUser.id), -1 == v && e.isMine && (v = t), e
+                  (e.isMine = c.id === e.marketplaceUser.id), -1 == v && e.isMine && (v = t), e
                 );
               })),
                 0 == v
@@ -28607,13 +28725,13 @@ object-assign
             var L = e.myBid,
               g = e.currentBid,
               k = (null == L ? void 0 : L.id) == (null == g ? void 0 : g.id);
-            (null === (o = e.saleView) || void 0 === o ? void 0 : o.isDuringSale)
+            (null === (u = e.saleView) || void 0 === u ? void 0 : u.isDuringSale)
               ? k
                 ? (e.currentBid.isHold = !0)
                 : L
                 ? (e.currentBid.isOutbid = !0)
                 : (e.currentBid.isCurrent = !0)
-              : (null === (u = e.saleView) || void 0 === u ? void 0 : u.isPostSale) &&
+              : (null === (l = e.saleView) || void 0 === l ? void 0 : l.isPostSale) &&
                 (L && k
                   ? (e.currentBid.isWin = !0)
                   : L
@@ -28624,7 +28742,7 @@ object-assign
               ? (e.currentBid = null == m ? void 0 : m.currentBid)
               : null === (null == e ? void 0 : e.currentBid)
               ? (e.currentBid = {
-                  amount: null !== (l = e.startingBid) && void 0 !== l ? l : 50,
+                  amount: null !== (d = e.startingBid) && void 0 !== d ? d : 50,
                   isStart: !0,
                   marketplaceAuctionLotId: e.id,
                 })
@@ -28637,134 +28755,7 @@ object-assign
             e
           );
         };
-      function pe(e, t, n) {
-        var r, a, i, s, o, u, l, d, c;
-        if (!e) return null;
-        var _ = e;
-        if (_.serverTime) {
-          var m = new Date(_.serverTime).getTime() - Date.now();
-          J.a.now = function () {
-            return m + Date.now();
-          };
-        }
-        if (
-          null ===
-            (a = null === (r = null == _ ? void 0 : _.me) || void 0 === r ? void 0 : r.userOrgs) ||
-          void 0 === a
-            ? void 0
-            : a[0]
-        ) {
-          var f = _.me.userOrgs[0],
-            h = f.role,
-            p = 'TransactionalWithID' === h,
-            y = 'Basic' === h || 'MissingInformation' === h || 'EndUser' === h,
-            M = 'TransactionalNoID' === h,
-            v = 'NotAllowedToBid' === h || 'CoreUnavailable' === h || 'BidAuthUnavailable' === h;
-          Object.assign(f, {
-            notifications: {
-              isTransactionalWithID: p,
-              completeYourProfile: y,
-              uploadID: M,
-              contactUs: v,
-            },
-            hasNotifications: !!(y || M || v),
-            settings: f.settings
-              ? JSON.parse(f.settings)
-              : {
-                  hasCompletedOnboarding: !1,
-                  notifications: { bidOnSold: !1, savedBidOn: !1, savedSold: !1 },
-                  privacy: { hideActivity: !1, showCollection: !1, showSaved: !1 },
-                },
-          }),
-            (_.me.userOrgs[0] = f);
-        }
-        if (
-          ((null == _ ? void 0 : _.getMarketplaceAuctionLot) &&
-            (_.getMarketplaceAuctionLot = he(
-              _.getMarketplaceAuctionLot,
-              null == t ? void 0 : t.slug,
-            )),
-          (null === (i = null == _ ? void 0 : _.collection) || void 0 === i ? void 0 : i.items) &&
-            (_.collection = _e(_.collection)),
-          (null === (s = null == _ ? void 0 : _.collectionBySlug) || void 0 === s
-            ? void 0
-            : s.items) && (Object.assign(_, _e(_.collectionBySlug)), delete _.collectionBySlug),
-          (null == _ ? void 0 : _.collectionItemById) &&
-            ((null == t ? void 0 : t.slug) &&
-              (_.collectionItemById = me(_.collectionItemById, t.slug)),
-            Object.assign(_, _.collectionItemById)),
-          (null === (o = null == _ ? void 0 : _.marketplace) || void 0 === o
-            ? void 0
-            : o.collections) &&
-            (_.marketplace.collections =
-              null === (u = null == _ ? void 0 : _.marketplace) || void 0 === u
-                ? void 0
-                : u.collections.map(function (e) {
-                    return _e(e);
-                  })),
-          null === (l = null == _ ? void 0 : _.me) || void 0 === l ? void 0 : l.wallets)
-        ) {
-          var L =
-            null ===
-              (c = null === (d = null == _ ? void 0 : _.me) || void 0 === d ? void 0 : d.wallets) ||
-            void 0 === c
-              ? void 0
-              : c.map(function (e) {
-                  var t;
-                  return (
-                    (e.tokens =
-                      null === (t = e.tokens) || void 0 === t
-                        ? void 0
-                        : t.map(function (t) {
-                            return Object.assign(t, { walletId: e.id });
-                          })),
-                    e
-                  );
-                });
-          _.me.wallets = L;
-        }
-        if (null == _ ? void 0 : _.getMyInvoices) {
-          var g = ue.getQueryData([
-            'Contentful '.concat(q[q.shortLots]),
-            { slug: null == t ? void 0 : t.slug },
-          ]);
-          _.getMyInvoices =
-            null == _
-              ? void 0
-              : _.getMyInvoices.map(function (e) {
-                  var t = null == g ? void 0 : g[e.collectionItemId];
-                  return t && (e.contentfulData = t), e;
-                });
-        }
-        return _;
-      }
-      function ye(e, t, n) {
-        var r, a;
-        if (!e) return null;
-        var i = e;
-        return (
-          null === (r = null == i ? void 0 : i.lotCollection) || void 0 === r ? void 0 : r.items
-        )
-          ? (null === (a = null == i ? void 0 : i.lotCollection) || void 0 === a
-              ? void 0
-              : a.items
-            ).reduce(function (e, t) {
-              var n;
-              return Object.assign(e, (((n = {})[t.mojitoId] = t), n));
-            }, {})
-          : e;
-      }
-      var Me = function () {
-          return (Me =
-            Object.assign ||
-            function (e) {
-              for (var t, n = 1, r = arguments.length; n < r; n++)
-                for (var a in (t = arguments[n]))
-                  Object.prototype.hasOwnProperty.call(t, a) && (e[a] = t[a]);
-              return e;
-            }).apply(this, arguments);
-        },
-        ve = function (e, t, n, r) {
+      var ye = function (e, t, n, r) {
           return new (n || (n = Promise))(function (a, i) {
             function s(e) {
               try {
@@ -28794,7 +28785,7 @@ object-assign
             u((r = r.apply(e, t || [])).next());
           });
         },
-        Le = function (e, t) {
+        Me = function (e, t) {
           var n,
             r,
             a,
@@ -28882,7 +28873,308 @@ object-assign
             };
           }
         },
-        ge = function (e, t) {
+        ve = function (e, t) {
+          var n = 'function' == typeof Symbol && e[Symbol.iterator];
+          if (!n) return e;
+          var r,
+            a,
+            i = n.call(e),
+            s = [];
+          try {
+            for (; (void 0 === t || t-- > 0) && !(r = i.next()).done; ) s.push(r.value);
+          } catch (e) {
+            a = { error: e };
+          } finally {
+            try {
+              r && !r.done && (n = i.return) && n.call(i);
+            } finally {
+              if (a) throw a.error;
+            }
+          }
+          return s;
+        },
+        Le = function (e) {
+          console.log(e);
+        };
+      function ge(e) {
+        Le = e;
+      }
+      function ke(e) {
+        var t,
+          n,
+          r = (null === (t = e.response) || void 0 === t ? void 0 : t.status) || 0;
+        if ((Le(e), !(s && r >= 500 && '/500' !== window.location.pathname)))
+          throw (
+            ((null === (n = e.response) || void 0 === n ? void 0 : n.error) &&
+              console.log(e.response.error),
+            e)
+          );
+        window.location.href = '/500';
+      }
+      var be,
+        Ye = new y.GraphQLClient(i.a.MOJITO_API_URL),
+        Te = new y.GraphQLClient(i.a.CONTENTFUL_URL, {
+          headers: { Authorization: 'Bearer '.concat(i.a.CONTENTFUL_AUTH_TOKEN) },
+        }),
+        De = function (e) {
+          var t = e.queryKey;
+          return ye(void 0, void 0, void 0, function () {
+            var e, n, r, a;
+            return Me(this, function (i) {
+              switch (i.label) {
+                case 0:
+                  return (
+                    (e = ve(t, 2)),
+                    (n = e[0]),
+                    (r = e[1]),
+                    (a = (function (e) {
+                      return re(e);
+                    })(n)),
+                    console.log(
+                      ''.concat(B[p[a]] ? '🔃' : '❌', ' MOJITO QUERY = ').concat(a, '...'),
+                    ),
+                    [
+                      4,
+                      Ye.request(B[p[a]], r)
+                        .catch(ke)
+                        .then(function (e) {
+                          return (function (e, t, n) {
+                            var r, a, i, s, o, u, l, d, c;
+                            if (!e) return null;
+                            var _ = e;
+                            if (_.serverTime) {
+                              var m = new Date(_.serverTime).getTime() - Date.now();
+                              _e.a.now = function () {
+                                return m + Date.now();
+                              };
+                            }
+                            if (
+                              null ===
+                                (a =
+                                  null === (r = null == _ ? void 0 : _.me) || void 0 === r
+                                    ? void 0
+                                    : r.userOrgs) || void 0 === a
+                                ? void 0
+                                : a[0]
+                            ) {
+                              var f = _.me.userOrgs[0],
+                                h = f.role,
+                                p = 'TransactionalWithID' === h,
+                                y = 'Basic' === h || 'MissingInformation' === h || 'EndUser' === h,
+                                M = 'TransactionalNoID' === h,
+                                v =
+                                  'NotAllowedToBid' === h ||
+                                  'CoreUnavailable' === h ||
+                                  'BidAuthUnavailable' === h;
+                              Object.assign(f, {
+                                notifications: {
+                                  isTransactionalWithID: p,
+                                  completeYourProfile: y,
+                                  uploadID: M,
+                                  contactUs: v,
+                                },
+                                hasNotifications: !!(y || M || v),
+                                settings: f.settings
+                                  ? JSON.parse(f.settings)
+                                  : {
+                                      hasCompletedOnboarding: !1,
+                                      notifications: {
+                                        bidOnSold: !1,
+                                        savedBidOn: !1,
+                                        savedSold: !1,
+                                      },
+                                      privacy: {
+                                        hideActivity: !1,
+                                        showCollection: !1,
+                                        showSaved: !1,
+                                      },
+                                    },
+                              }),
+                                (_.me.userOrgs[0] = f);
+                            }
+                            if (
+                              ((null == _ ? void 0 : _.getMarketplaceAuctionLot) &&
+                                (_.getMarketplaceAuctionLot = pe(
+                                  _.getMarketplaceAuctionLot,
+                                  null == t ? void 0 : t.slug,
+                                )),
+                              (null === (i = null == _ ? void 0 : _.collection) || void 0 === i
+                                ? void 0
+                                : i.items) && (_.collection = me(_.collection)),
+                              (null === (s = null == _ ? void 0 : _.collectionBySlug) ||
+                              void 0 === s
+                                ? void 0
+                                : s.items) &&
+                                (Object.assign(_, me(_.collectionBySlug)),
+                                delete _.collectionBySlug),
+                              (null == _ ? void 0 : _.collectionItemById) &&
+                                ((null == t ? void 0 : t.slug) &&
+                                  (_.collectionItemById = fe(_.collectionItemById, t.slug)),
+                                Object.assign(_, _.collectionItemById)),
+                              (null === (o = null == _ ? void 0 : _.marketplace) || void 0 === o
+                                ? void 0
+                                : o.collections) &&
+                                (_.marketplace.collections =
+                                  null === (u = null == _ ? void 0 : _.marketplace) || void 0 === u
+                                    ? void 0
+                                    : u.collections.map(function (e) {
+                                        return me(e);
+                                      })),
+                              null === (l = null == _ ? void 0 : _.me) || void 0 === l
+                                ? void 0
+                                : l.wallets)
+                            ) {
+                              var L =
+                                null ===
+                                  (c =
+                                    null === (d = null == _ ? void 0 : _.me) || void 0 === d
+                                      ? void 0
+                                      : d.wallets) || void 0 === c
+                                  ? void 0
+                                  : c.map(function (e) {
+                                      var t;
+                                      return (
+                                        (e.tokens =
+                                          null === (t = e.tokens) || void 0 === t
+                                            ? void 0
+                                            : t.map(function (t) {
+                                                return Object.assign(t, { walletId: e.id });
+                                              })),
+                                        e
+                                      );
+                                    });
+                              _.me.wallets = L;
+                            }
+                            if (null == _ ? void 0 : _.getMyInvoices) {
+                              var g = Se.getQueryData([
+                                'Contentful '.concat(U[U.shortLots]),
+                                { slug: null == t ? void 0 : t.slug },
+                              ]);
+                              _.getMyInvoices =
+                                null == _
+                                  ? void 0
+                                  : _.getMyInvoices.map(function (e) {
+                                      var t = null == g ? void 0 : g[e.collectionItemId];
+                                      return t && (e.contentfulData = t), e;
+                                    });
+                            }
+                            return _;
+                          })(e, r);
+                        }),
+                    ]
+                  );
+                case 1:
+                  return [2, i.sent()];
+              }
+            });
+          });
+        },
+        we = function (e) {
+          var t = e.queryKey;
+          return ye(void 0, void 0, void 0, function () {
+            var e, n, r, a;
+            return Me(this, function (i) {
+              switch (i.label) {
+                case 0:
+                  return (
+                    (e = ve(t, 2)),
+                    (n = e[0]),
+                    (r = e[1]),
+                    (a = (function (e) {
+                      return re(e);
+                    })(n)),
+                    console.log(
+                      ''.concat(X[U[a]] ? '🔃' : '❌', ' CONTENTFUL QUERY = ').concat(a, '...'),
+                    ),
+                    [
+                      4,
+                      Te.request(X[U[a]], r)
+                        .catch(ke)
+                        .then(function (e) {
+                          return (function (e, t, n) {
+                            var r, a;
+                            if (!e) return null;
+                            var i = e;
+                            return (
+                              null === (r = null == i ? void 0 : i.lotCollection) || void 0 === r
+                                ? void 0
+                                : r.items
+                            )
+                              ? (null === (a = null == i ? void 0 : i.lotCollection) || void 0 === a
+                                  ? void 0
+                                  : a.items
+                                ).reduce(function (e, t) {
+                                  var n;
+                                  return Object.assign(e, (((n = {})[t.mojitoId] = t), n));
+                                }, {})
+                              : e;
+                          })(e);
+                        }),
+                    ]
+                  );
+                case 1:
+                  return [2, i.sent()];
+              }
+            });
+          });
+        },
+        Se = new a.QueryClient({
+          defaultOptions: {
+            queries: {
+              staleTime: s ? 18e4 : 0,
+              cacheTime: 1 / 0,
+              queryFn: function (e) {
+                return ye(void 0, void 0, void 0, function () {
+                  var t, n, r, a;
+                  return Me(this, function (i) {
+                    return (
+                      (t = ve(e.queryKey, 2)),
+                      (n = t[0]),
+                      (r = t[1]),
+                      (a = Object.entries(null != r ? r : {}).filter(function (e) {
+                        return void 0 === e[1];
+                      })).length > 0
+                        ? (console.error(
+                            "Variables can't be undefined:",
+                            a.map(function (e) {
+                              return e[0];
+                            }),
+                          ),
+                          [2, null])
+                        : [2, ((s = n), s.startsWith(te) ? we(e) : De(e))]
+                    );
+                    var s;
+                  });
+                });
+              },
+            },
+          },
+        }),
+        xe = function () {
+          return (xe =
+            Object.assign ||
+            function (e) {
+              for (var t, n = 1, r = arguments.length; n < r; n++)
+                for (var a in (t = arguments[n]))
+                  Object.prototype.hasOwnProperty.call(t, a) && (e[a] = t[a]);
+              return e;
+            }).apply(this, arguments);
+        };
+      !(function (e) {
+        (e[(e.addToken = 0)] = 'addToken'), (e[(e.clearToken = 1)] = 'clearToken');
+      })(be || (be = {}));
+      var Ee = de.a.createContext({ state: void 0, dispatch: void 0 });
+      var Oe = function () {
+          return (Oe =
+            Object.assign ||
+            function (e) {
+              for (var t, n = 1, r = arguments.length; n < r; n++)
+                for (var a in (t = arguments[n]))
+                  Object.prototype.hasOwnProperty.call(t, a) && (e[a] = t[a]);
+              return e;
+            }).apply(this, arguments);
+        },
+        je = function (e, t) {
           var n = 'function' == typeof Symbol && e[Symbol.iterator];
           if (!n) return e;
           var r,
@@ -28902,70 +29194,129 @@ object-assign
           }
           return s;
         };
-      function ke(e) {
-        var t = this,
-          n = e.query,
-          r = e.variables,
-          a = e.options,
+      function He(e) {
+        var t = e.query,
+          n = e.variables,
+          r = e.options,
           i = e.force,
           s = void 0 !== i && i,
           o = e.onlyAuthenticated,
-          u = (function () {
-            var e = U.a.useContext(B);
+          u = Object(a.useQueryClient)(),
+          l = (function () {
+            var e = de.a.useContext(Ee);
             if (void 0 === e.dispatch || void 0 === e.state)
               throw new Error('useContext must be used within a Provider');
-            return { state: e.state, dispatch: e.dispatch };
-          })().state,
-          l = u.token,
-          d = u.isAuthenticated,
-          c = ge(Object(z.useState)(d), 2),
-          f = c[0],
-          h = c[1],
-          p = ['Mojito '.concat(_[n]), r];
-        Object.is(f, d) || h(d);
-        var y = Object(m.useQuery)(
-          p,
-          function () {
-            return ve(t, void 0, void 0, function () {
-              return Le(this, function (e) {
-                switch (e.label) {
-                  case 0:
-                    if (
-                      Object.values(null != r ? r : {}).some(function (e) {
-                        return !e;
-                      })
-                    )
-                      return console.error('Some of vars is undefined', r), [2, null];
-                    if (d) le.setHeader('authorization', 'Bearer '.concat(l));
-                    else if (o) return [2, null];
-                    return [4, ce({ query: W[n], variables: r, normalizerFn: pe, gqlClient: le })];
-                  case 1:
-                    return [2, e.sent()];
-                }
-              });
-            });
-          },
-          Me(Me({}, a), { meta: { authorization: d }, enabled: !o }),
-        );
+            return xe(xe({}, e.state), { dispatch: e.dispatch });
+          })().isAuthenticated,
+          d = je(Object(le.useState)(l), 2),
+          c = d[0],
+          _ = d[1],
+          m = ne(t, n);
+        Object.is(c, l) || _(l);
+        var f = Object(a.useQuery)(m, Oe(Oe({}, r), { meta: { authorization: l }, enabled: !o }));
         return (
-          Object(z.useEffect)(function () {
-            s && ue.removeQueries(p);
+          Object(le.useEffect)(function () {
+            s && u.removeQueries(m);
           }, []),
-          Object(z.useEffect)(
+          Object(le.useEffect)(
             function () {
-              d && !f && o && null == ue.getQueryData(p) && y.refetch();
+              l && !c && o && null == u.getQueryData(m) && f.refetch();
             },
-            [d],
+            [l],
           ),
-          y.isError && console.log(y.error),
-          Me({ loading: y.isLoading }, y)
+          f.isError && console.log(f.error),
+          Oe({ loading: f.isLoading }, f)
         );
       }
-      function be() {
+      function Pe(e, t) {
+        var n,
+          r = oe().collection,
+          a = null == r ? void 0 : r.slug,
+          i = He({
+            query: p.collectionItemByIdBidsList,
+            variables: { id: e, slug: null != t ? t : a },
+          }),
+          s = i.data,
+          o = i.error,
+          u = i.loading,
+          l = i.refetch;
+        return {
+          bids: null === (n = null == s ? void 0 : s.details) || void 0 === n ? void 0 : n.bids,
+          bidsLoading: u,
+          bidsError: o,
+          bidsRefetch: l,
+        };
+      }
+      function Ae(e, t) {
+        var n,
+          r = oe().collection,
+          a = null == r ? void 0 : r.slug,
+          s = He({
+            query: p.collectionBySlugCurrentBids,
+            variables: { slug: null != t ? t : a, marketplaceID: i.a.MARKETPLACE_ID },
+          }),
+          o = s.data,
+          u = s.error,
+          l = s.loading,
+          d = s.refetch;
+        return {
+          allCurrentBids: null == o ? void 0 : o.items,
+          currentBids: e
+            ? null === (n = null == o ? void 0 : o.items) || void 0 === n
+              ? void 0
+              : n.find(function (t) {
+                  return t.id == e;
+                })
+            : void 0,
+          currentBidsLoading: l,
+          currentBidsError: u,
+          currentBidsRefetch: d,
+        };
+      }
+      function Ce(e, t) {
+        var n,
+          r = oe().collection,
+          a = null == r ? void 0 : r.slug,
+          i = He({
+            query: p.collectionItemByIdRemainingCount,
+            variables: { id: e, slug: null != t ? t : a },
+            onlyAuthenticated: !0,
+          }),
+          s = i.data,
+          o = i.error,
+          u = i.loading,
+          l = i.refetch;
+        return {
+          remainingCount:
+            null === (n = null == s ? void 0 : s.details) || void 0 === n
+              ? void 0
+              : n.remainingCount,
+          remainingCountLoading: u,
+          remainingCountError: o,
+          remainingCountRefetch: l,
+        };
+      }
+      function Ie(e) {
+        var t,
+          n = He({
+            query: p.collectionLotsIdList,
+            variables: { slug: e, marketplaceID: i.a.MARKETPLACE_ID },
+          }),
+          r = n.data,
+          a = n.error,
+          s = n.loading;
+        return {
+          collectionLotsIdList:
+            null !== (t = null == r ? void 0 : r.items) && void 0 !== t ? t : [],
+          collectionLoading: s,
+          collectionError: a,
+        };
+      }
+      function Ne() {
         var e,
-          t = ke({
-            query: _.marketplaceCollectionsInfoWithItemsIdAndSlug,
-            variables: { id: f.a.MARKETPLACE_ID },
+          t = He({
+            query: p.marketplaceCollectionsInfoWithItemsIdAndSlug,
+            variables: { id: i.a.MARKETPLACE_ID },
           }),
           n = t.data,
           r = t.error,
@@ -28979,513 +29330,10 @@ object-assign
           marketplaceCollectionsSlugWithItemsIdError: r,
         };
       }
-      var Ye = function () {
-          return (Ye =
-            Object.assign ||
-            function (e) {
-              for (var t, n = 1, r = arguments.length; n < r; n++)
-                for (var a in (t = arguments[n]))
-                  Object.prototype.hasOwnProperty.call(t, a) && (e[a] = t[a]);
-              return e;
-            }).apply(this, arguments);
-        },
-        Te = function (e, t, n, r) {
-          return new (n || (n = Promise))(function (a, i) {
-            function s(e) {
-              try {
-                u(r.next(e));
-              } catch (e) {
-                i(e);
-              }
-            }
-            function o(e) {
-              try {
-                u(r.throw(e));
-              } catch (e) {
-                i(e);
-              }
-            }
-            function u(e) {
-              var t;
-              e.done
-                ? a(e.value)
-                : ((t = e.value),
-                  t instanceof n
-                    ? t
-                    : new n(function (e) {
-                        e(t);
-                      })).then(s, o);
-            }
-            u((r = r.apply(e, t || [])).next());
-          });
-        },
-        De = function (e, t) {
-          var n,
-            r,
-            a,
-            i,
-            s = {
-              label: 0,
-              sent: function () {
-                if (1 & a[0]) throw a[1];
-                return a[1];
-              },
-              trys: [],
-              ops: [],
-            };
-          return (
-            (i = { next: o(0), throw: o(1), return: o(2) }),
-            'function' == typeof Symbol &&
-              (i[Symbol.iterator] = function () {
-                return this;
-              }),
-            i
-          );
-          function o(i) {
-            return function (o) {
-              return (function (i) {
-                if (n) throw new TypeError('Generator is already executing.');
-                for (; s; )
-                  try {
-                    if (
-                      ((n = 1),
-                      r &&
-                        (a =
-                          2 & i[0]
-                            ? r.return
-                            : i[0]
-                            ? r.throw || ((a = r.return) && a.call(r), 0)
-                            : r.next) &&
-                        !(a = a.call(r, i[1])).done)
-                    )
-                      return a;
-                    switch (((r = 0), a && (i = [2 & i[0], a.value]), i[0])) {
-                      case 0:
-                      case 1:
-                        a = i;
-                        break;
-                      case 4:
-                        return s.label++, { value: i[1], done: !1 };
-                      case 5:
-                        s.label++, (r = i[1]), (i = [0]);
-                        continue;
-                      case 7:
-                        (i = s.ops.pop()), s.trys.pop();
-                        continue;
-                      default:
-                        if (
-                          !((a = s.trys),
-                          (a = a.length > 0 && a[a.length - 1]) || (6 !== i[0] && 2 !== i[0]))
-                        ) {
-                          s = 0;
-                          continue;
-                        }
-                        if (3 === i[0] && (!a || (i[1] > a[0] && i[1] < a[3]))) {
-                          s.label = i[1];
-                          break;
-                        }
-                        if (6 === i[0] && s.label < a[1]) {
-                          (s.label = a[1]), (a = i);
-                          break;
-                        }
-                        if (a && s.label < a[2]) {
-                          (s.label = a[2]), s.ops.push(i);
-                          break;
-                        }
-                        a[2] && s.ops.pop(), s.trys.pop();
-                        continue;
-                    }
-                    i = t.call(e, s);
-                  } catch (e) {
-                    (i = [6, e]), (r = 0);
-                  } finally {
-                    n = a = 0;
-                  }
-                if (5 & i[0]) throw i[1];
-                return { value: i[0] ? i[1] : void 0, done: !0 };
-              })([i, o]);
-            };
-          }
-        };
-      function we() {
-        var e,
-          t,
-          n,
-          r = (function (e, t, n) {
-            var r = this,
-              a = ['Contentful '.concat(q[e])];
-            t && a.push(t);
-            var i = Object(m.useQuery)(
-              a,
-              function () {
-                return Te(r, void 0, void 0, function () {
-                  return De(this, function (n) {
-                    switch (n.label) {
-                      case 0:
-                        return [
-                          4,
-                          ce({ query: ae[e], variables: t, normalizerFn: ye, gqlClient: de }),
-                        ];
-                      case 1:
-                        return [2, n.sent()];
-                    }
-                  });
-                });
-              },
-              n,
-            );
-            return Ye({ loading: i.isLoading }, i);
-          })(q.auctionsSlugList),
-          a = r.data,
-          i = r.error,
-          s = r.loading;
-        return {
-          auctionsSlugList:
-            null !==
-              (n =
-                null ===
-                  (t =
-                    null === (e = null == a ? void 0 : a.auctionCollection) || void 0 === e
-                      ? void 0
-                      : e.items) || void 0 === t
-                  ? void 0
-                  : t.map(function (e) {
-                      return e.slug;
-                    })) && void 0 !== n
-              ? n
-              : [],
-          auctionsSlugListLoading: s,
-          auctionsSlugListError: i,
-        };
-      }
-      function Se(e) {
-        return (
-          void 0 === e && (e = window.location.pathname), ie ? [] : e.split('/').filter(Boolean)
-        );
-      }
-      var xe = function () {
-          return (xe =
-            Object.assign ||
-            function (e) {
-              for (var t, n = 1, r = arguments.length; n < r; n++)
-                for (var a in (t = arguments[n]))
-                  Object.prototype.hasOwnProperty.call(t, a) && (e[a] = t[a]);
-              return e;
-            }).apply(this, arguments);
-        },
-        Ee = function (e, t, n, r) {
-          return new (n || (n = Promise))(function (a, i) {
-            function s(e) {
-              try {
-                u(r.next(e));
-              } catch (e) {
-                i(e);
-              }
-            }
-            function o(e) {
-              try {
-                u(r.throw(e));
-              } catch (e) {
-                i(e);
-              }
-            }
-            function u(e) {
-              var t;
-              e.done
-                ? a(e.value)
-                : ((t = e.value),
-                  t instanceof n
-                    ? t
-                    : new n(function (e) {
-                        e(t);
-                      })).then(s, o);
-            }
-            u((r = r.apply(e, t || [])).next());
-          });
-        },
-        Oe = function (e, t) {
-          var n,
-            r,
-            a,
-            i,
-            s = {
-              label: 0,
-              sent: function () {
-                if (1 & a[0]) throw a[1];
-                return a[1];
-              },
-              trys: [],
-              ops: [],
-            };
-          return (
-            (i = { next: o(0), throw: o(1), return: o(2) }),
-            'function' == typeof Symbol &&
-              (i[Symbol.iterator] = function () {
-                return this;
-              }),
-            i
-          );
-          function o(i) {
-            return function (o) {
-              return (function (i) {
-                if (n) throw new TypeError('Generator is already executing.');
-                for (; s; )
-                  try {
-                    if (
-                      ((n = 1),
-                      r &&
-                        (a =
-                          2 & i[0]
-                            ? r.return
-                            : i[0]
-                            ? r.throw || ((a = r.return) && a.call(r), 0)
-                            : r.next) &&
-                        !(a = a.call(r, i[1])).done)
-                    )
-                      return a;
-                    switch (((r = 0), a && (i = [2 & i[0], a.value]), i[0])) {
-                      case 0:
-                      case 1:
-                        a = i;
-                        break;
-                      case 4:
-                        return s.label++, { value: i[1], done: !1 };
-                      case 5:
-                        s.label++, (r = i[1]), (i = [0]);
-                        continue;
-                      case 7:
-                        (i = s.ops.pop()), s.trys.pop();
-                        continue;
-                      default:
-                        if (
-                          !((a = s.trys),
-                          (a = a.length > 0 && a[a.length - 1]) || (6 !== i[0] && 2 !== i[0]))
-                        ) {
-                          s = 0;
-                          continue;
-                        }
-                        if (3 === i[0] && (!a || (i[1] > a[0] && i[1] < a[3]))) {
-                          s.label = i[1];
-                          break;
-                        }
-                        if (6 === i[0] && s.label < a[1]) {
-                          (s.label = a[1]), (a = i);
-                          break;
-                        }
-                        if (a && s.label < a[2]) {
-                          (s.label = a[2]), s.ops.push(i);
-                          break;
-                        }
-                        a[2] && s.ops.pop(), s.trys.pop();
-                        continue;
-                    }
-                    i = t.call(e, s);
-                  } catch (e) {
-                    (i = [6, e]), (r = 0);
-                  } finally {
-                    n = a = 0;
-                  }
-                if (5 & i[0]) throw i[1];
-                return { value: i[0] ? i[1] : void 0, done: !0 };
-              })([i, o]);
-            };
-          }
-        },
-        je = function (e, t) {
-          var n = {};
-          for (var r in e)
-            Object.prototype.hasOwnProperty.call(e, r) && t.indexOf(r) < 0 && (n[r] = e[r]);
-          if (null != e && 'function' == typeof Object.getOwnPropertySymbols) {
-            var a = 0;
-            for (r = Object.getOwnPropertySymbols(e); a < r.length; a++)
-              t.indexOf(r[a]) < 0 &&
-                Object.prototype.propertyIsEnumerable.call(e, r[a]) &&
-                (n[r[a]] = e[r[a]]);
-          }
-          return n;
-        };
-      function He(e) {
-        var t,
-          n,
-          r = this,
-          a = be().marketplaceCollectionsSlugWithItemsId,
-          i = we().auctionsSlugList,
-          s = (function (e) {
-            var t = void 0 === e ? {} : e,
-              n = t.pathname,
-              r = t.slug;
-            return r || Se(n)[0];
-          })(e),
-          o =
-            null == a
-              ? void 0
-              : a.find(function (e) {
-                  return e.slug == s;
-                }),
-          u = !!o,
-          l = u && i.includes(s),
-          d = u && !l,
-          c =
-            ((t = _.collectionBySlug),
-            (n = { slug: s, marketplaceID: f.a.MARKETPLACE_ID }),
-            ['Mojito '.concat(_[t]), n]),
-          h = Object(m.useQuery)(
-            c,
-            function () {
-              return Ee(r, void 0, void 0, function () {
-                var e, t;
-                return Oe(this, function (n) {
-                  switch (n.label) {
-                    case 0:
-                      return u
-                        ? ((e =
-                            null === (t = null == o ? void 0 : o.items) || void 0 === t
-                              ? void 0
-                              : t.map(function (e) {
-                                  return e.id;
-                                })),
-                          [
-                            4,
-                            Promise.all([
-                              ue.prefetchQuery(
-                                ['Contentful '.concat(q[q.auctionBySlug]), { slug: s }],
-                                ce.bind(null, {
-                                  query: ae[q.auctionBySlug],
-                                  variables: { slug: s },
-                                  normalizerFn: ye,
-                                  gqlClient: de,
-                                }),
-                              ),
-                              ue.prefetchQuery(
-                                ['Contentful '.concat(q[q.shortLots]), { slug: s }],
-                                ce.bind(null, {
-                                  query: ae[q.shortLots],
-                                  variables: { slug: s, mojitoIds: e },
-                                  normalizerFn: ye,
-                                  gqlClient: de,
-                                }),
-                              ),
-                            ]),
-                          ])
-                        : [2, null];
-                    case 1:
-                      return (
-                        n.sent(),
-                        [
-                          4,
-                          ce({
-                            query: W[_.collectionBySlug],
-                            variables: { slug: s, marketplaceID: f.a.MARKETPLACE_ID },
-                            normalizerFn: pe,
-                            gqlClient: le,
-                          }),
-                        ]
-                      );
-                    case 2:
-                      return [2, n.sent()];
-                  }
-                });
-              });
-            },
-            xe(xe({}, null == e ? void 0 : e.options), { enabled: u }),
-          ),
-          p = h.data,
-          y = h.refetch,
-          M = je(h, ['data', 'refetch']);
-        return (
-          Object(z.useEffect)(
-            function () {
-              u && y();
-            },
-            [u, y],
-          ),
-          xe(
-            { slug: l || d ? s : '', isAuction: l, isFakeAuction: d, collection: p, refetch: y },
-            M,
-          )
-        );
-      }
-      function Pe(e, t) {
-        var n,
-          r = He().slug,
-          a = ke({
-            query: _.collectionItemByIdBidsList,
-            variables: { id: e, slug: null != t ? t : r },
-          }),
-          i = a.data,
-          s = a.error,
-          o = a.loading,
-          u = a.refetch;
-        return {
-          bids: null === (n = null == i ? void 0 : i.details) || void 0 === n ? void 0 : n.bids,
-          bidsLoading: o,
-          bidsError: s,
-          bidsRefetch: u,
-        };
-      }
-      function Ae(e, t) {
-        var n,
-          r = He().slug,
-          a = ke({
-            query: _.collectionBySlugCurrentBids,
-            variables: { slug: null != t ? t : r, marketplaceID: f.a.MARKETPLACE_ID },
-          }),
-          i = a.data,
-          s = a.error,
-          o = a.loading,
-          u = a.refetch;
-        return {
-          allCurrentBids: null == i ? void 0 : i.items,
-          currentBids: e
-            ? null === (n = null == i ? void 0 : i.items) || void 0 === n
-              ? void 0
-              : n.find(function (t) {
-                  return t.id == e;
-                })
-            : void 0,
-          currentBidsLoading: o,
-          currentBidsError: s,
-          currentBidsRefetch: u,
-        };
-      }
-      function Ie(e, t) {
-        var n,
-          r = He().slug,
-          a = ke({
-            query: _.collectionItemByIdRemainingCount,
-            variables: { id: e, slug: null != t ? t : r },
-            onlyAuthenticated: !0,
-          }),
-          i = a.data,
-          s = a.error,
-          o = a.loading,
-          u = a.refetch;
-        return {
-          remainingCount:
-            null === (n = null == i ? void 0 : i.details) || void 0 === n
-              ? void 0
-              : n.remainingCount,
-          remainingCountLoading: o,
-          remainingCountError: s,
-          remainingCountRefetch: u,
-        };
-      }
-      function Ce(e) {
-        var t,
-          n = ke({
-            query: _.collectionLotsIdList,
-            variables: { slug: e, marketplaceID: f.a.MARKETPLACE_ID },
-          }),
-          r = n.data,
-          a = n.error,
-          i = n.loading;
-        return {
-          collectionLotsIdList:
-            null !== (t = null == r ? void 0 : r.items) && void 0 !== t ? t : [],
-          collectionLoading: i,
-          collectionError: a,
-        };
-      }
+      var Fe = function (e) {
+        var t = e.children;
+        return de.a.createElement(a.QueryClientProvider, { client: Se }, t);
+      };
     },
     function (e, t, n) {
       'use strict';
@@ -29496,7 +29344,7 @@ object-assign
     },
     function (e, t, n) {
       'use strict';
-      var r = n(11),
+      var r = n(12),
         a = console;
       Object(r.b)(a);
     },

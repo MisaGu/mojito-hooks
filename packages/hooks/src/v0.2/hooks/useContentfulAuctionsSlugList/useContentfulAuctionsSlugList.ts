@@ -8,7 +8,7 @@ export function useContentfulAuctionsSlugList(): {
   auctionsSlugListLoading: boolean;
   auctionsSlugListError: IUseQueryResult['error'];
 } {
-  const { data, error, loading } = useContentful(EContentfulQueries.auctionsSlugList);
+  const { data, error, isLoading } = useContentful(EContentfulQueries.auctionsSlugList);
 
   // if (error) console.error(error);
 
@@ -16,7 +16,7 @@ export function useContentfulAuctionsSlugList(): {
     auctionsSlugList:
       data?.auctionCollection?.items?.map((collection: IContentfulAuction) => collection.slug) ??
       [],
-    auctionsSlugListLoading: loading,
+    auctionsSlugListLoading: isLoading,
     auctionsSlugListError: error,
   };
 }

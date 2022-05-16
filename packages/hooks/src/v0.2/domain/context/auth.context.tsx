@@ -1,4 +1,5 @@
 import React from 'react';
+import { mojitoGqlClient } from '../utils/gqlRequest.util';
 
 /**
  * Actions list that manipulate the context provider
@@ -49,10 +50,14 @@ const initialState: AuthState = {
 function Reducer(state: AuthState, action: AuthActions) {
   switch (action.type) {
     case EAuthActionTypes.addToken: {
-      if (!action.token) throw new Error(`action.token MUST be provided for: ${action.type}`);
+      const { token } = action;
+
+      if (!token) throw new Error(`action.token MUST be provided for: ${action.type}`);
+
+      mojitoGqlClient.setHeader('authorization', `Bearer ${token}`);
 
       return {
-        token: action.token,
+        token,
         isAuthenticated: true,
       };
     }
@@ -91,10 +96,11 @@ export function AuthProvider({ children }: { children: React.ReactNode }): JSX.E
   return <StateContext.Provider value={{ state, dispatch }}>{children}</StateContext.Provider>;
 }
 
-export function useAuthContext(): {
-  state: AuthState;
+export interface UseAuthContextReturn extends AuthState {
   dispatch: AuthDispatch;
-} {
+}
+
+export function useAuthContext(): UseAuthContextReturn {
   const context = React.useContext(StateContext);
 
   if (context.dispatch === undefined || context.state === undefined) {
@@ -102,7 +108,7 @@ export function useAuthContext(): {
   }
 
   return {
-    state: context.state,
+    ...context.state,
     dispatch: context.dispatch,
   };
 }

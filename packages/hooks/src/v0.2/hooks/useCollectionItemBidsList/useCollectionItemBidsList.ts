@@ -12,7 +12,8 @@ export function useCollectionItemBidsList(
   bidsError: IUseQueryResult['error'];
   bidsRefetch: () => void;
 } {
-  const { slug } = useCollection();
+  const { collection } = useCollection();
+  const slug = collection?.slug;
   const { data, error, loading, refetch } = useMojitoFactory({
     query: EMojitoQueries.collectionItemByIdBidsList,
     variables: { id, slug: _slug ?? slug },

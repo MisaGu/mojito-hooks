@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 import { useEffect } from 'react';
 import { QueryClientProvider } from 'react-query';
 import { EAuthActionTypes, useAuthContext } from '../../../domain/context/auth.context';
+import { MojitoHooksProvider } from '../../../domain/context/mojito.context';
 import { queryClient } from '../../../domain/utils/gqlRequest.util';
 
 interface DemoInterfaceProps {
@@ -10,32 +11,29 @@ interface DemoInterfaceProps {
 }
 
 export const DemoInterface: React.FC<DemoInterfaceProps> = ({ demoComponent: DemoComponent }) => {
-  const {
-    state: { token },
-    dispatch,
-  } = useAuthContext();
+  const { dispatch } = useAuthContext();
   const { getIdTokenClaims, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
 
   const getAuthenticationToken = useCallback(async () => {
-    const token = await getIdTokenClaims();
+    const nextRawToken = await getIdTokenClaims();
 
     // eslint-disable-next-line no-underscore-dangle
-    return token?.__raw || '';
+    return nextRawToken?.__raw || '';
   }, [getIdTokenClaims]);
 
   useEffect(() => {
     if (isLoading) return;
 
     async function initAuthentication() {
-      const token = await getAuthenticationToken();
+      const nextToken = await getAuthenticationToken();
 
-      console.log(`${token ? 'Adding' : 'Removing'} authentication token...`);
+      console.log(`${nextToken ? 'Adding' : 'Removing'} authentication token...`);
 
       dispatch(
-        token
+        nextToken
           ? {
               type: EAuthActionTypes.addToken,
-              token,
+              token: nextToken,
             }
           : {
               type: EAuthActionTypes.clearToken,
@@ -48,10 +46,10 @@ export const DemoInterface: React.FC<DemoInterfaceProps> = ({ demoComponent: Dem
 
   // IMPORTANT: Authentication (loginWithPopup) will only work in port 3000!
 
-  return isAuthenticated && token ? (
-    <QueryClientProvider client={queryClient}>
+  return isAuthenticated ? (
+    <MojitoHooksProvider>
       <DemoComponent />
-    </QueryClientProvider>
+    </MojitoHooksProvider>
   ) : (
     <div>
       <p>{isLoading ? 'Authenticating...' : 'Sorry, you need to log in first.'} </p>

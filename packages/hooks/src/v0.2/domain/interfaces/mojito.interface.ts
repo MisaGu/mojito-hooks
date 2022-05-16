@@ -346,6 +346,7 @@ export interface IMojitoCollection {
   hasMultipleLots: boolean;
   name: string;
   viewStatus: IMojitoCollectionView;
+  isFake: boolean;
 }
 
 export interface IMojitoItemInvoice {

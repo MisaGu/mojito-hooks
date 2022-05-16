@@ -15,6 +15,8 @@ export function useMarketplaceCollectionsSlugWithItemsId(): {
 
   // if (error) console.error(error);
 
+  // TODO: New hook which uses this hook/query and return only slug and itemSlug.
+
   return {
     marketplaceCollectionsSlugWithItemsId: data?.marketplace?.collections,
     marketplaceCollectionsSlugWithItemsIdLoading: loading,

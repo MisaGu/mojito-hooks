@@ -28,10 +28,6 @@ const extendCollection = (
     { slug: collection.slug },
   ])?.auctionCollection?.items?.[0];
 
-  if (contentfulData) {
-    collection.contentfulData = contentfulData;
-  }
-
   const auctionStartUnix = moment(collection.startDate ?? null).unix();
   const auctionEndUnix = moment(collection.endDate ?? null).unix();
   const nowUnix = moment().unix();
@@ -60,6 +56,8 @@ const extendCollection = (
   const isPostSale = nowUnix > auctionEndUnix;
 
   Object.assign(collection, {
+    contentfulData,
+    isFake: !!contentfulData,
     viewStatus: {
       isPreSale,
       isDuringSale,
