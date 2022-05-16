@@ -34,32 +34,51 @@ interface UseCollectionProps {
   options?: UseQueryOptions<any>;
 }
 
-export type UseCollectionReturn = QueryResult<'collection', IMojitoCollection>;
+export type UseCollectionData = IMojitoCollection | null;
+
+export type UseCollectionReturn = QueryResult<'collection', UseCollectionData>;
+
+// TODO: To normalizer:
+
+// const { marketplaceCollectionsSlugWithItemsId } = useMarketplaceCollectionsSlugWithItemsId();
+
+// const { auctionsSlugList } = useContentfulAuctionsSlugList();
+// (EContentfulQueries.auctionsSlugList) data?.auctionCollection?.items?.map((collection: IContentfulAuction) => collection.slug)
+
+// const collectionByPath = marketplaceCollectionsSlugWithItemsId?.find(
+//   (e) => e.slug == variables.slug,
+// );
+
+// const collectionExists = !!collectionByPath;
+// const isAuction = collectionExists && auctionsSlugList.includes(variables.slug);
+// const isFakeAuction = collectionExists && !isAuction;
+
+/*
+return {
+  collection: data,
+  slug: isAuction || isFakeAuction ? auctionSlug : '',
+  isAuction,
+  isFakeAuction,
+};
+*/
 
 export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
   const queryClient = useQueryClient();
   const auctionSlug = getAuctionSlug(props);
 
-  // const { marketplaceCollectionsSlugWithItemsId } = useMarketplaceCollectionsSlugWithItemsId();
-  // const { auctionsSlugList } = useContentfulAuctionsSlugList();
-  const collectionByPath = marketplaceCollectionsSlugWithItemsId?.find(
-    (e) => e.slug == auctionSlug,
-  );
-
-  const collectionExists = !!collectionByPath;
-  const isAuction = collectionExists && auctionsSlugList.includes(auctionSlug);
-  const isFakeAuction = collectionExists && !isAuction;
   const queryKey = queryKeyGenerator(EMojitoQueries.collectionBySlug, {
     slug: auctionSlug,
     marketplaceID: config.MARKETPLACE_ID,
   });
 
-  const queryReturn = useQuery<IMojitoCollection>(
+  // TODO: Check what happens when the timer runs out:
+
+  const queryReturn = useQuery<UseCollectionData>(
     queryKey,
     async () => {
-      // TODO: Can we typecheck queries and variables in queryKeyGenerator and return type in prefetchQuery?
+      // TODO: Can we type-check queries and variables in queryKeyGenerator and return type in prefetchQuery?
 
-      const data = await queryClient.fetchQuery<IMojitoCollection>(
+      const data = await queryClient.fetchQuery(
         queryKeyGenerator(EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug),
       );
 
@@ -67,7 +86,7 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
 
       const collectionByPath = marketplaceCollections.find((e) => e.slug == auctionSlug);
 
-      if (!collectionByPath) return undefined;
+      if (!collectionByPath) return null;
 
       const collectionItems = collectionByPath?.items?.map((item) => item.id);
 
@@ -82,32 +101,10 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
         ),
       ]);
 
-      // TODO: In normalizer:
-
-      // data?.auctionCollection?.items?.map((collection: IContentfulAuction) => collection.slug)
-
       return await queryClient.fetchQuery<IMojitoCollection>(queryKey);
     },
-    {
-      ...props?.options,
-      enabled: collectionExists,
-    },
+    props?.options,
   );
-
-  const { refetch } = queryReturn;
-
-  useEffect(() => {
-    if (collectionExists) refetch();
-  }, [collectionExists, refetch]);
-
-  /*
-  return {
-    collection: data,
-    slug: isAuction || isFakeAuction ? auctionSlug : '',
-    isAuction,
-    isFakeAuction,
-  };
-  */
 
   return queryReturn;
 }
