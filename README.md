@@ -31,8 +31,27 @@ $ yarn add @mojito-mixers/hooks
 
 ## 🔨 Usage
 
-```ts
-import { useRequest } from '@mojito-mixers/hooks';
+```TSX
+import { MojitoHooksProvider, onErrorCallback, useRequest  } from '@mojito-mixers/hooks';
+
+onErrorCallback((e) => {
+  // Log error to Sentry or anywhere you'd like:
+  console.log(e);
+});
+
+const YourComponent: React.FC = () => {
+  const data = useRequest();
+
+  return <pre>{ JSON.stringify(data, null, '  ')}</pre>;
+};
+
+const YouApp: React.FC = () => {
+  return (
+    <MojitoHooksProvider>
+      <YourComponent />
+    </MojitoHooksProvider>
+  );
+};
 ```
 
 ## TODO
@@ -44,5 +63,3 @@ TODO: New hook which uses this hook/query and return only slug and itemSlug.
 TODO: Use react-query to store auth data and get rid of AuthProvider, etc.
 
 TODO: Create backend task to automatically log in with demo account (non-expiring token).
-
-DONE: Simplify key generator: Only one function.

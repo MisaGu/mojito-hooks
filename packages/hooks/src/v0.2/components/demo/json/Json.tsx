@@ -1,40 +1,10 @@
 import React, { CSSProperties } from 'react';
-import { UseQueryResult } from 'react-query';
 
 export interface JsonProps {
   obj: any;
 }
 
-/*
-const QUERY_RESPONSE_PROPS = [
-  'data',
-  'dataUpdatedAt',
-  'error',
-  'errorUpdatedAt',
-  'errorUpdateCount',
-  'failureCount',
-  'isError',
-  'isFetched',
-  'isFetchedAfterMount',
-  'isFetching',
-  'isIdle',
-  'isLoading',
-  'isLoadingError',
-  'isPlaceholderData',
-  'isPreviousData',
-  'isRefetchError',
-  'isRefetching',
-  'isStale',
-  'isSuccess',
-  'refetch',
-  'remove',
-  'status',
-];
-*/
-
 function jsonReplacer(key: string, value: any) {
-  // if (QUERY_RESPONSE_PROPS.includes(key)) return;
-
   if (key === 'queryResult') return '{ ... }';
   if (key === 'refetch') return '() => { ... }';
 
@@ -62,7 +32,7 @@ export const Json: React.FC<JsonProps> = ({ obj }) => {
         target="_blank"
         style={LINK_STYLE}
       >
-        + UseQueryResult's props.
+        <code>queryResult: UseQueryResult</code>
       </a>
     </>
   );

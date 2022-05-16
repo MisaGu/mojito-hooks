@@ -15,6 +15,7 @@ import {
 export type MojitoHookQueryError = Error & {
   response?: Response & { error?: any; errors?: any[] };
 };
+
 export type MojitoHookQueryErrorFn = (e: MojitoHookQueryError) => void;
 
 // TODO: Provide an example on how to use this to connect Sentry.
@@ -58,13 +59,13 @@ export const mojitoQueryFn: QueryFunction<unknown, QueryKey> = async ({ queryKey
   const mojitoQuery = getMojitoQueryKey(query);
 
   console.log(
-    `${mojitoQueries[EMojitoQueries[mojitoQuery]] ? '🔃' : '❌'} MOJITO QUERY = ${mojitoQuery}...`,
+    `${mojitoQueries[mojitoQuery] ? '🔃' : '❌'} MOJITO QUERY = ${query} => ${mojitoQuery}...`,
   );
 
   // TODO: Add token with requestHeaders from request-client / mojitoGqlClient.setHeader("", token)
 
   return await mojitoGqlClient
-    .request(mojitoQueries[EMojitoQueries[mojitoQuery]], variables)
+    .request(mojitoQueries[mojitoQuery], variables)
     .catch(handleQueryError)
     .then((data) => mojitoNormalizer(data, variables));
 };
@@ -75,12 +76,12 @@ export const contentfulQueryFn: QueryFunction<unknown, QueryKey> = async ({ quer
 
   console.log(
     `${
-      contentfulQueries[EContentfulQueries[contentfulQuery]] ? '🔃' : '❌'
-    } CONTENTFUL QUERY = ${contentfulQuery}...`,
+      contentfulQueries[contentfulQuery] ? '🔃' : '❌'
+    } CONTENTFUL QUERY = ${query} => ${contentfulQuery}...`,
   );
 
   return await contentfulGqlClient
-    .request(contentfulQueries[EContentfulQueries[contentfulQuery]], variables)
+    .request(contentfulQueries[contentfulQuery], variables)
     .catch(handleQueryError)
     .then((data) => contentfulNormalizer(data, variables));
 };
