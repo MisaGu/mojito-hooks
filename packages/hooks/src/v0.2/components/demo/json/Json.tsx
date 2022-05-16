@@ -5,6 +5,7 @@ export interface JsonProps {
   obj: any;
 }
 
+/*
 const QUERY_RESPONSE_PROPS = [
   'data',
   'dataUpdatedAt',
@@ -29,9 +30,13 @@ const QUERY_RESPONSE_PROPS = [
   'remove',
   'status',
 ];
+*/
 
 function jsonReplacer(key: string, value: any) {
-  if (QUERY_RESPONSE_PROPS.includes(key)) return;
+  // if (QUERY_RESPONSE_PROPS.includes(key)) return;
+
+  if (key === 'queryResult') return '{ ... }';
+  if (key === 'refetch') return '() => { ... }';
 
   return value;
 }

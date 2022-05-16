@@ -7,7 +7,7 @@ export type QueryResult<TDataPropertyName extends string, TData = any, TError = 
   queryResult: Omit<UseQueryResult<TData, TError>, 'data' | 'isLoading' | 'error' | 'refetch'>;
 } & { [P in TDataPropertyName]: TData | undefined };
 
-export function getQueryReturn<TDataPropertyName extends string, TData = any, TError = Error>(
+export function normalizeQueryResult<TDataPropertyName extends string, TData = any, TError = Error>(
   key: TDataPropertyName,
   result: UseQueryResult<TData>,
 ) {
@@ -17,10 +17,10 @@ export function getQueryReturn<TDataPropertyName extends string, TData = any, TE
   >;
 
   return {
-    [key]: data,
     isLoading,
     error,
     refetch,
     queryResult,
+    [key]: data,
   } as QueryResult<TDataPropertyName, TData, TError>;
 }

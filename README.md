@@ -34,3 +34,15 @@ $ yarn add @mojito-mixers/hooks
 ```ts
 import { useRequest } from '@mojito-mixers/hooks';
 ```
+
+## TODO
+
+Sergey is gonna work in the normalizer.
+
+TODO: New hook which uses this hook/query and return only slug and itemSlug.
+
+TODO: Use react-query to store auth data and get rid of AuthProvider, etc.
+
+TODO: Create backend task to automatically log in with demo account (non-expiring token).
+
+DONE: Simplify key generator: Only one function.

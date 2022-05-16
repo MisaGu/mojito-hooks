@@ -5,7 +5,7 @@ import { config } from '../constants/general.constants';
 import { IMojitoCollection } from '../interfaces';
 import { contentfulNormalizer, mojitoNormalizer } from './gqlDataNormalizer.util';
 import { contentfulGqlClient, mojitoGqlClient, queryClient } from './gqlRequest.util';
-import { contentfulQueryKeyGenerator, queryKeyGenerator } from './queryKeyGenerator.util';
+import { queryKeyGenerator } from './queryKeyGenerator.util';
 
 export async function getDehydratedState(
   props: any,
@@ -29,8 +29,8 @@ export async function getDehydratedState(
 
   await Promise.all([
     queryClient.prefetchQuery(marketplaceCollectionsSlugQueryKey),
-    queryClient.prefetchQuery(contentfulQueryKeyGenerator(EContentfulQueries.auctionsSlugList)),
-    queryClient.prefetchQuery(contentfulQueryKeyGenerator(EContentfulQueries.organizations)),
+    queryClient.prefetchQuery(queryKeyGenerator(EContentfulQueries.auctionsSlugList)),
+    queryClient.prefetchQuery(queryKeyGenerator(EContentfulQueries.organizations)),
   ]);
 
   const collections = queryClient.getQueryState<any>(marketplaceCollectionsSlugQueryKey)?.data
@@ -50,7 +50,7 @@ export async function getDehydratedState(
       if (mojitoLotId) {
         pageSpecificRequests.push(
           queryClient.prefetchQuery(
-            contentfulQueryKeyGenerator(EContentfulQueries.fullLot, { mojitoId: mojitoLotId }),
+            queryKeyGenerator(EContentfulQueries.fullLot, { mojitoId: mojitoLotId }),
           ),
         );
       }
@@ -58,10 +58,10 @@ export async function getDehydratedState(
 
     await Promise.all([
       queryClient.prefetchQuery(
-        contentfulQueryKeyGenerator(EContentfulQueries.auctionBySlug, { slug: auctionPageSlug }),
+        queryKeyGenerator(EContentfulQueries.auctionBySlug, { slug: auctionPageSlug }),
       ),
       queryClient.prefetchQuery(
-        contentfulQueryKeyGenerator(EContentfulQueries.shortLots, { mojitoIds: collectionItemsId }),
+        queryKeyGenerator(EContentfulQueries.shortLots, { mojitoIds: collectionItemsId }),
       ),
       ...pageSpecificRequests,
     ]);

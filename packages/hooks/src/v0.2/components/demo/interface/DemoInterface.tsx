@@ -3,6 +3,7 @@ import React, { useCallback } from 'react';
 import { useEffect } from 'react';
 import { QueryClientProvider } from 'react-query';
 import { EAuthActionTypes, useAuthContext } from '../../../domain/context/auth.context';
+import { MojitoHooksProvider } from '../../../domain/context/mojito.context';
 import { queryClient } from '../../../domain/utils/gqlRequest.util';
 
 interface DemoInterfaceProps {
@@ -46,9 +47,9 @@ export const DemoInterface: React.FC<DemoInterfaceProps> = ({ demoComponent: Dem
   // IMPORTANT: Authentication (loginWithPopup) will only work in port 3000!
 
   return isAuthenticated ? (
-    <QueryClientProvider client={queryClient}>
+    <MojitoHooksProvider>
       <DemoComponent />
-    </QueryClientProvider>
+    </MojitoHooksProvider>
   ) : (
     <div>
       <p>{isLoading ? 'Authenticating...' : 'Sorry, you need to log in first.'} </p>

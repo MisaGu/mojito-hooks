@@ -31,31 +31,11 @@ export function useMojitoFactory<T = any>({
     setPrevIsAuthenticated(isAuthenticated);
   }
 
-  const result = useQuery<T | null>(
-    queryKey,
-    async () => {
-      if (Object.values(variables ?? {}).some((e) => !e)) {
-        console.error('Some of vars is undefined', variables);
-
-        return null;
-      }
-
-      /*
-      if (isAuthenticated) {
-        mojitoGqlClient.setHeader('authorization', `Bearer ${token}`);
-      } else if (onlyAuthenticated) {
-        return null;
-      }
-      */
-
-      return await queryClient.fetchQuery<T>(queryKey);
-    },
-    {
-      ...options,
-      meta: { authorization: isAuthenticated },
-      enabled: !onlyAuthenticated,
-    },
-  );
+  const result = useQuery<T | null>(queryKey, {
+    ...options,
+    meta: { authorization: isAuthenticated },
+    enabled: !onlyAuthenticated,
+  });
 
   useEffect(() => {
     if (force) {
