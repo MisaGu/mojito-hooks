@@ -14,7 +14,8 @@ export function useCollectionItemCurrentBids(
   currentBidsError: IUseQueryResult['error'];
   currentBidsRefetch: () => void;
 } {
-  const { slug } = useCollection();
+  const { collection } = useCollection();
+  const slug = collection?.slug;
   const { data, error, loading, refetch } = useMojitoFactory({
     query: EMojitoQueries.collectionBySlugCurrentBids,
     variables: { slug: _slug ?? slug, marketplaceID: config.MARKETPLACE_ID },

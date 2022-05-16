@@ -1,3 +1,92 @@
+import { GraphQLClient } from 'graphql-request';
+import { QueryClient, QueryFunction } from 'react-query';
+import { config } from '../constants/general.constants';
+import { isBrowser } from './isBrowser.util';
+import { Variables } from 'graphql-request/dist/types';
+import { contentfulNormalizer, mojitoNormalizer } from './gqlDataNormalizer.util';
+import { EMojitoQueries, mojitoQueries } from '../gql/queries';
+import { contentfulQueries, EContentfulQueries } from '../gql/contentful';
+
+function handleQueryError(e: Error & { response?: Response & { error?: any; errors?: any[] } }) {
+  const status = e.response?.status || 0;
+
+  console.log(e);
+
+  if (isBrowser && status >= 500 && window.location.pathname !== '/500') {
+    window.location.href = '/500';
+  } else {
+    if (e.response?.error) {
+      console.log(e.response.error);
+    }
+
+    // throw e.response.errors[0];
+
+    throw e;
+  }
+}
+
+export type QueryKey = [string, Variables];
+
+export const mojitoGqlClient = new GraphQLClient(config.MOJITO_API_URL);
+
+export const contentfulGqlClient = new GraphQLClient(config.CONTENTFUL_URL, {
+  headers: {
+    Authorization: `Bearer ${config.CONTENTFUL_AUTH_TOKEN}`,
+  },
+});
+
+export const mojitoQueryFn: QueryFunction<unknown, QueryKey> = async ({ queryKey }) => {
+  const [query, variables] = queryKey;
+  const mojitoQuery: EMojitoQueries = query.replace(/^Mojito /, '') as unknown as EMojitoQueries;
+
+  console.log(
+    `${mojitoQueries[EMojitoQueries[mojitoQuery]] ? '🔃' : '❌'} MOJITO QUERY = ${mojitoQuery}...`,
+  );
+
+  return await mojitoGqlClient
+    .request(mojitoQueries[EMojitoQueries[mojitoQuery]], variables)
+    .catch(handleQueryError)
+    .then((data) => mojitoNormalizer(data, variables));
+};
+
+export const contentfulQueryFn: QueryFunction<unknown, QueryKey> = async ({ queryKey }) => {
+  const [query, variables] = queryKey;
+  const contentfulQuery: EContentfulQueries = query.replace(
+    /^Contentful /,
+    '',
+  ) as unknown as EContentfulQueries;
+
+  console.log(
+    `${
+      contentfulQueries[EContentfulQueries[contentfulQuery]] ? '🔃' : '❌'
+    } CONTENTFUL QUERY = ${contentfulQuery}...`,
+  );
+
+  return await contentfulGqlClient
+    .request(contentfulQueries[EContentfulQueries[contentfulQuery]], variables)
+    .catch(handleQueryError)
+    .then((data) => contentfulNormalizer(data, variables));
+};
+
+export const defaultQueryFn: QueryFunction<unknown, QueryKey> = async (context) => {
+  return context.queryKey[0].startsWith('Contentful')
+    ? contentfulQueryFn(context)
+    : mojitoQueryFn(context);
+};
+
+export const queryClient = new QueryClient({
+  defaultOptions: {
+    queries: {
+      staleTime: typeof window === 'undefined' ? 0 : 180000, // 3min
+      cacheTime: Infinity, // disable garbage collection
+      queryFn: defaultQueryFn,
+    },
+  },
+});
+
+// queryClient uses gqlRequest with gqlClient: contentfulGqlClient
+
+/*
 import { GraphQLClient, RequestDocument, Variables } from 'graphql-request';
 import { QueryClient } from 'react-query';
 import { config } from '../constants/general.constants';
@@ -55,3 +144,4 @@ export async function gqlRequest<T>({
     })
     .then((data) => normalizerFn?.(data, variables));
 }
+*/

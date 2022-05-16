@@ -4,7 +4,8 @@ import { contentfulQueries, EContentfulQueries } from '../gql/contentful';
 import { config } from '../constants/general.constants';
 import { IMojitoCollection } from '../interfaces';
 import { contentfulNormalizer, mojitoNormalizer } from './gqlDataNormalizer.util';
-import { contentfulGqlClient, gqlRequest, mojitoGqlClient, queryClient } from './gqlRequest.util';
+import { contentfulGqlClient, mojitoGqlClient, queryClient } from './gqlRequest.util';
+import { contentfulQueryKeyGenerator, queryKeyGenerator } from './queryKeyGenerator.util';
 
 export async function getDehydratedState(
   props: any,
@@ -21,41 +22,20 @@ export async function getDehydratedState(
 
   if (auctionPageSlug == '500') return { dehydratedState: dehydrate(queryClient) };
 
-  const marketplaceCollectionsSlugQueryKey = [
-    `Mojito ${EMojitoQueries[EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug]}`,
+  const marketplaceCollectionsSlugQueryKey = queryKeyGenerator(
+    EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug,
     { id: config.MARKETPLACE_ID },
-  ];
+  );
 
   await Promise.all([
-    queryClient.prefetchQuery(
-      marketplaceCollectionsSlugQueryKey,
-      gqlRequest.bind(null, {
-        query: mojitoQueries[EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug],
-        variables: { id: config.MARKETPLACE_ID },
-        normalizerFn: mojitoNormalizer,
-        gqlClient: mojitoGqlClient,
-      }),
-    ),
-    queryClient.prefetchQuery(
-      [`Contentful ${EContentfulQueries[EContentfulQueries.auctionsSlugList]}`],
-      gqlRequest.bind(null, {
-        query: contentfulQueries[EContentfulQueries.auctionsSlugList],
-        normalizerFn: contentfulNormalizer,
-        gqlClient: contentfulGqlClient,
-      }),
-    ),
-    queryClient.prefetchQuery(
-      [`Contentful ${EContentfulQueries[EContentfulQueries.organizations]}`],
-      gqlRequest.bind(null, {
-        query: contentfulQueries[EContentfulQueries.organizations],
-        normalizerFn: contentfulNormalizer,
-        gqlClient: contentfulGqlClient,
-      }),
-    ),
+    queryClient.prefetchQuery(marketplaceCollectionsSlugQueryKey),
+    queryClient.prefetchQuery(contentfulQueryKeyGenerator(EContentfulQueries.auctionsSlugList)),
+    queryClient.prefetchQuery(contentfulQueryKeyGenerator(EContentfulQueries.organizations)),
   ]);
 
   const collections = queryClient.getQueryState<any>(marketplaceCollectionsSlugQueryKey)?.data
     ?.marketplace.collections;
+
   const collectionByPath: IMojitoCollection = collections?.find(
     (e: IMojitoCollection) => e.slug == auctionPageSlug,
   );
@@ -70,19 +50,7 @@ export async function getDehydratedState(
       if (mojitoLotId) {
         pageSpecificRequests.push(
           queryClient.prefetchQuery(
-            [
-              `Contentful ${EContentfulQueries[EContentfulQueries.fullLot]}`,
-              { mojitoId: mojitoLotId },
-            ],
-            gqlRequest.bind(null, {
-              query: contentfulQueries[EContentfulQueries.fullLot],
-              variables: {
-                slug: auctionPageSlug,
-                mojitoId: mojitoLotId,
-              },
-              normalizerFn: contentfulNormalizer,
-              gqlClient: contentfulGqlClient,
-            }),
+            contentfulQueryKeyGenerator(EContentfulQueries.fullLot, { mojitoId: mojitoLotId }),
           ),
         );
       }
@@ -90,51 +58,24 @@ export async function getDehydratedState(
 
     await Promise.all([
       queryClient.prefetchQuery(
-        [
-          `Contentful ${EContentfulQueries[EContentfulQueries.auctionBySlug]}`,
-          { slug: auctionPageSlug },
-        ],
-        gqlRequest.bind(null, {
-          query: contentfulQueries[EContentfulQueries.auctionBySlug],
-          variables: { slug: auctionPageSlug },
-          normalizerFn: contentfulNormalizer,
-          gqlClient: contentfulGqlClient,
-        }),
+        contentfulQueryKeyGenerator(EContentfulQueries.auctionBySlug, { slug: auctionPageSlug }),
       ),
       queryClient.prefetchQuery(
-        [
-          `Contentful ${EContentfulQueries[EContentfulQueries.shortLots]}`,
-          { slug: auctionPageSlug },
-        ],
-        gqlRequest.bind(null, {
-          query: contentfulQueries[EContentfulQueries.shortLots],
-          variables: {
-            slug: auctionPageSlug,
-            mojitoIds: collectionItemsId,
-          },
-          normalizerFn: contentfulNormalizer,
-          gqlClient: contentfulGqlClient,
-        }),
+        contentfulQueryKeyGenerator(EContentfulQueries.shortLots, { mojitoIds: collectionItemsId }),
       ),
       ...pageSpecificRequests,
     ]);
+
     await queryClient.prefetchQuery(
-      [
-        `Mojito ${EMojitoQueries[EMojitoQueries.collectionBySlug]}`,
-        { slug: auctionPageSlug, marketplaceID: config.MARKETPLACE_ID },
-      ],
-      gqlRequest.bind(null, {
-        query: mojitoQueries[EMojitoQueries.collectionBySlug],
-        variables: {
-          slug: auctionPageSlug,
-          marketplaceID: config.MARKETPLACE_ID,
-        },
-        normalizerFn: mojitoNormalizer,
-        gqlClient: mojitoGqlClient,
+      queryKeyGenerator(EMojitoQueries.collectionBySlug, {
+        slug: auctionPageSlug,
+        marketplaceID: config.MARKETPLACE_ID,
       }),
     );
   }
+
   props.res?.setHeader('Cache-Control', 'public, s-maxage=10, stale-while-revalidate=59');
+
   return { dehydratedState: dehydrate(queryClient) };
 }
 

@@ -11,7 +11,8 @@ export function useCollectionItemRemainingCount(
   remainingCountError: IUseQueryResult['error'];
   remainingCountRefetch: () => void;
 } {
-  const { slug } = useCollection();
+  const { collection } = useCollection();
+  const slug = collection?.slug;
   const { data, error, loading, refetch } = useMojitoFactory({
     query: EMojitoQueries.collectionItemByIdRemainingCount,
     variables: { id, slug: _slug ?? slug },

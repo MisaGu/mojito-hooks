@@ -1,30 +1,14 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import {
-  QueryObserverResult,
-  useQuery,
-  useQueryClient,
-  UseQueryOptions,
-  UseQueryResult,
-} from 'react-query';
+import { useQuery, useQueryClient, UseQueryOptions } from 'react-query';
 import { config } from '../../domain/constants/general.constants';
 import { IMojitoCollection } from '../../domain/interfaces';
-import { useMarketplaceCollectionsSlugWithItemsId } from '../useMarketplaceCollectionsSlugWithItemsId/useMarketplaceCollectionsSlugWithItemsId';
-import {
-  contentfulGqlClient,
-  gqlRequest,
-  mojitoGqlClient,
-} from '../../domain/utils/gqlRequest.util';
-import { useContentfulAuctionsSlugList } from '../useContentfulAuctionsSlugList/useContentfulAuctionsSlugList';
 import { getAuctionSlug } from '../../domain/utils/path.util';
-import { contentfulNormalizer, mojitoNormalizer } from '../../domain/utils/gqlDataNormalizer.util';
 import { EMojitoQueries, mojitoQueries } from '../../domain/gql/queries';
-import { contentfulQueries, EContentfulQueries } from '../../domain/gql/contentful';
+import { EContentfulQueries } from '../../domain/gql/contentful';
 import {
   contentfulQueryKeyGenerator,
   queryKeyGenerator,
 } from '../../domain/utils/queryKeyGenerator.util';
-import { useEffect } from 'react';
-import { getQueryParams, getQueryReturn, QueryResult } from '../../domain/interfaces/gql.interface';
+import { getQueryReturn, QueryResult } from '../../domain/interfaces/gql.interface';
 
 // TODO: Separate props and result interfaces in separate file in this module:
 
@@ -73,13 +57,19 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
 
   // TODO: Check what happens when the timer runs out:
 
-  const queryReturn = useQuery<UseCollectionData>(
+  console.log('RUN HOOK');
+
+  const result = useQuery<UseCollectionData>(
     queryKey,
     async () => {
       // TODO: Can we type-check queries and variables in queryKeyGenerator and return type in prefetchQuery?
 
+      console.log('RUN QUERY');
+
       const data = await queryClient.fetchQuery(
-        queryKeyGenerator(EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug),
+        queryKeyGenerator(EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug, {
+          id: config.MARKETPLACE_ID,
+        }),
       );
 
       const marketplaceCollections = (data as any)?.marketplace?.collections || [];
@@ -106,5 +96,5 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
     props?.options,
   );
 
-  return queryReturn;
+  return getQueryReturn('collection', result);
 }
