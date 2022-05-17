@@ -54,12 +54,28 @@ const YouApp: React.FC = () => {
 };
 ```
 
-## TODO
+## Roadmap
 
-Sergey is gonna work in the normalizer.
+**In Development > Sergey:**
 
-TODO: New hook which uses this hook/query and return only slug and itemSlug.
+- Working in `gqlDataNormalizer.util`.
 
-TODO: Use react-query to store auth data and get rid of AuthProvider, etc.
+**In Development > Dani:**
 
-TODO: Create backend task to automatically log in with demo account (non-expiring token).
+- Working in `useCollection` (fixing fetching + moving logic to serializer).
+- Next add new `useCollectionSlug` hook which uses this hook/query and return only slug and itemSlug.
+- Adding additional functionality to demo `Json` component: Add refetch button, stale/fetching info, progress bar auto refresh...
+
+**Not assigned / TODO:**
+
+- Use react-query to store auth data and get rid of AuthProvider, etc.
+- Create backend task to automatically log in with demo account (non-expiring token).
+
+---
+
+**Hooks Progress:**
+
+| Hook          | Code | Demo | Test | Docs |
+| ------------- | ---- | ---- | ---- | ---- |
+| useActiveBids | ✔️   | ❌   | ❌   | ❌   |
+| useCollection | ✔️   | ❌   | ❌   | ❌   |

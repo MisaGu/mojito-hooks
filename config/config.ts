@@ -5,6 +5,18 @@ const packages = require('../packages/hooks/package.json');
 export default {
   // ssr: {},
   exportStatic: {},
+  /*
+  // This breaks the build (everything ends up unstyled):
+  sass : {
+    implementation: require('node-sass'),
+  },
+  cssLoader: {
+    modules: true,
+  },
+  cssModulesTypescriptLoader: {
+    mode: 'emit',
+  },
+  */
   nodeModulesTransform: {
     type: 'none',
     exclude: [],

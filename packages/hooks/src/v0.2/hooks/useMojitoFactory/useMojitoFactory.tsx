@@ -1,36 +1,34 @@
 import { Variables } from 'graphql-request/dist/types';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useQuery, useQueryClient, UseQueryOptions } from 'react-query';
 import { useAuthContext } from '../../domain/context/auth.context';
-import { EMojitoQueries, IUseQueryResult } from '../../domain/gql/queries';
+import { EMojitoQueries } from '../../domain/gql/queries';
+import { normalizeQueryResult } from '../../domain/utils/gql.utils';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 
-interface IUseMojitoOptions<T = any> {
+interface IUseMojitoOptions<TDataPropertyName extends string, TData = any, TError = Error> {
+  as: TDataPropertyName;
   query: EMojitoQueries;
   variables?: Variables;
-  options?: UseQueryOptions<T>;
+  options?: UseQueryOptions<TData, TError>;
   force?: boolean;
   onlyAuthenticated?: boolean;
 }
 
-export function useMojitoFactory<T = any>({
+export function useMojitoFactory<TDataPropertyName extends string, TData = any, TError = Error>({
+  as,
   query,
   variables,
   options,
   force = false,
   onlyAuthenticated,
-}: IUseMojitoOptions<T>): IUseQueryResult {
+}: IUseMojitoOptions<TDataPropertyName, TData, TError>) {
   const queryClient = useQueryClient();
 
   const { isAuthenticated } = useAuthContext();
-  const [prevIsAuthenticated, setPrevIsAuthenticated] = useState(isAuthenticated);
   const queryKey = QueryKey.get(query, variables);
 
-  if (!Object.is(prevIsAuthenticated, isAuthenticated)) {
-    setPrevIsAuthenticated(isAuthenticated);
-  }
-
-  const result = useQuery<T | null>(queryKey, {
+  const result = useQuery<TData | undefined>(queryKey, {
     ...options,
     meta: { authorization: isAuthenticated },
     enabled: !onlyAuthenticated,
@@ -40,13 +38,13 @@ export function useMojitoFactory<T = any>({
     if (force) {
       queryClient.removeQueries(queryKey);
     }
-  }, []);
+  }, [queryKey]);
 
   useEffect(() => {
-    if (isAuthenticated && !prevIsAuthenticated) {
-      if (onlyAuthenticated && queryClient.getQueryData(queryKey) == undefined) {
-        result.refetch();
-      }
+    if (isAuthenticated && onlyAuthenticated && queryClient.getQueryData(queryKey) === undefined) {
+      console.log('🔄 useMojitoFactory refetch...');
+
+      result.refetch();
     }
   }, [isAuthenticated]);
 
@@ -54,8 +52,5 @@ export function useMojitoFactory<T = any>({
     console.log(result.error);
   }
 
-  return {
-    loading: result.isLoading,
-    ...result,
-  };
+  return normalizeQueryResult(as, result);
 }
