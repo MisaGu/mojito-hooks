@@ -1,8 +1,7 @@
-import React, { CSSProperties } from 'react';
-
-export interface JsonProps {
-  obj: any;
-}
+import React from 'react';
+import { QueryResult } from '../../../domain/utils/gql.utils';
+import { QUERY_CLIENT_STALE_TIME } from '../../../domain/utils/gqlRequest.util';
+import { ROOT_STYLE, ACTIONS_STYLE, LINK_STYLE, BUTTON_STYLE } from './Json.constants';
 
 function jsonReplacer(key: string, value: any) {
   if (key === 'queryResult') return '{ ... }';
@@ -11,29 +10,30 @@ function jsonReplacer(key: string, value: any) {
   return value;
 }
 
-const LINK_STYLE: CSSProperties = {
-  display: 'inline-block',
-  padding: '8px 16px',
-  borderRadius: '4px',
-  background: '#F0F0F0',
-  marginTop: '16px',
-  fontFamily: 'monospace',
-  color: 'blue',
-  textDecoration: 'none',
-};
+export interface JsonProps {
+  obj: any;
+  result: QueryResult<string>;
+  staleTime?: number;
+}
 
-export const Json: React.FC<JsonProps> = ({ obj }) => {
+export const Json: React.FC<JsonProps> = ({ obj, result, staleTime = QUERY_CLIENT_STALE_TIME }) => {
+  // const { isLoading, error, refetch, queryResult: { isStale, dataUpdatedAt } } = result;
+
   return (
-    <>
+    <div style={ROOT_STYLE}>
       <pre>{JSON.stringify(obj, jsonReplacer, '  ')}</pre>
 
-      <a
-        href="https://react-query.tanstack.com/reference/useQuery"
-        target="_blank"
-        style={LINK_STYLE}
-      >
-        <code>queryResult: UseQueryResult</code>
-      </a>
-    </>
+      <div style={ACTIONS_STYLE}>
+        <a
+          href="https://react-query.tanstack.com/reference/useQuery"
+          target="_blank"
+          style={LINK_STYLE}
+        >
+          queryResult: UseQueryResult
+        </a>
+
+        <button style={BUTTON_STYLE}>refetch()</button>
+      </div>
+    </div>
   );
 };

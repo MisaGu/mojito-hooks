@@ -59,7 +59,7 @@ export const mojitoQueryFn: QueryFunction<unknown, QueryKey> = async ({ queryKey
   const mojitoQuery = getMojitoQueryKey(query);
 
   console.log(
-    `${mojitoQueries[mojitoQuery] ? '🔃' : '❌'} MOJITO QUERY = ${query} => ${mojitoQuery}...`,
+    `${mojitoQueries[mojitoQuery] ? '🍸' : '❌'} MOJITO QUERY = ${query} => ${mojitoQuery}...`,
   );
 
   // TODO: Add token with requestHeaders from request-client / mojitoGqlClient.setHeader("", token)
@@ -76,7 +76,7 @@ export const contentfulQueryFn: QueryFunction<unknown, QueryKey> = async ({ quer
 
   console.log(
     `${
-      contentfulQueries[contentfulQuery] ? '🔃' : '❌'
+      contentfulQueries[contentfulQuery] ? '💾' : '❌'
     } CONTENTFUL QUERY = ${query} => ${contentfulQuery}...`,
   );
 

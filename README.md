@@ -58,6 +58,12 @@ const YouApp: React.FC = () => {
 
 Sergey is gonna work in the normalizer.
 
+DONE: Review my last PR: Did I delete variables that were used in the key but not in the query?
+
+DOING: Add refetch button + progress bar auto refresh.
+
+DOING: Finish useCollection with serielizer
+
 TODO: New hook which uses this hook/query and return only slug and itemSlug.
 
 TODO: Use react-query to store auth data and get rid of AuthProvider, etc.

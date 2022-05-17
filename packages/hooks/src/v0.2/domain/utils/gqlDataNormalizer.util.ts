@@ -28,6 +28,8 @@ const extendCollection = (
     { slug: collection.slug },
   ])?.auctionCollection?.items?.[0];
 
+  // console.log(`NORMALIZER contentfulData (${ collection.slug }) =`, contentfulData);
+
   const auctionStartUnix = moment(collection.startDate ?? null).unix();
   const auctionEndUnix = moment(collection.endDate ?? null).unix();
   const nowUnix = moment().unix();
@@ -71,6 +73,8 @@ const extendCollection = (
     collection.items = extendCollectionItems(collection.items, collection.slug);
     collection.hasMultipleLots = collection.items.length > 1;
   }
+
+  // console.log("RETURN COLLECTION", collection);
 
   return collection;
 };

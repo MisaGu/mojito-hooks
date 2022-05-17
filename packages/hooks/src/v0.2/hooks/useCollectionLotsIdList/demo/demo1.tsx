@@ -13,7 +13,7 @@ import { DemoProviders } from '../../../components/demo/provider/DemoProvider';
 import { useCollectionLotsIdList } from '../useCollectionLotsIdList';
 
 const DemoContent: React.FC = () => {
-  const result = useCollectionLotsIdList('549c4f64-ca4d-4087-a8a6-3b8ce1ecf059');
+  const result = useCollectionLotsIdList('bid-test-3');
 
   return <Json obj={result} />;
 };

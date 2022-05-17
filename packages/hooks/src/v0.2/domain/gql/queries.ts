@@ -9,11 +9,6 @@ import {
   FAVORITE_ITEMS_FIELD,
 } from './fragments';
 
-export type IUseQueryResult = UseQueryResult & {
-  loading: UseQueryResult['isLoading'];
-  data: any;
-}; // FIXME this is temporary, change loading to isLoading everywhere
-
 export enum EMojitoQueries {
   serverTime = 'serverTime',
   checkUsername = 'checkUsername',
@@ -258,7 +253,6 @@ export const mojitoQueries: Record<EMojitoQueries, string> = {
     }
   `,
   [EMojitoQueries.collectionLotsIdList]: gql`
-    ${COLLECTION_ITEM_FIELD}
     query collectionLotsIdList($slug: String!, $marketplaceID: UUID1!) {
       collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {
         items(statuses: [Active]) {
