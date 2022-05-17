@@ -1,8 +1,8 @@
 import { Variables } from 'graphql-request';
-import { useQuery, UseQueryOptions, UseQueryResult } from 'react-query';
+import { useQuery, UseQueryOptions } from 'react-query';
 import { EContentfulQueries } from '../../domain/gql/contentful';
 import { normalizeQueryResult } from '../../domain/utils/gql.utils';
-import { queryKeyGenerator } from '../../domain/utils/queryKeyGenerator.util';
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 
 interface IUseContentfulOptions<TDataPropertyName extends string, TData = any, TError = Error> {
   as: TDataPropertyName;
@@ -17,7 +17,7 @@ export function useContentful<TDataPropertyName extends string, TData = any, TEr
   variables,
   options,
 }: IUseContentfulOptions<TDataPropertyName, TData, TError>) {
-  const result = useQuery<TData | undefined>(queryKeyGenerator(query, variables), options);
+  const result = useQuery<TData | undefined>(QueryKey.get(query, variables), options);
 
   return normalizeQueryResult(as, result);
 }

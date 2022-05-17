@@ -5,12 +5,7 @@ import { isBrowser } from './isBrowser.util';
 import { contentfulNormalizer, mojitoNormalizer } from './gqlDataNormalizer.util';
 import { EMojitoQueries, mojitoQueries } from '../gql/queries';
 import { contentfulQueries, EContentfulQueries } from '../gql/contentful';
-import {
-  getContentfulQueryKey,
-  getMojitoQueryKey,
-  isContentfulQueryKey,
-  QueryKey,
-} from './queryKeyGenerator.util';
+import { QueryKey, IQueryKey, QUERY_KEY_PREFIX } from './queryKeyFactory.util';
 
 export type MojitoHookQueryError = Error & {
   response?: Response & { error?: any; errors?: any[] };
@@ -54,53 +49,53 @@ export const contentfulGqlClient = new GraphQLClient(config.CONTENTFUL_URL, {
   },
 });
 
-export const mojitoQueryFn: QueryFunction<unknown, QueryKey> = async ({ queryKey }) => {
+export const mojitoQueryFn: QueryFunction<unknown, IQueryKey> = async ({ queryKey }) => {
   const [query, variables] = queryKey;
-  const mojitoQuery = getMojitoQueryKey(query);
+  const mojitoQuery = QueryKey.getMojitoQuery(query);
 
-  console.log(
-    `${mojitoQueries[mojitoQuery] ? '🍸' : '❌'} MOJITO QUERY = ${query} => ${mojitoQuery}...`,
-  );
+  console.log(`${mojitoQuery ? '🍸' : '❌'} MOJITO QUERY = ${query} => ${mojitoQuery}...`);
 
   // TODO: Add token with requestHeaders from request-client / mojitoGqlClient.setHeader("", token)
 
   return await mojitoGqlClient
-    .request(mojitoQueries[mojitoQuery], variables)
+    .request(mojitoQuery, variables)
     .catch(handleQueryError)
     .then((data) => mojitoNormalizer(data, variables));
 };
 
-export const contentfulQueryFn: QueryFunction<unknown, QueryKey> = async ({ queryKey }) => {
+export const contentfulQueryFn: QueryFunction<unknown, IQueryKey> = async ({ queryKey }) => {
   const [query, variables] = queryKey;
-  const contentfulQuery = getContentfulQueryKey(query);
+  const contentfulQuery = QueryKey.getContentfulQuery(query);
 
   console.log(
-    `${
-      contentfulQueries[contentfulQuery] ? '💾' : '❌'
-    } CONTENTFUL QUERY = ${query} => ${contentfulQuery}...`,
+    `${contentfulQuery ? '💾' : '❌'} CONTENTFUL QUERY = ${query} => ${contentfulQuery}...`,
   );
 
   return await contentfulGqlClient
-    .request(contentfulQueries[contentfulQuery], variables)
+    .request(contentfulQuery, variables)
     .catch(handleQueryError)
     .then((data) => contentfulNormalizer(data, variables));
 };
 
-export const defaultQueryFn: QueryFunction<unknown, QueryKey> = async (context) => {
-  const [query, variables] = context.queryKey;
+export const defaultQueryFn: QueryFunction<unknown, IQueryKey> = async (context) => {
+  if (Array.isArray(context.queryKey) && context.queryKey[0].includes(QUERY_KEY_PREFIX)) {
+    const [query, variables] = context.queryKey;
 
-  const undefinedVars = Object.entries(variables ?? {}).filter((pair) => pair[1] === undefined);
+    const undefinedVars = Object.entries(variables ?? {}).filter((pair) => pair[1] === undefined);
 
-  if (undefinedVars.length > 0) {
-    console.error(
-      "Variables can't be undefined:",
-      undefinedVars.map((pair) => pair[0]),
-    );
+    if (undefinedVars.length > 0) {
+      console.error(
+        "Variables can't be undefined:",
+        undefinedVars.map((pair) => pair[0]),
+      );
 
-    return null;
+      return null;
+    }
+
+    return QueryKey.isContentful(query) ? contentfulQueryFn(context) : mojitoQueryFn(context);
   }
-
-  return isContentfulQueryKey(query) ? contentfulQueryFn(context) : mojitoQueryFn(context);
+  // TODO: user custom default query functions
+  return () => {};
 };
 
 export const QUERY_CLIENT_STALE_TIME = 180000; // 3 MIN

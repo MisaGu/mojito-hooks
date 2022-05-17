@@ -2,9 +2,9 @@ import { Variables } from 'graphql-request/dist/types';
 import { useEffect, useState } from 'react';
 import { useQuery, useQueryClient, UseQueryOptions } from 'react-query';
 import { useAuthContext } from '../../domain/context/auth.context';
-import { EMojitoQueries } from '../../domain/gql/queries';
+import { EMojitoQueries, IUseQueryResult } from '../../domain/gql/queries';
 import { normalizeQueryResult } from '../../domain/utils/gql.utils';
-import { queryKeyGenerator } from '../../domain/utils/queryKeyGenerator.util';
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 
 interface IUseMojitoOptions<TDataPropertyName extends string, TData = any, TError = Error> {
   as: TDataPropertyName;
@@ -26,7 +26,7 @@ export function useMojitoFactory<TDataPropertyName extends string, TData = any, 
   const queryClient = useQueryClient();
 
   const { isAuthenticated } = useAuthContext();
-  const queryKey = queryKeyGenerator(query, variables);
+  const queryKey = QueryKey.get(query, variables);
 
   const result = useQuery<TData | undefined>(queryKey, {
     ...options,
