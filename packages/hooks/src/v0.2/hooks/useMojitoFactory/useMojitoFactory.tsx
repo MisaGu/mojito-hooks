@@ -1,8 +1,8 @@
 import { Variables } from 'graphql-request/dist/types';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { useQuery, useQueryClient, UseQueryOptions } from 'react-query';
 import { useAuthContext } from '../../domain/context/auth.context';
-import { EMojitoQueries, IUseQueryResult } from '../../domain/gql/queries';
+import { EMojitoQueries } from '../../domain/gql/queries';
 import { normalizeQueryResult } from '../../domain/utils/gql.utils';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 
