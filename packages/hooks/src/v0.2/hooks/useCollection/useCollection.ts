@@ -4,7 +4,7 @@ import { IMojitoCollection } from '../../domain/interfaces';
 import { getAuctionSlug } from '../../domain/utils/path.util';
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { EContentfulQueries } from '../../domain/gql/contentful';
-import { queryKeyGenerator } from '../../domain/utils/queryKeyGenerator.util';
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { normalizeQueryResult, QueryResult } from '../../domain/utils/gql.utils';
 
 // TODO: Separate props and result interfaces in separate file in this module:
@@ -34,7 +34,7 @@ export type UseCollectionReturn = QueryResult<'collection', UseCollectionData>;
 // const isAuction = collectionExists && auctionsSlugList.includes(variables.slug);
 // const isFakeAuction = collectionExists && !isAuction;
 
-// const { auctionsSlugList } = queryClient.getFromCache(contentfulQueryKeyGenerator(EContentfulQueries.auctionsSlugList))
+// const { auctionsSlugList } = queryClient.getFromCache(QueryKey.get(EContentfulQueries.auctionsSlugList))
 // const isFake = !auctionsSlugList.includes(variables.slug);
 
 /*
@@ -52,7 +52,7 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
   const queryClient = useQueryClient();
   const auctionSlug = getAuctionSlug(props);
 
-  const queryKey = queryKeyGenerator(EMojitoQueries.collectionBySlug, {
+  const queryKey = QueryKey.get(EMojitoQueries.collectionBySlug, {
     slug: auctionSlug,
     marketplaceID: config.MARKETPLACE_ID,
   });
@@ -64,18 +64,18 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
   const result = useQuery<UseCollectionData>(
     queryKey,
     async () => {
-      // TODO: Can we type-check queries and variables in queryKeyGenerator and return type in prefetchQuery?
+      // TODO: Can we type-check queries and variables in QueryKey.get and return type in prefetchQuery?
 
       // console.log('RUN QUERY');
 
       const data = await queryClient.fetchQuery(
-        queryKeyGenerator(EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug, {
+        QueryKey.get(EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug, {
           id: config.MARKETPLACE_ID,
         }),
       );
 
       // TODO: Move fetching and slug validation here:
-      // queryClient.prefetchQuery(contentfulQueryKeyGenerator(EContentfulQueries.auctionsSlugList)),
+      // queryClient.prefetchQuery(contentfulQueryKey.get(EContentfulQueries.auctionsSlugList)),
 
       const existsOnContentful = true;
 
@@ -91,10 +91,10 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
         // TODO: This is bad and skips type checking:
         await Promise.all([
           queryClient.prefetchQuery(
-            queryKeyGenerator(EContentfulQueries.auctionBySlug, { slug: auctionSlug }),
+            QueryKey.get(EContentfulQueries.auctionBySlug, { slug: auctionSlug }),
           ),
           queryClient.prefetchQuery(
-            queryKeyGenerator(EContentfulQueries.shortLots, { mojitoIds: collectionItems }),
+            QueryKey.get(EContentfulQueries.shortLots, { mojitoIds: collectionItems }),
           ),
         ]);
       }

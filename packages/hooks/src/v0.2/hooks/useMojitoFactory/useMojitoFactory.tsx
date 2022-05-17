@@ -2,9 +2,8 @@ import { Variables } from 'graphql-request/dist/types';
 import { useEffect, useState } from 'react';
 import { useQuery, useQueryClient, UseQueryOptions } from 'react-query';
 import { useAuthContext } from '../../domain/context/auth.context';
-import { EMojitoQueries, IUseQueryResult, mojitoQueries } from '../../domain/gql/queries';
-import { mojitoGqlClient } from '../../domain/utils/gqlRequest.util';
-import { queryKeyGenerator } from '../../domain/utils/queryKeyGenerator.util';
+import { EMojitoQueries, IUseQueryResult } from '../../domain/gql/queries';
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 
 interface IUseMojitoOptions<T = any> {
   query: EMojitoQueries;
@@ -25,7 +24,7 @@ export function useMojitoFactory<T = any>({
 
   const { isAuthenticated } = useAuthContext();
   const [prevIsAuthenticated, setPrevIsAuthenticated] = useState(isAuthenticated);
-  const queryKey = queryKeyGenerator(query, variables);
+  const queryKey = QueryKey.get(query, variables);
 
   if (!Object.is(prevIsAuthenticated, isAuthenticated)) {
     setPrevIsAuthenticated(isAuthenticated);

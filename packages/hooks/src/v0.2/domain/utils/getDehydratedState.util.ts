@@ -1,11 +1,10 @@
 import { dehydrate, DehydratedState } from 'react-query';
-import { EMojitoQueries, mojitoQueries } from '../gql/queries';
-import { contentfulQueries, EContentfulQueries } from '../gql/contentful';
 import { config } from '../constants/general.constants';
+import { EContentfulQueries } from '../gql/contentful';
+import { EMojitoQueries } from '../gql/queries';
 import { IMojitoCollection } from '../interfaces';
-import { contentfulNormalizer, mojitoNormalizer } from './gqlDataNormalizer.util';
-import { contentfulGqlClient, mojitoGqlClient, queryClient } from './gqlRequest.util';
-import { queryKeyGenerator } from './queryKeyGenerator.util';
+import { queryClient } from './gqlRequest.util';
+import { QueryKey } from './queryKeyFactory.util';
 
 export async function getDehydratedState(
   props: any,
@@ -22,15 +21,15 @@ export async function getDehydratedState(
 
   if (auctionPageSlug == '500') return { dehydratedState: dehydrate(queryClient) };
 
-  const marketplaceCollectionsSlugQueryKey = queryKeyGenerator(
+  const marketplaceCollectionsSlugQueryKey = QueryKey.get(
     EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug,
     { id: config.MARKETPLACE_ID },
   );
 
   await Promise.all([
     queryClient.prefetchQuery(marketplaceCollectionsSlugQueryKey),
-    queryClient.prefetchQuery(queryKeyGenerator(EContentfulQueries.auctionsSlugList)),
-    queryClient.prefetchQuery(queryKeyGenerator(EContentfulQueries.organizations)),
+    queryClient.prefetchQuery(QueryKey.get(EContentfulQueries.auctionsSlugList)),
+    queryClient.prefetchQuery(QueryKey.get(EContentfulQueries.organizations)),
   ]);
 
   const collections = queryClient.getQueryState<any>(marketplaceCollectionsSlugQueryKey)?.data
@@ -50,7 +49,7 @@ export async function getDehydratedState(
       if (mojitoLotId) {
         pageSpecificRequests.push(
           queryClient.prefetchQuery(
-            queryKeyGenerator(EContentfulQueries.fullLot, { mojitoId: mojitoLotId }),
+            QueryKey.get(EContentfulQueries.fullLot, { mojitoId: mojitoLotId }),
           ),
         );
       }
@@ -58,16 +57,16 @@ export async function getDehydratedState(
 
     await Promise.all([
       queryClient.prefetchQuery(
-        queryKeyGenerator(EContentfulQueries.auctionBySlug, { slug: auctionPageSlug }),
+        QueryKey.get(EContentfulQueries.auctionBySlug, { slug: auctionPageSlug }),
       ),
       queryClient.prefetchQuery(
-        queryKeyGenerator(EContentfulQueries.shortLots, { mojitoIds: collectionItemsId }),
+        QueryKey.get(EContentfulQueries.shortLots, { mojitoIds: collectionItemsId }),
       ),
       ...pageSpecificRequests,
     ]);
 
     await queryClient.prefetchQuery(
-      queryKeyGenerator(EMojitoQueries.collectionBySlug, {
+      QueryKey.get(EMojitoQueries.collectionBySlug, {
         slug: auctionPageSlug,
         marketplaceID: config.MARKETPLACE_ID,
       }),
