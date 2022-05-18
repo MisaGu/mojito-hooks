@@ -4137,6 +4137,9 @@
           }, '');
         });
     },
+    function (t, n) {
+      t.exports = e;
+    },
     function (e, t, n) {
       'use strict';
       n.d(t, 'a', function () {
@@ -4206,9 +4209,6 @@
             e
           );
         })())();
-    },
-    function (t, n) {
-      t.exports = e;
     },
     function (e, t, n) {
       'use strict';
@@ -4613,7 +4613,7 @@
         n.d(t, 'a', function () {
           return l;
         });
-      var r = n(5),
+      var r = n(4),
         a = n.n(r),
         i = a.a.createContext(void 0),
         s = a.a.createContext(!1);
@@ -4657,7 +4657,7 @@
       n.d(t, 'a', function () {
         return o;
       });
-      var r = n(5),
+      var r = n(4),
         a = n.n(r);
       function i() {
         var e = !1;
@@ -4686,7 +4686,7 @@
       var r = n(10),
         a = n(1),
         i = n(2),
-        s = n(4),
+        s = n(5),
         o = n(11),
         u = n(7),
         l = (function () {
@@ -5121,7 +5121,7 @@
         return d;
       });
       var r = n(10),
-        a = n(4),
+        a = n(5),
         i = n(2),
         s = n(11),
         o = n(7),
@@ -5588,7 +5588,7 @@
       var r = n(2),
         a = n(10),
         i = n(1),
-        s = n(4),
+        s = n(5),
         o = n(8),
         u = n(9),
         l = n(11),
@@ -17420,9 +17420,9 @@
       });
       var r = n(25),
         a = n(1),
-        i = n(5),
+        i = n(4),
         s = n.n(i),
-        o = n(4),
+        o = n(5),
         u = n(16),
         l = n(15);
       function d(e, t, n) {
@@ -17512,7 +17512,7 @@
         s = n(18),
         o = n(8),
         u = n(13),
-        l = n(4),
+        l = n(5),
         d = n(7);
       function c(e, t) {
         return null == e.getNextPageParam ? void 0 : e.getNextPageParam(t[t.length - 1], t);
@@ -17906,7 +17906,7 @@
        *
        * This source code is licensed under the MIT license found in the
        * LICENSE file in the root directory of this source tree.
-       */ var r = n(5),
+       */ var r = n(4),
         a = n(184),
         i = n(185);
       function s(e) {
@@ -28964,7 +28964,7 @@ object-assign
         be = new a.QueryClient({
           defaultOptions: { queries: { staleTime: s ? 18e4 : 0, cacheTime: 1 / 0, queryFn: ke } },
         }),
-        Ye = n(5),
+        Ye = n(4),
         Te = n.n(Ye),
         De = function () {
           return (De =
@@ -29373,12 +29373,16 @@ object-assign
           n = We(Ue(e, ['collectionItemID'])),
           r = n.currentBids,
           a = Ue(n, ['currentBids']),
-          i =
-            null == r
-              ? void 0
-              : r.find(function (e) {
-                  return e.id === t;
-                });
+          i = Object(Ye.useMemo)(
+            function () {
+              return null == r
+                ? void 0
+                : r.find(function (e) {
+                    return e.id === t;
+                  });
+            },
+            [r],
+          );
         return ze(ze({}, a), { itemCurrentBids: i });
       }
       var Ke = function () {
@@ -29471,7 +29475,7 @@ object-assign
     },
     function (e, t, n) {
       'use strict';
-      var r = n(4),
+      var r = n(5),
         a = n(174),
         i = n.n(a).a.unstable_batchedUpdates;
       r.a.setBatchNotifyFunction(i);

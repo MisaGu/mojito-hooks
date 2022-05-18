@@ -5,7 +5,7 @@ import {
   IMojitoCollection,
   IMojitoMarketplaceResponse,
 } from '../../domain/interfaces';
-import { getAuctionSlug } from '../../domain/utils/path.util';
+import { getCollectionSlug } from '../../domain/utils/path.util';
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { EContentfulQueries } from '../../domain/gql/contentful';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
@@ -23,10 +23,10 @@ export type UseCollectionProps = BaseHookPropsWithUrlAndSlug<UseCollectionData>;
 export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
   const queryClient = useQueryClient();
   const queryFn = queryClient.getDefaultOptions().queries?.queryFn || defaultQueryFn;
-  const auctionSlug = getAuctionSlug(props);
+  const collectionSlug = getCollectionSlug(props);
 
   const queryKey = QueryKey.get(EMojitoQueries.collectionBySlug, {
-    slug: auctionSlug,
+    slug: collectionSlug,
     marketplaceID: config.MARKETPLACE_ID,
   });
 
@@ -43,11 +43,11 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
     ]);
 
     const mojitoCollection = mojitoCollections.marketplace.collections.find(
-      (collection) => collection.slug == auctionSlug,
+      (collection) => collection.slug == collectionSlug,
     );
 
     const contentfulCollection = contentfulCollectionSlugsOnly.auctionCollection.items.find(
-      (collection) => collection.slug == auctionSlug,
+      (collection) => collection.slug == collectionSlug,
     );
 
     if (!mojitoCollection) return null;
@@ -57,7 +57,7 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
 
       await Promise.all([
         queryClient.prefetchQuery(
-          QueryKey.get(EContentfulQueries.auctionBySlug, { slug: auctionSlug }),
+          QueryKey.get(EContentfulQueries.auctionBySlug, { slug: collectionSlug }),
         ),
         queryClient.prefetchQuery(
           QueryKey.get(EContentfulQueries.shortLots, { mojitoIds: collectionItems }),
@@ -76,7 +76,7 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
     as: 'collection',
     query: EMojitoQueries.collectionBySlug,
     variables: {
-      slug: auctionSlug,
+      slug: collectionSlug,
       marketplaceID: config.MARKETPLACE_ID,
     },
     options: {

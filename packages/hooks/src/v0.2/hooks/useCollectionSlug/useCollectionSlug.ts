@@ -1,6 +1,6 @@
 import { config } from '../../domain/constants/general.constants';
 import { IMojitoMarketplaceResponse } from '../../domain/interfaces';
-import { getAuctionSlug } from '../../domain/utils/path.util';
+import { getCollectionSlug } from '../../domain/utils/path.util';
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { QueryResult } from '../../domain/utils/gql.utils';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
@@ -16,23 +16,23 @@ export type UseCollectionSlugProps = BaseHookPropsWithUrlAndSlug<UseCollectionSl
 // TODO: Memo this function:
 
 function checkCollectionSlugExists(
-  auctionSlug: string,
+  collectionSlug: string,
   mojitoCollections?: IMojitoMarketplaceResponse,
 ): UseCollectionSlugData {
   if (!mojitoCollections) return undefined;
 
   const mojitoCollection = mojitoCollections.marketplace.collections.find(
-    (collection) => collection.slug == auctionSlug,
+    (collection) => collection.slug == collectionSlug,
   );
 
-  return mojitoCollection ? auctionSlug : null;
+  return mojitoCollection ? collectionSlug : null;
 }
 
 export function useCollectionSlug(props?: UseCollectionSlugProps): UseCollectionSlugReturn {
-  const auctionSlug = getAuctionSlug(props);
+  const collectionSlug = getCollectionSlug(props);
 
   const transformFn = (mojitoCollections?: IMojitoMarketplaceResponse) => {
-    return checkCollectionSlugExists(auctionSlug, mojitoCollections);
+    return checkCollectionSlugExists(collectionSlug, mojitoCollections);
   };
 
   return useMojitoFactory<'slug', IMojitoMarketplaceResponse, UseCollectionSlugData>({

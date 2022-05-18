@@ -62,8 +62,7 @@ const YouApp: React.FC = () => {
 
 **In Development > Dani:**
 
-- TODO: When calling useQuery with a custom queryFn, the refetch functions also needs to use that one (we need to bind it).
-
+- Check if the refetch functions return the right shape and are type-checked properly (considering the normalizers and transformFns).
 - Next add new `useItemSlug` hook (similar to `useCollectionSlug`) and rename all `slug` props to either `auctionSlug` or `itemSlug`.
 - Update `useContentful` hook to have the same functionality `useMojitoFactory` has.
 - Extract test/demo constants/ids/etc. to constants...
