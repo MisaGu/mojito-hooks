@@ -43,3 +43,35 @@ export function useCollectionItemRemainingCount({
     onlyAuthenticated: true,
   });
 }
+
+/*
+
+
+export function useCollectionItemRemainingCount(
+  id: string,
+  _slug?: string,
+): {
+  remainingCount: number;
+  remainingCountLoading: boolean;
+  remainingCountError: IUseQueryResult['error'];
+  remainingCountRefetch: () => void;
+} {
+  const { slug } = useCollection();
+  const { data, error, loading, refetch } = useMojito({
+    query: EMojitoQueries.collectionItemByIdRemainingCount,
+    variables: { id, slug: _slug ?? slug },
+    onlyAuthenticated: true,
+  });
+
+  if (error) console.error(error);
+
+  return {
+    remainingCount: data?.details?.remainingCount,
+    remainingCountLoading: loading,
+    remainingCountError: error,
+    remainingCountRefetch: refetch,
+  };
+}
+
+
+*/
