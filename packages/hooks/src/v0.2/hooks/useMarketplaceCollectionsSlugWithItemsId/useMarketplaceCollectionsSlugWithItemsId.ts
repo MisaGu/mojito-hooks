@@ -23,3 +23,27 @@ export function useMarketplaceCollectionsSlugWithItemsId(): {
     marketplaceCollectionsSlugWithItemsIdError: error,
   };
 }
+
+// legacy function
+/*
+
+export function useMarketplaceCollectionsSlugWithItemsId(): {
+  marketplaceCollectionsSlugWithItemsId: IMojitoCollection[];
+  marketplaceCollectionsSlugWithItemsIdLoading: boolean;
+  marketplaceCollectionsSlugWithItemsIdError: IUseQueryResult['error'];
+} {
+  const { data, error, loading } = useMojito({
+    query: EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug,
+    variables: { id: config.MARKETPLACE_ID },
+  });
+
+  if (error) console.error(error);
+
+  return {
+    marketplaceCollectionsSlugWithItemsId: data?.marketplace?.collections,
+    marketplaceCollectionsSlugWithItemsIdLoading: loading,
+    marketplaceCollectionsSlugWithItemsIdError: error,
+  };
+}
+
+*/

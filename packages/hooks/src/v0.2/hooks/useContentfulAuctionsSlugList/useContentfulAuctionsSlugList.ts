@@ -1,14 +1,14 @@
 import { EContentfulQueries } from '../../domain/gql/contentful';
 import { IUseQueryResult } from '../../domain/gql/queries';
 import { IContentfulAuction } from '../../domain/interfaces';
-import { useContentful } from '../useContentful/useContentful';
+import { useContentfulFactory } from '../useContentfulFactory/useContentfulFactory';
 
 export function useContentfulAuctionsSlugList(): {
   auctionsSlugList: string[];
   auctionsSlugListLoading: boolean;
   auctionsSlugListError: IUseQueryResult['error'];
 } {
-  const { data, error, isLoading } = useContentful(EContentfulQueries.auctionsSlugList);
+  const { data, error, isLoading } = useContentfulFactory(EContentfulQueries.auctionsSlugList);
 
   // if (error) console.error(error);
 

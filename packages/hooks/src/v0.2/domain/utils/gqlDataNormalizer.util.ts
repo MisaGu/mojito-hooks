@@ -17,16 +17,16 @@ import {
   IMojitoWallet,
 } from '../interfaces';
 import { queryClient } from './gqlRequest.util';
+import { QueryKey } from './queryKeyFactory.util';
 
 type ILotBidsOrCurrentBid = IMojitoCollectionItemCurrentBids & ICollectionItemByIdBidsList;
 
 const extendCollection = (
   collection: IMojitoCollection & IIMojitoCollectionItemCurrentBidsItems,
 ) => {
-  const contentfulData = queryClient.getQueryData<IContentfulAuctionsQuery>([
-    `Contentful ${EContentfulQueries[EContentfulQueries.auctionBySlug]}`,
-    { slug: collection.slug },
-  ])?.auctionCollection?.items?.[0];
+  const contentfulData = queryClient.getQueryData<IContentfulAuctionsQuery>(
+    QueryKey.get(EContentfulQueries.auctionBySlug, { slug: collection.slug }),
+  )?.auctionCollection?.items?.[0];
 
   const auctionStartUnix = moment(collection.startDate ?? null).unix();
   const auctionEndUnix = moment(collection.endDate ?? null).unix();
@@ -91,10 +91,9 @@ const extendCollectionSingleItem = (
   }
 
   if (!_item?.details?.bids && !_item?.details?.currentBid) {
-    const lot = queryClient.getQueryData<{ [key: string]: IContentfulLotData }>([
-      `Contentful ${EContentfulQueries[EContentfulQueries.fullLot]}`,
-      { mojitoId: item.id },
-    ]);
+    const lot = queryClient.getQueryData<{ [key: string]: IContentfulLotData }>(
+      QueryKey.get(EContentfulQueries.fullLot, { mojitoId: item.id }),
+    );
 
     (item as IMojitoCollectionItem).contentfulData =
       lot?.[item.id] ??
@@ -121,25 +120,25 @@ const extendCollectionItems = (
 ) => {
   const lots = queryClient.getQueryData<{
     [key: string]: IContentfulLotData;
-  }>([`Contentful ${EContentfulQueries[EContentfulQueries.shortLots]}`, { slug }]);
+  }>(QueryKey.get(EContentfulQueries.shortLots, { slug }));
 
   return collectionItems.map((item) => extendCollectionSingleItem(item, slug, lots));
 };
 
 const extendItemDetails = (details: ILotBidsOrCurrentBid['details'], slug: string) => {
-  const profile = queryClient.getQueryData<IMojitoProfileRequest>([
-    `Mojito ${EMojitoQueries[EMojitoQueries.profile]}`,
-    null,
-  ])?.me;
+  const profile = queryClient.getQueryData<IMojitoProfileRequest>(
+    QueryKey.get(EMojitoQueries.profile),
+  )?.me;
+
   const item = queryClient
-    .getQueryData<{ items: IMojitoCollectionItemCurrentBids[] }>([
-      `Mojito ${EMojitoQueries[EMojitoQueries.collectionBySlugCurrentBids]}`,
-      {
+    .getQueryData<{ items: IMojitoCollectionItemCurrentBids[] }>(
+      QueryKey.get(EMojitoQueries.collectionBySlugCurrentBids, {
         slug,
         marketplaceID: config.MARKETPLACE_ID,
-      },
-    ])
+      }),
+    )
     ?.items?.find((e) => e.details.id === details.id);
+
   const oldDetails = item?.details;
 
   if (details.startDate && details.endDate) {
@@ -329,10 +328,7 @@ export function mojitoNormalizer(response: any, variables?: { slug?: string }, k
   if (_data?.getMyInvoices) {
     const lots = queryClient.getQueryData<{
       [key: string]: IContentfulLotData;
-    }>([
-      `Contentful ${EContentfulQueries[EContentfulQueries.shortLots]}`,
-      { slug: variables?.slug },
-    ]);
+    }>(QueryKey.get(EContentfulQueries.shortLots, { slug: variables?.slug }));
 
     _data.getMyInvoices = _data?.getMyInvoices.map((invoice: IMojitoInvoiceDetailsItem) => {
       const lot = lots?.[invoice.collectionItemId];
