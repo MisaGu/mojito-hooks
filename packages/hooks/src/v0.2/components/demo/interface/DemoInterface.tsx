@@ -1,10 +1,8 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import React, { useCallback } from 'react';
 import { useEffect } from 'react';
-import { QueryClientProvider } from 'react-query';
 import { EAuthActionTypes, useAuthContext } from '../../../domain/context/auth.context';
 import { MojitoHooksProvider } from '../../../domain/context/mojito.context';
-import { queryClient } from '../../../domain/utils/gqlRequest.util';
 
 interface DemoInterfaceProps {
   demoComponent: React.ComponentType;
@@ -27,7 +25,7 @@ export const DemoInterface: React.FC<DemoInterfaceProps> = ({ demoComponent: Dem
     async function initAuthentication() {
       const nextToken = await getAuthenticationToken();
 
-      console.log(`${nextToken ? 'Adding' : 'Removing'} authentication token...`);
+      console.log(`${nextToken ? '🔒 Adding' : '🔓 Removing'} authentication token...`);
 
       dispatch(
         nextToken

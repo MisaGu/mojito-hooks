@@ -61,6 +61,11 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
 
   // console.log('RUN HOOK');
 
+  // TODO: USe useMojitoFactory here too and update useMojitoFactory to accept a function as second param.
+  // NOT REALLY, THAT SECOND PARAM FN SHOULD NOT BE USED.
+
+  // TODO: Extract test/demo constants/ids/etc. to constants...
+
   const result = useQuery<UseCollectionData>(
     queryKey,
     async () => {
@@ -68,24 +73,33 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
 
       // console.log('RUN QUERY');
 
-      const data = await queryClient.fetchQuery(
-        QueryKey.get(EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug, {
-          id: config.MARKETPLACE_ID,
-        }),
-      );
+      const [marketplaceCollectionsData, auctionsSlugListData] = await Promise.all([
+        queryClient.fetchQuery(
+          QueryKey.get(EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug, {
+            id: config.MARKETPLACE_ID,
+          }),
+        ),
+        queryClient.fetchQuery(QueryKey.get(EContentfulQueries.auctionsSlugList)),
+      ]);
 
-      // TODO: Move fetching and slug validation here:
-      // queryClient.prefetchQuery(contentfulQueryKey.get(EContentfulQueries.auctionsSlugList)),
-
-      const existsOnContentful = true;
-
-      const marketplaceCollections = (data as any)?.marketplace?.collections || [];
+      const marketplaceCollections =
+        (marketplaceCollectionsData as any)?.marketplace?.collections || [];
 
       const collectionByPath = marketplaceCollections.find((e) => e.slug == auctionSlug);
 
+      console.log('collectionByPath =', collectionByPath);
+
       if (!collectionByPath) return null;
 
+      const existsOnContentful = (auctionsSlugListData as any)?.auctionCollection?.items.includes(
+        auctionSlug,
+      );
+
+      console.log('existsOnContentful =', existsOnContentful);
+
       if (existsOnContentful) {
+        console.log('\nPREFETCHING AUCTION DATA\n');
+
         const collectionItems = collectionByPath?.items?.map((item) => item.id);
 
         // TODO: This is bad and skips type checking:
@@ -103,6 +117,8 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
     },
     props?.options,
   );
+
+  console.log('useCollection result =', result);
 
   return normalizeQueryResult('collection', result);
 }
