@@ -3,7 +3,7 @@ import { IContentfulAuction } from '../../domain/interfaces';
 import { useContentfulFactory } from '../useContentfulFactory/useContentfulFactory';
 
 export function useContentfulAuctionsSlugList() {
-  return useContentful({
+  return useContentfulFactory({
     query: EContentfulQueries.auctionsSlugList,
     as: 'auctionsSlugList',
   });
