@@ -8,7 +8,6 @@ export function useContentfulAuctionsSlugList() {
     as: 'auctionsSlugList',
   });
 
-  // if (error) console.error(error);
-
+  // TODO: The old logic must go into the normalizer:
   // auctionsSlugList: data?.auctionCollection?.items?.map((collection: IContentfulAuction) => collection.slug) ?? [],
 }

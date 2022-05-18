@@ -7,7 +7,21 @@
  */
 
 import React from 'react';
+import { DemoInterface } from '../../../components/demo/interface/DemoInterface';
+import { Json } from '../../../components/demo/json/Json';
+import { DemoProviders } from '../../../components/demo/provider/DemoProvider';
+import { useMarketplaceCollectionsSlugWithItemsId } from '../useMarketplaceCollectionsSlugWithItemsId';
+
+const DemoContent: React.FC = () => {
+  const result = useMarketplaceCollectionsSlugWithItemsId();
+
+  return <Json result={result} />;
+};
 
 export default () => {
-  return <pre>useMarketplaceCollectionsSlugWithItemsId()</pre>;
+  return (
+    <DemoProviders>
+      <DemoInterface demoComponent={DemoContent} />
+    </DemoProviders>
+  );
 };

@@ -13,5 +13,6 @@ export function useCollectionItemRemainingCount(id: string, _slug?: string) {
     onlyAuthenticated: true,
   });
 
+  // TODO: The old logic must go into the normalizer:
   // data?.details?.remainingCount
 }

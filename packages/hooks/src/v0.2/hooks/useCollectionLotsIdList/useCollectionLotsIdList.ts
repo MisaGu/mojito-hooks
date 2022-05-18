@@ -10,7 +10,7 @@ export function useCollectionLotsIdList(slug: string) {
     variables: { slug, marketplaceID: config.MARKETPLACE_ID },
   });
 
+  // TODO: The old logic must go into the normalizer:
   // collectionLotsIds: Pick<IMojitoCollectionItem, 'id' | 'name'>[];
-
   // data?.items ?? []
 }

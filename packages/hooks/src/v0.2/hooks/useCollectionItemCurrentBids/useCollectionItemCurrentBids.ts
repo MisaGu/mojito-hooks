@@ -15,6 +15,8 @@ export function useCollectionItemCurrentBids(id?: string, _slug?: string) {
 
   /*
 
+  // TODO: The old logic must go into the normalizer:
+
   return {
     allCurrentBids: data?.items,
     currentBidsLoading: loading,

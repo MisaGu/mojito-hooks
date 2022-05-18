@@ -17,7 +17,7 @@ const DemoContent: React.FC = () => {
     slug: 'bid-test-3',
   });
 
-  return <Json obj={result} />;
+  return <Json result={result} />;
 };
 
 export default () => {

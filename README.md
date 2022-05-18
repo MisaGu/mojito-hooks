@@ -62,9 +62,12 @@ const YouApp: React.FC = () => {
 
 **In Development > Dani:**
 
-- Working in `useCollection` (fixing fetching + moving logic to serializer).
+- TODO: When calling useQuery with a custom queryFn, the refetch functions also needs to use that one (we need to bind it).
+
+- All hooks should take a single props param that takes at least an options prop.
 - Next add new `useCollectionSlug` hook which uses this hook/query and return only slug and itemSlug.
-- Adding additional functionality to demo `Json` component: Add refetch button, stale/fetching info, progress bar auto refresh...
+- Extract test/demo constants/ids/etc. to constants...
+- Can we type-check queries and variables (check they match) in QueryKey.get and return type in prefetchQuery?
 
 **Not assigned / TODO:**
 

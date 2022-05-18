@@ -15,7 +15,7 @@ import { useCollectionLotsIdList } from '../useCollectionLotsIdList';
 const DemoContent: React.FC = () => {
   const result = useCollectionLotsIdList('bid-test-3');
 
-  return <Json obj={result} />;
+  return <Json result={result} />;
 };
 
 export default () => {
