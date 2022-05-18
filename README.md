@@ -64,8 +64,8 @@ const YouApp: React.FC = () => {
 
 - TODO: When calling useQuery with a custom queryFn, the refetch functions also needs to use that one (we need to bind it).
 
-- All hooks should take a single props param that takes at least an options prop.
-- Next add new `useCollectionSlug` hook which uses this hook/query and return only slug and itemSlug.
+- Next add new `useItemSlug` hook (similar to `useCollectionSlug`) and rename all `slug` props to either `auctionSlug` or `itemSlug`.
+- Update `useContentful` hook to have the same functionality `useMojitoFactory` has.
 - Extract test/demo constants/ids/etc. to constants...
 - Can we type-check queries and variables (check they match) in QueryKey.get and return type in prefetchQuery?
 

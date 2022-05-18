@@ -27894,16 +27894,16 @@ object-assign
           return We;
         }),
         n.d(t, 'useCollectionLotsIdList', function () {
-          return Je;
+          return Ze;
         }),
         n.d(t, 'useMarketplaceCollectionsSlugWithItemsId', function () {
-          return Ge;
+          return Xe;
         }),
         n.d(t, 'useMojitoFactory', function () {
           return Ee;
         }),
         n.d(t, 'MojitoHooksProvider', function () {
-          return $e;
+          return et;
         }),
         n.d(t, 'setOnErrorCallback', function () {
           return he;
@@ -29420,21 +29420,51 @@ object-assign
           onlyAuthenticated: !0,
         });
       }
-      function Je(e) {
+      var Je = function () {
+          return (Je =
+            Object.assign ||
+            function (e) {
+              for (var t, n = 1, r = arguments.length; n < r; n++)
+                for (var a in (t = arguments[n]))
+                  Object.prototype.hasOwnProperty.call(t, a) && (e[a] = t[a]);
+              return e;
+            }).apply(this, arguments);
+        },
+        Ge = function (e, t) {
+          var n = {};
+          for (var r in e)
+            Object.prototype.hasOwnProperty.call(e, r) && t.indexOf(r) < 0 && (n[r] = e[r]);
+          if (null != e && 'function' == typeof Object.getOwnPropertySymbols) {
+            var a = 0;
+            for (r = Object.getOwnPropertySymbols(e); a < r.length; a++)
+              t.indexOf(r[a]) < 0 &&
+                Object.prototype.propertyIsEnumerable.call(e, r[a]) &&
+                (n[r[a]] = e[r[a]]);
+          }
+          return n;
+        };
+      function $e(e) {
+        if (e) return e.items || [];
+      }
+      function Ze(e) {
+        var t = e.options,
+          n = Ce(Ge(e, ['options'])).slug;
         return Ee({
           as: 'collectionLotsIds',
           query: y.collectionLotsIdList,
-          variables: { slug: e, marketplaceID: i.a.MARKETPLACE_ID },
+          variables: { slug: n, marketplaceID: i.a.MARKETPLACE_ID },
+          options: Je(Je({}, t), { enabled: !!n }),
+          transformFn: $e,
         });
       }
-      function Ge() {
+      function Xe() {
         return Ee({
           as: 'marketplaceCollectionsSlugWithItemsId',
           query: y.marketplaceCollectionsInfoWithItemsIdAndSlug,
           variables: { id: i.a.MARKETPLACE_ID },
         });
       }
-      var $e = function (e) {
+      var et = function (e) {
         var t = e.children;
         return Te.a.createElement(a.QueryClientProvider, { client: be }, t);
       };
