@@ -13,7 +13,9 @@ import { DemoProviders } from '../../../components/demo/provider/DemoProvider';
 import { useCollectionItemBidsList } from '../useCollectionItemBidsList';
 
 const DemoContent: React.FC = () => {
-  const result = useCollectionItemBidsList('549c4f64-ca4d-4087-a8a6-3b8ce1ecf059', 'bid-test-3');
+  const result = useCollectionItemBidsList({
+    collectionItemID: '549c4f64-ca4d-4087-a8a6-3b8ce1ecf059',
+  });
 
   return <Json result={result} />;
 };

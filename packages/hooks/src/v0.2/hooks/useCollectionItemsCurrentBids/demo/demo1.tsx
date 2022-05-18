@@ -10,11 +10,10 @@ import React from 'react';
 import { DemoInterface } from '../../../components/demo/interface/DemoInterface';
 import { Json } from '../../../components/demo/json/Json';
 import { DemoProviders } from '../../../components/demo/provider/DemoProvider';
-import { useCollectionItemRemainingCount } from '../useCollectionItemRemainingCount';
+import { useCollectionItemsCurrentBids } from '../useCollectionItemsCurrentBids';
 
 const DemoContent: React.FC = () => {
-  const result = useCollectionItemRemainingCount({
-    collectionItemID: '549c4f64-ca4d-4087-a8a6-3b8ce1ecf059',
+  const result = useCollectionItemsCurrentBids({
     slug: 'bid-test-3',
   });
 

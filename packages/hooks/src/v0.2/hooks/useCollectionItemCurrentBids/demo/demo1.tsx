@@ -13,7 +13,10 @@ import { DemoProviders } from '../../../components/demo/provider/DemoProvider';
 import { useCollectionItemCurrentBids } from '../useCollectionItemCurrentBids';
 
 const DemoContent: React.FC = () => {
-  const result = useCollectionItemCurrentBids('549c4f64-ca4d-4087-a8a6-3b8ce1ecf059', 'bid-test-3');
+  const result = useCollectionItemCurrentBids({
+    collectionItemID: '549c4f64-ca4d-4087-a8a6-3b8ce1ecf059',
+    slug: 'bid-test-3',
+  });
 
   return <Json result={result} />;
 };

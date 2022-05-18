@@ -6,32 +6,45 @@ import { EMojitoQueries } from '../../domain/gql/queries';
 import { normalizeQueryResult } from '../../domain/utils/gql.utils';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 
-interface IUseMojitoOptions<TDataPropertyName extends string, TData = any, TError = Error> {
+interface IUseMojitoOptions<
+  TDataPropertyName extends string,
+  TData = any,
+  TReturn = TData,
+  TError = Error,
+> {
   as: TDataPropertyName;
   query: EMojitoQueries;
   variables?: Variables;
   options?: UseQueryOptions<TData, TError>;
+  transformFn?: (data: TData | undefined) => TReturn | undefined;
   force?: boolean;
   onlyAuthenticated?: boolean;
 }
 
-export function useMojitoFactory<TDataPropertyName extends string, TData = any, TError = Error>({
+export function useMojitoFactory<
+  TDataPropertyName extends string,
+  TData = any,
+  TReturn = TData,
+  TError = Error,
+>({
   as,
   query,
   variables,
   options,
+  transformFn,
   force = false,
   onlyAuthenticated,
-}: IUseMojitoOptions<TDataPropertyName, TData, TError>) {
+}: IUseMojitoOptions<TDataPropertyName, TData, TReturn, TError>) {
   const queryClient = useQueryClient();
 
   const { isAuthenticated } = useAuthContext();
   const queryKey = QueryKey.get(query, variables);
+  const enabled = options?.enabled !== false && (!onlyAuthenticated || isAuthenticated);
 
   const result = useQuery<TData | undefined>(queryKey, {
     ...options,
-    meta: { authorization: isAuthenticated },
-    enabled: !onlyAuthenticated,
+    meta: { ...options?.meta, authorization: isAuthenticated },
+    enabled,
   });
 
   useEffect(() => {
@@ -41,7 +54,12 @@ export function useMojitoFactory<TDataPropertyName extends string, TData = any, 
   }, [queryKey]);
 
   useEffect(() => {
-    if (isAuthenticated && onlyAuthenticated && queryClient.getQueryData(queryKey) === undefined) {
+    if (
+      isAuthenticated &&
+      onlyAuthenticated &&
+      enabled &&
+      queryClient.getQueryData(queryKey) === undefined
+    ) {
       console.log('🔄 useMojitoFactory refetch...');
 
       result.refetch();
@@ -52,5 +70,5 @@ export function useMojitoFactory<TDataPropertyName extends string, TData = any, 
     console.log(result.error);
   }
 
-  return normalizeQueryResult(as, result);
+  return normalizeQueryResult(as, result, transformFn);
 }

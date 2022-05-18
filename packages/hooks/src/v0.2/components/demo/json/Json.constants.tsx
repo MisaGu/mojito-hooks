@@ -12,7 +12,7 @@ export const HEADER_STYLE: CSSProperties = {
   overflow: 'hidden',
 };
 
-export const PROGRES_BAR_STYLE: any = {
+export const PROGRESS_BAR_STYLE: any = {
   '--progressBarAccent': '#4569D4',
   position: 'absolute',
   top: 0,

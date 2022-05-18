@@ -10,11 +10,12 @@ import {
   HEADER_STYLE,
   LABEL_STYLE,
   CHECKBOX_STYLE,
-  PROGRES_BAR_STYLE,
+  PROGRESS_BAR_STYLE,
 } from './Json.constants';
 
 function jsonReplacerFunctions(key: string, value: any) {
   if (key === 'refetch' || typeof value === 'function') return '() => { ... }';
+  if (typeof value === 'undefined') return 'undefined';
 
   return value;
 }
@@ -26,10 +27,6 @@ function jsonReplacerSummary(key: string, value: any) {
 }
 
 const showQueryResultKey = 'showQueryResult';
-
-const initialShowQueryResult = isBrowser
-  ? localStorage.getItem(showQueryResultKey) === 'true'
-  : false;
 
 export interface JsonProps {
   result: QueryResult<string>;
@@ -50,7 +47,9 @@ export const Json: React.FC<JsonProps> = ({ result, staleTime = QUERY_CLIENT_STA
     refetch();
   }, []);
 
-  const [showQueryResult, setShowQueryResult] = useState(initialShowQueryResult);
+  const [showQueryResult, setShowQueryResult] = useState(() => {
+    return isBrowser ? localStorage.getItem(showQueryResultKey) === 'true' : false;
+  });
 
   const handleToggleShowQueryResult = useCallback(() => {
     setShowQueryResult((prevShowQueryResult) => {
@@ -99,7 +98,7 @@ export const Json: React.FC<JsonProps> = ({ result, staleTime = QUERY_CLIENT_STA
   return (
     <div style={ROOT_STYLE}>
       <div style={HEADER_STYLE}>
-        <div style={PROGRES_BAR_STYLE} ref={progressBarRef}></div>
+        <div style={PROGRESS_BAR_STYLE} ref={progressBarRef}></div>
 
         {statusLabel}
 

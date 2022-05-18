@@ -95,14 +95,14 @@
           function c(e) {
             return e instanceof Date || '[object Date]' === Object.prototype.toString.call(e);
           }
-          function _(e, t) {
+          function m(e, t) {
             var n,
               r = [],
               a = e.length;
             for (n = 0; n < a; ++n) r.push(t(e[n], n));
             return r;
           }
-          function m(e, t) {
+          function _(e, t) {
             for (var n in t) o(t, n) && (e[n] = t[n]);
             return (
               o(t, 'toString') && (e.toString = t.toString),
@@ -171,7 +171,7 @@
           }
           function y(e) {
             var t = f(NaN);
-            return null != e ? m(h(t), e) : (h(t).userInvalidated = !0), t;
+            return null != e ? _(h(t), e) : (h(t).userInvalidated = !0), t;
           }
           r = Array.prototype.some
             ? Array.prototype.some
@@ -222,7 +222,7 @@
           }
           function Y(e, t) {
             var n = !0;
-            return m(function () {
+            return _(function () {
               if ((null != a.deprecationHandler && a.deprecationHandler(null, e), n)) {
                 var r,
                   i,
@@ -262,15 +262,15 @@
           }
           function x(e, t) {
             var n,
-              r = m({}, e);
+              r = _({}, e);
             for (n in t)
               o(t, n) &&
                 (s(e[n]) && s(t[n])
-                  ? ((r[n] = {}), m(r[n], e[n]), m(r[n], t[n]))
+                  ? ((r[n] = {}), _(r[n], e[n]), _(r[n], t[n]))
                   : null != t[n]
                   ? (r[n] = t[n])
                   : delete r[n]);
-            for (n in e) o(e, n) && !o(t, n) && s(e[n]) && (r[n] = m({}, r[n]));
+            for (n in e) o(e, n) && !o(t, n) && s(e[n]) && (r[n] = _({}, r[n]));
             return r;
           }
           function E(e) {
@@ -300,7 +300,7 @@
             H = /(\[[^\[]*\])|(\\)?(LTS|LT|LL?L?L?|l{1,4})/g,
             P = {},
             A = {};
-          function C(e, t, n, r) {
+          function I(e, t, n, r) {
             var a = r;
             'string' == typeof r &&
               (a = function () {
@@ -316,7 +316,7 @@
                   return this.localeData().ordinal(a.apply(this, arguments), e);
                 });
           }
-          function I(e, t) {
+          function C(e, t) {
             return e.isValid()
               ? ((t = N(t, e.localeData())),
                 (P[t] =
@@ -412,8 +412,8 @@
             le = /\d+/,
             de = /[+-]?\d+/,
             ce = /Z|[+-]\d\d:?\d\d/gi,
-            _e = /Z|[+-]\d\d(?::?\d\d)?/gi,
-            me =
+            me = /Z|[+-]\d\d(?::?\d\d)?/gi,
+            _e =
               /[0-9]{0,256}['a-z\u00A0-\u05FF\u0700-\uD7FF\uF900-\uFDCF\uFDF0-\uFF07\uFF10-\uFFEF]{1,256}|[\u0600-\u06FF\/]{1,256}(\s*?[\u0600-\u06FF]{1,256}){1,2}/i;
           function fe(e, t, n) {
             $[e] = S(t)
@@ -479,13 +479,13 @@
                 for (t = 0; t < this.length; ++t) if (this[t] === e) return t;
                 return -1;
               }),
-            C('M', ['MM', 2], 'Mo', function () {
+            I('M', ['MM', 2], 'Mo', function () {
               return this.month() + 1;
             }),
-            C('MMM', 0, 0, function (e) {
+            I('MMM', 0, 0, function (e) {
               return this.localeData().monthsShort(this, e);
             }),
-            C('MMMM', 0, 0, function (e) {
+            I('MMMM', 0, 0, function (e) {
               return this.localeData().months(this, e);
             }),
             R('month', 'M'),
@@ -511,8 +511,8 @@
               ),
             Ye = 'Jan_Feb_Mar_Apr_May_Jun_Jul_Aug_Sep_Oct_Nov_Dec'.split('_'),
             Te = /D[oD]?(\[[^\[\]]*\]|\s)+MMMM?/,
-            De = me,
-            we = me;
+            De = _e,
+            we = _e;
           function Se(e, t, n) {
             var r,
               a,
@@ -589,16 +589,16 @@
           function je(e) {
             return K(e) ? 366 : 365;
           }
-          C('Y', 0, 0, function () {
+          I('Y', 0, 0, function () {
             var e = this.year();
             return e <= 9999 ? O(e, 4) : '+' + e;
           }),
-            C(0, ['YY', 2], 0, function () {
+            I(0, ['YY', 2], 0, function () {
               return this.year() % 100;
             }),
-            C(0, ['YYYY', 4], 0, 'year'),
-            C(0, ['YYYYY', 5], 0, 'year'),
-            C(0, ['YYYYYY', 6, !0], 0, 'year'),
+            I(0, ['YYYY', 4], 0, 'year'),
+            I(0, ['YYYYY', 5], 0, 'year'),
+            I(0, ['YYYYYY', 6, !0], 0, 'year'),
             R('year', 'y'),
             B('year', 1),
             fe('Y', de),
@@ -641,14 +641,14 @@
               t
             );
           }
-          function Ce(e, t, n) {
+          function Ie(e, t, n) {
             var r = 7 + t - n;
             return (-(7 + Ae(e, 0, r).getUTCDay() - t) % 7) + r - 1;
           }
-          function Ie(e, t, n, r, a) {
+          function Ce(e, t, n, r, a) {
             var i,
               s,
-              o = 1 + 7 * (t - 1) + ((7 + n - r) % 7) + Ce(e, r, a);
+              o = 1 + 7 * (t - 1) + ((7 + n - r) % 7) + Ie(e, r, a);
             return (
               o <= 0
                 ? (s = je((i = e - 1)) + o)
@@ -661,7 +661,7 @@
           function Ne(e, t, n) {
             var r,
               a,
-              i = Ce(e.year(), t, n),
+              i = Ie(e.year(), t, n),
               s = Math.floor((e.dayOfYear() - i - 1) / 7) + 1;
             return (
               s < 1
@@ -673,15 +673,15 @@
             );
           }
           function Fe(e, t, n) {
-            var r = Ce(e, t, n),
-              a = Ce(e + 1, t, n);
+            var r = Ie(e, t, n),
+              a = Ie(e + 1, t, n);
             return (je(e) - r + a) / 7;
           }
           function Re(e, t) {
             return e.slice(t, 7).concat(e.slice(0, t));
           }
-          C('w', ['ww', 2], 'wo', 'week'),
-            C('W', ['WW', 2], 'Wo', 'isoWeek'),
+          I('w', ['ww', 2], 'wo', 'week'),
+            I('W', ['WW', 2], 'Wo', 'isoWeek'),
             R('week', 'w'),
             R('isoWeek', 'W'),
             B('week', 5),
@@ -693,18 +693,18 @@
             Le(['w', 'ww', 'W', 'WW'], function (e, t, n, r) {
               t[r.substr(0, 1)] = V(e);
             }),
-            C('d', 0, 'do', 'day'),
-            C('dd', 0, 0, function (e) {
+            I('d', 0, 'do', 'day'),
+            I('dd', 0, 0, function (e) {
               return this.localeData().weekdaysMin(this, e);
             }),
-            C('ddd', 0, 0, function (e) {
+            I('ddd', 0, 0, function (e) {
               return this.localeData().weekdaysShort(this, e);
             }),
-            C('dddd', 0, 0, function (e) {
+            I('dddd', 0, 0, function (e) {
               return this.localeData().weekdays(this, e);
             }),
-            C('e', 0, 0, 'weekday'),
-            C('E', 0, 0, 'isoWeekday'),
+            I('e', 0, 0, 'weekday'),
+            I('E', 0, 0, 'isoWeekday'),
             R('day', 'd'),
             R('weekday', 'e'),
             R('isoWeekday', 'E'),
@@ -733,9 +733,9 @@
           var We = 'Sunday_Monday_Tuesday_Wednesday_Thursday_Friday_Saturday'.split('_'),
             ze = 'Sun_Mon_Tue_Wed_Thu_Fri_Sat'.split('_'),
             Ue = 'Su_Mo_Tu_We_Th_Fr_Sa'.split('_'),
-            Be = me,
-            Ke = me,
-            qe = me;
+            Be = _e,
+            Ke = _e,
+            qe = _e;
           function Ve(e, t, n) {
             var r,
               a,
@@ -823,28 +823,28 @@
             return this.hours() % 12 || 12;
           }
           function Ge(e, t) {
-            C(e, 0, 0, function () {
+            I(e, 0, 0, function () {
               return this.localeData().meridiem(this.hours(), this.minutes(), t);
             });
           }
           function $e(e, t) {
             return t._meridiemParse;
           }
-          C('H', ['HH', 2], 0, 'hour'),
-            C('h', ['hh', 2], 0, Je),
-            C('k', ['kk', 2], 0, function () {
+          I('H', ['HH', 2], 0, 'hour'),
+            I('h', ['hh', 2], 0, Je),
+            I('k', ['kk', 2], 0, function () {
               return this.hours() || 24;
             }),
-            C('hmm', 0, 0, function () {
+            I('hmm', 0, 0, function () {
               return '' + Je.apply(this) + O(this.minutes(), 2);
             }),
-            C('hmmss', 0, 0, function () {
+            I('hmmss', 0, 0, function () {
               return '' + Je.apply(this) + O(this.minutes(), 2) + O(this.seconds(), 2);
             }),
-            C('Hmm', 0, 0, function () {
+            I('Hmm', 0, 0, function () {
               return '' + this.hours() + O(this.minutes(), 2);
             }),
-            C('Hmmss', 0, 0, function () {
+            I('Hmmss', 0, 0, function () {
               return '' + this.hours() + O(this.minutes(), 2) + O(this.seconds(), 2);
             }),
             Ge('a', !0),
@@ -1074,8 +1074,8 @@
               /^\s*((?:[+-]\d{6}|\d{4})-(?:\d\d-\d\d|W\d\d-\d|W\d\d|\d\d\d|\d\d))(?:(T| )(\d\d(?::\d\d(?::\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/,
             ct =
               /^\s*((?:[+-]\d{6}|\d{4})(?:\d\d\d\d|W\d\d\d|W\d\d|\d\d\d|\d\d|))(?:(T| )(\d\d(?:\d\d(?:\d\d(?:[.,]\d+)?)?)?)([+-]\d\d(?::?\d\d)?|\s*Z)?)?$/,
-            _t = /Z|[+-]\d\d(?::?\d\d)?/,
-            mt = [
+            mt = /Z|[+-]\d\d(?::?\d\d)?/,
+            _t = [
               ['YYYYYY-MM-DD', /[+-]\d{6}-\d\d-\d\d/],
               ['YYYY-MM-DD', /\d{4}-\d\d-\d\d/],
               ['GGGG-[W]WW-E', /\d{4}-W\d\d-\d/],
@@ -1125,12 +1125,12 @@
               s,
               o = e._i,
               u = dt.exec(o) || ct.exec(o),
-              l = mt.length,
+              l = _t.length,
               d = ft.length;
             if (u) {
               for (h(e).iso = !0, t = 0, n = l; t < n; t++)
-                if (mt[t][1].exec(u[1])) {
-                  (a = mt[t][0]), (r = !1 !== mt[t][2]);
+                if (_t[t][1].exec(u[1])) {
+                  (a = _t[t][0]), (r = !1 !== _t[t][2]);
                   break;
                 }
               if (null == a) return void (e._isValid = !1);
@@ -1144,7 +1144,7 @@
               }
               if (!r && null != i) return void (e._isValid = !1);
               if (u[4]) {
-                if (!_t.exec(u[4])) return void (e._isValid = !1);
+                if (!mt.exec(u[4])) return void (e._isValid = !1);
                 s = 'Z';
               }
               (e._f = a + (i || '') + (s || '')), bt(e);
@@ -1246,7 +1246,7 @@
                           ? (h(e)._overflowWeeks = !0)
                           : null != u
                           ? (h(e)._overflowWeekday = !0)
-                          : ((o = Ie(n, r, a, i, s)),
+                          : ((o = Ce(n, r, a, i, s)),
                             (e._a[0] = o.year),
                             (e._dayOfYear = o.dayOfYear));
                     })(e),
@@ -1356,7 +1356,7 @@
                                 o
                                   ? i < r && ((r = i), (n = t))
                                   : (null == r || i < r || s) && ((r = i), (n = t), s && (o = !0));
-                            m(e, n || t);
+                            _(e, n || t);
                           })(e)
                         : n
                         ? bt(e)
@@ -1382,7 +1382,7 @@
                                     : (e._d = new Date(+t[1]));
                                 })(e)
                               : i(t)
-                              ? ((e._a = _(t.slice(0), function (e) {
+                              ? ((e._a = m(t.slice(0), function (e) {
                                   return parseInt(e, 10);
                                 })),
                                 kt(e))
@@ -1391,7 +1391,7 @@
                                   if (!e._d) {
                                     var t = z(e._i),
                                       n = void 0 === t.day ? t.date : t.day;
-                                    (e._a = _(
+                                    (e._a = m(
                                       [
                                         t.year,
                                         t.month,
@@ -1514,7 +1514,7 @@
             return e < 0 ? -1 * Math.round(-1 * e) : Math.round(e);
           }
           function Pt(e, t) {
-            C(e, 0, 0, function () {
+            I(e, 0, 0, function () {
               var e = this.utcOffset(),
                 n = '+';
               return e < 0 && ((e = -e), (n = '-')), n + O(~~(e / 60), 2) + t + O(~~e % 60, 2);
@@ -1522,13 +1522,13 @@
           }
           Pt('Z', ':'),
             Pt('ZZ', ''),
-            fe('Z', _e),
-            fe('ZZ', _e),
+            fe('Z', me),
+            fe('ZZ', me),
             ve(['Z', 'ZZ'], function (e, t, n) {
-              (n._useUTC = !0), (n._tzm = Ct(_e, e));
+              (n._useUTC = !0), (n._tzm = It(me, e));
             });
           var At = /([\+\-]|\d\d)/gi;
-          function Ct(e, t) {
+          function It(e, t) {
             var n,
               r,
               a = (t || '').match(e);
@@ -1542,7 +1542,7 @@
               ? r
               : -r;
           }
-          function It(e, t) {
+          function Ct(e, t) {
             var n, r;
             return t._isUTC
               ? ((n = t.clone()),
@@ -1605,7 +1605,7 @@
                   (s = Dt(l.to)),
                   (a =
                     i.isValid() && s.isValid()
-                      ? ((s = It(s, i)),
+                      ? ((s = Ct(s, i)),
                         i.isBefore(s)
                           ? (u = Bt(i, s))
                           : (((u = Bt(s, i)).milliseconds = -u.milliseconds),
@@ -1805,7 +1805,7 @@
               (this._erasNarrowRegex = new RegExp('^(' + a.join('|') + ')', 'i'));
           }
           function un(e, t) {
-            C(0, [e, e.length], 0, t);
+            I(0, [e, e.length], 0, t);
           }
           function ln(e, t, n, r, a) {
             var i;
@@ -1814,7 +1814,7 @@
               : (t > (i = Fe(e, r, a)) && (t = i), dn.call(this, e, t, n, r, a));
           }
           function dn(e, t, n, r, a) {
-            var i = Ie(e, t, n, r, a),
+            var i = Ce(e, t, n, r, a),
               s = Ae(i.year, 0, i.dayOfYear);
             return (
               this.year(s.getUTCFullYear()),
@@ -1823,15 +1823,15 @@
               this
             );
           }
-          C('N', 0, 0, 'eraAbbr'),
-            C('NN', 0, 0, 'eraAbbr'),
-            C('NNN', 0, 0, 'eraAbbr'),
-            C('NNNN', 0, 0, 'eraName'),
-            C('NNNNN', 0, 0, 'eraNarrow'),
-            C('y', ['y', 1], 'yo', 'eraYear'),
-            C('y', ['yy', 2], 0, 'eraYear'),
-            C('y', ['yyy', 3], 0, 'eraYear'),
-            C('y', ['yyyy', 4], 0, 'eraYear'),
+          I('N', 0, 0, 'eraAbbr'),
+            I('NN', 0, 0, 'eraAbbr'),
+            I('NNN', 0, 0, 'eraAbbr'),
+            I('NNNN', 0, 0, 'eraName'),
+            I('NNNNN', 0, 0, 'eraNarrow'),
+            I('y', ['y', 1], 'yo', 'eraYear'),
+            I('y', ['yy', 2], 0, 'eraYear'),
+            I('y', ['yyy', 3], 0, 'eraYear'),
+            I('y', ['yyyy', 4], 0, 'eraYear'),
             fe('N', sn),
             fe('NN', sn),
             fe('NNN', sn),
@@ -1860,10 +1860,10 @@
                   ? (t[0] = n._locale.eraYearOrdinalParse(e, a))
                   : (t[0] = parseInt(e, 10));
             }),
-            C(0, ['gg', 2], 0, function () {
+            I(0, ['gg', 2], 0, function () {
               return this.weekYear() % 100;
             }),
-            C(0, ['GG', 2], 0, function () {
+            I(0, ['GG', 2], 0, function () {
               return this.isoWeekYear() % 100;
             }),
             un('gggg', 'weekYear'),
@@ -1888,14 +1888,14 @@
             Le(['gg', 'GG'], function (e, t, n, r) {
               t[r] = a.parseTwoDigitYear(e);
             }),
-            C('Q', 0, 'Qo', 'quarter'),
+            I('Q', 0, 'Qo', 'quarter'),
             R('quarter', 'Q'),
             B('quarter', 7),
             fe('Q', Z),
             ve('Q', function (e, t) {
               t[1] = 3 * (V(e) - 1);
             }),
-            C('D', ['DD', 2], 'Do', 'date'),
+            I('D', ['DD', 2], 'Do', 'date'),
             R('date', 'D'),
             B('date', 9),
             fe('D', re),
@@ -1910,7 +1910,7 @@
               t[2] = V(e.match(re)[0]);
             });
           var cn = Q('Date', !0);
-          C('DDD', ['DDDD', 3], 'DDDo', 'dayOfYear'),
+          I('DDD', ['DDDD', 3], 'DDDo', 'dayOfYear'),
             R('dayOfYear', 'DDD'),
             B('dayOfYear', 4),
             fe('DDD', se),
@@ -1918,46 +1918,46 @@
             ve(['DDD', 'DDDD'], function (e, t, n) {
               n._dayOfYear = V(e);
             }),
-            C('m', ['mm', 2], 0, 'minute'),
+            I('m', ['mm', 2], 0, 'minute'),
             R('minute', 'm'),
             B('minute', 14),
             fe('m', re),
             fe('mm', re, X),
             ve(['m', 'mm'], 4);
-          var _n = Q('Minutes', !1);
-          C('s', ['ss', 2], 0, 'second'),
+          var mn = Q('Minutes', !1);
+          I('s', ['ss', 2], 0, 'second'),
             R('second', 's'),
             B('second', 15),
             fe('s', re),
             fe('ss', re, X),
             ve(['s', 'ss'], 5);
-          var mn,
+          var _n,
             fn,
             hn = Q('Seconds', !1);
           for (
-            C('S', 0, 0, function () {
+            I('S', 0, 0, function () {
               return ~~(this.millisecond() / 100);
             }),
-              C(0, ['SS', 2], 0, function () {
+              I(0, ['SS', 2], 0, function () {
                 return ~~(this.millisecond() / 10);
               }),
-              C(0, ['SSS', 3], 0, 'millisecond'),
-              C(0, ['SSSS', 4], 0, function () {
+              I(0, ['SSS', 3], 0, 'millisecond'),
+              I(0, ['SSSS', 4], 0, function () {
                 return 10 * this.millisecond();
               }),
-              C(0, ['SSSSS', 5], 0, function () {
+              I(0, ['SSSSS', 5], 0, function () {
                 return 100 * this.millisecond();
               }),
-              C(0, ['SSSSSS', 6], 0, function () {
+              I(0, ['SSSSSS', 6], 0, function () {
                 return 1e3 * this.millisecond();
               }),
-              C(0, ['SSSSSSS', 7], 0, function () {
+              I(0, ['SSSSSSS', 7], 0, function () {
                 return 1e4 * this.millisecond();
               }),
-              C(0, ['SSSSSSSS', 8], 0, function () {
+              I(0, ['SSSSSSSS', 8], 0, function () {
                 return 1e5 * this.millisecond();
               }),
-              C(0, ['SSSSSSSSS', 9], 0, function () {
+              I(0, ['SSSSSSSSS', 9], 0, function () {
                 return 1e6 * this.millisecond();
               }),
               R('millisecond', 'ms'),
@@ -1965,16 +1965,16 @@
               fe('S', se, Z),
               fe('SS', se, X),
               fe('SSS', se, ee),
-              mn = 'SSSS';
-            mn.length <= 9;
-            mn += 'S'
+              _n = 'SSSS';
+            _n.length <= 9;
+            _n += 'S'
           )
-            fe(mn, le);
+            fe(_n, le);
           function pn(e, t) {
             t[6] = V(1e3 * ('0.' + e));
           }
-          for (mn = 'S'; mn.length <= 9; mn += 'S') ve(mn, pn);
-          (fn = Q('Milliseconds', !1)), C('z', 0, 0, 'zoneAbbr'), C('zz', 0, 0, 'zoneName');
+          for (_n = 'S'; _n.length <= 9; _n += 'S') ve(_n, pn);
+          (fn = Q('Milliseconds', !1)), I('z', 0, 0, 'zoneAbbr'), I('zz', 0, 0, 'zoneName');
           var yn = g.prototype;
           function Mn(e) {
             return e;
@@ -1988,7 +1988,7 @@
                     : $t(arguments[0]) && ((t = arguments[0]), (e = void 0))
                   : ((e = void 0), (t = void 0)));
               var n = e || Dt(),
-                r = It(n, this).startOf('day'),
+                r = Ct(n, this).startOf('day'),
                 i = a.calendarFormat(this, r) || 'sameElse',
                 s = t && (S(t[i]) ? t[i].call(this, n) : t[i]);
               return this.format(s || this.localeData().calendar(i, this, Dt(n)));
@@ -1999,7 +1999,7 @@
             (yn.diff = function (e, t, n) {
               var r, a, i;
               if (!this.isValid()) return NaN;
-              if (!(r = It(e, this)).isValid()) return NaN;
+              if (!(r = Ct(e, this)).isValid()) return NaN;
               switch (((a = 6e4 * (r.utcOffset() - this.utcOffset())), (t = W(t)))) {
                 case 'year':
                   i = Zt(this, r) / 12;
@@ -2067,7 +2067,7 @@
             }),
             (yn.format = function (e) {
               e || (e = this.isUtc() ? a.defaultFormatUtc : a.defaultFormat);
-              var t = I(this, e);
+              var t = C(this, e);
               return this.localeData().postformat(t);
             }),
             (yn.from = function (e, t) {
@@ -2145,7 +2145,7 @@
             (yn.max = St),
             (yn.min = wt),
             (yn.parsingFlags = function () {
-              return m({}, h(this));
+              return _({}, h(this));
             }),
             (yn.set = function (e, t) {
               if ('object' == typeof e) {
@@ -2234,14 +2234,14 @@
               var t = !0 !== e,
                 n = t ? this.clone().utc() : this;
               return n.year() < 0 || n.year() > 9999
-                ? I(n, t ? 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYYYY-MM-DD[T]HH:mm:ss.SSSZ')
+                ? C(n, t ? 'YYYYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYYYY-MM-DD[T]HH:mm:ss.SSSZ')
                 : S(Date.prototype.toISOString)
                 ? t
                   ? this.toDate().toISOString()
                   : new Date(this.valueOf() + 60 * this.utcOffset() * 1e3)
                       .toISOString()
-                      .replace('Z', I(n, 'Z'))
-                : I(n, t ? 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYY-MM-DD[T]HH:mm:ss.SSSZ');
+                      .replace('Z', C(n, 'Z'))
+                : C(n, t ? 'YYYY-MM-DD[T]HH:mm:ss.SSS[Z]' : 'YYYY-MM-DD[T]HH:mm:ss.SSSZ');
             }),
             (yn.inspect = function () {
               if (!this.isValid()) return 'moment.invalid(/* ' + this._i + ' */)';
@@ -2433,7 +2433,7 @@
               return null == e ? t : this.add(e - t, 'd');
             }),
             (yn.hour = yn.hours = Xe),
-            (yn.minute = yn.minutes = _n),
+            (yn.minute = yn.minutes = mn),
             (yn.second = yn.seconds = hn),
             (yn.millisecond = yn.milliseconds = fn),
             (yn.utcOffset = function (e, t, n) {
@@ -2442,7 +2442,7 @@
               if (!this.isValid()) return null != e ? this : NaN;
               if (null != e) {
                 if ('string' == typeof e) {
-                  if (null === (e = Ct(_e, e))) return this;
+                  if (null === (e = It(me, e))) return this;
                 } else Math.abs(e) < 16 && !n && (e *= 60);
                 return (
                   !this._isUTC && t && (r = Nt(this)),
@@ -2474,7 +2474,7 @@
             (yn.parseZone = function () {
               if (null != this._tzm) this.utcOffset(this._tzm, !1, !0);
               else if ('string' == typeof this._i) {
-                var e = Ct(ce, this._i);
+                var e = It(ce, this._i);
                 null != e ? this.utcOffset(e) : this.utcOffset(0, !0);
               }
               return this;
@@ -2931,8 +2931,8 @@
             Hn = Sn('d'),
             Pn = Sn('w'),
             An = Sn('M'),
-            Cn = Sn('Q'),
-            In = Sn('y');
+            In = Sn('Q'),
+            Cn = Sn('y');
           function Nn(e) {
             return function () {
               return this.isValid() ? this._data[e] : NaN;
@@ -3056,8 +3056,8 @@
             (Zn.asDays = Hn),
             (Zn.asWeeks = Pn),
             (Zn.asMonths = An),
-            (Zn.asQuarters = Cn),
-            (Zn.asYears = In),
+            (Zn.asQuarters = In),
+            (Zn.asYears = Cn),
             (Zn.valueOf = function () {
               return this.isValid()
                 ? this._milliseconds +
@@ -3136,7 +3136,7 @@
                     l = qn(a.as('M')),
                     d = qn(a.as('w')),
                     c = qn(a.as('y')),
-                    _ =
+                    m =
                       (i <= n.ss && ['s', i]) ||
                       (i < n.s && ['ss', i]) ||
                       (s <= 1 && ['m']) ||
@@ -3146,14 +3146,14 @@
                       (u <= 1 && ['d']) ||
                       (u < n.d && ['dd', u]);
                   return (
-                    null != n.w && (_ = _ || (d <= 1 && ['w']) || (d < n.w && ['ww', d])),
-                    ((_ = _ ||
+                    null != n.w && (m = m || (d <= 1 && ['w']) || (d < n.w && ['ww', d])),
+                    ((m = m ||
                       (l <= 1 && ['M']) ||
                       (l < n.M && ['MM', l]) ||
                       (c <= 1 && ['y']) || ['yy', c])[2] = t),
-                    (_[3] = +e > 0),
-                    (_[4] = r),
-                    Qn.apply(null, _)
+                    (m[3] = +e > 0),
+                    (m[4] = r),
+                    Qn.apply(null, m)
                   );
                 })(this, !a, i, n)),
                 a && (r = n.pastFuture(+this, r)),
@@ -3170,8 +3170,8 @@
               $n,
             )),
             (Zn.lang = en),
-            C('X', 0, 0, 'unix'),
-            C('x', 0, 0, 'valueOf'),
+            I('X', 0, 0, 'unix'),
+            I('x', 0, 0, 'valueOf'),
             fe('x', de),
             fe('X', /[+-]?\d+(\.\d{1,3})?/),
             ve('X', function (e, t, n) {
@@ -3318,10 +3318,10 @@
           return c;
         }),
         n.d(t, 'i', function () {
-          return _;
+          return m;
         }),
         n.d(t, 'h', function () {
-          return m;
+          return _;
         }),
         n.d(t, 'e', function () {
           return f;
@@ -3372,7 +3372,7 @@
       function c(e, t, n) {
         return g(e) ? [Object(r.a)({}, t, { queryKey: e }), n] : [e || {}, t];
       }
-      function _(e, t) {
+      function m(e, t) {
         var n = e.active,
           r = e.exact,
           a = e.fetching,
@@ -3405,7 +3405,7 @@
           !(s && !s(t))
         );
       }
-      function m(e, t) {
+      function _(e, t) {
         var n = e.exact,
           r = e.fetching,
           a = e.predicate,
@@ -3721,8 +3721,8 @@
           t.ClientError =
             void 0);
       var c = s(n(187)),
-        _ = c,
-        m = n(188),
+        m = c,
+        _ = n(188),
         f = n(197),
         h = d(n(200)),
         p = n(36),
@@ -3738,7 +3738,7 @@
           var t = {};
           return (
             e &&
-              (('undefined' != typeof Headers && e instanceof Headers) || e instanceof _.Headers
+              (('undefined' != typeof Headers && e instanceof Headers) || e instanceof m.Headers
                 ? (t = (function (e) {
                     var t = {};
                     return (
@@ -3861,7 +3861,7 @@
           return (
             (e.prototype.rawRequest = function (e, t, n) {
               return o(this, void 0, void 0, function () {
-                var a, i, s, o, d, _, m, f, h, p;
+                var a, i, s, o, d, m, _, f, h, p;
                 return u(this, function (u) {
                   return (
                     (a = y.parseRawRequestArgs(e, t, n)),
@@ -3869,8 +3869,8 @@
                     (s = i.headers),
                     (o = i.fetch),
                     (d = void 0 === o ? c.default : o),
-                    (_ = i.method),
-                    (m = void 0 === _ ? 'POST' : _),
+                    (m = i.method),
+                    (_ = void 0 === m ? 'POST' : m),
                     (f = l(i, ['headers', 'fetch', 'method'])),
                     (h = this.url),
                     void 0 !== a.signal && (f.signal = a.signal),
@@ -3884,7 +3884,7 @@
                         headers: r(r({}, v(s)), v(a.requestHeaders)),
                         operationName: p,
                         fetch: d,
-                        method: m,
+                        method: _,
                         fetchOptions: f,
                       }),
                     ]
@@ -3894,7 +3894,7 @@
             }),
             (e.prototype.request = function (e, t, n) {
               return o(this, void 0, void 0, function () {
-                var a, i, s, o, d, _, m, f, h, p, M, L;
+                var a, i, s, o, d, m, _, f, h, p, M, L;
                 return u(this, function (u) {
                   switch (u.label) {
                     case 0:
@@ -3904,8 +3904,8 @@
                         (s = i.headers),
                         (o = i.fetch),
                         (d = void 0 === o ? c.default : o),
-                        (_ = i.method),
-                        (m = void 0 === _ ? 'POST' : _),
+                        (m = i.method),
+                        (_ = void 0 === m ? 'POST' : m),
                         (f = l(i, ['headers', 'fetch', 'method'])),
                         (h = this.url),
                         void 0 !== a.signal && (f.signal = a.signal),
@@ -3921,7 +3921,7 @@
                             headers: r(r({}, v(s)), v(a.requestHeaders)),
                             operationName: L,
                             fetch: d,
-                            method: m,
+                            method: _,
                             fetchOptions: f,
                           }),
                         ]
@@ -3934,7 +3934,7 @@
             }),
             (e.prototype.batchRequests = function (e, t) {
               return o(this, void 0, void 0, function () {
-                var n, a, i, s, o, d, _, m, f, h, p;
+                var n, a, i, s, o, d, m, _, f, h, p;
                 return u(this, function (u) {
                   switch (u.label) {
                     case 0:
@@ -3945,10 +3945,10 @@
                         (s = a.fetch),
                         (o = void 0 === s ? c.default : s),
                         (d = a.method),
-                        (_ = void 0 === d ? 'POST' : d),
-                        (m = l(a, ['headers', 'fetch', 'method'])),
+                        (m = void 0 === d ? 'POST' : d),
+                        (_ = l(a, ['headers', 'fetch', 'method'])),
                         (f = this.url),
-                        void 0 !== n.signal && (m.signal = n.signal),
+                        void 0 !== n.signal && (_.signal = n.signal),
                         (h = n.documents.map(function (e) {
                           return S(e.document).query;
                         })),
@@ -3964,8 +3964,8 @@
                             headers: r(r({}, v(i)), v(n.requestHeaders)),
                             operationName: void 0,
                             fetch: o,
-                            method: _,
-                            fetchOptions: m,
+                            method: m,
+                            fetchOptions: _,
                           }),
                         ]
                       );
@@ -3998,9 +3998,9 @@
           l = e.fetch,
           d = e.method,
           c = void 0 === d ? 'POST' : d,
-          _ = e.fetchOptions;
+          m = e.fetchOptions;
         return o(this, void 0, void 0, function () {
-          var e, o, d, m, f, h, p, y;
+          var e, o, d, _, f, h, p, y;
           return u(this, function (u) {
             switch (u.label) {
               case 0:
@@ -4016,30 +4016,30 @@
                       operationName: s,
                       headers: i,
                       fetch: l,
-                      fetchOptions: _,
+                      fetchOptions: m,
                     }),
                   ]
                 );
               case 1:
-                return [4, D((d = u.sent()), _.jsonSerializer)];
+                return [4, D((d = u.sent()), m.jsonSerializer)];
               case 2:
                 if (
-                  ((m = u.sent()),
+                  ((_ = u.sent()),
                   (f =
-                    o && Array.isArray(m)
-                      ? !m.some(function (e) {
+                    o && Array.isArray(_)
+                      ? !_.some(function (e) {
                           return !e.data;
                         })
-                      : !!m.data),
-                  d.ok && !m.errors && f)
+                      : !!_.data),
+                  d.ok && !_.errors && f)
                 )
                   return (
                     (h = d.headers),
                     (p = d.status),
-                    [2, r(r({}, o ? { data: m } : m), { headers: h, status: p })]
+                    [2, r(r({}, o ? { data: _ } : _), { headers: h, status: p })]
                   );
                 throw (
-                  ((y = 'string' == typeof m ? { error: m } : m),
+                  ((y = 'string' == typeof _ ? { error: _ } : _),
                   new M.ClientError(r(r({}, y), { status: d.status, headers: d.headers }), {
                     query: n,
                     variables: a,
@@ -4098,7 +4098,7 @@
         if ('string' == typeof e) {
           var t = void 0;
           try {
-            t = w(m.parse(e));
+            t = w(_.parse(e));
           } catch (e) {}
           return { query: e, operationName: t };
         }
@@ -4212,6 +4212,26 @@
     },
     function (e, t, n) {
       'use strict';
+      (function (e) {
+        n.d(t, 'a', function () {
+          return r;
+        });
+        var r = {
+          CONTENTFUL_URL: e.env.CONTENTFUL_URL || '',
+          CONTENTFUL_AUTH_TOKEN: e.env.CONTENTFUL_AUTH_TOKEN,
+          MOJITO_API_URL: e.env.MOJITO_API_URL || '',
+          INVOICE_URL: e.env.INVOICE_URL || '',
+          ORGANIZATION_ID: e.env.API_ORGANIZATION_ID || '8fb128bd-f55d-4bcc-8b6c-0beb684e4d4e',
+          MARKETPLACE_ID: e.env.MARKETPLACE_ID || 'c5ac4f84-b78b-4cb7-a24f-7f0c38da0eb2',
+          TEST_ENV: e.env.TEST_ENV || '',
+          AUTH0_DOMAIN: e.env.AUTH0_DOMAIN || '',
+          AUTH0_CLIENTID: e.env.AUTH0_CLIENTID || '',
+          AUTH_REDIRECT_URI: e.env.AUTH_REDIRECT_URI || '',
+        };
+      }.call(this, n(206)));
+    },
+    function (e, t, n) {
+      'use strict';
       n.d(t, 'b', function () {
         return o;
       }),
@@ -4243,16 +4263,16 @@
           l,
           d,
           c = this,
-          _ = !1;
+          m = !1;
         (this.abort = e.abort),
           (this.cancel = function (e) {
             return null == t ? void 0 : t(e);
           }),
           (this.cancelRetry = function () {
-            _ = !0;
+            m = !0;
           }),
           (this.continueRetry = function () {
-            _ = !1;
+            m = !1;
           }),
           (this.continue = function () {
             return null == n ? void 0 : n();
@@ -4264,7 +4284,7 @@
           (this.promise = new Promise(function (e, t) {
             (l = e), (d = t);
           }));
-        var m = function (t) {
+        var _ = function (t) {
             c.isResolved ||
               ((c.isResolved = !0), null == e.onSuccess || e.onSuccess(t), null == n || n(), l(t));
           },
@@ -4288,18 +4308,18 @@
             }),
               (c.isTransportCancelable = o(d)),
               Promise.resolve(d)
-                .then(m)
+                .then(_)
                 .catch(function (t) {
                   var o, u;
                   if (!c.isResolved) {
                     var d = null != (o = e.retry) ? o : 3,
-                      m = null != (u = e.retryDelay) ? u : s,
-                      h = 'function' == typeof m ? m(c.failureCount, t) : m,
+                      _ = null != (u = e.retryDelay) ? u : s,
+                      h = 'function' == typeof _ ? _(c.failureCount, t) : _,
                       p =
                         !0 === d ||
                         ('number' == typeof d && c.failureCount < d) ||
                         ('function' == typeof d && d(c.failureCount, t));
-                    !_ && p
+                    !m && p
                       ? (c.failureCount++,
                         null == e.onFail || e.onFail(c.failureCount, t),
                         Object(i.q)(h)
@@ -4314,7 +4334,7 @@
                               });
                           })
                           .then(function () {
-                            _ ? f(t) : l();
+                            m ? f(t) : l();
                           }))
                       : f(t);
                   }
@@ -4322,26 +4342,6 @@
           }
         })();
       };
-    },
-    function (e, t, n) {
-      'use strict';
-      (function (e) {
-        n.d(t, 'a', function () {
-          return r;
-        });
-        var r = {
-          CONTENTFUL_URL: e.env.CONTENTFUL_URL || '',
-          CONTENTFUL_AUTH_TOKEN: e.env.CONTENTFUL_AUTH_TOKEN,
-          MOJITO_API_URL: e.env.MOJITO_API_URL || '',
-          INVOICE_URL: e.env.INVOICE_URL || '',
-          ORGANIZATION_ID: e.env.API_ORGANIZATION_ID || '8fb128bd-f55d-4bcc-8b6c-0beb684e4d4e',
-          MARKETPLACE_ID: e.env.MARKETPLACE_ID || 'c5ac4f84-b78b-4cb7-a24f-7f0c38da0eb2',
-          TEST_ENV: e.env.TEST_ENV || '',
-          AUTH0_DOMAIN: e.env.AUTH0_DOMAIN || '',
-          AUTH0_CLIENTID: e.env.AUTH0_CLIENTID || '',
-          AUTH_REDIRECT_URI: e.env.AUTH_REDIRECT_URI || '',
-        };
-      }.call(this, n(206)));
     },
     function (e, t, n) {
       'use strict';
@@ -4688,7 +4688,7 @@
         i = n(2),
         s = n(4),
         o = n(11),
-        u = n(6),
+        u = n(7),
         l = (function () {
           function e(e) {
             (this.abortSignalConsumed = !1),
@@ -4853,12 +4853,12 @@
                 d && this.setOptions(d.options);
               }
               var c = Object(a.a)(this.queryKey),
-                _ = Object(a.c)(),
-                m = { queryKey: c, pageParam: void 0, meta: this.meta };
-              Object.defineProperty(m, 'signal', {
+                m = Object(a.c)(),
+                _ = { queryKey: c, pageParam: void 0, meta: this.meta };
+              Object.defineProperty(_, 'signal', {
                 enumerable: !0,
                 get: function () {
-                  if (_) return (s.abortSignalConsumed = !0), _.signal;
+                  if (m) return (s.abortSignalConsumed = !0), m.signal;
                 },
               });
               var f,
@@ -4870,7 +4870,7 @@
                   state: this.state,
                   fetchFn: function () {
                     return s.options.queryFn
-                      ? ((s.abortSignalConsumed = !1), s.options.queryFn(m))
+                      ? ((s.abortSignalConsumed = !1), s.options.queryFn(_))
                       : Promise.reject('Missing queryFn');
                   },
                   meta: this.meta,
@@ -4887,7 +4887,7 @@
               return (
                 (this.retryer = new u.a({
                   fn: p.fetchFn,
-                  abort: null == _ || null == (i = _.abort) ? void 0 : i.bind(_),
+                  abort: null == m || null == (i = m.abort) ? void 0 : i.bind(m),
                   onSuccess: function (e) {
                     s.setData(e),
                       null == s.cache.config.onSuccess || s.cache.config.onSuccess(e, s),
@@ -5124,7 +5124,7 @@
         a = n(4),
         i = n(2),
         s = n(11),
-        o = n(6),
+        o = n(7),
         u = n(1),
         l = (function () {
           function e(e) {
@@ -5592,7 +5592,7 @@
         o = n(8),
         u = n(9),
         l = n(11),
-        d = n(6),
+        d = n(7),
         c = (function (e) {
           function t(t, n) {
             var r;
@@ -5615,17 +5615,17 @@
             (n.onSubscribe = function () {
               1 === this.listeners.length &&
                 (this.currentQuery.addObserver(this),
-                _(this.currentQuery, this.options) && this.executeFetch(),
+                m(this.currentQuery, this.options) && this.executeFetch(),
                 this.updateTimers());
             }),
             (n.onUnsubscribe = function () {
               this.listeners.length || this.destroy();
             }),
             (n.shouldFetchOnReconnect = function () {
-              return m(this.currentQuery, this.options, this.options.refetchOnReconnect);
+              return _(this.currentQuery, this.options, this.options.refetchOnReconnect);
             }),
             (n.shouldFetchOnWindowFocus = function () {
-              return m(this.currentQuery, this.options, this.options.refetchOnWindowFocus);
+              return _(this.currentQuery, this.options, this.options.refetchOnWindowFocus);
             }),
             (n.destroy = function () {
               (this.listeners = []), this.clearTimers(), this.currentQuery.removeObserver(this);
@@ -5772,7 +5772,7 @@
                 u = this.currentResultOptions,
                 d = e !== r,
                 c = d ? e.state : this.currentQueryInitialState,
-                m = d ? this.currentResult : this.previousQueryResult,
+                _ = d ? this.currentResult : this.previousQueryResult,
                 p = e.state,
                 y = p.dataUpdatedAt,
                 M = p.error,
@@ -5783,17 +5783,17 @@
                 b = !1;
               if (t.optimisticResults) {
                 var Y = this.hasListeners(),
-                  T = !Y && _(e, t),
+                  T = !Y && m(e, t),
                   D = Y && f(e, r, t, a);
                 (T || D) && ((L = !0), y || (g = 'loading'));
               }
               if (
                 t.keepPreviousData &&
                 !p.dataUpdateCount &&
-                (null == m ? void 0 : m.isSuccess) &&
+                (null == _ ? void 0 : _.isSuccess) &&
                 'error' !== g
               )
-                (n = m.data), (y = m.dataUpdatedAt), (g = m.status), (k = !0);
+                (n = _.data), (y = _.dataUpdatedAt), (g = _.status), (k = !0);
               else if (t.select && void 0 !== p.data)
                 if (s && p.data === (null == o ? void 0 : o.data) && t.select === this.selectFn)
                   n = this.selectResult;
@@ -5953,7 +5953,7 @@
             t
           );
         })(u.a);
-      function _(e, t) {
+      function m(e, t) {
         return (
           (function (e, t) {
             return !(
@@ -5962,10 +5962,10 @@
               ('error' === e.state.status && !1 === t.retryOnMount)
             );
           })(e, t) ||
-          (e.state.dataUpdatedAt > 0 && m(e, t, t.refetchOnMount))
+          (e.state.dataUpdatedAt > 0 && _(e, t, t.refetchOnMount))
         );
       }
-      function m(e, t, n) {
+      function _(e, t, n) {
         if (!1 !== t.enabled) {
           var r = 'function' == typeof n ? n(e) : n;
           return 'always' === r || (!1 !== r && h(e, t));
@@ -6131,11 +6131,11 @@
             l = e.endsWith('\\'),
             d = u || l,
             c = !(null != t && t.minimize) && (!i || e.length > 70 || d || s || o);
-          let _ = '';
-          const m = i && (0, r.isWhiteSpace)(e.charCodeAt(0));
-          ((c && !m) || s) && (_ += '\n');
-          (_ += n), (c || d) && (_ += '\n');
-          return '"""' + _ + '"""';
+          let m = '';
+          const _ = i && (0, r.isWhiteSpace)(e.charCodeAt(0));
+          ((c && !_) || s) && (m += '\n');
+          (m += n), (c || d) && (m += '\n');
+          return '"""' + m + '"""';
         });
       var r = n(31);
       function a(e) {
@@ -17441,8 +17441,8 @@
               0 === d.cacheTime && (d.cacheTime = 1)),
             (d.suspense || d.useErrorBoundary) && (i.isReset() || (d.retryOnMount = !1));
           var c,
-            _,
             m,
+            _,
             f = s.a.useState(function () {
               return new t(a, d);
             })[0],
@@ -17492,9 +17492,9 @@
             !i.isReset() &&
             !h.isFetching &&
             ((c = d.suspense),
-            (_ = d.useErrorBoundary),
-            (m = [h.error, f.getCurrentQuery()]),
-            'function' == typeof _ ? _.apply(void 0, m) : 'boolean' == typeof _ ? _ : c)
+            (m = d.useErrorBoundary),
+            (_ = [h.error, f.getCurrentQuery()]),
+            'function' == typeof m ? m.apply(void 0, _) : 'boolean' == typeof m ? m : c)
           )
             throw h.error;
           return 'tracked' === d.notifyOnChangeProps && (h = f.trackResult(h, d)), h;
@@ -17504,7 +17504,7 @@
     function (e, t, n) {
       'use strict';
       n.d(t, 'a', function () {
-        return m;
+        return _;
       });
       var r = n(2),
         a = n(1),
@@ -17513,14 +17513,14 @@
         o = n(8),
         u = n(13),
         l = n(4),
-        d = n(6);
+        d = n(7);
       function c(e, t) {
         return null == e.getNextPageParam ? void 0 : e.getNextPageParam(t[t.length - 1], t);
       }
-      function _(e, t) {
+      function m(e, t) {
         return null == e.getPreviousPageParam ? void 0 : e.getPreviousPageParam(t[0], t);
       }
-      var m = (function () {
+      var _ = (function () {
         function e(e) {
           void 0 === e && (e = {}),
             (this.queryCache = e.queryCache || new i.a()),
@@ -17634,8 +17634,8 @@
               u = this,
               d = Object(a.k)(e, t, n),
               c = d[0],
-              _ = d[1],
-              m = Object(r.a)({}, c, {
+              m = d[1],
+              _ = Object(r.a)({}, c, {
                 active: null == (i = null != (s = c.refetchActive) ? s : c.active) || i,
                 inactive: null != (o = c.refetchInactive) && o,
               });
@@ -17644,7 +17644,7 @@
                 u.queryCache.findAll(c).forEach(function (e) {
                   e.invalidate();
                 }),
-                u.refetchQueries(m, _)
+                u.refetchQueries(_, m)
               );
             });
           }),
@@ -17693,11 +17693,11 @@
                         null == (t = e.fetchOptions) || null == (n = t.meta)
                           ? void 0
                           : n.refetchPage,
-                      m =
+                      _ =
                         null == (r = e.fetchOptions) || null == (i = r.meta) ? void 0 : i.fetchMore,
-                      f = null == m ? void 0 : m.pageParam,
-                      h = 'forward' === (null == m ? void 0 : m.direction),
-                      p = 'backward' === (null == m ? void 0 : m.direction),
+                      f = null == _ ? void 0 : _.pageParam,
+                      h = 'forward' === (null == _ ? void 0 : _.direction),
+                      p = 'backward' === (null == _ ? void 0 : _.direction),
                       y = (null == (s = e.state.data) ? void 0 : s.pages) || [],
                       M = (null == (o = e.state.data) ? void 0 : o.pageParams) || [],
                       v = Object(a.c)(),
@@ -17732,7 +17732,7 @@
                         u = T(y, D, w);
                       } else if (p) {
                         var S = void 0 !== f,
-                          x = S ? f : _(e.options, y);
+                          x = S ? f : m(e.options, y);
                         u = T(y, S, x, !0);
                       } else
                         !(function () {
@@ -17937,13 +17937,13 @@
         l = null,
         d = !1,
         c = null,
-        _ = {
+        m = {
           onError: function (e) {
             (u = !0), (l = e);
           },
         };
-      function m(e, t, n, r, a, i, s, d, c) {
-        (u = !1), (l = null), o.apply(_, arguments);
+      function _(e, t, n, r, a, i, s, d, c) {
+        (u = !1), (l = null), o.apply(m, arguments);
       }
       var f = null,
         h = null,
@@ -17951,8 +17951,8 @@
       function y(e, t, n) {
         var r = e.type || 'unknown-event';
         (e.currentTarget = p(n)),
-          (function (e, t, n, r, a, i, o, _, f) {
-            if ((m.apply(this, arguments), u)) {
+          (function (e, t, n, r, a, i, o, m, f) {
+            if ((_.apply(this, arguments), u)) {
               if (!u) throw Error(s(198));
               var h = l;
               (u = !1), (l = null), d || ((d = !0), (c = h));
@@ -18039,18 +18039,18 @@
       function A(e, t, n, r, a) {
         return e(t, n, r, a);
       }
-      function C() {}
-      var I = P,
+      function I() {}
+      var C = P,
         N = !1,
         F = !1;
       function R() {
-        (null === x && null === E) || (C(), H());
+        (null === x && null === E) || (I(), H());
       }
       function W(e, t, n) {
         if (F) return e(t, n);
         F = !0;
         try {
-          return I(e, t, n);
+          return C(e, t, n);
         } finally {
           (F = !1), R();
         }
@@ -18213,8 +18213,8 @@
         le = X ? Symbol.for('react.suspense') : 60113,
         de = X ? Symbol.for('react.suspense_list') : 60120,
         ce = X ? Symbol.for('react.memo') : 60115,
-        _e = X ? Symbol.for('react.lazy') : 60116,
-        me = X ? Symbol.for('react.block') : 60121,
+        me = X ? Symbol.for('react.lazy') : 60116,
+        _e = X ? Symbol.for('react.block') : 60121,
         fe = 'function' == typeof Symbol && Symbol.iterator;
       function he(e) {
         return null === e || 'object' != typeof e
@@ -18255,9 +18255,9 @@
               );
             case ce:
               return pe(e.type);
-            case me:
-              return pe(e.render);
             case _e:
+              return pe(e.render);
+            case me:
               if ((e = 1 === e._status ? e._result : null)) return pe(e);
           }
         return null;
@@ -18485,7 +18485,7 @@
       }
       var Pe = 'http://www.w3.org/1999/xhtml',
         Ae = 'http://www.w3.org/2000/svg';
-      function Ce(e) {
+      function Ie(e) {
         switch (e) {
           case 'svg':
             return 'http://www.w3.org/2000/svg';
@@ -18495,9 +18495,9 @@
             return 'http://www.w3.org/1999/xhtml';
         }
       }
-      function Ie(e, t) {
+      function Ce(e, t) {
         return null == e || 'http://www.w3.org/1999/xhtml' === e
-          ? Ce(t)
+          ? Ie(t)
           : 'http://www.w3.org/2000/svg' === e && 'foreignObject' === t
           ? 'http://www.w3.org/1999/xhtml'
           : e;
@@ -18735,7 +18735,7 @@
           (e.ancestors.length = 0),
           10 > dt.length && dt.push(e);
       }
-      function _t(e, t, n, r) {
+      function mt(e, t, n, r) {
         if (dt.length) {
           var a = dt.pop();
           return (
@@ -18754,7 +18754,7 @@
           ancestors: [],
         };
       }
-      function mt(e) {
+      function _t(e) {
         var t = e.targetInst,
           n = t;
         do {
@@ -18916,7 +18916,7 @@
           ((e.blockedOn = null),
           Mt || ((Mt = !0), i.unstable_scheduleCallback(i.unstable_NormalPriority, Pt)));
       }
-      function Ct(e) {
+      function It(e) {
         function t(t) {
           return At(t, e);
         }
@@ -18941,7 +18941,7 @@
         for (; 0 < Tt.length && null === (n = Tt[0]).blockedOn; )
           Ot(n), null === n.blockedOn && Tt.shift();
       }
-      var It = {},
+      var Ct = {},
         Nt = new Map(),
         Ft = new Map(),
         Rt = [
@@ -19008,7 +19008,7 @@
           }),
             Ft.set(r, t),
             Nt.set(r, i),
-            (It[a] = i);
+            (Ct[a] = i);
         }
       }
       Wt(
@@ -19055,7 +19055,7 @@
         n ? e.addEventListener(t, r, !0) : e.addEventListener(t, r, !1);
       }
       function Jt(e, t, n, r) {
-        N || C();
+        N || I();
         var a = $t,
           i = N;
         N = !0;
@@ -19093,9 +19093,9 @@
                 return !1;
               })(a, e, t, n, r)
             ) {
-              xt(e, r), (e = _t(e, r, null, t));
+              xt(e, r), (e = mt(e, r, null, t));
               try {
-                W(mt, e);
+                W(_t, e);
               } finally {
                 ct(e);
               }
@@ -19117,9 +19117,9 @@
             } else a !== n && (n = null);
           }
         }
-        e = _t(e, r, n, t);
+        e = mt(e, r, n, t);
         try {
-          W(mt, e);
+          W(_t, e);
         } finally {
           ct(e);
         }
@@ -19260,7 +19260,7 @@
         for (; e && e.firstChild; ) e = e.firstChild;
         return e;
       }
-      function _n(e, t) {
+      function mn(e, t) {
         var n,
           r = cn(e);
         for (e = 0; r; ) {
@@ -19282,7 +19282,7 @@
           r = cn(r);
         }
       }
-      function mn() {
+      function _n() {
         for (var e = window, t = dn(); t instanceof e.HTMLIFrameElement; ) {
           try {
             var n = 'string' == typeof t.contentWindow.location.href;
@@ -19447,10 +19447,10 @@
           ((n._dispatchListeners = rt(n._dispatchListeners, t)),
           (n._dispatchInstances = rt(n._dispatchInstances, e)));
       }
-      function Cn(e) {
+      function In(e) {
         e && e.dispatchConfig.registrationName && An(e._targetInst, null, e);
       }
-      function In(e) {
+      function Cn(e) {
         at(e, Pn);
       }
       var Nn = null,
@@ -19658,7 +19658,7 @@
                       : ((Fn = 'value' in (Nn = r) ? Nn.value : Nn.textContent), (sr = !0))),
                   (i = Qn.getPooled(i, t, n, r)),
                   a ? (i.data = a) : null !== (a = ir(n)) && (i.data = a),
-                  In(i),
+                  Cn(i),
                   (a = i))
                 : (a = null),
               (e = Xn
@@ -19694,7 +19694,7 @@
                         return null;
                     }
                   })(e, n))
-                ? (((t = Jn.getPooled(nr.beforeInput, t, n, r)).data = e), In(t))
+                ? (((t = Jn.getPooled(nr.beforeInput, t, n, r)).data = e), Cn(t))
                 : (t = null),
               null === a ? t : null === t ? a : [a, t]
             );
@@ -19728,10 +19728,10 @@
         },
       };
       function cr(e, t, n) {
-        return ((e = Bn.getPooled(dr.change, e, t, n)).type = 'change'), j(n), In(e), e;
+        return ((e = Bn.getPooled(dr.change, e, t, n)).type = 'change'), j(n), Cn(e), e;
       }
-      var _r = null,
-        mr = null;
+      var mr = null,
+        _r = null;
       function fr(e) {
         ot(e);
       }
@@ -19743,11 +19743,11 @@
       }
       var yr = !1;
       function Mr() {
-        _r && (_r.detachEvent('onpropertychange', vr), (mr = _r = null));
+        mr && (mr.detachEvent('onpropertychange', vr), (_r = mr = null));
       }
       function vr(e) {
-        if ('value' === e.propertyName && hr(mr))
-          if (((e = cr(mr, e, ut(e))), N)) ot(e);
+        if ('value' === e.propertyName && hr(_r))
+          if (((e = cr(_r, e, ut(e))), N)) ot(e);
           else {
             N = !0;
             try {
@@ -19759,11 +19759,11 @@
       }
       function Lr(e, t, n) {
         'focus' === e
-          ? (Mr(), (mr = n), (_r = t).attachEvent('onpropertychange', vr))
+          ? (Mr(), (_r = n), (mr = t).attachEvent('onpropertychange', vr))
           : 'blur' === e && Mr();
       }
       function gr(e) {
-        if ('selectionchange' === e || 'keyup' === e || 'keydown' === e) return hr(mr);
+        if ('selectionchange' === e || 'keyup' === e || 'keydown' === e) return hr(_r);
       }
       function kr(e, t) {
         if ('click' === e) return hr(t);
@@ -19870,7 +19870,7 @@
             dependencies: ['pointerout', 'pointerover'],
           },
         },
-        Cr = {
+        Ir = {
           eventTypes: Ar,
           extractEvents: function (e, t, n, r, a) {
             var i = 'mouseover' === e || 'pointerover' === e,
@@ -19931,7 +19931,7 @@
             return 0 == (64 & a) ? [u] : [u, n];
           },
         };
-      var Ir =
+      var Cr =
           'function' == typeof Object.is
             ? Object.is
             : function (e, t) {
@@ -19939,12 +19939,12 @@
               },
         Nr = Object.prototype.hasOwnProperty;
       function Fr(e, t) {
-        if (Ir(e, t)) return !0;
+        if (Cr(e, t)) return !0;
         if ('object' != typeof e || null === e || 'object' != typeof t || null === t) return !1;
         var n = Object.keys(e),
           r = Object.keys(t);
         if (n.length !== r.length) return !1;
-        for (r = 0; r < n.length; r++) if (!Nr.call(t, n[r]) || !Ir(e[n[r]], t[n[r]])) return !1;
+        for (r = 0; r < n.length; r++) if (!Nr.call(t, n[r]) || !Cr(e[n[r]], t[n[r]])) return !1;
         return !0;
       }
       var Rr = w && 'documentMode' in document && 11 >= document.documentMode,
@@ -19981,7 +19981,7 @@
               : ((Br = n),
                 ((e = Bn.getPooled(Wr.select, Ur, e, t)).type = 'select'),
                 (e.target = zr),
-                In(e),
+                Cn(e),
                 e));
       }
       var Vr = {
@@ -20158,7 +20158,7 @@
           deltaMode: null,
         }),
         ia = {
-          eventTypes: It,
+          eventTypes: Ct,
           extractEvents: function (e, t, n, r) {
             var a = Nt.get(e);
             if (!a) return null;
@@ -20233,7 +20233,7 @@
               default:
                 e = Bn;
             }
-            return In((t = e.getPooled(a, t, n, r))), t;
+            return Cn((t = e.getPooled(a, t, n, r))), t;
           },
         };
       if (M) throw Error(s(101));
@@ -20248,7 +20248,7 @@
         (p = xn),
         D({
           SimpleEventPlugin: ia,
-          EnterLeaveEventPlugin: Cr,
+          EnterLeaveEventPlugin: Ir,
           ChangeEventPlugin: Yr,
           SelectEventPlugin: Vr,
           BeforeInputEventPlugin: or,
@@ -20263,8 +20263,8 @@
       }
       var da = {},
         ca = { current: da },
-        _a = { current: !1 },
-        ma = da;
+        ma = { current: !1 },
+        _a = da;
       function fa(e, t) {
         var n = e.type.contextTypes;
         if (!n) return da;
@@ -20285,11 +20285,11 @@
         return null != (e = e.childContextTypes);
       }
       function pa() {
-        ua(_a), ua(ca);
+        ua(ma), ua(ca);
       }
       function ya(e, t, n) {
         if (ca.current !== da) throw Error(s(168));
-        la(ca, t), la(_a, n);
+        la(ca, t), la(ma, n);
       }
       function Ma(e, t, n) {
         var r = e.stateNode;
@@ -20301,9 +20301,9 @@
       function va(e) {
         return (
           (e = ((e = e.stateNode) && e.__reactInternalMemoizedMergedChildContext) || da),
-          (ma = ca.current),
+          (_a = ca.current),
           la(ca, e),
-          la(_a, _a.current),
+          la(ma, ma.current),
           !0
         );
       }
@@ -20311,13 +20311,13 @@
         var r = e.stateNode;
         if (!r) throw Error(s(169));
         n
-          ? ((e = Ma(e, t, ma)),
+          ? ((e = Ma(e, t, _a)),
             (r.__reactInternalMemoizedMergedChildContext = e),
-            ua(_a),
+            ua(ma),
             ua(ca),
             la(ca, e))
-          : ua(_a),
-          la(_a, n);
+          : ua(ma),
+          la(ma, n);
       }
       var ga = i.unstable_runWithPriority,
         ka = i.unstable_scheduleCallback,
@@ -20334,8 +20334,8 @@
         Ha = i.unstable_shouldYield,
         Pa = void 0 !== Ya ? Ya : function () {},
         Aa = null,
-        Ca = null,
-        Ia = !1,
+        Ia = null,
+        Ca = !1,
         Na = Ta(),
         Fa =
           1e4 > Na
@@ -20382,18 +20382,18 @@
         return (e = Wa(e)), ka(e, t, n);
       }
       function Ba(e) {
-        return null === Aa ? ((Aa = [e]), (Ca = ka(wa, qa))) : Aa.push(e), ja;
+        return null === Aa ? ((Aa = [e]), (Ia = ka(wa, qa))) : Aa.push(e), ja;
       }
       function Ka() {
-        if (null !== Ca) {
-          var e = Ca;
-          (Ca = null), ba(e);
+        if (null !== Ia) {
+          var e = Ia;
+          (Ia = null), ba(e);
         }
         qa();
       }
       function qa() {
-        if (!Ia && null !== Aa) {
-          Ia = !0;
+        if (!Ca && null !== Aa) {
+          Ca = !0;
           var e = 0;
           try {
             var t = Aa;
@@ -20409,7 +20409,7 @@
           } catch (t) {
             throw (null !== Aa && (Aa = Aa.slice(e + 1)), ka(wa, Ka), t);
           } finally {
-            Ia = !1;
+            Ca = !1;
           }
         }
       }
@@ -20525,8 +20525,8 @@
           var l = i.baseState,
             d = 0,
             c = null,
-            _ = null,
-            m = null;
+            m = null,
+            _ = null;
           if (null !== u)
             for (var f = u; ; ) {
               if ((o = f.expirationTime) < r) {
@@ -20538,10 +20538,10 @@
                   callback: f.callback,
                   next: null,
                 };
-                null === m ? ((_ = m = h), (c = l)) : (m = m.next = h), o > d && (d = o);
+                null === _ ? ((m = _ = h), (c = l)) : (_ = _.next = h), o > d && (d = o);
               } else {
-                null !== m &&
-                  (m = m.next =
+                null !== _ &&
+                  (_ = _.next =
                     {
                       expirationTime: 1073741823,
                       suspenseConfig: f.suspenseConfig,
@@ -20584,9 +20584,9 @@
                   (i.shared.pending = null);
               }
             }
-          null === m ? (c = l) : (m.next = _),
+          null === _ ? (c = l) : (_.next = m),
             (i.baseState = c),
-            (i.baseQueue = m),
+            (i.baseQueue = _),
             su(d),
             (e.expirationTime = d),
             (e.memoizedState = l);
@@ -20604,8 +20604,8 @@
             }
           }
       }
-      var _i = G.ReactCurrentBatchConfig,
-        mi = new r.Component().refs;
+      var mi = G.ReactCurrentBatchConfig,
+        _i = new r.Component().refs;
       function fi(e, t, n, r) {
         (n = null == (n = n(r, (t = e.memoizedState))) ? t : a({}, t, n)),
           (e.memoizedState = n),
@@ -20618,7 +20618,7 @@
         enqueueSetState: function (e, t, n) {
           e = e._reactInternalFiber;
           var r = qo(),
-            a = _i.suspense;
+            a = mi.suspense;
           ((a = oi((r = Vo(r, e, a)), a)).payload = t),
             null != n && (a.callback = n),
             ui(e, a),
@@ -20627,7 +20627,7 @@
         enqueueReplaceState: function (e, t, n) {
           e = e._reactInternalFiber;
           var r = qo(),
-            a = _i.suspense;
+            a = mi.suspense;
           ((a = oi((r = Vo(r, e, a)), a)).tag = 1),
             (a.payload = t),
             null != n && (a.callback = n),
@@ -20637,7 +20637,7 @@
         enqueueForceUpdate: function (e, t) {
           e = e._reactInternalFiber;
           var n = qo(),
-            r = _i.suspense;
+            r = mi.suspense;
           ((r = oi((n = Vo(n, e, r)), r)).tag = 2),
             null != t && (r.callback = t),
             ui(e, r),
@@ -20656,7 +20656,7 @@
         return (
           'object' == typeof i && null !== i
             ? (i = ri(i))
-            : ((a = ha(t) ? ma : ca.current),
+            : ((a = ha(t) ? _a : ca.current),
               (i = (r = null != (r = t.contextTypes)) ? fa(e, a) : da)),
           (t = new t(n, i)),
           (e.memoizedState = null !== t.state && void 0 !== t.state ? t.state : null),
@@ -20678,11 +20678,11 @@
       }
       function vi(e, t, n, r) {
         var a = e.stateNode;
-        (a.props = n), (a.state = e.memoizedState), (a.refs = mi), ii(e);
+        (a.props = n), (a.state = e.memoizedState), (a.refs = _i), ii(e);
         var i = t.contextType;
         'object' == typeof i && null !== i
           ? (a.context = ri(i))
-          : ((i = ha(t) ? ma : ca.current), (a.context = fa(e, i))),
+          : ((i = ha(t) ? _a : ca.current), (a.context = fa(e, i))),
           di(e, n, a, r),
           (a.state = e.memoizedState),
           'function' == typeof (i = t.getDerivedStateFromProps) &&
@@ -20716,7 +20716,7 @@
               ? t.ref
               : (((t = function (e) {
                   var t = r.refs;
-                  t === mi && (t = r.refs = {}), null === e ? delete t[a] : (t[a] = e);
+                  t === _i && (t = r.refs = {}), null === e ? delete t[a] : (t[a] = e);
                 })._stringRef = a),
                 t);
           }
@@ -20801,7 +20801,7 @@
             ? (((t = Su(n, e.mode, r, i)).return = e), t)
             : (((t = a(t, n)).return = e), t);
         }
-        function _(e, t, n) {
+        function m(e, t, n) {
           if ('string' == typeof t || 'number' == typeof t)
             return ((t = xu('' + t, e.mode, n)).return = e), t;
           if ('object' == typeof t && null !== t) {
@@ -20820,7 +20820,7 @@
           }
           return null;
         }
-        function m(e, t, n, r) {
+        function _(e, t, n, r) {
           var a = null !== t ? t.key : null;
           if ('string' == typeof n || 'number' == typeof n)
             return null !== a ? null : u(e, t, '' + n, r);
@@ -20865,7 +20865,7 @@
             h++
           ) {
             c.index > h ? ((p = c), (c = null)) : (p = c.sibling);
-            var y = m(a, c, o[h], u);
+            var y = _(a, c, o[h], u);
             if (null === y) {
               null === c && (c = p);
               break;
@@ -20879,7 +20879,7 @@
           if (h === o.length) return n(a, c), l;
           if (null === c) {
             for (; h < o.length; h++)
-              null !== (c = _(a, o[h], u)) &&
+              null !== (c = m(a, o[h], u)) &&
                 ((s = i(c, s, h)), null === d ? (l = c) : (d.sibling = c), (d = c));
             return l;
           }
@@ -20907,7 +20907,7 @@
             p++, M = u.next()
           ) {
             h.index > p ? ((y = h), (h = null)) : (y = h.sibling);
-            var v = m(a, h, M.value, l);
+            var v = _(a, h, M.value, l);
             if (null === v) {
               null === h && (h = y);
               break;
@@ -20921,7 +20921,7 @@
           if (M.done) return n(a, h), d;
           if (null === h) {
             for (; !M.done; p++, M = u.next())
-              null !== (M = _(a, M.value, l)) &&
+              null !== (M = m(a, M.value, l)) &&
                 ((o = i(M, o, p)), null === c ? (d = M) : (c.sibling = M), (c = M));
             return d;
           }
@@ -21031,10 +21031,10 @@
         switch ((la(xi, t), la(Si, e), la(wi, Di), (e = t.nodeType))) {
           case 9:
           case 11:
-            t = (t = t.documentElement) ? t.namespaceURI : Ie(null, '');
+            t = (t = t.documentElement) ? t.namespaceURI : Ce(null, '');
             break;
           default:
-            t = Ie((t = (e = 8 === e ? t.parentNode : t).namespaceURI || null), (e = e.tagName));
+            t = Ce((t = (e = 8 === e ? t.parentNode : t).namespaceURI || null), (e = e.tagName));
         }
         ua(wi), la(wi, t);
       }
@@ -21044,14 +21044,14 @@
       function Hi(e) {
         Ei(xi.current);
         var t = Ei(wi.current),
-          n = Ie(t, e.type);
+          n = Ce(t, e.type);
         t !== n && (la(Si, e), la(wi, n));
       }
       function Pi(e) {
         Si.current === e && (ua(wi), ua(Si));
       }
       var Ai = { current: 0 };
-      function Ci(e) {
+      function Ii(e) {
         for (var t = e; null !== t; ) {
           if (13 === t.tag) {
             var n = t.memoizedState;
@@ -21072,7 +21072,7 @@
         }
         return null;
       }
-      function Ii(e, t) {
+      function Ci(e, t) {
         return { responder: e, props: t };
       }
       var Ni = G.ReactCurrentDispatcher,
@@ -21087,7 +21087,7 @@
       }
       function qi(e, t) {
         if (null === t) return !1;
-        for (var n = 0; n < t.length && n < e.length; n++) if (!Ir(e[n], t[n])) return !1;
+        for (var n = 0; n < t.length && n < e.length; n++) if (!Cr(e[n], t[n])) return !1;
         return !0;
       }
       function Vi(e, t, n, r, a, i) {
@@ -21193,7 +21193,7 @@
             l = l.next;
           } while (null !== l && l !== a);
           null === u ? (i = r) : (u.next = o),
-            Ir(r, t.memoizedState) || (xs = !0),
+            Cr(r, t.memoizedState) || (xs = !0),
             (t.memoizedState = r),
             (t.baseState = i),
             (t.baseQueue = u),
@@ -21215,7 +21215,7 @@
           do {
             (i = e(i, o.action)), (o = o.next);
           } while (o !== a);
-          Ir(i, t.memoizedState) || (xs = !0),
+          Cr(i, t.memoizedState) || (xs = !0),
             (t.memoizedState = i),
             null === t.baseQueue && (t.baseState = i),
             (n.lastRenderedState = i);
@@ -21303,7 +21303,7 @@
         var r = n.memoizedState;
         return null !== r && null !== t && qi(t, r[1]) ? r[0] : ((n.memoizedState = [e, t]), e);
       }
-      function _s(e, t) {
+      function ms(e, t) {
         var n = Ji();
         t = void 0 === t ? null : t;
         var r = n.memoizedState;
@@ -21311,7 +21311,7 @@
           ? r[0]
           : ((e = e()), (n.memoizedState = [e, t]), e);
       }
-      function ms(e, t, n) {
+      function _s(e, t, n) {
         var r = Ra();
         za(98 > r ? 98 : r, function () {
           e(!0);
@@ -21328,7 +21328,7 @@
       }
       function fs(e, t, n) {
         var r = qo(),
-          a = _i.suspense;
+          a = mi.suspense;
         a = {
           expirationTime: (r = Vo(r, e, a)),
           suspenseConfig: a,
@@ -21354,7 +21354,7 @@
             try {
               var s = t.lastRenderedState,
                 o = i(s, n);
-              if (((a.eagerReducer = i), (a.eagerState = o), Ir(o, s))) return;
+              if (((a.eagerReducer = i), (a.eagerState = o), Cr(o, s))) return;
             } catch (e) {}
           Qo(e, r);
         }
@@ -21411,7 +21411,7 @@
           },
           useState: Xi,
           useDebugValue: ls,
-          useResponder: Ii,
+          useResponder: Ci,
           useDeferredValue: function (e, t) {
             var n = Xi(e),
               r = n[0],
@@ -21435,7 +21435,7 @@
           useTransition: function (e) {
             var t = Xi(!1),
               n = t[0];
-            return (t = t[1]), [ds(ms.bind(null, t, e), [t, e]), n];
+            return (t = t[1]), [ds(_s.bind(null, t, e), [t, e]), n];
           },
         },
         ys = {
@@ -21445,14 +21445,14 @@
           useEffect: is,
           useImperativeHandle: us,
           useLayoutEffect: ss,
-          useMemo: _s,
+          useMemo: ms,
           useReducer: $i,
           useRef: ts,
           useState: function () {
             return $i(Gi);
           },
           useDebugValue: ls,
-          useResponder: Ii,
+          useResponder: Ci,
           useDeferredValue: function (e, t) {
             var n = $i(Gi),
               r = n[0],
@@ -21476,7 +21476,7 @@
           useTransition: function (e) {
             var t = $i(Gi),
               n = t[0];
-            return (t = t[1]), [cs(ms.bind(null, t, e), [t, e]), n];
+            return (t = t[1]), [cs(_s.bind(null, t, e), [t, e]), n];
           },
         },
         Ms = {
@@ -21486,14 +21486,14 @@
           useEffect: is,
           useImperativeHandle: us,
           useLayoutEffect: ss,
-          useMemo: _s,
+          useMemo: ms,
           useReducer: Zi,
           useRef: ts,
           useState: function () {
             return Zi(Gi);
           },
           useDebugValue: ls,
-          useResponder: Ii,
+          useResponder: Ci,
           useDeferredValue: function (e, t) {
             var n = Zi(Gi),
               r = n[0],
@@ -21517,7 +21517,7 @@
           useTransition: function (e) {
             var t = Zi(Gi),
               n = t[0];
-            return (t = t[1]), [cs(ms.bind(null, t, e), [t, e]), n];
+            return (t = t[1]), [cs(_s.bind(null, t, e), [t, e]), n];
           },
         },
         vs = null,
@@ -21651,7 +21651,7 @@
         ((null === e && null !== n) || (null !== e && e.ref !== n)) && (t.effectTag |= 128);
       }
       function As(e, t, n, r, a) {
-        var i = ha(n) ? ma : ca.current;
+        var i = ha(n) ? _a : ca.current;
         return (
           (i = fa(t, i)),
           ni(t, a),
@@ -21664,7 +21664,7 @@
               Vs(e, t, a))
         );
       }
-      function Cs(e, t, n, r, a) {
+      function Is(e, t, n, r, a) {
         if (ha(n)) {
           var i = !0;
           va(t);
@@ -21682,7 +21682,7 @@
             l = n.contextType;
           'object' == typeof l && null !== l
             ? (l = ri(l))
-            : (l = fa(t, (l = ha(n) ? ma : ca.current)));
+            : (l = fa(t, (l = ha(n) ? _a : ca.current)));
           var d = n.getDerivedStateFromProps,
             c = 'function' == typeof d || 'function' == typeof s.getSnapshotBeforeUpdate;
           c ||
@@ -21690,13 +21690,13 @@
               'function' != typeof s.componentWillReceiveProps) ||
             ((o !== r || u !== l) && Mi(t, s, r, l)),
             (ai = !1);
-          var _ = t.memoizedState;
-          (s.state = _),
+          var m = t.memoizedState;
+          (s.state = m),
             di(t, r, s, a),
             (u = t.memoizedState),
-            o !== r || _ !== u || _a.current || ai
+            o !== r || m !== u || ma.current || ai
               ? ('function' == typeof d && (fi(t, n, d, r), (u = t.memoizedState)),
-                (o = ai || pi(t, n, o, r, _, u, l))
+                (o = ai || pi(t, n, o, r, m, u, l))
                   ? (c ||
                       ('function' != typeof s.UNSAFE_componentWillMount &&
                         'function' != typeof s.componentWillMount) ||
@@ -21720,7 +21720,7 @@
             (u = s.context),
             'object' == typeof (l = n.contextType) && null !== l
               ? (l = ri(l))
-              : (l = fa(t, (l = ha(n) ? ma : ca.current))),
+              : (l = fa(t, (l = ha(n) ? _a : ca.current))),
             (c =
               'function' == typeof (d = n.getDerivedStateFromProps) ||
               'function' == typeof s.getSnapshotBeforeUpdate) ||
@@ -21731,16 +21731,16 @@
             (u = t.memoizedState),
             (s.state = u),
             di(t, r, s, a),
-            (_ = t.memoizedState),
-            o !== r || u !== _ || _a.current || ai
-              ? ('function' == typeof d && (fi(t, n, d, r), (_ = t.memoizedState)),
-                (d = ai || pi(t, n, o, r, u, _, l))
+            (m = t.memoizedState),
+            o !== r || u !== m || ma.current || ai
+              ? ('function' == typeof d && (fi(t, n, d, r), (m = t.memoizedState)),
+                (d = ai || pi(t, n, o, r, u, m, l))
                   ? (c ||
                       ('function' != typeof s.UNSAFE_componentWillUpdate &&
                         'function' != typeof s.componentWillUpdate) ||
-                      ('function' == typeof s.componentWillUpdate && s.componentWillUpdate(r, _, l),
+                      ('function' == typeof s.componentWillUpdate && s.componentWillUpdate(r, m, l),
                       'function' == typeof s.UNSAFE_componentWillUpdate &&
-                        s.UNSAFE_componentWillUpdate(r, _, l)),
+                        s.UNSAFE_componentWillUpdate(r, m, l)),
                     'function' == typeof s.componentDidUpdate && (t.effectTag |= 4),
                     'function' == typeof s.getSnapshotBeforeUpdate && (t.effectTag |= 256))
                   : ('function' != typeof s.componentDidUpdate ||
@@ -21750,9 +21750,9 @@
                       (o === e.memoizedProps && u === e.memoizedState) ||
                       (t.effectTag |= 256),
                     (t.memoizedProps = r),
-                    (t.memoizedState = _)),
+                    (t.memoizedState = m)),
                 (s.props = r),
-                (s.state = _),
+                (s.state = m),
                 (s.context = l),
                 (r = d))
               : ('function' != typeof s.componentDidUpdate ||
@@ -21762,9 +21762,9 @@
                   (o === e.memoizedProps && u === e.memoizedState) ||
                   (t.effectTag |= 256),
                 (r = !1));
-        return Is(e, t, n, r, i, a);
+        return Cs(e, t, n, r, i, a);
       }
-      function Is(e, t, n, r, a, i) {
+      function Cs(e, t, n, r, a, i) {
         Ps(e, t);
         var s = 0 != (64 & t.effectTag);
         if (!r && !s) return a && La(t, n, !1), Vs(e, t, i);
@@ -21925,7 +21925,7 @@
           switch (a) {
             case 'forwards':
               for (n = t.child, a = null; null !== n; )
-                null !== (e = n.alternate) && null === Ci(e) && (a = n), (n = n.sibling);
+                null !== (e = n.alternate) && null === Ii(e) && (a = n), (n = n.sibling);
               null === (n = a)
                 ? ((a = t.child), (t.child = null))
                 : ((a = n.sibling), (n.sibling = null)),
@@ -21933,7 +21933,7 @@
               break;
             case 'backwards':
               for (n = null, a = t.child, t.child = null; null !== a; ) {
-                if (null !== (e = a.alternate) && null === Ci(e)) {
+                if (null !== (e = a.alternate) && null === Ii(e)) {
                   t.child = a;
                   break;
                 }
@@ -22001,7 +22001,7 @@
           case 3:
             return (
               ji(),
-              ua(_a),
+              ua(ma),
               ua(ca),
               (n = t.stateNode).pendingContext &&
                 ((n.context = n.pendingContext), (n.pendingContext = null)),
@@ -22084,7 +22084,7 @@
               } else {
                 switch (
                   ((u = 9 === n.nodeType ? n : n.ownerDocument),
-                  e === on && (e = Ce(i)),
+                  e === on && (e = Ie(i)),
                   e === on
                     ? 'script' === i
                       ? (((e = u.createElement('div')).innerHTML = '<script></script>'),
@@ -22242,7 +22242,7 @@
               if (i) Qs(r, !1);
               else if (wo !== Lo || (null !== e && 0 != (64 & e.effectTag)))
                 for (o = t.child; null !== o; ) {
-                  if (null !== (e = Ci(o))) {
+                  if (null !== (e = Ii(o))) {
                     for (
                       t.effectTag |= 64,
                         Qs(r, !1),
@@ -22288,7 +22288,7 @@
                 }
             } else {
               if (!i)
-                if (null !== (e = Ci(o))) {
+                if (null !== (e = Ii(o))) {
                   if (
                     ((t.effectTag |= 64),
                     (i = !0),
@@ -22332,7 +22332,7 @@
             var t = e.effectTag;
             return 4096 & t ? ((e.effectTag = (-4097 & t) | 64), e) : null;
           case 3:
-            if ((ji(), ua(_a), ua(ca), 0 != (64 & (t = e.effectTag)))) throw Error(s(285));
+            if ((ji(), ua(ma), ua(ca), 0 != (64 & (t = e.effectTag)))) throw Error(s(285));
             return (e.effectTag = (-4097 & t) | 64), e;
           case 5:
             return Pi(e), null;
@@ -22557,7 +22557,7 @@
               null === n.memoizedState &&
               ((n = n.alternate),
               null !== n &&
-                ((n = n.memoizedState), null !== n && ((n = n.dehydrated), null !== n && Ct(n))))
+                ((n = n.memoizedState), null !== n && ((n = n.dehydrated), null !== n && It(n))))
             );
           case 19:
           case 17:
@@ -22819,7 +22819,7 @@
             if (null === t.stateNode) throw Error(s(162));
             return void (t.stateNode.nodeValue = t.memoizedProps);
           case 3:
-            return void ((t = t.stateNode).hydrate && ((t.hydrate = !1), Ct(t.containerInfo)));
+            return void ((t = t.stateNode).hydrate && ((t.hydrate = !1), It(t.containerInfo)));
           case 12:
             return;
           case 13:
@@ -22863,15 +22863,15 @@
                 }
                 (e.sibling.return = e.return), (e = e.sibling);
               }
-            return void _o(t);
+            return void mo(t);
           case 19:
-            return void _o(t);
+            return void mo(t);
           case 17:
             return;
         }
         throw Error(s(163));
       }
-      function _o(e) {
+      function mo(e) {
         var t = e.updateQueue;
         if (null !== t) {
           e.updateQueue = null;
@@ -22883,13 +22883,13 @@
             });
         }
       }
-      var mo = 'function' == typeof WeakMap ? WeakMap : Map;
+      var _o = 'function' == typeof WeakMap ? WeakMap : Map;
       function fo(e, t, n) {
         ((n = oi(n, null)).tag = 3), (n.payload = { element: null });
         var r = t.value;
         return (
           (n.callback = function () {
-            Co || ((Co = !0), (Io = r)), Xs(e, t);
+            Io || ((Io = !0), (Co = r)), Xs(e, t);
           }),
           n
         );
@@ -22936,8 +22936,8 @@
         Ho = !1,
         Po = 0,
         Ao = null,
-        Co = !1,
-        Io = null,
+        Io = !1,
+        Co = null,
         No = null,
         Fo = !1,
         Ro = null,
@@ -23115,10 +23115,10 @@
                       e.lastPingedTime = r;
                       break;
                     }
-                    e.timeoutHandle = vn(_u.bind(null, e), a);
+                    e.timeoutHandle = vn(mu.bind(null, e), a);
                     break;
                   }
-                  _u(e);
+                  mu(e);
                   break;
                 case ko:
                   if (
@@ -23158,10 +23158,10 @@
                               : 1960 * yo(r / 1960)) - r) && (r = n)),
                     10 < r)
                   ) {
-                    e.timeoutHandle = vn(_u.bind(null, e), r);
+                    e.timeoutHandle = vn(mu.bind(null, e), r);
                     break;
                   }
-                  _u(e);
+                  mu(e);
                   break;
                 case 5:
                   if (1073741823 !== xo && null !== Oo) {
@@ -23177,11 +23177,11 @@
                               : a + r - i)),
                       10 < r)
                     ) {
-                      Hu(e, n), (e.timeoutHandle = vn(_u.bind(null, e), r));
+                      Hu(e, n), (e.timeoutHandle = vn(mu.bind(null, e), r));
                       break;
                     }
                   }
-                  _u(e);
+                  mu(e);
                   break;
                 default:
                   throw Error(s(329));
@@ -23210,7 +23210,7 @@
           (e.finishedWork = e.current.alternate),
             (e.finishedExpirationTime = t),
             (Yo = null),
-            _u(e),
+            mu(e),
             $o(e);
         }
         return null;
@@ -23244,7 +23244,7 @@
                 null != (r = r.type.childContextTypes) && pa();
                 break;
               case 3:
-                ji(), ua(_a), ua(ca);
+                ji(), ua(ma), ua(ca);
                 break;
               case 5:
                 Pi(r);
@@ -23304,16 +23304,16 @@
                 var d = 0 != (1 & Ai.current),
                   c = i;
                 do {
-                  var _;
-                  if ((_ = 13 === c.tag)) {
-                    var m = c.memoizedState;
-                    if (null !== m) _ = null !== m.dehydrated;
+                  var m;
+                  if ((m = 13 === c.tag)) {
+                    var _ = c.memoizedState;
+                    if (null !== _) m = null !== _.dehydrated;
                     else {
                       var f = c.memoizedProps;
-                      _ = void 0 !== f.fallback && (!0 !== f.unstable_avoidThisFallback || !d);
+                      m = void 0 !== f.fallback && (!0 !== f.unstable_avoidThisFallback || !d);
                     }
                   }
-                  if (_) {
+                  if (m) {
                     var h = c.updateQueue;
                     if (null === h) {
                       var p = new Set();
@@ -23333,7 +23333,7 @@
                     var M = a.pingCache;
                     if (
                       (null === M
-                        ? ((M = a.pingCache = new mo()), (o = new Set()), M.set(u, o))
+                        ? ((M = a.pingCache = new _o()), (o = new Set()), M.set(u, o))
                         : void 0 === (o = M.get(u)) && ((o = new Set()), M.set(u, o)),
                       !o.has(s))
                     ) {
@@ -23442,11 +23442,11 @@
         var t = e.expirationTime;
         return t > (e = e.childExpirationTime) ? t : e;
       }
-      function _u(e) {
+      function mu(e) {
         var t = Ra();
-        return za(99, mu.bind(null, e, t)), null;
+        return za(99, _u.bind(null, e, t)), null;
       }
-      function mu(e, t) {
+      function _u(e, t) {
         do {
           hu();
         } while (null !== Ro);
@@ -23478,7 +23478,7 @@
         ) {
           var i = bo;
           (bo |= 32), (vo.current = null), (hn = qt);
-          var o = mn();
+          var o = _n();
           if (fn(o)) {
             if ('selectionStart' in o) var u = { start: o.selectionStart, end: o.selectionEnd };
             else
@@ -23497,8 +23497,8 @@
                     u = null;
                     break e;
                   }
-                  var _ = 0,
-                    m = -1,
+                  var m = 0,
+                    _ = -1,
                     f = -1,
                     h = 0,
                     p = 0,
@@ -23507,9 +23507,9 @@
                   t: for (;;) {
                     for (
                       var v;
-                      y !== u || (0 !== d && 3 !== y.nodeType) || (m = _ + d),
-                        y !== c || (0 !== l && 3 !== y.nodeType) || (f = _ + l),
-                        3 === y.nodeType && (_ += y.nodeValue.length),
+                      y !== u || (0 !== d && 3 !== y.nodeType) || (_ = m + d),
+                        y !== c || (0 !== l && 3 !== y.nodeType) || (f = m + l),
+                        3 === y.nodeType && (m += y.nodeValue.length),
                         null !== (v = y.firstChild);
 
                     )
@@ -23517,8 +23517,8 @@
                     for (;;) {
                       if (y === o) break t;
                       if (
-                        (M === u && ++h === d && (m = _),
-                        M === c && ++p === l && (f = _),
+                        (M === u && ++h === d && (_ = m),
+                        M === c && ++p === l && (f = m),
                         null !== (v = y.nextSibling))
                       )
                         break;
@@ -23526,7 +23526,7 @@
                     }
                     y = v;
                   }
-                  u = -1 === m || -1 === f ? null : { start: m, end: f };
+                  u = -1 === _ || -1 === f ? null : { start: _, end: f };
                 } else u = null;
               }
             u = u || { start: 0, end: 0 };
@@ -23582,7 +23582,7 @@
           } while (null !== Ao);
           if (
             ((k = pn),
-            (g = mn()),
+            (g = _n()),
             (L = k.focusedElem),
             (u = k.selectionRange),
             g !== L &&
@@ -23614,8 +23614,8 @@
                   (o = Math.min(u.start, d)),
                   (u = void 0 === u.end ? o : Math.min(u.end, d)),
                   !k.extend && o > u && ((d = u), (u = o), (o = d)),
-                  (d = _n(L, o)),
-                  (c = _n(L, u)),
+                  (d = mn(L, o)),
+                  (c = mn(L, u)),
                   d &&
                     c &&
                     (1 !== k.rangeCount ||
@@ -23670,9 +23670,9 @@
           1073741823 === t ? (e === Bo ? Uo++ : ((Uo = 0), (Bo = e))) : (Uo = 0),
           'function' == typeof gu && gu(n.stateNode, r),
           $o(e),
-          Co)
+          Io)
         )
-          throw ((Co = !1), (e = Io), (Io = null), e);
+          throw ((Io = !1), (e = Co), (Co = null), e);
         return 0 != (8 & bo) || Ka(), null;
       }
       function fu() {
@@ -23763,7 +23763,7 @@
         var r = t.expirationTime;
         if (null !== e) {
           var a = t.pendingProps;
-          if (e.memoizedProps !== a || _a.current) xs = !0;
+          if (e.memoizedProps !== a || ma.current) xs = !0;
           else {
             if (r < n) {
               switch (((xs = !1), t.tag)) {
@@ -23836,7 +23836,7 @@
                 (t.stateNode = a),
                 (a._reactInternalFiber = t),
                 vi(t, r, e, n),
-                (t = Is(null, t, r, !0, i, n));
+                (t = Cs(null, t, r, !0, i, n));
             } else (t.tag = 0), Es(null, t, a, n), (t = t.child);
             return t;
           case 16:
@@ -23883,7 +23883,7 @@
                   t = As(null, t, a, e, n);
                   break e;
                 case 1:
-                  t = Cs(null, t, a, e, n);
+                  t = Is(null, t, a, e, n);
                   break e;
                 case 11:
                   t = Os(null, t, a, e, n);
@@ -23905,7 +23905,7 @@
             return (
               (r = t.type),
               (a = t.pendingProps),
-              Cs(e, t, r, (a = t.elementType === r ? a : Qa(r, a)), n)
+              Is(e, t, r, (a = t.elementType === r ? a : Qa(r, a)), n)
             );
           case 3:
             if ((Ns(t), (r = t.updateQueue), null === e || null === r)) throw Error(s(282));
@@ -23974,14 +23974,14 @@
                 if (
                   ((u = o.value),
                   0 ===
-                    (i = Ir(u, i)
+                    (i = Cr(u, i)
                       ? 0
                       : 0 |
                         ('function' == typeof r._calculateChangedBits
                           ? r._calculateChangedBits(u, i)
                           : 1073741823)))
                 ) {
-                  if (o.children === a.children && !_a.current) {
+                  if (o.children === a.children && !ma.current) {
                     t = Vs(e, t, n);
                     break e;
                   }
@@ -24047,7 +24047,7 @@
               ni(t, n),
               yi(t, r, a),
               vi(t, r, a, n),
-              Is(null, t, r, !0, e, n)
+              Cs(null, t, r, !0, e, n)
             );
           case 19:
             return qs(e, t, n);
@@ -24159,10 +24159,10 @@
                   case ce:
                     o = 14;
                     break e;
-                  case _e:
+                  case me:
                     (o = 16), (r = null);
                     break e;
-                  case me:
+                  case _e:
                     o = 22;
                     break e;
                 }
@@ -24232,10 +24232,10 @@
         var n = e.lastExpiredTime;
         (0 === n || n > t) && (e.lastExpiredTime = t);
       }
-      function Cu(e, t, n, r) {
+      function Iu(e, t, n, r) {
         var a = t.current,
           i = qo(),
-          o = _i.suspense;
+          o = mi.suspense;
         i = Vo(i, a, o);
         e: if (n) {
           t: {
@@ -24274,7 +24274,7 @@
           i
         );
       }
-      function Iu(e) {
+      function Cu(e) {
         if (!(e = e.current).child) return null;
         switch (e.child.tag) {
           case 5:
@@ -24327,11 +24327,11 @@
           if ('function' == typeof a) {
             var o = a;
             a = function () {
-              var e = Iu(s);
+              var e = Cu(s);
               o.call(e);
             };
           }
-          Cu(t, s, e, a);
+          Iu(t, s, e, a);
         } else {
           if (
             ((i = n._reactRootContainer =
@@ -24353,15 +24353,15 @@
           ) {
             var u = a;
             a = function () {
-              var e = Iu(s);
+              var e = Cu(s);
               u.call(e);
             };
           }
           tu(function () {
-            Cu(t, s, e, a);
+            Iu(t, s, e, a);
           });
         }
-        return Iu(s);
+        return Cu(s);
       }
       function Uu(e, t, n) {
         var r = 3 < arguments.length && void 0 !== arguments[3] ? arguments[3] : null;
@@ -24379,12 +24379,12 @@
         return Uu(e, t, null, n);
       }
       (Ru.prototype.render = function (e) {
-        Cu(e, this._internalRoot, null, null);
+        Iu(e, this._internalRoot, null, null);
       }),
         (Ru.prototype.unmount = function () {
           var e = this._internalRoot,
             t = e.containerInfo;
-          Cu(null, e, null, function () {
+          Iu(null, e, null, function () {
             t[Dn] = null;
           });
         }),
@@ -24442,7 +24442,7 @@
             0 === (bo = i) && Ka();
           }
         }),
-        (C = function () {
+        (I = function () {
           0 == (49 & bo) &&
             ((function () {
               if (null !== zo) {
@@ -24456,7 +24456,7 @@
             })(),
             hu());
         }),
-        (I = function (e, t) {
+        (C = function (e, t) {
           var n = bo;
           bo |= 2;
           try {
@@ -24474,9 +24474,9 @@
             En,
             D,
             b,
-            In,
+            Cn,
             function (e) {
-              at(e, Cn);
+              at(e, In);
             },
             j,
             H,
@@ -24677,8 +24677,8 @@ object-assign
           }),
           (o = t.unstable_forceFrameRate = function () {});
       } else {
-        var _ = window.performance,
-          m = window.Date,
+        var m = window.performance,
+          _ = window.Date,
           f = window.setTimeout,
           h = window.clearTimeout;
         if ('undefined' != typeof console) {
@@ -24692,14 +24692,14 @@ object-assign
                 "This browser doesn't support cancelAnimationFrame. Make sure that you load a polyfill in older browsers. https://fb.me/react-polyfills",
               );
         }
-        if ('object' == typeof _ && 'function' == typeof _.now)
+        if ('object' == typeof m && 'function' == typeof m.now)
           t.unstable_now = function () {
-            return _.now();
+            return m.now();
           };
         else {
-          var y = m.now();
+          var y = _.now();
           t.unstable_now = function () {
-            return m.now() - y;
+            return _.now() - y;
           };
         }
         var M = !1,
@@ -24792,8 +24792,8 @@ object-assign
         H = 3,
         P = !1,
         A = !1,
-        C = !1;
-      function I(e) {
+        I = !1;
+      function C(e) {
         for (var t = D(E); null !== t; ) {
           if (null === t.callback) w(E);
           else {
@@ -24804,7 +24804,7 @@ object-assign
         }
       }
       function N(e) {
-        if (((C = !1), I(e), !A))
+        if (((I = !1), C(e), !A))
           if (null !== D(x)) (A = !0), r(F);
           else {
             var t = D(E);
@@ -24812,17 +24812,17 @@ object-assign
           }
       }
       function F(e, n) {
-        (A = !1), C && ((C = !1), i()), (P = !0);
+        (A = !1), I && ((I = !1), i()), (P = !0);
         var r = H;
         try {
-          for (I(n), j = D(x); null !== j && (!(j.expirationTime > n) || (e && !s())); ) {
+          for (C(n), j = D(x); null !== j && (!(j.expirationTime > n) || (e && !s())); ) {
             var o = j.callback;
             if (null !== o) {
               (j.callback = null), (H = j.priorityLevel);
               var u = o(j.expirationTime <= n);
               (n = t.unstable_now()),
                 'function' == typeof u ? (j.callback = u) : j === D(x) && w(x),
-                I(n);
+                C(n);
             } else w(x);
             j = D(x);
           }
@@ -24927,14 +24927,14 @@ object-assign
             u > o
               ? ((e.sortIndex = u),
                 T(E, e),
-                null === D(x) && e === D(E) && (C ? i() : (C = !0), a(N, u - o)))
+                null === D(x) && e === D(E) && (I ? i() : (I = !0), a(N, u - o)))
               : ((e.sortIndex = s), T(x, e), A || P || ((A = !0), r(F))),
             e
           );
         }),
         (t.unstable_shouldYield = function () {
           var e = t.unstable_now();
-          I(e);
+          C(e);
           var n = D(x);
           return (
             (n !== j &&
@@ -25023,9 +25023,9 @@ object-assign
               t
             );
           }
-          function _(e) {
+          function m(e) {
             (this.map = {}),
-              e instanceof _
+              e instanceof m
                 ? e.forEach(function (e, t) {
                     this.append(t, e);
                   }, this)
@@ -25038,7 +25038,7 @@ object-assign
                     this.append(t, e[t]);
                   }, this);
           }
-          function m(e) {
+          function _(e) {
             if (e.bodyUsed) return Promise.reject(new TypeError('Already read'));
             e.bodyUsed = !0;
           }
@@ -25098,7 +25098,7 @@ object-assign
               }),
               a &&
                 ((this.blob = function () {
-                  var e = m(this);
+                  var e = _(this);
                   if (e) return e;
                   if (this._bodyBlob) return Promise.resolve(this._bodyBlob);
                   if (this._bodyArrayBuffer)
@@ -25108,14 +25108,14 @@ object-assign
                 }),
                 (this.arrayBuffer = function () {
                   return this._bodyArrayBuffer
-                    ? m(this) || Promise.resolve(this._bodyArrayBuffer)
+                    ? _(this) || Promise.resolve(this._bodyArrayBuffer)
                     : this.blob().then(h);
                 })),
               (this.text = function () {
                 var e,
                   t,
                   n,
-                  r = m(this);
+                  r = _(this);
                 if (r) return r;
                 if (this._bodyBlob)
                   return (
@@ -25146,27 +25146,27 @@ object-assign
               this
             );
           }
-          (_.prototype.append = function (e, t) {
+          (m.prototype.append = function (e, t) {
             (e = l(e)), (t = d(t));
             var n = this.map[e];
             this.map[e] = n ? n + ', ' + t : t;
           }),
-            (_.prototype.delete = function (e) {
+            (m.prototype.delete = function (e) {
               delete this.map[l(e)];
             }),
-            (_.prototype.get = function (e) {
+            (m.prototype.get = function (e) {
               return (e = l(e)), this.has(e) ? this.map[e] : null;
             }),
-            (_.prototype.has = function (e) {
+            (m.prototype.has = function (e) {
               return this.map.hasOwnProperty(l(e));
             }),
-            (_.prototype.set = function (e, t) {
+            (m.prototype.set = function (e, t) {
               this.map[l(e)] = d(t);
             }),
-            (_.prototype.forEach = function (e, t) {
+            (m.prototype.forEach = function (e, t) {
               for (var n in this.map) this.map.hasOwnProperty(n) && e.call(t, this.map[n], n, this);
             }),
-            (_.prototype.keys = function () {
+            (m.prototype.keys = function () {
               var e = [];
               return (
                 this.forEach(function (t, n) {
@@ -25175,7 +25175,7 @@ object-assign
                 c(e)
               );
             }),
-            (_.prototype.values = function () {
+            (m.prototype.values = function () {
               var e = [];
               return (
                 this.forEach(function (t) {
@@ -25184,7 +25184,7 @@ object-assign
                 c(e)
               );
             }),
-            (_.prototype.entries = function () {
+            (m.prototype.entries = function () {
               var e = [];
               return (
                 this.forEach(function (t, n) {
@@ -25193,7 +25193,7 @@ object-assign
                 c(e)
               );
             }),
-            r && (_.prototype[Symbol.iterator] = _.prototype.entries);
+            r && (m.prototype[Symbol.iterator] = m.prototype.entries);
           var M = ['DELETE', 'GET', 'HEAD', 'OPTIONS', 'POST', 'PUT'];
           function v(e, t) {
             var n,
@@ -25203,7 +25203,7 @@ object-assign
               if (e.bodyUsed) throw new TypeError('Already read');
               (this.url = e.url),
                 (this.credentials = e.credentials),
-                t.headers || (this.headers = new _(e.headers)),
+                t.headers || (this.headers = new m(e.headers)),
                 (this.method = e.method),
                 (this.mode = e.mode),
                 (this.signal = e.signal),
@@ -25211,7 +25211,7 @@ object-assign
             } else this.url = String(e);
             if (
               ((this.credentials = t.credentials || this.credentials || 'same-origin'),
-              (!t.headers && this.headers) || (this.headers = new _(t.headers)),
+              (!t.headers && this.headers) || (this.headers = new m(t.headers)),
               (this.method =
                 ((n = t.method || this.method || 'GET'),
                 (r = n.toUpperCase()),
@@ -25247,7 +25247,7 @@ object-assign
               (this.status = void 0 === t.status ? 200 : t.status),
               (this.ok = this.status >= 200 && this.status < 300),
               (this.statusText = 'statusText' in t ? t.statusText : 'OK'),
-              (this.headers = new _(t.headers)),
+              (this.headers = new m(t.headers)),
               (this.url = t.url || ''),
               this._initBody(e);
           }
@@ -25260,7 +25260,7 @@ object-assign
               return new g(this._bodyInit, {
                 status: this.status,
                 statusText: this.statusText,
-                headers: new _(this.headers),
+                headers: new m(this.headers),
                 url: this.url,
               });
             }),
@@ -25302,7 +25302,7 @@ object-assign
                     statusText: o.statusText,
                     headers:
                       ((e = o.getAllResponseHeaders() || ''),
-                      (t = new _()),
+                      (t = new m()),
                       e
                         .replace(/\r?\n[\t ]+/g, ' ')
                         .split(/\r?\n/)
@@ -25346,8 +25346,8 @@ object-assign
             });
           }
           (b.polyfill = !0),
-            e.fetch || ((e.fetch = b), (e.Headers = _), (e.Request = v), (e.Response = g)),
-            (t.Headers = _),
+            e.fetch || ((e.fetch = b), (e.Headers = m), (e.Request = v), (e.Response = g)),
+            (t.Headers = m),
             (t.Request = v),
             (t.Response = g),
             (t.fetch = b),
@@ -26099,7 +26099,7 @@ object-assign
         expectToken(e) {
           const t = this._lexer.token;
           if (t.kind === e) return this._lexer.advance(), t;
-          throw (0, r.syntaxError)(this._lexer.source, t.start, `Expected ${_(e)}, found ${c(t)}.`);
+          throw (0, r.syntaxError)(this._lexer.source, t.start, `Expected ${m(e)}, found ${c(t)}.`);
         }
         expectOptionalToken(e) {
           return this._lexer.token.kind === e && (this._lexer.advance(), !0);
@@ -26157,9 +26157,9 @@ object-assign
       }
       function c(e) {
         const t = e.value;
-        return _(e.kind) + (null != t ? ` "${t}"` : '');
+        return m(e.kind) + (null != t ? ` "${t}"` : '');
       }
-      function _(e) {
+      function m(e) {
         return (0, o.isPunctuatorTokenKind)(e) ? `"${e}"` : e;
       }
       t.Parser = d;
@@ -26184,8 +26184,8 @@ object-assign
             nodes: l,
             source: d,
             positions: c,
-            path: _,
-            originalError: m,
+            path: m,
+            originalError: _,
             extensions: f,
           } = (function (e) {
             const t = e[0];
@@ -26202,8 +26202,8 @@ object-assign
           })(t);
           super(e),
             (this.name = 'GraphQLError'),
-            (this.path = null != _ ? _ : void 0),
-            (this.originalError = null != m ? m : void 0),
+            (this.path = null != m ? m : void 0),
+            (this.originalError = null != _ ? _ : void 0),
             (this.nodes = o(Array.isArray(l) ? l : l ? [l] : void 0));
           const h = o(
             null === (n = this.nodes) || void 0 === n
@@ -26219,10 +26219,10 @@ object-assign
                 : null == h
                 ? void 0
                 : h.map((e) => (0, a.getLocation)(e.source, e.start)));
-          const p = (0, r.isObjectLike)(null == m ? void 0 : m.extensions)
-            ? null == m
+          const p = (0, r.isObjectLike)(null == _ ? void 0 : _.extensions)
+            ? null == _
               ? void 0
-              : m.extensions
+              : _.extensions
             : void 0;
           (this.extensions =
             null !== (u = null != f ? f : p) && void 0 !== u ? u : Object.create(null)),
@@ -26234,9 +26234,9 @@ object-assign
               positions: { enumerable: !1 },
               originalError: { enumerable: !1 },
             }),
-            null != m && m.stack
+            null != _ && _.stack
               ? Object.defineProperty(this, 'stack', {
-                  value: m.stack,
+                  value: _.stack,
                   writable: !0,
                   configurable: !0,
                 })
@@ -26309,12 +26309,12 @@ object-assign
           l = t.column + u,
           d = `${e.name}:${o}:${l}\n`,
           c = r.split(/\r\n|[\n\r]/g),
-          _ = c[a];
-        if (_.length > 120) {
+          m = c[a];
+        if (m.length > 120) {
           const e = Math.floor(l / 80),
             t = l % 80,
             n = [];
-          for (let e = 0; e < _.length; e += 80) n.push(_.slice(e, e + 80));
+          for (let e = 0; e < m.length; e += 80) n.push(m.slice(e, e + 80));
           return (
             d +
             i([
@@ -26329,7 +26329,7 @@ object-assign
           d +
           i([
             [o - 1 + ' |', c[a - 1]],
-            [o + ' |', _],
+            [o + ' |', m],
             ['|', '^'.padStart(l)],
             [o + 1 + ' |', c[a + 1]],
           ])
@@ -26429,15 +26429,15 @@ object-assign
         return (e >= 0 && e <= 55295) || (e >= 57344 && e <= 1114111);
       }
       function d(e, t) {
-        return c(e.charCodeAt(t)) && _(e.charCodeAt(t + 1));
+        return c(e.charCodeAt(t)) && m(e.charCodeAt(t + 1));
       }
       function c(e) {
         return e >= 55296 && e <= 56319;
       }
-      function _(e) {
+      function m(e) {
         return e >= 56320 && e <= 57343;
       }
-      function m(e, t) {
+      function _(e, t) {
         const n = e.source.body.codePointAt(t);
         if (void 0 === n) return o.TokenKind.EOF;
         if (n >= 32 && n <= 126) {
@@ -26513,8 +26513,8 @@ object-assign
             39 === t
               ? 'Unexpected single quote character (\'), did you mean to use a double quote (")?'
               : l(t) || d(n, i)
-              ? `Unexpected character: ${m(e, i)}.`
-              : `Invalid character: ${m(e, i)}.`,
+              ? `Unexpected character: ${_(e, i)}.`
+              : `Invalid character: ${_(e, i)}.`,
           );
         }
         return f(e, o.TokenKind.EOF, a, a);
@@ -26544,7 +26544,7 @@ object-assign
             throw (0, r.syntaxError)(
               e.source,
               i,
-              `Invalid number, unexpected digit after 0: ${m(e, i)}.`,
+              `Invalid number, unexpected digit after 0: ${_(e, i)}.`,
             );
         } else (i = M(e, i, u)), (u = a.charCodeAt(i));
         if (
@@ -26560,7 +26560,7 @@ object-assign
           throw (0, r.syntaxError)(
             e.source,
             i,
-            `Invalid number, expected digit but got: ${m(e, i)}.`,
+            `Invalid number, expected digit but got: ${_(e, i)}.`,
           );
         return f(e, l ? o.TokenKind.FLOAT : o.TokenKind.INT, t, i, a.slice(t, i));
       }
@@ -26569,7 +26569,7 @@ object-assign
           throw (0, r.syntaxError)(
             e.source,
             t,
-            `Invalid number, expected digit but got: ${m(e, t)}.`,
+            `Invalid number, expected digit but got: ${_(e, t)}.`,
           );
         const a = e.source.body;
         let i = t + 1;
@@ -26593,7 +26593,7 @@ object-assign
                 throw (0, r.syntaxError)(
                   e.source,
                   i,
-                  `Invalid character within String: ${m(e, i)}.`,
+                  `Invalid character within String: ${_(e, i)}.`,
                 );
               i += 2;
             }
@@ -26634,7 +26634,7 @@ object-assign
         if (l(a)) return { value: String.fromCodePoint(a), size: 6 };
         if (c(a) && 92 === n.charCodeAt(t + 6) && 117 === n.charCodeAt(t + 7)) {
           const e = k(n, t + 8);
-          if (_(e)) return { value: String.fromCodePoint(a, e), size: 12 };
+          if (m(e)) return { value: String.fromCodePoint(a, e), size: 12 };
         }
         throw (0, r.syntaxError)(
           e.source,
@@ -26691,12 +26691,12 @@ object-assign
         let s = e.lineStart,
           u = t + 3,
           c = u,
-          _ = '';
+          m = '';
         const h = [];
         for (; u < a; ) {
           const a = n.charCodeAt(u);
           if (34 === a && 34 === n.charCodeAt(u + 1) && 34 === n.charCodeAt(u + 2)) {
-            (_ += n.slice(c, u)), h.push(_);
+            (m += n.slice(c, u)), h.push(m);
             const r = f(
               e,
               o.TokenKind.BLOCK_STRING,
@@ -26719,18 +26719,18 @@ object-assign
                   throw (0, r.syntaxError)(
                     e.source,
                     u,
-                    `Invalid character within String: ${m(e, u)}.`,
+                    `Invalid character within String: ${_(e, u)}.`,
                   );
                 u += 2;
               }
             else
-              (_ += n.slice(c, u)),
-                h.push(_),
+              (m += n.slice(c, u)),
+                h.push(m),
                 13 === a && 10 === n.charCodeAt(u + 1) ? (u += 2) : ++u,
-                (_ = ''),
+                (m = ''),
                 (c = u),
                 (s = u);
-          else (_ += n.slice(c, u)), (c = u + 1), (u += 4);
+          else (m += n.slice(c, u)), (c = u + 1), (u += 4);
         }
         throw (0, r.syntaxError)(e.source, u, 'Unterminated string.');
       }
@@ -27143,8 +27143,8 @@ object-assign
           for (const e of Object.values(s.Kind)) l.set(e, u(t, e));
           let d = void 0,
             c = Array.isArray(e),
-            _ = [e],
-            m = -1,
+            m = [e],
+            _ = -1,
             f = [],
             h = e,
             p = void 0,
@@ -27152,8 +27152,8 @@ object-assign
           const M = [],
             v = [];
           do {
-            m++;
-            const e = m === _.length,
+            _++;
+            const e = _ === m.length,
               s = e && 0 !== f.length;
             if (e) {
               if (((p = 0 === v.length ? void 0 : M[M.length - 1]), (h = y), (y = v.pop()), s))
@@ -27168,9 +27168,9 @@ object-assign
                   h = Object.defineProperties({}, Object.getOwnPropertyDescriptors(h));
                   for (const [e, t] of f) h[e] = t;
                 }
-              (m = d.index), (_ = d.keys), (f = d.edits), (c = d.inArray), (d = d.prev);
+              (_ = d.index), (m = d.keys), (f = d.edits), (c = d.inArray), (d = d.prev);
             } else if (y) {
-              if (((p = c ? m : _[m]), (h = y[p]), null == h)) continue;
+              if (((p = c ? _ : m[_]), (h = y[p]), null == h)) continue;
               M.push(p);
             }
             let u;
@@ -27201,10 +27201,10 @@ object-assign
             var k;
             if ((void 0 === u && s && f.push([p, h]), e)) M.pop();
             else
-              (d = { inArray: c, index: m, keys: _, edits: f, prev: d }),
+              (d = { inArray: c, index: _, keys: m, edits: f, prev: d }),
                 (c = Array.isArray(h)),
-                (_ = c ? h : null !== (k = n[h.kind]) && void 0 !== k ? k : []),
-                (m = -1),
+                (m = c ? h : null !== (k = n[h.kind]) && void 0 !== k ? k : []),
+                (_ = -1),
                 (f = []),
                 y && v.push(y),
                 (y = h);
@@ -27297,20 +27297,20 @@ object-assign
           }, []);
           return r.stringify(c);
         }
-        var _ = new ('undefined' == typeof FormData ? i.default : FormData)();
-        _.append('operations', r.stringify(l));
-        var m = {},
+        var m = new ('undefined' == typeof FormData ? i.default : FormData)();
+        m.append('operations', r.stringify(l));
+        var _ = {},
           f = 0;
         return (
           d.forEach(function (e) {
-            m[++f] = e;
+            _[++f] = e;
           }),
-          _.append('map', r.stringify(m)),
+          m.append('map', r.stringify(_)),
           (f = 0),
           d.forEach(function (e, t) {
-            _.append('' + ++f, t);
+            m.append('' + ++f, t);
           }),
-          _
+          m
         );
       };
     },
@@ -27482,12 +27482,12 @@ object-assign
         l = [],
         d = !1,
         c = -1;
-      function _() {
-        d && u && ((d = !1), u.length ? (l = u.concat(l)) : (c = -1), l.length && m());
-      }
       function m() {
+        d && u && ((d = !1), u.length ? (l = u.concat(l)) : (c = -1), l.length && _());
+      }
+      function _() {
         if (!d) {
-          var e = o(_);
+          var e = o(m);
           d = !0;
           for (var t = l.length; t; ) {
             for (u = l, l = []; ++c < t; ) u && u[c].run();
@@ -27518,7 +27518,7 @@ object-assign
         var t = new Array(arguments.length - 1);
         if (arguments.length > 1)
           for (var n = 1; n < arguments.length; n++) t[n - 1] = arguments[n];
-        l.push(new f(e, t)), 1 !== l.length || d || o(m);
+        l.push(new f(e, t)), 1 !== l.length || d || o(_);
       }),
         (f.prototype.run = function () {
           this.fun.apply(null, this.array);
@@ -27879,130 +27879,139 @@ object-assign
           return r;
         }),
         n.d(t, 'useCollection', function () {
-          return Pe;
-        }),
-        n.d(t, 'useCollectionItemBidsList', function () {
           return Ae;
         }),
-        n.d(t, 'useCollectionItemCurrentBids', function () {
-          return Ce;
-        }),
-        n.d(t, 'useCollectionItemRemainingCount', function () {
+        n.d(t, 'useCollectionItemBidsList', function () {
           return Ie;
         }),
+        n.d(t, 'useCollectionItemCurrentBids', function () {
+          return Be;
+        }),
+        n.d(t, 'useCollectionItemRemainingCount', function () {
+          return Qe;
+        }),
+        n.d(t, 'useCollectionItemsCurrentBids', function () {
+          return We;
+        }),
         n.d(t, 'useCollectionLotsIdList', function () {
-          return Ne;
+          return Je;
         }),
         n.d(t, 'useMarketplaceCollectionsSlugWithItemsId', function () {
-          return Fe;
+          return Ge;
         }),
         n.d(t, 'useMojitoFactory', function () {
-          return xe;
+          return Ee;
         }),
         n.d(t, 'MojitoHooksProvider', function () {
-          return Re;
+          return $e;
         }),
         n.d(t, 'setOnErrorCallback', function () {
-          return fe;
+          return he;
         });
       var a = n(12),
-        i = n(7),
+        i = n(6),
         s = !('undefined' == typeof window || !window.document || !window.document.createElement);
       function o(e) {
         return (
           void 0 === e && (e = window.location.pathname), s ? [] : e.split('/').filter(Boolean)
         );
       }
-      var u,
-        l,
+      function u(e) {
+        var t = void 0 === e ? {} : e,
+          n = t.pathname,
+          r = t.slug;
+        return r || o(n)[0];
+      }
+      var l,
         d,
         c,
-        _,
         m,
+        _,
         f,
         h,
         p,
-        y = n(3),
-        M = function (e, t) {
+        y,
+        M = n(3),
+        v = function (e, t) {
           return (
             Object.defineProperty ? Object.defineProperty(e, 'raw', { value: t }) : (e.raw = t), e
           );
         },
-        v = Object(y.gql)(
-          u ||
-            (u = M(
-              [
-                '\n  fragment CollectionItemAuctionLotBidsList on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    maximumBid\n    marketplaceAuctionLotId\n    marketplaceUser {\n      id\n      username\n      avatar\n    }\n  }\n',
-              ],
-              [
-                '\n  fragment CollectionItemAuctionLotBidsList on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    maximumBid\n    marketplaceAuctionLotId\n    marketplaceUser {\n      id\n      username\n      avatar\n    }\n  }\n',
-              ],
-            )),
-        ),
-        L = Object(y.gql)(
+        L = Object(M.gql)(
           l ||
-            (l = M(
+            (l = v(
               [
-                '\n  fragment CollectionItemAuctionLotCurrentBid on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    maximumBid\n    nextBidIncrement\n    marketplaceAuctionLotId\n    marketplaceUser {\n      id\n      username\n      avatar\n    }\n  }\n',
+                '\n  fragment CollectionItemAuctionLotBidsList on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    maximumBid\n    marketplaceAuctionLotId\n    marketplaceUser {\n      id\n      username\n      avatar\n    }\n  }\n',
               ],
               [
-                '\n  fragment CollectionItemAuctionLotCurrentBid on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    maximumBid\n    nextBidIncrement\n    marketplaceAuctionLotId\n    marketplaceUser {\n      id\n      username\n      avatar\n    }\n  }\n',
+                '\n  fragment CollectionItemAuctionLotBidsList on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    maximumBid\n    marketplaceAuctionLotId\n    marketplaceUser {\n      id\n      username\n      avatar\n    }\n  }\n',
               ],
             )),
         ),
-        g = Object(y.gql)(
+        g = Object(M.gql)(
           d ||
-            (d = M(
+            (d = v(
               [
-                '\n  fragment CollectionItemAuctionLotMyBid on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    currentBid\n    maximumBid\n    nextBidIncrement\n    marketplaceAuctionLotId\n  }\n',
+                '\n  fragment CollectionItemAuctionLotCurrentBid on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    maximumBid\n    nextBidIncrement\n    marketplaceAuctionLotId\n    marketplaceUser {\n      id\n      username\n      avatar\n    }\n  }\n',
               ],
               [
-                '\n  fragment CollectionItemAuctionLotMyBid on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    currentBid\n    maximumBid\n    nextBidIncrement\n    marketplaceAuctionLotId\n  }\n',
+                '\n  fragment CollectionItemAuctionLotCurrentBid on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    maximumBid\n    nextBidIncrement\n    marketplaceAuctionLotId\n    marketplaceUser {\n      id\n      username\n      avatar\n    }\n  }\n',
               ],
             )),
         ),
-        k = Object(y.gql)(
+        k = Object(M.gql)(
           c ||
-            (c = M(
+            (c = v(
               [
-                '\n  fragment CollectionItemAuctionLotDetailsFields on MarketplaceAuctionLot {\n    id\n    status\n    endDate\n    startDate\n    lotNumber\n    startingBid\n    marketplaceCollectionItemId\n    feeStructure {\n      buyersPremiumRate {\n        from\n        to\n        rate\n      }\n      overheadPremiumRate {\n        from\n        to\n        rate\n      }\n    }\n  }\n',
+                '\n  fragment CollectionItemAuctionLotMyBid on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    currentBid\n    maximumBid\n    nextBidIncrement\n    marketplaceAuctionLotId\n  }\n',
               ],
               [
-                '\n  fragment CollectionItemAuctionLotDetailsFields on MarketplaceAuctionLot {\n    id\n    status\n    endDate\n    startDate\n    lotNumber\n    startingBid\n    marketplaceCollectionItemId\n    feeStructure {\n      buyersPremiumRate {\n        from\n        to\n        rate\n      }\n      overheadPremiumRate {\n        from\n        to\n        rate\n      }\n    }\n  }\n',
-              ],
-            )),
-        ),
-        b = Object(y.gql)(
-          _ ||
-            (_ = M(
-              [
-                '\n  fragment CollectionItemBuyNowDetailsFields on MarketplaceBuyNowOutput {\n    id\n    unitPrice\n    totalUnits\n    totalAvailableUnits\n    startDate\n    endDate\n    sortNumber\n  }\n',
-              ],
-              [
-                '\n  fragment CollectionItemBuyNowDetailsFields on MarketplaceBuyNowOutput {\n    id\n    unitPrice\n    totalUnits\n    totalAvailableUnits\n    startDate\n    endDate\n    sortNumber\n  }\n',
+                '\n  fragment CollectionItemAuctionLotMyBid on MarketplaceAuctionBid {\n    id\n    amount\n    createdAt\n    currentBid\n    maximumBid\n    nextBidIncrement\n    marketplaceAuctionLotId\n  }\n',
               ],
             )),
         ),
-        Y = Object(y.gql)(
+        b = Object(M.gql)(
           m ||
-            (m = M(
+            (m = v(
               [
-                '\n  ',
-                '\n  ',
-                '\n\n  fragment CollectionItemFields on MarketplaceCollectionItem {\n    name\n    id\n    collectionId\n    marketplaceTokenId\n    saleType\n    slug\n    details {\n      __typename\n      ... on MarketplaceBuyNowOutput {\n        ...CollectionItemBuyNowDetailsFields\n      }\n      ... on MarketplaceAuctionLot {\n        ...CollectionItemAuctionLotDetailsFields\n      }\n    }\n  }\n',
+                '\n  fragment CollectionItemAuctionLotDetailsFields on MarketplaceAuctionLot {\n    id\n    status\n    endDate\n    startDate\n    lotNumber\n    startingBid\n    marketplaceCollectionItemId\n    feeStructure {\n      buyersPremiumRate {\n        from\n        to\n        rate\n      }\n      overheadPremiumRate {\n        from\n        to\n        rate\n      }\n    }\n  }\n',
               ],
               [
-                '\n  ',
-                '\n  ',
-                '\n\n  fragment CollectionItemFields on MarketplaceCollectionItem {\n    name\n    id\n    collectionId\n    marketplaceTokenId\n    saleType\n    slug\n    details {\n      __typename\n      ... on MarketplaceBuyNowOutput {\n        ...CollectionItemBuyNowDetailsFields\n      }\n      ... on MarketplaceAuctionLot {\n        ...CollectionItemAuctionLotDetailsFields\n      }\n    }\n  }\n',
+                '\n  fragment CollectionItemAuctionLotDetailsFields on MarketplaceAuctionLot {\n    id\n    status\n    endDate\n    startDate\n    lotNumber\n    startingBid\n    marketplaceCollectionItemId\n    feeStructure {\n      buyersPremiumRate {\n        from\n        to\n        rate\n      }\n      overheadPremiumRate {\n        from\n        to\n        rate\n      }\n    }\n  }\n',
               ],
             )),
-          b,
-          k,
         ),
-        T = Object(y.gql)(
+        Y = Object(M.gql)(
+          _ ||
+            (_ = v(
+              [
+                '\n  fragment CollectionItemBuyNowDetailsFields on MarketplaceBuyNowOutput {\n    id\n    unitPrice\n    totalUnits\n    totalAvailableUnits\n    startDate\n    endDate\n    sortNumber\n  }\n',
+              ],
+              [
+                '\n  fragment CollectionItemBuyNowDetailsFields on MarketplaceBuyNowOutput {\n    id\n    unitPrice\n    totalUnits\n    totalAvailableUnits\n    startDate\n    endDate\n    sortNumber\n  }\n',
+              ],
+            )),
+        ),
+        T = Object(M.gql)(
           f ||
-            (f = M(
+            (f = v(
+              [
+                '\n  ',
+                '\n  ',
+                '\n\n  fragment CollectionItemFields on MarketplaceCollectionItem {\n    name\n    id\n    collectionId\n    marketplaceTokenId\n    saleType\n    slug\n    details {\n      __typename\n      ... on MarketplaceBuyNowOutput {\n        ...CollectionItemBuyNowDetailsFields\n      }\n      ... on MarketplaceAuctionLot {\n        ...CollectionItemAuctionLotDetailsFields\n      }\n    }\n  }\n',
+              ],
+              [
+                '\n  ',
+                '\n  ',
+                '\n\n  fragment CollectionItemFields on MarketplaceCollectionItem {\n    name\n    id\n    collectionId\n    marketplaceTokenId\n    saleType\n    slug\n    details {\n      __typename\n      ... on MarketplaceBuyNowOutput {\n        ...CollectionItemBuyNowDetailsFields\n      }\n      ... on MarketplaceAuctionLot {\n        ...CollectionItemAuctionLotDetailsFields\n      }\n    }\n  }\n',
+              ],
+            )),
+          Y,
+          b,
+        ),
+        D = Object(M.gql)(
+          h ||
+            (h = v(
               [
                 '\n  fragment FavoriteItemsFields on MarketplaceCollectionItem {\n    id\n    marketplaceTokenId\n    collectionId\n    saleType\n    name\n    slug\n    details {\n      __typename\n      ... on MarketplaceBuyNowOutput {\n        id\n      }\n      ... on MarketplaceAuctionLot {\n        id\n      }\n    }\n  }\n',
               ],
@@ -28011,7 +28020,7 @@ object-assign
               ],
             )),
         ),
-        D = function (e, t) {
+        w = function (e, t) {
           return (
             Object.defineProperty ? Object.defineProperty(e, 'raw', { value: t }) : (e.raw = t), e
           );
@@ -28033,9 +28042,8 @@ object-assign
           (e.collectionBySlugCurrentBids = 'collectionBySlugCurrentBids'),
           (e.collectionItemByIdBidsList = 'collectionItemByIdBidsList'),
           (e.collectionItemByIdRemainingCount = 'collectionItemByIdRemainingCount');
-      })(p || (p = {}));
-      var w,
-        S,
+      })(y || (y = {}));
+      var S,
         x,
         E,
         O,
@@ -28043,62 +28051,63 @@ object-assign
         H,
         P,
         A,
-        C,
         I,
+        C,
         N,
         F,
         R,
         W,
         z,
         U,
-        B =
-          (((h = {})[p.profile] = Object(y.gql)(
-            w ||
-              (w = D(
-                [
-                  '\n    query GetProfile($filter: UserOrgFilter) {\n      serverTime\n      me {\n        id\n        user {\n          id\n          username\n          email\n        }\n        userOrgs(filter: $filter) {\n          id\n          organizationId\n          role\n          bidAllowed\n          kycStatus\n          avatar\n          username\n          settings\n          externalUserId\n        }\n      }\n    }\n  ',
-                ],
-                [
-                  '\n    query GetProfile($filter: UserOrgFilter) {\n      serverTime\n      me {\n        id\n        user {\n          id\n          username\n          email\n        }\n        userOrgs(filter: $filter) {\n          id\n          organizationId\n          role\n          bidAllowed\n          kycStatus\n          avatar\n          username\n          settings\n          externalUserId\n        }\n      }\n    }\n  ',
-                ],
-              )),
-          )),
-          (h[p.organization] = Object(y.gql)(
+        B,
+        K =
+          (((p = {})[y.profile] = Object(M.gql)(
             S ||
-              (S = D(
+              (S = w(
                 [
-                  '\n    query GetOrganization($filter: UserOrgFilter) {\n      serverTime\n      me {\n        id\n        userOrgs(filter: $filter) {\n          id\n          role\n          kycStatus\n          bidAllowed\n          avatar\n          username\n          settings\n        }\n      }\n    }\n  ',
+                  '\n    query GetProfile($filter: UserOrgFilter) {\n      serverTime\n      me {\n        id\n        user {\n          id\n          username\n          email\n        }\n        userOrgs(filter: $filter) {\n          id\n          organizationId\n          role\n          bidAllowed\n          kycStatus\n          avatar\n          username\n          settings\n          externalUserId\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query GetOrganization($filter: UserOrgFilter) {\n      serverTime\n      me {\n        id\n        userOrgs(filter: $filter) {\n          id\n          role\n          kycStatus\n          bidAllowed\n          avatar\n          username\n          settings\n        }\n      }\n    }\n  ',
+                  '\n    query GetProfile($filter: UserOrgFilter) {\n      serverTime\n      me {\n        id\n        user {\n          id\n          username\n          email\n        }\n        userOrgs(filter: $filter) {\n          id\n          organizationId\n          role\n          bidAllowed\n          kycStatus\n          avatar\n          username\n          settings\n          externalUserId\n        }\n      }\n    }\n  ',
                 ],
               )),
           )),
-          (h[p.userWallets] = Object(y.gql)(
+          (p[y.organization] = Object(M.gql)(
             x ||
-              (x = D(
+              (x = w(
                 [
-                  '\n    query GetWallets {\n      me {\n        id\n        wallets {\n          id\n          name\n          address\n          parentType\n          parentID\n          networkId\n          network {\n            chainID\n          }\n          tokens {\n            id\n            title\n            contractAddress\n            timeLastUpdated\n            metadata {\n              name\n              description\n              image\n              attributes {\n                traitType\n                value {\n                  ... on AttributeValueInt {\n                    intValue\n                  }\n                  ... on AttributeValueFloat {\n                    floatValue\n                  }\n                  ... on AttributeValueString {\n                    stringValue\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
+                  '\n    query GetOrganization($filter: UserOrgFilter) {\n      serverTime\n      me {\n        id\n        userOrgs(filter: $filter) {\n          id\n          role\n          kycStatus\n          bidAllowed\n          avatar\n          username\n          settings\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query GetWallets {\n      me {\n        id\n        wallets {\n          id\n          name\n          address\n          parentType\n          parentID\n          networkId\n          network {\n            chainID\n          }\n          tokens {\n            id\n            title\n            contractAddress\n            timeLastUpdated\n            metadata {\n              name\n              description\n              image\n              attributes {\n                traitType\n                value {\n                  ... on AttributeValueInt {\n                    intValue\n                  }\n                  ... on AttributeValueFloat {\n                    floatValue\n                  }\n                  ... on AttributeValueString {\n                    stringValue\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
+                  '\n    query GetOrganization($filter: UserOrgFilter) {\n      serverTime\n      me {\n        id\n        userOrgs(filter: $filter) {\n          id\n          role\n          kycStatus\n          bidAllowed\n          avatar\n          username\n          settings\n        }\n      }\n    }\n  ',
                 ],
               )),
           )),
-          (h[p.invoices] = Object(y.gql)(
+          (p[y.userWallets] = Object(M.gql)(
             E ||
-              (E = D(
+              (E = w(
                 [
-                  '\n    query GetInvoices {\n      getMyInvoices {\n        invoiceID\n        invoiceNumber\n        invoiceCreatedAt\n        status\n        items {\n          collectionItemID\n          collectionTitle\n          destinationAddress\n          collectionItemTitle\n          units\n          unitPrice\n          buyersPremium\n          overheadPremium\n          totalPrice\n          saleDate\n          taxes\n          salesTaxRate\n        }\n      }\n    }\n  ',
+                  '\n    query GetWallets {\n      me {\n        id\n        wallets {\n          id\n          name\n          address\n          parentType\n          parentID\n          networkId\n          network {\n            chainID\n          }\n          tokens {\n            id\n            title\n            contractAddress\n            timeLastUpdated\n            metadata {\n              name\n              description\n              image\n              attributes {\n                traitType\n                value {\n                  ... on AttributeValueInt {\n                    intValue\n                  }\n                  ... on AttributeValueFloat {\n                    floatValue\n                  }\n                  ... on AttributeValueString {\n                    stringValue\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query GetInvoices {\n      getMyInvoices {\n        invoiceID\n        invoiceNumber\n        invoiceCreatedAt\n        status\n        items {\n          collectionItemID\n          collectionTitle\n          destinationAddress\n          collectionItemTitle\n          units\n          unitPrice\n          buyersPremium\n          overheadPremium\n          totalPrice\n          saleDate\n          taxes\n          salesTaxRate\n        }\n      }\n    }\n  ',
+                  '\n    query GetWallets {\n      me {\n        id\n        wallets {\n          id\n          name\n          address\n          parentType\n          parentID\n          networkId\n          network {\n            chainID\n          }\n          tokens {\n            id\n            title\n            contractAddress\n            timeLastUpdated\n            metadata {\n              name\n              description\n              image\n              attributes {\n                traitType\n                value {\n                  ... on AttributeValueInt {\n                    intValue\n                  }\n                  ... on AttributeValueFloat {\n                    floatValue\n                  }\n                  ... on AttributeValueString {\n                    stringValue\n                  }\n                }\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
                 ],
               )),
           )),
-          (h[p.userActiveBids] = Object(y.gql)(
+          (p[y.invoices] = Object(M.gql)(
             O ||
-              (O = D(
+              (O = w(
+                [
+                  '\n    query GetInvoices {\n      getMyInvoices {\n        invoiceID\n        invoiceNumber\n        invoiceCreatedAt\n        status\n        items {\n          collectionItemID\n          collectionTitle\n          destinationAddress\n          collectionItemTitle\n          units\n          unitPrice\n          buyersPremium\n          overheadPremium\n          totalPrice\n          saleDate\n          taxes\n          salesTaxRate\n        }\n      }\n    }\n  ',
+                ],
+                [
+                  '\n    query GetInvoices {\n      getMyInvoices {\n        invoiceID\n        invoiceNumber\n        invoiceCreatedAt\n        status\n        items {\n          collectionItemID\n          collectionTitle\n          destinationAddress\n          collectionItemTitle\n          units\n          unitPrice\n          buyersPremium\n          overheadPremium\n          totalPrice\n          saleDate\n          taxes\n          salesTaxRate\n        }\n      }\n    }\n  ',
+                ],
+              )),
+          )),
+          (p[y.userActiveBids] = Object(M.gql)(
+            j ||
+              (j = w(
                 [
                   '\n    query GetUserActiveBids($organizationID: UUID!) {\n      serverTime\n      me {\n        id\n        activeBids(orgId: $organizationID) {\n          id\n          amount\n          marketplaceAuctionLot {\n            id\n            marketplaceCollectionItemId\n            status\n            currentBid {\n              amount\n              id\n            }\n            bids {\n              amount\n            }\n          }\n        }\n      }\n    }\n  ',
                 ],
@@ -28107,9 +28116,9 @@ object-assign
                 ],
               )),
           )),
-          (h[p.userFavorites] = Object(y.gql)(
-            j ||
-              (j = D(
+          (p[y.userFavorites] = Object(M.gql)(
+            H ||
+              (H = w(
                 [
                   '\n    ',
                   '\n    query GetUserFavorites {\n      serverTime\n      me {\n        id\n        favoriteItems {\n          ...FavoriteItemsFields\n        }\n      }\n    }\n  ',
@@ -28117,38 +28126,38 @@ object-assign
                 [
                   '\n    ',
                   '\n    query GetUserFavorites {\n      serverTime\n      me {\n        id\n        favoriteItems {\n          ...FavoriteItemsFields\n        }\n      }\n    }\n  ',
+                ],
+              )),
+            D,
+          )),
+          (p[y.checkUsername] = Object(M.gql)(
+            P ||
+              (P = w(
+                [
+                  '\n    query CheckUsername($organizationID: String!, $username: String!) {\n      orgUsernameAvailable(organizationID: $organizationID, username: $username)\n    }\n  ',
+                ],
+                [
+                  '\n    query CheckUsername($organizationID: String!, $username: String!) {\n      orgUsernameAvailable(organizationID: $organizationID, username: $username)\n    }\n  ',
+                ],
+              )),
+          )),
+          (p[y.collectionBySlug] = Object(M.gql)(
+            A ||
+              (A = w(
+                [
+                  '\n    ',
+                  '\n    query collectionBySlug($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        id\n        slug\n        name\n        description\n        startDate\n        endDate\n        items(statuses: [Active]) {\n          ...CollectionItemFields\n        }\n      }\n    }\n  ',
+                ],
+                [
+                  '\n    ',
+                  '\n    query collectionBySlug($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        id\n        slug\n        name\n        description\n        startDate\n        endDate\n        items(statuses: [Active]) {\n          ...CollectionItemFields\n        }\n      }\n    }\n  ',
                 ],
               )),
             T,
           )),
-          (h[p.checkUsername] = Object(y.gql)(
-            H ||
-              (H = D(
-                [
-                  '\n    query CheckUsername($organizationID: String!, $username: String!) {\n      orgUsernameAvailable(organizationID: $organizationID, username: $username)\n    }\n  ',
-                ],
-                [
-                  '\n    query CheckUsername($organizationID: String!, $username: String!) {\n      orgUsernameAvailable(organizationID: $organizationID, username: $username)\n    }\n  ',
-                ],
-              )),
-          )),
-          (h[p.collectionBySlug] = Object(y.gql)(
-            P ||
-              (P = D(
-                [
-                  '\n    ',
-                  '\n    query collectionBySlug($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        id\n        slug\n        name\n        description\n        startDate\n        endDate\n        items(statuses: [Active]) {\n          ...CollectionItemFields\n        }\n      }\n    }\n  ',
-                ],
-                [
-                  '\n    ',
-                  '\n    query collectionBySlug($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        id\n        slug\n        name\n        description\n        startDate\n        endDate\n        items(statuses: [Active]) {\n          ...CollectionItemFields\n        }\n      }\n    }\n  ',
-                ],
-              )),
-            Y,
-          )),
-          (h[p.collectionBySlugCurrentBids] = Object(y.gql)(
-            A ||
-              (A = D(
+          (p[y.collectionBySlugCurrentBids] = Object(M.gql)(
+            I ||
+              (I = w(
                 [
                   '\n    ',
                   '\n    ',
@@ -28158,81 +28167,81 @@ object-assign
                   '\n    ',
                   '\n    ',
                   '\n\n    query collectionBySlugCurrentBids($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        id\n        items(statuses: [Active]) {\n          id\n          details {\n            ... on MarketplaceAuctionLot {\n              id\n              endDate\n              startDate\n              startingBid\n              currentBid {\n                ...CollectionItemAuctionLotCurrentBid\n              }\n              myBid {\n                ...CollectionItemAuctionLotMyBid\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
+                ],
+              )),
+            g,
+            k,
+          )),
+          (p[y.collectionItemByIdRemainingCount] = Object(M.gql)(
+            C ||
+              (C = w(
+                [
+                  '\n    query collectionItemByIdBidsList($id: UUID1!) {\n      collectionItemById(id: $id) {\n        id\n        details {\n          ... on MarketplaceBuyNowOutput {\n            id\n            remainingCount\n          }\n        }\n      }\n    }\n  ',
+                ],
+                [
+                  '\n    query collectionItemByIdBidsList($id: UUID1!) {\n      collectionItemById(id: $id) {\n        id\n        details {\n          ... on MarketplaceBuyNowOutput {\n            id\n            remainingCount\n          }\n        }\n      }\n    }\n  ',
+                ],
+              )),
+          )),
+          (p[y.collectionItemByIdBidsList] = Object(M.gql)(
+            N ||
+              (N = w(
+                [
+                  '\n    ',
+                  '\n\n    query collectionItemByIdBidsList($id: UUID1!) {\n      collectionItemById(id: $id) {\n        id\n        details {\n          ... on MarketplaceAuctionLot {\n            id\n            endDate\n            startDate\n            bids {\n              ...CollectionItemAuctionLotBidsList\n            }\n          }\n        }\n      }\n    }\n  ',
+                ],
+                [
+                  '\n    ',
+                  '\n\n    query collectionItemByIdBidsList($id: UUID1!) {\n      collectionItemById(id: $id) {\n        id\n        details {\n          ... on MarketplaceAuctionLot {\n            id\n            endDate\n            startDate\n            bids {\n              ...CollectionItemAuctionLotBidsList\n            }\n          }\n        }\n      }\n    }\n  ',
                 ],
               )),
             L,
-            g,
           )),
-          (h[p.collectionItemByIdRemainingCount] = Object(y.gql)(
-            C ||
-              (C = D(
-                [
-                  '\n    query collectionItemByIdBidsList($id: UUID1!) {\n      collectionItemById(id: $id) {\n        id\n        details {\n          ... on MarketplaceBuyNowOutput {\n            id\n            remainingCount\n          }\n        }\n      }\n    }\n  ',
-                ],
-                [
-                  '\n    query collectionItemByIdBidsList($id: UUID1!) {\n      collectionItemById(id: $id) {\n        id\n        details {\n          ... on MarketplaceBuyNowOutput {\n            id\n            remainingCount\n          }\n        }\n      }\n    }\n  ',
-                ],
-              )),
-          )),
-          (h[p.collectionItemByIdBidsList] = Object(y.gql)(
-            I ||
-              (I = D(
-                [
-                  '\n    ',
-                  '\n\n    query collectionItemByIdBidsList($id: UUID1!) {\n      collectionItemById(id: $id) {\n        id\n        details {\n          ... on MarketplaceAuctionLot {\n            id\n            endDate\n            startDate\n            bids {\n              ...CollectionItemAuctionLotBidsList\n            }\n          }\n        }\n      }\n    }\n  ',
-                ],
-                [
-                  '\n    ',
-                  '\n\n    query collectionItemByIdBidsList($id: UUID1!) {\n      collectionItemById(id: $id) {\n        id\n        details {\n          ... on MarketplaceAuctionLot {\n            id\n            endDate\n            startDate\n            bids {\n              ...CollectionItemAuctionLotBidsList\n            }\n          }\n        }\n      }\n    }\n  ',
-                ],
-              )),
-            v,
-          )),
-          (h[p.collectionLotsIdList] = Object(y.gql)(
-            N ||
-              (N = D(
-                [
-                  '\n    query collectionLotsIdList($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        items(statuses: [Active]) {\n          id\n          name\n          saleType\n        }\n      }\n    }\n  ',
-                ],
-                [
-                  '\n    query collectionLotsIdList($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        items(statuses: [Active]) {\n          id\n          name\n          saleType\n        }\n      }\n    }\n  ',
-                ],
-              )),
-          )),
-          (h[p.oneLot] = Object(y.gql)(
+          (p[y.collectionLotsIdList] = Object(M.gql)(
             F ||
-              (F = D(
+              (F = w(
                 [
-                  '\n    ',
-                  '\n    query oneLot($marketplaceAuctionLotId: UUID!) {\n      getMarketplaceAuctionLot(marketplaceAuctionLotId: $marketplaceAuctionLotId) {\n        ...CollectionItemAuctionLotDetailsFields\n      }\n    }\n  ',
+                  '\n    query collectionLotsIdList($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        items(statuses: [Active]) {\n          id\n          name\n          saleType\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    ',
-                  '\n    query oneLot($marketplaceAuctionLotId: UUID!) {\n      getMarketplaceAuctionLot(marketplaceAuctionLotId: $marketplaceAuctionLotId) {\n        ...CollectionItemAuctionLotDetailsFields\n      }\n    }\n  ',
+                  '\n    query collectionLotsIdList($slug: String!, $marketplaceID: UUID1!) {\n      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {\n        items(statuses: [Active]) {\n          id\n          name\n          saleType\n        }\n      }\n    }\n  ',
                 ],
               )),
-            k,
           )),
-          (h[p.marketplaceCollectionsInfoWithItemsIdAndSlug] = Object(y.gql)(
+          (p[y.oneLot] = Object(M.gql)(
             R ||
-              (R = D(
+              (R = w(
                 [
-                  '\n    query marketplaceCollectionsInfoWithItemsIdAndSlug($id: UUID!) {\n      marketplace(id: $id) {\n        collections {\n          id\n          slug\n          name\n          description\n          startDate\n          endDate\n          items(statuses: [Active]) {\n            slug\n            id\n          }\n        }\n      }\n    }\n  ',
+                  '\n    ',
+                  '\n    query oneLot($marketplaceAuctionLotId: UUID!) {\n      getMarketplaceAuctionLot(marketplaceAuctionLotId: $marketplaceAuctionLotId) {\n        ...CollectionItemAuctionLotDetailsFields\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query marketplaceCollectionsInfoWithItemsIdAndSlug($id: UUID!) {\n      marketplace(id: $id) {\n        collections {\n          id\n          slug\n          name\n          description\n          startDate\n          endDate\n          items(statuses: [Active]) {\n            slug\n            id\n          }\n        }\n      }\n    }\n  ',
+                  '\n    ',
+                  '\n    query oneLot($marketplaceAuctionLotId: UUID!) {\n      getMarketplaceAuctionLot(marketplaceAuctionLotId: $marketplaceAuctionLotId) {\n        ...CollectionItemAuctionLotDetailsFields\n      }\n    }\n  ',
                 ],
               )),
+            b,
           )),
-          (h[p.serverTime] = Object(y.gql)(
+          (p[y.marketplaceCollectionsInfoWithItemsIdAndSlug] = Object(M.gql)(
             W ||
-              (W = D(
+              (W = w(
+                [
+                  '\n    query marketplaceCollectionsInfoWithItemsIdAndSlug($id: UUID!) {\n      marketplace(id: $id) {\n        collections {\n          id\n          slug\n          name\n          description\n          startDate\n          endDate\n          items(statuses: [Active]) {\n            slug\n            id\n          }\n        }\n      }\n    }\n  ',
+                ],
+                [
+                  '\n    query marketplaceCollectionsInfoWithItemsIdAndSlug($id: UUID!) {\n      marketplace(id: $id) {\n        collections {\n          id\n          slug\n          name\n          description\n          startDate\n          endDate\n          items(statuses: [Active]) {\n            slug\n            id\n          }\n        }\n      }\n    }\n  ',
+                ],
+              )),
+          )),
+          (p[y.serverTime] = Object(M.gql)(
+            z ||
+              (z = w(
                 ['\n    query {\n      serverTime\n    }\n  '],
                 ['\n    query {\n      serverTime\n    }\n  '],
               )),
           )),
-          h),
-        K = function (e, t) {
+          p),
+        q = function (e, t) {
           return (
             Object.defineProperty ? Object.defineProperty(e, 'raw', { value: t }) : (e.raw = t), e
           );
@@ -28245,85 +28254,85 @@ object-assign
           (e.collectors = 'collectors'),
           (e.authors = 'authors'),
           (e.organizations = 'organizations');
-      })(U || (U = {}));
-      var q,
-        V,
+      })(B || (B = {}));
+      var V,
         Q,
         J,
         G,
         $,
         Z,
         X,
-        ee =
-          (((z = {})[U.fullLot] = Object(y.gql)(
-            q ||
-              (q = K(
-                [
-                  '\n    query lot($mojitoId: String) {\n      lotCollection(where: { mojitoId: $mojitoId }) {\n        items {\n          lotId\n          sys {\n            publishedAt\n          }\n          title\n          subtitle\n          imagesCollection {\n            items {\n              url\n              title\n              contentType\n            }\n          }\n          createdAt\n          estimatePrice\n          purchasedAt\n          smartContractAddress\n          tokenId\n          mojitoId\n          author {\n            about\n            name\n            slug\n            avatar {\n              url\n              title\n            }\n          }\n          collector {\n            name\n            slug\n            about\n            smartContractAddress\n            avatar {\n              url\n              title\n            }\n            videoId\n            twitterLink\n          }\n          aboutLot\n          note\n          history\n          video\n          conditionReportText\n          shortCollectorDescription\n          nftLink\n          slug\n          nftVideoIds\n          lotPreviewBackgroundColor\n          gridPreviewImage {\n            url\n            title\n          }\n        }\n      }\n    }\n  ',
-                ],
-                [
-                  '\n    query lot($mojitoId: String) {\n      lotCollection(where: { mojitoId: $mojitoId }) {\n        items {\n          lotId\n          sys {\n            publishedAt\n          }\n          title\n          subtitle\n          imagesCollection {\n            items {\n              url\n              title\n              contentType\n            }\n          }\n          createdAt\n          estimatePrice\n          purchasedAt\n          smartContractAddress\n          tokenId\n          mojitoId\n          author {\n            about\n            name\n            slug\n            avatar {\n              url\n              title\n            }\n          }\n          collector {\n            name\n            slug\n            about\n            smartContractAddress\n            avatar {\n              url\n              title\n            }\n            videoId\n            twitterLink\n          }\n          aboutLot\n          note\n          history\n          video\n          conditionReportText\n          shortCollectorDescription\n          nftLink\n          slug\n          nftVideoIds\n          lotPreviewBackgroundColor\n          gridPreviewImage {\n            url\n            title\n          }\n        }\n      }\n    }\n  ',
-                ],
-              )),
-          )),
-          (z[U.shortLots] = Object(y.gql)(
+        ee,
+        te =
+          (((U = {})[B.fullLot] = Object(M.gql)(
             V ||
-              (V = K(
+              (V = q(
                 [
-                  '\n    query lots($mojitoIds: [String]) {\n      lotCollection(order: lotId_ASC, where: { mojitoId_in: $mojitoIds }) {\n        items {\n          sys {\n            publishedAt\n          }\n          lotId\n          title\n          subtitle\n          mojitoId\n          author {\n            name\n            slug\n            avatar {\n              url\n            }\n          }\n          collector {\n            name\n            slug\n            avatar {\n              url\n            }\n          }\n          slug\n          gridPreviewImage {\n            url\n            title\n          }\n          imagesCollection(limit: 1) {\n            items {\n              url\n              title\n            }\n          }\n        }\n      }\n    }\n  ',
+                  '\n    query lot($mojitoId: String) {\n      lotCollection(where: { mojitoId: $mojitoId }) {\n        items {\n          lotId\n          sys {\n            publishedAt\n          }\n          title\n          subtitle\n          imagesCollection {\n            items {\n              url\n              title\n              contentType\n            }\n          }\n          createdAt\n          estimatePrice\n          purchasedAt\n          smartContractAddress\n          tokenId\n          mojitoId\n          author {\n            about\n            name\n            slug\n            avatar {\n              url\n              title\n            }\n          }\n          collector {\n            name\n            slug\n            about\n            smartContractAddress\n            avatar {\n              url\n              title\n            }\n            videoId\n            twitterLink\n          }\n          aboutLot\n          note\n          history\n          video\n          conditionReportText\n          shortCollectorDescription\n          nftLink\n          slug\n          nftVideoIds\n          lotPreviewBackgroundColor\n          gridPreviewImage {\n            url\n            title\n          }\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query lots($mojitoIds: [String]) {\n      lotCollection(order: lotId_ASC, where: { mojitoId_in: $mojitoIds }) {\n        items {\n          sys {\n            publishedAt\n          }\n          lotId\n          title\n          subtitle\n          mojitoId\n          author {\n            name\n            slug\n            avatar {\n              url\n            }\n          }\n          collector {\n            name\n            slug\n            avatar {\n              url\n            }\n          }\n          slug\n          gridPreviewImage {\n            url\n            title\n          }\n          imagesCollection(limit: 1) {\n            items {\n              url\n              title\n            }\n          }\n        }\n      }\n    }\n  ',
+                  '\n    query lot($mojitoId: String) {\n      lotCollection(where: { mojitoId: $mojitoId }) {\n        items {\n          lotId\n          sys {\n            publishedAt\n          }\n          title\n          subtitle\n          imagesCollection {\n            items {\n              url\n              title\n              contentType\n            }\n          }\n          createdAt\n          estimatePrice\n          purchasedAt\n          smartContractAddress\n          tokenId\n          mojitoId\n          author {\n            about\n            name\n            slug\n            avatar {\n              url\n              title\n            }\n          }\n          collector {\n            name\n            slug\n            about\n            smartContractAddress\n            avatar {\n              url\n              title\n            }\n            videoId\n            twitterLink\n          }\n          aboutLot\n          note\n          history\n          video\n          conditionReportText\n          shortCollectorDescription\n          nftLink\n          slug\n          nftVideoIds\n          lotPreviewBackgroundColor\n          gridPreviewImage {\n            url\n            title\n          }\n        }\n      }\n    }\n  ',
                 ],
               )),
           )),
-          (z[U.auctionBySlug] = Object(y.gql)(
+          (U[B.shortLots] = Object(M.gql)(
             Q ||
-              (Q = K(
+              (Q = q(
                 [
-                  '\n    query Auction($slug: String) {\n      auctionCollection(order: sys_publishedAt_DESC, where: { slug: $slug }) {\n        items {\n          name\n          title\n          subtitle\n          duration\n          description\n          data\n          startDate\n          endDate\n          videoId\n          slug\n          saleId\n        }\n      }\n    }\n  ',
+                  '\n    query lots($mojitoIds: [String]) {\n      lotCollection(order: lotId_ASC, where: { mojitoId_in: $mojitoIds }) {\n        items {\n          sys {\n            publishedAt\n          }\n          lotId\n          title\n          subtitle\n          mojitoId\n          author {\n            name\n            slug\n            avatar {\n              url\n            }\n          }\n          collector {\n            name\n            slug\n            avatar {\n              url\n            }\n          }\n          slug\n          gridPreviewImage {\n            url\n            title\n          }\n          imagesCollection(limit: 1) {\n            items {\n              url\n              title\n            }\n          }\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query Auction($slug: String) {\n      auctionCollection(order: sys_publishedAt_DESC, where: { slug: $slug }) {\n        items {\n          name\n          title\n          subtitle\n          duration\n          description\n          data\n          startDate\n          endDate\n          videoId\n          slug\n          saleId\n        }\n      }\n    }\n  ',
+                  '\n    query lots($mojitoIds: [String]) {\n      lotCollection(order: lotId_ASC, where: { mojitoId_in: $mojitoIds }) {\n        items {\n          sys {\n            publishedAt\n          }\n          lotId\n          title\n          subtitle\n          mojitoId\n          author {\n            name\n            slug\n            avatar {\n              url\n            }\n          }\n          collector {\n            name\n            slug\n            avatar {\n              url\n            }\n          }\n          slug\n          gridPreviewImage {\n            url\n            title\n          }\n          imagesCollection(limit: 1) {\n            items {\n              url\n              title\n            }\n          }\n        }\n      }\n    }\n  ',
                 ],
               )),
           )),
-          (z[U.auctionsSlugList] = Object(y.gql)(
+          (U[B.auctionBySlug] = Object(M.gql)(
             J ||
-              (J = K(
+              (J = q(
                 [
-                  '\n    query Auction {\n      auctionCollection(order: sys_publishedAt_DESC) {\n        items {\n          slug\n        }\n      }\n    }\n  ',
+                  '\n    query Auction($slug: String) {\n      auctionCollection(order: sys_publishedAt_DESC, where: { slug: $slug }) {\n        items {\n          name\n          title\n          subtitle\n          duration\n          description\n          data\n          startDate\n          endDate\n          videoId\n          slug\n          saleId\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query Auction {\n      auctionCollection(order: sys_publishedAt_DESC) {\n        items {\n          slug\n        }\n      }\n    }\n  ',
+                  '\n    query Auction($slug: String) {\n      auctionCollection(order: sys_publishedAt_DESC, where: { slug: $slug }) {\n        items {\n          name\n          title\n          subtitle\n          duration\n          description\n          data\n          startDate\n          endDate\n          videoId\n          slug\n          saleId\n        }\n      }\n    }\n  ',
                 ],
               )),
           )),
-          (z[U.collectors] = Object(y.gql)(
+          (U[B.auctionsSlugList] = Object(M.gql)(
             G ||
-              (G = K(
+              (G = q(
                 [
-                  '\n    query Collector {\n      collectorCollection(order: name_ASC) {\n        items {\n          sys {\n            publishedAt\n          }\n          name\n          about\n          smartContractAddress\n          linkedFrom {\n            lotCollection {\n              items {\n                mojitoId\n                title\n                slug\n              }\n            }\n          }\n          avatar {\n            url\n            title\n          }\n          videoId\n          twitterLink\n          slug\n        }\n      }\n    }\n  ',
+                  '\n    query Auction {\n      auctionCollection(order: sys_publishedAt_DESC) {\n        items {\n          slug\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query Collector {\n      collectorCollection(order: name_ASC) {\n        items {\n          sys {\n            publishedAt\n          }\n          name\n          about\n          smartContractAddress\n          linkedFrom {\n            lotCollection {\n              items {\n                mojitoId\n                title\n                slug\n              }\n            }\n          }\n          avatar {\n            url\n            title\n          }\n          videoId\n          twitterLink\n          slug\n        }\n      }\n    }\n  ',
+                  '\n    query Auction {\n      auctionCollection(order: sys_publishedAt_DESC) {\n        items {\n          slug\n        }\n      }\n    }\n  ',
                 ],
               )),
           )),
-          (z[U.authors] = Object(y.gql)(
+          (U[B.collectors] = Object(M.gql)(
             $ ||
-              ($ = K(
+              ($ = q(
                 [
-                  '\n    query Author {\n      authorCollection {\n        items {\n          sys {\n            publishedAt\n          }\n          about\n          name\n          slug\n          avatar {\n            url\n            title\n          }\n          linkedFrom {\n            lotCollection {\n              items {\n                mojitoId\n                title\n                slug\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
+                  '\n    query Collector {\n      collectorCollection(order: name_ASC) {\n        items {\n          sys {\n            publishedAt\n          }\n          name\n          about\n          smartContractAddress\n          linkedFrom {\n            lotCollection {\n              items {\n                mojitoId\n                title\n                slug\n              }\n            }\n          }\n          avatar {\n            url\n            title\n          }\n          videoId\n          twitterLink\n          slug\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query Author {\n      authorCollection {\n        items {\n          sys {\n            publishedAt\n          }\n          about\n          name\n          slug\n          avatar {\n            url\n            title\n          }\n          linkedFrom {\n            lotCollection {\n              items {\n                mojitoId\n                title\n                slug\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
+                  '\n    query Collector {\n      collectorCollection(order: name_ASC) {\n        items {\n          sys {\n            publishedAt\n          }\n          name\n          about\n          smartContractAddress\n          linkedFrom {\n            lotCollection {\n              items {\n                mojitoId\n                title\n                slug\n              }\n            }\n          }\n          avatar {\n            url\n            title\n          }\n          videoId\n          twitterLink\n          slug\n        }\n      }\n    }\n  ',
                 ],
               )),
           )),
-          (z[U.organizations] = Object(y.gql)(
+          (U[B.authors] = Object(M.gql)(
             Z ||
-              (Z = K(
+              (Z = q(
+                [
+                  '\n    query Author {\n      authorCollection {\n        items {\n          sys {\n            publishedAt\n          }\n          about\n          name\n          slug\n          avatar {\n            url\n            title\n          }\n          linkedFrom {\n            lotCollection {\n              items {\n                mojitoId\n                title\n                slug\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
+                ],
+                [
+                  '\n    query Author {\n      authorCollection {\n        items {\n          sys {\n            publishedAt\n          }\n          about\n          name\n          slug\n          avatar {\n            url\n            title\n          }\n          linkedFrom {\n            lotCollection {\n              items {\n                mojitoId\n                title\n                slug\n              }\n            }\n          }\n        }\n      }\n    }\n  ',
+                ],
+              )),
+          )),
+          (U[B.organizations] = Object(M.gql)(
+            X ||
+              (X = q(
                 [
                   '\n    query Organizations {\n      organizationCollection {\n        items {\n          homepageRedirect {\n            name\n            slug\n          }\n        }\n      }\n    }\n  ',
                 ],
@@ -28332,10 +28341,10 @@ object-assign
                 ],
               )),
           )),
-          z),
-        te = ''.concat('MOJITO-HOOKS::', 'API::'),
-        ne = ''.concat('MOJITO-HOOKS::', 'CONTENTFUL::'),
-        re = (function () {
+          U),
+        ne = ''.concat('MOJITO-HOOKS::', 'API::'),
+        re = ''.concat('MOJITO-HOOKS::', 'CONTENTFUL::'),
+        ae = (function () {
           function e() {}
           return (
             (e._removeQueryKeyPrefix = function (e) {
@@ -28347,33 +28356,33 @@ object-assign
             (e.get = function (e, t) {
               void 0 === t && (t = {});
               var n = '';
-              p[e] ? (n = te) : U[e] && (n = ne);
+              y[e] ? (n = ne) : B[e] && (n = re);
               var r = ''.concat(n).concat(e);
               return t ? [r, t] : [r];
             }),
             (e.getMojitoQuery = function (t) {
               var n = e._removeQueryKeyPrefix(t);
-              return B[n];
+              return K[n];
             }),
             (e.getContentfulQuery = function (t) {
               var n = e._removeQueryKeyPrefix(t);
-              return ee[n];
+              return te[n];
             }),
             (e.isMojito = function (e) {
-              return e.startsWith(te);
+              return e.startsWith(ne);
             }),
             (e.isContentful = function (e) {
-              return e.startsWith(ne);
+              return e.startsWith(re);
             }),
             e
           );
         })(),
-        ae = n(0),
-        ie = n.n(ae);
+        ie = n(0),
+        se = n.n(ie);
       !(function (e) {
         (e.Auction = 'Auction'), (e.BuyNow = 'BuyNow');
-      })(X || (X = {}));
-      var se = function (e) {
+      })(ee || (ee = {}));
+      var oe = function (e) {
           for (
             var t,
               n,
@@ -28387,8 +28396,8 @@ object-assign
                     null ===
                       (n =
                         null ===
-                          (t = ke.getQueryData([
-                            'Contentful '.concat(U[U.auctionBySlug]),
+                          (t = be.getQueryData([
+                            'Contentful '.concat(B[B.auctionBySlug]),
                             { slug: e.slug },
                           ])) || void 0 === t
                           ? void 0
@@ -28397,19 +28406,19 @@ object-assign
                       : n.items) || void 0 === r
                   ? void 0
                   : r[0],
-              u = ie()(null !== (a = e.startDate) && void 0 !== a ? a : null).unix(),
-              l = ie()(null !== (i = e.endDate) && void 0 !== i ? i : null).unix(),
-              d = ie()().unix(),
+              u = se()(null !== (a = e.startDate) && void 0 !== a ? a : null).unix(),
+              l = se()(null !== (i = e.endDate) && void 0 !== i ? i : null).unix(),
+              d = se()().unix(),
               c = e.items,
-              _ = c.length,
-              m = 0,
+              m = c.length,
+              _ = 0,
               f = !1,
               h = !1;
-            m < _ && (!f || !h);
+            _ < m && (!f || !h);
 
           ) {
-            var p = c[m++].saleType;
-            p === X.BuyNow && (f = !0), p === X.Auction && (h = !0);
+            var p = c[_++].saleType;
+            p === ee.BuyNow && (f = !0), p === ee.Auction && (h = !0);
           }
           var y = d < u,
             M = d > u && d < l,
@@ -28427,11 +28436,11 @@ object-assign
               },
             }),
             (null === (s = null == e ? void 0 : e.items) || void 0 === s ? void 0 : s.length) &&
-              ((e.items = ue(e.items, e.slug)), (e.hasMultipleLots = e.items.length > 1)),
+              ((e.items = le(e.items, e.slug)), (e.hasMultipleLots = e.items.length > 1)),
             e
           );
         },
-        oe = function (e, t, n) {
+        ue = function (e, t, n) {
           var r,
             a,
             i,
@@ -28448,7 +28457,7 @@ object-assign
                 ? void 0
                 : i.currentBid))
           ) {
-            var d = ke.getQueryData(['Contentful '.concat(U[U.fullLot]), { mojitoId: e.id }]);
+            var d = be.getQueryData(['Contentful '.concat(B[B.fullLot]), { mojitoId: e.id }]);
             e.contentfulData =
               null !==
                 (o =
@@ -28460,15 +28469,15 @@ object-assign
                 ? o
                 : { lotId: -1, title: 'NA', subtitle: 'NA', mojitoId: 'NA', slug: 'NA' };
           }
-          return (null == e ? void 0 : e.details) && (e.details = le(e.details, t)), e;
-        },
-        ue = function (e, t) {
-          var n = ke.getQueryData(['Contentful '.concat(U[U.shortLots]), { slug: t }]);
-          return e.map(function (e) {
-            return oe(e, t, n);
-          });
+          return (null == e ? void 0 : e.details) && (e.details = de(e.details, t)), e;
         },
         le = function (e, t) {
+          var n = be.getQueryData(['Contentful '.concat(B[B.shortLots]), { slug: t }]);
+          return e.map(function (e) {
+            return ue(e, t, n);
+          });
+        },
+        de = function (e, t) {
           var n,
             r,
             a,
@@ -28478,15 +28487,15 @@ object-assign
             l,
             d,
             c =
-              null === (n = ke.getQueryData(['Mojito '.concat(p[p.profile]), null])) || void 0 === n
+              null === (n = be.getQueryData(['Mojito '.concat(y[y.profile]), null])) || void 0 === n
                 ? void 0
                 : n.me,
-            _ =
+            m =
               null ===
                 (a =
                   null ===
-                    (r = ke.getQueryData([
-                      'Mojito '.concat(p[p.collectionBySlugCurrentBids]),
+                    (r = be.getQueryData([
+                      'Mojito '.concat(y[y.collectionBySlugCurrentBids]),
                       { slug: t, marketplaceID: i.a.MARKETPLACE_ID },
                     ])) || void 0 === r
                     ? void 0
@@ -28495,14 +28504,14 @@ object-assign
                 : a.find(function (t) {
                     return t.details.id === e.id;
                   }),
-            m = null == _ ? void 0 : _.details;
+            _ = null == m ? void 0 : m.details;
           if (e.startDate && e.endDate) {
-            var f = ie()(null !== (s = e.startDate) && void 0 !== s ? s : null).unix(),
-              h = ie()(null !== (o = e.endDate) && void 0 !== o ? o : null).unix(),
-              y = ie()().unix();
+            var f = se()(null !== (s = e.startDate) && void 0 !== s ? s : null).unix(),
+              h = se()(null !== (o = e.endDate) && void 0 !== o ? o : null).unix(),
+              p = se()().unix();
             Object.assign(e, {
-              endTimestamp: h - y,
-              saleView: { isPreSale: y <= f, isDuringSale: y > f && y < h, isPostSale: y >= h },
+              endTimestamp: h - p,
+              saleView: { isPreSale: p <= f, isDuringSale: p > f && p < h, isPostSale: p >= h },
             });
           }
           if (null == e ? void 0 : e.bids) {
@@ -28546,8 +28555,8 @@ object-assign
                   ? (e.currentBid.isLost = !0)
                   : (e.currentBid.isSold = !0));
           } else
-            (null == m ? void 0 : m.currentBid)
-              ? (e.currentBid = null == m ? void 0 : m.currentBid)
+            (null == _ ? void 0 : _.currentBid)
+              ? (e.currentBid = null == _ ? void 0 : _.currentBid)
               : null === (null == e ? void 0 : e.currentBid)
               ? (e.currentBid = {
                   amount: null !== (d = e.startingBid) && void 0 !== d ? d : 50,
@@ -28558,12 +28567,12 @@ object-assign
           return (
             Object.assign(e, { currentBid: e.currentBid }),
             !(null == e ? void 0 : e.myBid) &&
-              (null == m ? void 0 : m.myBid) &&
-              Object.assign(e, { myBid: m.myBid }),
+              (null == _ ? void 0 : _.myBid) &&
+              Object.assign(e, { myBid: _.myBid }),
             e
           );
         };
-      var de = function (e, t, n, r) {
+      var ce = function (e, t, n, r) {
           return new (n || (n = Promise))(function (a, i) {
             function s(e) {
               try {
@@ -28593,7 +28602,7 @@ object-assign
             u((r = r.apply(e, t || [])).next());
           });
         },
-        ce = function (e, t) {
+        me = function (e, t) {
           var n,
             r,
             a,
@@ -28701,17 +28710,17 @@ object-assign
           }
           return s;
         },
-        me = function (e) {
+        fe = function (e) {
           console.log(e);
         };
-      function fe(e) {
-        me = e;
-      }
       function he(e) {
+        fe = e;
+      }
+      function pe(e) {
         var t,
           n,
           r = (null === (t = e.response) || void 0 === t ? void 0 : t.status) || 0;
-        if ((me(e), !(s && r >= 500 && '/500' !== window.location.pathname)))
+        if ((fe(e), !(s && r >= 500 && '/500' !== window.location.pathname)))
           throw (
             ((null === (n = e.response) || void 0 === n ? void 0 : n.error) &&
               console.log(e.response.error),
@@ -28719,23 +28728,23 @@ object-assign
           );
         window.location.href = '/500';
       }
-      var pe,
-        ye = new y.GraphQLClient(i.a.MOJITO_API_URL),
-        Me = new y.GraphQLClient(i.a.CONTENTFUL_URL, {
+      var ye,
+        Me = new M.GraphQLClient(i.a.MOJITO_API_URL),
+        ve = new M.GraphQLClient(i.a.CONTENTFUL_URL, {
           headers: { Authorization: 'Bearer '.concat(i.a.CONTENTFUL_AUTH_TOKEN) },
         }),
-        ve = function (e) {
+        Le = function (e) {
           var t = e.queryKey;
-          return de(void 0, void 0, void 0, function () {
+          return ce(void 0, void 0, void 0, function () {
             var e, n, r, a;
-            return ce(this, function (i) {
+            return me(this, function (i) {
               switch (i.label) {
                 case 0:
                   return (
                     (e = _e(t, 2)),
                     (n = e[0]),
                     (r = e[1]),
-                    (a = re.getMojitoQuery(n)),
+                    (a = ae.getMojitoQuery(n)),
                     console.log(
                       ''
                         .concat(a ? '🍸' : '❌', ' MOJITO QUERY = ')
@@ -28744,30 +28753,29 @@ object-assign
                     ),
                     [
                       4,
-                      ye
-                        .request(a, r)
-                        .catch(he)
+                      Me.request(a, r)
+                        .catch(pe)
                         .then(function (e) {
                           return (function (e, t, n) {
                             var r, a, i, s, o, u, l, d, c;
                             if (!e) return null;
-                            var _ = e;
-                            if (_.serverTime) {
-                              var m = new Date(_.serverTime).getTime() - Date.now();
-                              ie.a.now = function () {
-                                return m + Date.now();
+                            var m = e;
+                            if (m.serverTime) {
+                              var _ = new Date(m.serverTime).getTime() - Date.now();
+                              se.a.now = function () {
+                                return _ + Date.now();
                               };
                             }
                             if (
                               null ===
                                 (a =
-                                  null === (r = null == _ ? void 0 : _.me) || void 0 === r
+                                  null === (r = null == m ? void 0 : m.me) || void 0 === r
                                     ? void 0
                                     : r.userOrgs) || void 0 === a
                                 ? void 0
                                 : a[0]
                             ) {
-                              var f = _.me.userOrgs[0],
+                              var f = m.me.userOrgs[0],
                                 h = f.role,
                                 p = 'TransactionalWithID' === h,
                                 y = 'Basic' === h || 'MissingInformation' === h || 'EndUser' === h,
@@ -28800,44 +28808,44 @@ object-assign
                                       },
                                     },
                               }),
-                                (_.me.userOrgs[0] = f);
+                                (m.me.userOrgs[0] = f);
                             }
                             if (
-                              ((null == _ ? void 0 : _.getMarketplaceAuctionLot) &&
-                                (_.getMarketplaceAuctionLot = le(
-                                  _.getMarketplaceAuctionLot,
+                              ((null == m ? void 0 : m.getMarketplaceAuctionLot) &&
+                                (m.getMarketplaceAuctionLot = de(
+                                  m.getMarketplaceAuctionLot,
                                   null == t ? void 0 : t.slug,
                                 )),
-                              (null === (i = null == _ ? void 0 : _.collection) || void 0 === i
+                              (null === (i = null == m ? void 0 : m.collection) || void 0 === i
                                 ? void 0
-                                : i.items) && (_.collection = se(_.collection)),
-                              (null === (s = null == _ ? void 0 : _.collectionBySlug) ||
+                                : i.items) && (m.collection = oe(m.collection)),
+                              (null === (s = null == m ? void 0 : m.collectionBySlug) ||
                               void 0 === s
                                 ? void 0
                                 : s.items) &&
-                                (Object.assign(_, se(_.collectionBySlug)),
-                                delete _.collectionBySlug),
-                              (null == _ ? void 0 : _.collectionItemById) &&
+                                (Object.assign(m, oe(m.collectionBySlug)),
+                                delete m.collectionBySlug),
+                              (null == m ? void 0 : m.collectionItemById) &&
                                 ((null == t ? void 0 : t.slug) &&
-                                  (_.collectionItemById = oe(_.collectionItemById, t.slug)),
-                                Object.assign(_, _.collectionItemById)),
-                              (null === (o = null == _ ? void 0 : _.marketplace) || void 0 === o
+                                  (m.collectionItemById = ue(m.collectionItemById, t.slug)),
+                                Object.assign(m, m.collectionItemById)),
+                              (null === (o = null == m ? void 0 : m.marketplace) || void 0 === o
                                 ? void 0
                                 : o.collections) &&
-                                (_.marketplace.collections =
-                                  null === (u = null == _ ? void 0 : _.marketplace) || void 0 === u
+                                (m.marketplace.collections =
+                                  null === (u = null == m ? void 0 : m.marketplace) || void 0 === u
                                     ? void 0
                                     : u.collections.map(function (e) {
-                                        return se(e);
+                                        return oe(e);
                                       })),
-                              null === (l = null == _ ? void 0 : _.me) || void 0 === l
+                              null === (l = null == m ? void 0 : m.me) || void 0 === l
                                 ? void 0
                                 : l.wallets)
                             ) {
                               var L =
                                 null ===
                                   (c =
-                                    null === (d = null == _ ? void 0 : _.me) || void 0 === d
+                                    null === (d = null == m ? void 0 : m.me) || void 0 === d
                                       ? void 0
                                       : d.wallets) || void 0 === c
                                   ? void 0
@@ -28853,22 +28861,22 @@ object-assign
                                         e
                                       );
                                     });
-                              _.me.wallets = L;
+                              m.me.wallets = L;
                             }
-                            if (null == _ ? void 0 : _.getMyInvoices) {
-                              var g = ke.getQueryData([
-                                'Contentful '.concat(U[U.shortLots]),
+                            if (null == m ? void 0 : m.getMyInvoices) {
+                              var g = be.getQueryData([
+                                'Contentful '.concat(B[B.shortLots]),
                                 { slug: null == t ? void 0 : t.slug },
                               ]);
-                              _.getMyInvoices =
-                                null == _
+                              m.getMyInvoices =
+                                null == m
                                   ? void 0
-                                  : _.getMyInvoices.map(function (e) {
+                                  : m.getMyInvoices.map(function (e) {
                                       var t = null == g ? void 0 : g[e.collectionItemId];
                                       return t && (e.contentfulData = t), e;
                                     });
                             }
-                            return _;
+                            return m;
                           })(e, r);
                         }),
                     ]
@@ -28879,18 +28887,18 @@ object-assign
             });
           });
         },
-        Le = function (e) {
+        ge = function (e) {
           var t = e.queryKey;
-          return de(void 0, void 0, void 0, function () {
+          return ce(void 0, void 0, void 0, function () {
             var e, n, r, a;
-            return ce(this, function (i) {
+            return me(this, function (i) {
               switch (i.label) {
                 case 0:
                   return (
                     (e = _e(t, 2)),
                     (n = e[0]),
                     (r = e[1]),
-                    (a = re.getContentfulQuery(n)),
+                    (a = ae.getContentfulQuery(n)),
                     console.log(
                       ''
                         .concat(a ? '💾' : '❌', ' CONTENTFUL QUERY = ')
@@ -28899,8 +28907,9 @@ object-assign
                     ),
                     [
                       4,
-                      Me.request(a, r)
-                        .catch(he)
+                      ve
+                        .request(a, r)
+                        .catch(pe)
                         .then(function (e) {
                           return (function (e, t, n) {
                             var r, a;
@@ -28929,9 +28938,9 @@ object-assign
             });
           });
         },
-        ge = function (e) {
+        ke = function (e) {
           var t = e.queryKey;
-          if (re.isMojitoHooksKey(t)) {
+          if (ae.isMojitoHooksKey(t)) {
             var n = _e(t, 2),
               r = n[0],
               a = n[1],
@@ -28946,19 +28955,19 @@ object-assign
                   }),
                 ),
                 null)
-              : re.isContentful(r)
-              ? Le(e)
-              : ve(e);
+              : ae.isContentful(r)
+              ? ge(e)
+              : Le(e);
           }
           return null;
         },
-        ke = new a.QueryClient({
-          defaultOptions: { queries: { staleTime: s ? 18e4 : 0, cacheTime: 1 / 0, queryFn: ge } },
+        be = new a.QueryClient({
+          defaultOptions: { queries: { staleTime: s ? 18e4 : 0, cacheTime: 1 / 0, queryFn: ke } },
         }),
-        be = n(5),
-        Ye = n.n(be),
-        Te = function () {
-          return (Te =
+        Ye = n(5),
+        Te = n.n(Ye),
+        De = function () {
+          return (De =
             Object.assign ||
             function (e) {
               for (var t, n = 1, r = arguments.length; n < r; n++)
@@ -28969,9 +28978,9 @@ object-assign
         };
       !(function (e) {
         (e[(e.addToken = 0)] = 'addToken'), (e[(e.clearToken = 1)] = 'clearToken');
-      })(pe || (pe = {}));
-      var De = Ye.a.createContext({ state: void 0, dispatch: void 0 });
-      var we = function (e, t) {
+      })(ye || (ye = {}));
+      var we = Te.a.createContext({ state: void 0, dispatch: void 0 });
+      var Se = function (e, t) {
         var n = {};
         for (var r in e)
           Object.prototype.hasOwnProperty.call(e, r) && t.indexOf(r) < 0 && (n[r] = e[r]);
@@ -28984,8 +28993,8 @@ object-assign
         }
         return n;
       };
-      var Se = function () {
-        return (Se =
+      var xe = function () {
+        return (xe =
           Object.assign ||
           function (e) {
             for (var t, n = 1, r = arguments.length; n < r; n++)
@@ -28994,58 +29003,67 @@ object-assign
             return e;
           }).apply(this, arguments);
       };
-      function xe(e) {
+      function Ee(e) {
         var t = e.as,
           n = e.query,
           r = e.variables,
           i = e.options,
-          s = e.force,
-          o = void 0 !== s && s,
-          u = e.onlyAuthenticated,
-          l = Object(a.useQueryClient)(),
-          d = (function () {
-            var e = Ye.a.useContext(De);
+          s = e.transformFn,
+          o = e.force,
+          u = void 0 !== o && o,
+          l = e.onlyAuthenticated,
+          d = Object(a.useQueryClient)(),
+          c = (function () {
+            var e = Te.a.useContext(we);
             if (void 0 === e.dispatch || void 0 === e.state)
               throw new Error('useContext must be used within a Provider');
-            return Te(Te({}, e.state), { dispatch: e.dispatch });
+            return De(De({}, e.state), { dispatch: e.dispatch });
           })().isAuthenticated,
-          c = re.get(n, r),
-          _ = Object(a.useQuery)(c, Se(Se({}, i), { meta: { authorization: d }, enabled: !u }));
+          m = ae.get(n, r),
+          _ = !1 !== (null == i ? void 0 : i.enabled) && (!l || c),
+          f = Object(a.useQuery)(
+            m,
+            xe(xe({}, i), {
+              meta: xe(xe({}, null == i ? void 0 : i.meta), { authorization: c }),
+              enabled: _,
+            }),
+          );
         return (
-          Object(be.useEffect)(
+          Object(Ye.useEffect)(
             function () {
-              o && l.removeQueries(c);
+              u && d.removeQueries(m);
+            },
+            [m],
+          ),
+          Object(Ye.useEffect)(
+            function () {
+              c &&
+                l &&
+                _ &&
+                void 0 === d.getQueryData(m) &&
+                (console.log('🔄 useMojitoFactory refetch...'), f.refetch());
             },
             [c],
           ),
-          Object(be.useEffect)(
-            function () {
-              d &&
-                u &&
-                void 0 === l.getQueryData(c) &&
-                (console.log('🔄 useMojitoFactory refetch...'), _.refetch());
-            },
-            [d],
-          ),
-          _.isError && console.log(_.error),
-          (function (e, t) {
-            var n,
-              r = t,
-              a = r.data;
+          f.isError && console.log(f.error),
+          (function (e, t, n) {
+            var r,
+              a = t,
+              i = a.data;
             return (
-              ((n = {
-                isLoading: r.isLoading,
-                error: r.error,
-                refetch: r.refetch,
-                queryResult: we(r, ['data', 'isLoading', 'error', 'refetch']),
-              })[e] = a),
-              n
+              ((r = {
+                isLoading: a.isLoading,
+                error: a.error,
+                refetch: a.refetch,
+                queryResult: Se(a, ['data', 'isLoading', 'error', 'refetch']),
+              })[e] = n ? n(i) : i),
+              r
             );
-          })(t, _)
+          })(t, f, s)
         );
       }
-      var Ee = function () {
-          return (Ee =
+      var Oe = function () {
+          return (Oe =
             Object.assign ||
             function (e) {
               for (var t, n = 1, r = arguments.length; n < r; n++)
@@ -29054,7 +29072,7 @@ object-assign
               return e;
             }).apply(this, arguments);
         },
-        Oe = function (e, t, n, r) {
+        je = function (e, t, n, r) {
           return new (n || (n = Promise))(function (a, i) {
             function s(e) {
               try {
@@ -29084,7 +29102,7 @@ object-assign
             u((r = r.apply(e, t || [])).next());
           });
         },
-        je = function (e, t) {
+        He = function (e, t) {
           var n,
             r,
             a,
@@ -29172,7 +29190,7 @@ object-assign
             };
           }
         },
-        He = function (e, t) {
+        Pe = function (e, t) {
           var n = 'function' == typeof Symbol && e[Symbol.iterator];
           if (!n) return e;
           var r,
@@ -29192,62 +29210,57 @@ object-assign
           }
           return s;
         };
-      function Pe(e) {
+      function Ae(e) {
         var t,
           n = Object(a.useQueryClient)(),
           r =
             (null === (t = n.getDefaultOptions().queries) || void 0 === t ? void 0 : t.queryFn) ||
-            ge,
-          s = (function (e) {
-            var t = void 0 === e ? {} : e,
-              n = t.pathname,
-              r = t.slug;
-            return r || o(n)[0];
-          })(e),
-          u = re.get(p.collectionBySlug, { slug: s, marketplaceID: i.a.MARKETPLACE_ID });
-        return xe({
+            ke,
+          s = u(e),
+          o = ae.get(y.collectionBySlug, { slug: s, marketplaceID: i.a.MARKETPLACE_ID });
+        return Ee({
           as: 'collection',
-          query: p.collectionBySlug,
+          query: y.collectionBySlug,
           variables: { slug: s, marketplaceID: i.a.MARKETPLACE_ID },
-          options: Ee(Ee({}, null == e ? void 0 : e.options), {
+          options: Oe(Oe({}, null == e ? void 0 : e.options), {
             queryFn: function () {
-              return Oe(this, void 0, void 0, function () {
-                var e, t, a, o, l, d;
-                return je(this, function (c) {
+              return je(this, void 0, void 0, function () {
+                var e, t, a, u, l, d;
+                return He(this, function (c) {
                   switch (c.label) {
                     case 0:
                       return [
                         4,
                         Promise.all([
                           n.fetchQuery(
-                            re.get(p.marketplaceCollectionsInfoWithItemsIdAndSlug, {
+                            ae.get(y.marketplaceCollectionsInfoWithItemsIdAndSlug, {
                               id: i.a.MARKETPLACE_ID,
                             }),
                           ),
-                          n.fetchQuery(re.get(U.auctionsSlugList)),
+                          n.fetchQuery(ae.get(B.auctionsSlugList)),
                         ]),
                       ];
                     case 1:
                       return (
-                        (e = He.apply(void 0, [c.sent(), 2])),
+                        (e = Pe.apply(void 0, [c.sent(), 2])),
                         (t = e[0]),
                         (a = e[1]),
-                        (o = t.marketplace.collections.find(function (e) {
+                        (u = t.marketplace.collections.find(function (e) {
                           return e.slug == s;
                         })),
                         (l = a.auctionCollection.items.find(function (e) {
                           return e.slug == s;
                         })),
-                        o
+                        u
                           ? l
-                            ? ((d = o.items.map(function (e) {
+                            ? ((d = u.items.map(function (e) {
                                 return e.id;
                               })),
                               [
                                 4,
                                 Promise.all([
-                                  n.prefetchQuery(re.get(U.auctionBySlug, { slug: s })),
-                                  n.prefetchQuery(re.get(U.shortLots, { mojitoIds: d })),
+                                  n.prefetchQuery(ae.get(B.auctionBySlug, { slug: s })),
+                                  n.prefetchQuery(ae.get(B.shortLots, { mojitoIds: d })),
                                 ]),
                               ])
                             : [3, 3]
@@ -29256,7 +29269,7 @@ object-assign
                     case 2:
                       c.sent(), (c.label = 3);
                     case 3:
-                      return [4, r({ queryKey: u, meta: void 0 })];
+                      return [4, r({ queryKey: o, meta: void 0 })];
                     case 4:
                       return [2, c.sent()];
                   }
@@ -29266,51 +29279,164 @@ object-assign
           }),
         });
       }
-      function Ae(e, t) {
-        var n = Pe().collection,
-          r = null == n ? void 0 : n.slug;
-        return xe({
-          as: 'bids',
-          query: p.collectionItemByIdBidsList,
-          variables: { id: e, slug: null != t ? t : r },
+      function Ie(e) {
+        var t = e.collectionItemID,
+          n = e.options;
+        return Ee({
+          as: 'itemBids',
+          query: y.collectionItemByIdBidsList,
+          variables: { id: t },
+          options: n,
         });
       }
-      function Ce(e, t) {
-        var n = Pe().collection,
-          r = null == n ? void 0 : n.slug;
-        return xe({
+      function Ce(e) {
+        var t = u(e);
+        return Ee({
+          as: 'slug',
+          query: y.marketplaceCollectionsInfoWithItemsIdAndSlug,
+          variables: { id: i.a.MARKETPLACE_ID },
+          options: null == e ? void 0 : e.options,
+          transformFn: function (e) {
+            return (function (e, t) {
+              if (t)
+                return t.marketplace.collections.find(function (t) {
+                  return t.slug == e;
+                })
+                  ? e
+                  : null;
+            })(t, e);
+          },
+        });
+      }
+      var Ne = function () {
+          return (Ne =
+            Object.assign ||
+            function (e) {
+              for (var t, n = 1, r = arguments.length; n < r; n++)
+                for (var a in (t = arguments[n]))
+                  Object.prototype.hasOwnProperty.call(t, a) && (e[a] = t[a]);
+              return e;
+            }).apply(this, arguments);
+        },
+        Fe = function (e, t) {
+          var n = {};
+          for (var r in e)
+            Object.prototype.hasOwnProperty.call(e, r) && t.indexOf(r) < 0 && (n[r] = e[r]);
+          if (null != e && 'function' == typeof Object.getOwnPropertySymbols) {
+            var a = 0;
+            for (r = Object.getOwnPropertySymbols(e); a < r.length; a++)
+              t.indexOf(r[a]) < 0 &&
+                Object.prototype.propertyIsEnumerable.call(e, r[a]) &&
+                (n[r[a]] = e[r[a]]);
+          }
+          return n;
+        };
+      function Re(e) {
+        if (e) return e.items || [];
+      }
+      function We(e) {
+        var t = e.options,
+          n = Ce(Fe(e, ['options'])).slug;
+        return Ee({
           as: 'currentBids',
-          query: p.collectionBySlugCurrentBids,
-          variables: { slug: null != t ? t : r, marketplaceID: i.a.MARKETPLACE_ID },
+          query: y.collectionBySlugCurrentBids,
+          variables: { slug: n, marketplaceID: i.a.MARKETPLACE_ID },
+          options: Ne(Ne({}, t), { enabled: !!n }),
+          transformFn: Re,
         });
       }
-      function Ie(e, t) {
-        var n = Pe().collection,
-          r = null == n ? void 0 : n.slug;
-        return xe({
+      var ze = function () {
+          return (ze =
+            Object.assign ||
+            function (e) {
+              for (var t, n = 1, r = arguments.length; n < r; n++)
+                for (var a in (t = arguments[n]))
+                  Object.prototype.hasOwnProperty.call(t, a) && (e[a] = t[a]);
+              return e;
+            }).apply(this, arguments);
+        },
+        Ue = function (e, t) {
+          var n = {};
+          for (var r in e)
+            Object.prototype.hasOwnProperty.call(e, r) && t.indexOf(r) < 0 && (n[r] = e[r]);
+          if (null != e && 'function' == typeof Object.getOwnPropertySymbols) {
+            var a = 0;
+            for (r = Object.getOwnPropertySymbols(e); a < r.length; a++)
+              t.indexOf(r[a]) < 0 &&
+                Object.prototype.propertyIsEnumerable.call(e, r[a]) &&
+                (n[r[a]] = e[r[a]]);
+          }
+          return n;
+        };
+      function Be(e) {
+        var t = e.collectionItemID,
+          n = We(Ue(e, ['collectionItemID'])),
+          r = n.currentBids,
+          a = Ue(n, ['currentBids']),
+          i =
+            null == r
+              ? void 0
+              : r.find(function (e) {
+                  return e.id === t;
+                });
+        return ze(ze({}, a), { itemCurrentBids: i });
+      }
+      var Ke = function () {
+          return (Ke =
+            Object.assign ||
+            function (e) {
+              for (var t, n = 1, r = arguments.length; n < r; n++)
+                for (var a in (t = arguments[n]))
+                  Object.prototype.hasOwnProperty.call(t, a) && (e[a] = t[a]);
+              return e;
+            }).apply(this, arguments);
+        },
+        qe = function (e, t) {
+          var n = {};
+          for (var r in e)
+            Object.prototype.hasOwnProperty.call(e, r) && t.indexOf(r) < 0 && (n[r] = e[r]);
+          if (null != e && 'function' == typeof Object.getOwnPropertySymbols) {
+            var a = 0;
+            for (r = Object.getOwnPropertySymbols(e); a < r.length; a++)
+              t.indexOf(r[a]) < 0 &&
+                Object.prototype.propertyIsEnumerable.call(e, r[a]) &&
+                (n[r[a]] = e[r[a]]);
+          }
+          return n;
+        };
+      function Ve(e) {
+        if (e) return e.details.remainingCount;
+      }
+      function Qe(e) {
+        var t = e.collectionItemID,
+          n = e.options,
+          r = Ce(qe(e, ['collectionItemID', 'options'])).slug;
+        return Ee({
           as: 'remainingCount',
-          query: p.collectionItemByIdRemainingCount,
-          variables: { id: e, slug: null != t ? t : r },
+          query: y.collectionItemByIdRemainingCount,
+          variables: { id: t, slug: r },
+          options: Ke(Ke({}, n), { enabled: !!r }),
+          transformFn: Ve,
           onlyAuthenticated: !0,
         });
       }
-      function Ne(e) {
-        return xe({
+      function Je(e) {
+        return Ee({
           as: 'collectionLotsIds',
-          query: p.collectionLotsIdList,
+          query: y.collectionLotsIdList,
           variables: { slug: e, marketplaceID: i.a.MARKETPLACE_ID },
         });
       }
-      function Fe() {
-        return xe({
+      function Ge() {
+        return Ee({
           as: 'marketplaceCollectionsSlugWithItemsId',
-          query: p.marketplaceCollectionsInfoWithItemsIdAndSlug,
+          query: y.marketplaceCollectionsInfoWithItemsIdAndSlug,
           variables: { id: i.a.MARKETPLACE_ID },
         });
       }
-      var Re = function (e) {
+      var $e = function (e) {
         var t = e.children;
-        return Ye.a.createElement(a.QueryClientProvider, { client: ke }, t);
+        return Te.a.createElement(a.QueryClientProvider, { client: be }, t);
       };
     },
     function (e, t, n) {

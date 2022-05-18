@@ -1,4 +1,4 @@
-import { useQueryClient, UseQueryOptions } from 'react-query';
+import { useQueryClient } from 'react-query';
 import { config } from '../../domain/constants/general.constants';
 import {
   IContentfulAuctionsQuery,
@@ -12,18 +12,13 @@ import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { QueryResult } from '../../domain/utils/gql.utils';
 import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
-
-// TODO: Separate props and result interfaces in separate file in this module:
-
-interface UseCollectionProps {
-  url?: string;
-  slug?: string;
-  options?: UseQueryOptions<any>;
-}
+import { BaseHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 
 export type UseCollectionData = IMojitoCollection | null | undefined;
 
 export type UseCollectionReturn = QueryResult<'collection', UseCollectionData>;
+
+export type UseCollectionProps = BaseHookPropsWithUrlAndSlug<UseCollectionData>;
 
 export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
   const queryClient = useQueryClient();
