@@ -68,7 +68,6 @@ export const mojitoQueryFn = async <T = unknown>({
 export const contentfulQueryFn = async <T = unknown>({
   queryKey,
 }: QueryFunctionContext<IQueryKey>): Promise<T> => {
-  // TODO: Query key could be a simple string?
   const [query, variables] = queryKey;
   const contentfulQuery = QueryKey.getContentfulQuery(query);
 
