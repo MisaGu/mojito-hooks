@@ -25,11 +25,6 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
   const queryFn = queryClient.getDefaultOptions().queries?.queryFn || defaultQueryFn;
   const collectionSlug = getCollectionSlug(props);
 
-  const queryKey = QueryKey.get(EMojitoQueries.collectionBySlug, {
-    slug: collectionSlug,
-    marketplaceID: config.MARKETPLACE_ID,
-  });
-
   async function useCollectionFn() {
     const [mojitoCollections, contentfulCollectionSlugsOnly] = await Promise.all([
       queryClient.fetchQuery<IMojitoMarketplaceResponse>(
@@ -69,6 +64,12 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
     // return await queryClient.fetchQuery<IMojitoCollection>(queryKey, { cacheTime: 0 });
 
     // Instead, we need to get the queryFn from queryClient's options (getDefaultOptions):
+
+    const queryKey = QueryKey.get(EMojitoQueries.collectionBySlug, {
+      slug: collectionSlug,
+      marketplaceID: config.MARKETPLACE_ID,
+    });
+
     return (await queryFn({ queryKey, meta: undefined })) as IMojitoCollection;
   }
 
