@@ -118,7 +118,7 @@ Assignee:
 | 🔵 useMojitoFactory                         | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useMojitoItem                            | 🔨   | ❌   | ❌   | ❌   |
 | 🟢 useMojitoMutation                        | 👁️   | ❌   | ❌   | ❌   |
-| 🟢 useMojitoWallets                         | 🔨   | ❌   | ❌   | ❌   |
+| 🟢 useMojitoWallets                         | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useOrganization                          | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 usePlaceBidMutation                      | 🔨   | ❌   | ❌   | ❌   |
 | 🟢 useProfile                               | 👁️   | ❌   | ❌   | ❌   |

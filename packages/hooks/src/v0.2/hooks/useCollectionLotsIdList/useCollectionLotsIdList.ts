@@ -2,7 +2,7 @@ import { EMojitoQueries } from '../../domain/gql/queries';
 import { config } from '../../domain/constants/general.constants';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 import { IIMojitoCollectionLotsIdList } from '../../domain/interfaces';
-import { BaseHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
+import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 import { useCollectionSlug } from '../useCollectionSlug/useCollectionSlug';
 
 function transformFn(collectionLotsIdList?: IIMojitoCollectionLotsIdList) {
@@ -15,7 +15,8 @@ export type UseCollectionLotsIdListData = ReturnType<typeof transformFn>;
 
 export type UseCollectionLotsIdListReturn = ReturnType<typeof useCollectionLotsIdList>;
 
-export type UseCollectionLotsIdListProps = BaseHookPropsWithUrlAndSlug<UseCollectionLotsIdListData>;
+export type UseCollectionLotsIdListProps =
+  BaseQueryHookPropsWithUrlAndSlug<UseCollectionLotsIdListData>;
 
 export function useCollectionLotsIdList({ options, ...props }: UseCollectionLotsIdListProps) {
   const { slug } = useCollectionSlug(props);

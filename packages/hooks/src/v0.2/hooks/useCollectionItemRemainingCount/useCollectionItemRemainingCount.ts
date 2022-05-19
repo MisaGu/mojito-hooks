@@ -1,6 +1,6 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { IMojitoCollectionItemBuyNowLot } from '../../domain/interfaces';
-import { BaseHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
+import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 import { useCollectionSlug } from '../useCollectionSlug/useCollectionSlug';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
@@ -17,7 +17,7 @@ export type UseCollectionItemRemainingCountReturn = ReturnType<
 >;
 
 export interface UseCollectionItemRemainingCountProps
-  extends BaseHookPropsWithUrlAndSlug<UseCollectionItemRemainingCountData> {
+  extends BaseQueryHookPropsWithUrlAndSlug<UseCollectionItemRemainingCountData> {
   collectionItemID: string;
 }
 

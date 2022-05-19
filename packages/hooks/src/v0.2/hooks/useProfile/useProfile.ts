@@ -1,6 +1,6 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { IMojitoProfileRequest } from '../../domain/interfaces';
-import { BaseHookPropsWithForce } from '../../domain/interfaces/hooks.interface';
+import { BaseQueryHookPropsWithForce } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
 function transformFn(profileRequest?: IMojitoProfileRequest) {
@@ -13,7 +13,7 @@ export type UseProfileData = ReturnType<typeof transformFn>;
 
 export type UseProfileReturn = ReturnType<typeof useProfile>;
 
-export type UseProfileProps = BaseHookPropsWithForce<UseProfileData>;
+export type UseProfileProps = BaseQueryHookPropsWithForce<UseProfileData>;
 
 export function useProfile({ force, options }: UseProfileProps = {}) {
   return useMojitoFactory({

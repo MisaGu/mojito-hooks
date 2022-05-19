@@ -10,13 +10,13 @@ import { EMojitoQueries } from '../../domain/gql/queries';
 import { EContentfulQueries } from '../../domain/gql/contentful';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
-import { BaseHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
+import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 
 export type UseCollectionData = IMojitoCollection | null | undefined;
 
 export type UseCollectionReturn = ReturnType<typeof useCollection>;
 
-export type UseCollectionProps = BaseHookPropsWithUrlAndSlug<UseCollectionData>;
+export type UseCollectionProps = BaseQueryHookPropsWithUrlAndSlug<UseCollectionData>;
 
 export function useCollection(props?: UseCollectionProps) {
   const queryClient = useQueryClient();

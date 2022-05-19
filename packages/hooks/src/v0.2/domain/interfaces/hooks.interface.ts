@@ -9,13 +9,13 @@ export interface BaseMutationHookProps<TData = any, TError = Error, TVariables =
   options?: UseMutationOptions<TData, TError, TVariables>;
 }
 
-export interface BaseHookPropsWithUrlAndSlug<TData = any, TError = Error>
+export interface BaseQueryHookPropsWithUrlAndSlug<TData = any, TError = Error>
   extends BaseQueryHookProps<TData, TError> {
   url?: string;
   slug?: string;
 }
 
-export interface BaseHookPropsWithForce<TData = any, TError = Error>
+export interface BaseQueryHookPropsWithForce<TData = any, TError = Error>
   extends BaseQueryHookProps<TData, TError> {
   force?: boolean;
 }

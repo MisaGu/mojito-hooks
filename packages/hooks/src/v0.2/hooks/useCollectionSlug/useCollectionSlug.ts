@@ -3,7 +3,7 @@ import { IMojitoMarketplaceResponse } from '../../domain/interfaces';
 import { getCollectionSlug } from '../../domain/utils/path.util';
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
-import { BaseHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
+import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 
 function checkCollectionSlugExists(
   collectionSlug: string,
@@ -22,7 +22,7 @@ export type UseCollectionSlugData = ReturnType<typeof checkCollectionSlugExists>
 
 export type UseCollectionSlugReturn = ReturnType<typeof useCollectionSlug>;
 
-export type UseCollectionSlugProps = BaseHookPropsWithUrlAndSlug<UseCollectionSlugData>;
+export type UseCollectionSlugProps = BaseQueryHookPropsWithUrlAndSlug<UseCollectionSlugData>;
 
 export function useCollectionSlug(props?: UseCollectionSlugProps) {
   const collectionSlug = getCollectionSlug(props);

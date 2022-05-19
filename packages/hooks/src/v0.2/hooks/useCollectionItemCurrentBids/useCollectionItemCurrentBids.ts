@@ -1,6 +1,6 @@
 import { IMojitoCollectionItemCurrentBids } from '../../domain/interfaces';
 import { QueryResult } from '../../domain/utils/gql.utils';
-import { BaseHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
+import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 import { useCollectionItemsCurrentBids } from '../useCollectionItemsCurrentBids/useCollectionItemsCurrentBids';
 import { useMemo } from 'react';
 
@@ -9,7 +9,7 @@ export type UseCollectionItemCurrentBidsData = undefined | IMojitoCollectionItem
 export type UseCollectionItemCurrentBidsReturn = ReturnType<typeof useCollectionItemCurrentBids>;
 
 export interface UseCollectionItemCurrentBidsProps
-  extends BaseHookPropsWithUrlAndSlug<UseCollectionItemCurrentBidsData> {
+  extends BaseQueryHookPropsWithUrlAndSlug<UseCollectionItemCurrentBidsData> {
   collectionItemID: string;
 }
 
