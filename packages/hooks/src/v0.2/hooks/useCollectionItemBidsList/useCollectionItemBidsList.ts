@@ -1,15 +1,17 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
-import { ICollectionItemByIdBidsList } from '../../domain/interfaces';
+import { ICollectionItemByIdBidsListRequest } from '../../domain/interfaces';
 import { BaseHookProps } from '../../domain/interfaces/hooks.interface';
-import { QueryResult } from '../../domain/utils/gql.utils';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-export type UseCollectionItemBidsListData = undefined | ICollectionItemByIdBidsList;
+function transformFn(collectionItem?: ICollectionItemByIdBidsListRequest) {
+  if (!collectionItem) return undefined;
 
-export type UseCollectionItemBidsListReturn = QueryResult<
-  'itemBids',
-  UseCollectionItemBidsListData
->;
+  return collectionItem.collectionItemById;
+}
+
+export type UseCollectionItemBidsListData = ReturnType<typeof transformFn>;
+
+export type UseCollectionItemBidsListReturn = ReturnType<typeof useCollectionItemBidsList>;
 
 export interface UseCollectionItemBidsListProps
   extends BaseHookProps<UseCollectionItemBidsListData> {
@@ -19,13 +21,12 @@ export interface UseCollectionItemBidsListProps
 export function useCollectionItemBidsList({
   collectionItemID,
   options,
-}: UseCollectionItemBidsListProps): UseCollectionItemBidsListReturn {
-  // TODO: Do we want to unwrap the result?
-
-  return useMojitoFactory<'itemBids', UseCollectionItemBidsListData>({
+}: UseCollectionItemBidsListProps) {
+  return useMojitoFactory({
     as: 'itemBids',
     query: EMojitoQueries.collectionItemByIdBidsList,
     variables: { id: collectionItemID },
     options,
+    transformFn,
   });
 }

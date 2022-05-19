@@ -62,6 +62,7 @@ const YouApp: React.FC = () => {
 
 **In Development > Dani:**
 
+- Then, break down Json component.
 - Check if the refetch functions return the right shape and are type-checked properly (considering the normalizers and transformFns).
 - Next add new `useItemSlug` hook (similar to `useCollectionSlug`) and rename all `slug` props to either `auctionSlug` or `itemSlug`.
 - Extract test/demo constants/ids/etc. to constants...

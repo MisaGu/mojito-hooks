@@ -4,6 +4,7 @@ import { useQuery, useQueryClient, UseQueryOptions } from 'react-query';
 import { useAuthContext } from '../../domain/context/auth.context';
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { normalizeQueryResult } from '../../domain/utils/gql.utils';
+import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 
 export interface IUseMojitoFactoryOptions<
@@ -15,7 +16,8 @@ export interface IUseMojitoFactoryOptions<
   as: TDataPropertyName;
   query: EMojitoQueries;
   variables?: Variables;
-  options?: UseQueryOptions<TData, TError>;
+  options?: UseQueryOptions<TReturn, TError>;
+  preloadFn?: () => Promise<TReturn | void>;
   transformFn?: (data: TData | undefined) => TReturn | undefined;
   force?: boolean;
   onlyAuthenticated?: boolean;
@@ -31,21 +33,44 @@ export function useMojitoFactory<
   query,
   variables,
   options,
+  preloadFn,
   transformFn,
   force = false,
   onlyAuthenticated,
 }: IUseMojitoFactoryOptions<TDataPropertyName, TData, TReturn, TError>) {
-  const queryClient = useQueryClient();
-
   const { isAuthenticated } = useAuthContext();
+  const queryClient = useQueryClient();
   const queryKey = QueryKey.get(query, variables);
   const enabled = options?.enabled !== false && (!onlyAuthenticated || isAuthenticated);
 
-  const result = useQuery<TData | undefined>(queryKey, {
+  const queryFn =
+    preloadFn || transformFn
+      ? async () => {
+          if (preloadFn) {
+            const preloadResult = await preloadFn();
+
+            if (preloadResult !== undefined) return preloadResult;
+          }
+
+          const configuredQueryFn =
+            options?.queryFn || queryClient.getDefaultOptions().queries?.queryFn || defaultQueryFn;
+
+          const result = (await configuredQueryFn({ queryKey, meta: undefined })) as TData;
+
+          return transformFn ? transformFn(result) : (result as unknown as TReturn);
+        }
+      : options?.queryFn;
+
+  const mojitoFactoryUseQueryOptions = {
     ...options,
+    queryFn,
     meta: { ...options?.meta, authorization: isAuthenticated },
     enabled,
-  });
+  };
+
+  if (!queryFn) delete mojitoFactoryUseQueryOptions.queryFn;
+
+  const result = useQuery<TReturn | undefined, TError>(queryKey, mojitoFactoryUseQueryOptions);
 
   useEffect(() => {
     if (force) {
@@ -70,5 +95,5 @@ export function useMojitoFactory<
     console.log(result.error);
   }
 
-  return normalizeQueryResult(as, result, transformFn);
+  return normalizeQueryResult(as, result);
 }
