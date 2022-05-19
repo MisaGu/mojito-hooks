@@ -117,5 +117,5 @@ Assignee:
 | 🟢 useMojitoWallets                         | 🔨   | ❌   | ❌   | ❌   |
 | 🟢 useOrganization                          | 🔨   | ❌   | ❌   | ❌   |
 | 🟢 usePlaceBidMutation                      | 🔨   | ❌   | ❌   | ❌   |
-| 🟢 useProfile                               | 🔨   | ❌   | ❌   | ❌   |
+| 🟢 useProfile                               | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useServerTime                            | 👁️   | ❌   | ❌   | ❌   |

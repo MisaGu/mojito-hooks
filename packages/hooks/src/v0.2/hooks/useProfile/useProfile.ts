@@ -1,7 +1,34 @@
-export function useProfile() {
-  return true;
+import { config } from '../../domain/constants/general.constants';
+import { EMojitoQueries } from '../../domain/gql/queries';
+import { IMojitoProfileRequest } from '../../domain/interfaces';
+import { BaseHookPropsWithForce } from '../../domain/interfaces/hooks.interface';
+import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
+
+function transformFn(profileRequest?: IMojitoProfileRequest) {
+  if (!profileRequest) return undefined;
+
+  return profileRequest.me;
 }
 
+export type UseProfileData = ReturnType<typeof transformFn>;
+
+export type UseProfileReturn = ReturnType<typeof useProfile>;
+
+export type UseProfileProps = BaseHookPropsWithForce<UseProfileData>;
+
+export function useProfile({ force, options }: UseProfileProps = {}) {
+  return useMojitoFactory({
+    as: 'profile',
+    query: EMojitoQueries.profile,
+    variables: {
+      organizationID: config.ORGANIZATION_ID,
+    },
+    options,
+    transformFn,
+    force,
+    onlyAuthenticated: true,
+  });
+}
 // legacy function
 /*
 
