@@ -118,4 +118,4 @@ Assignee:
 | 🟢 useOrganization                          | 🔨   | ❌   | ❌   | ❌   |
 | 🟢 usePlaceBidMutation                      | 🔨   | ❌   | ❌   | ❌   |
 | 🟢 useProfile                               | 🔨   | ❌   | ❌   | ❌   |
-| 🟢 useServerTime                            | 🔨   | ❌   | ❌   | ❌   |
+| 🟢 useServerTime                            | 👁️   | ❌   | ❌   | ❌   |

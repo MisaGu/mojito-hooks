@@ -238,7 +238,12 @@ export function mojitoNormalizer(response: any, variables?: { slug?: string }, k
     moment.now = function () {
       return serverTimeOffset + Date.now();
     };
+
+    Object.assign(_data, {
+      serverTime: new Date(_data.serverTime),
+    });
   }
+
   if (_data?.me?.userOrgs?.[0]) {
     const _organization = _data.me.userOrgs[0];
 
