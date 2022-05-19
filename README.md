@@ -73,6 +73,10 @@ const YouApp: React.FC = () => {
 - Use react-query to store auth data and get rid of AuthProvider, etc.
 - Create backend task to automatically log in with demo account (non-expiring token).
 
+**Note:**
+
+- legacy useProfile was sending tags in Sentry, but as it client project specific it was not implemented
+
 ---
 
 **Hooks Progress:**
