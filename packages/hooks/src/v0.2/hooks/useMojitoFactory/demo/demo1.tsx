@@ -9,5 +9,5 @@
 import React from 'react';
 
 export default () => {
-  return <pre>useMojitoFactory()</pre>;
+  return <pre>INTERNAL: useMojitoFactory()</pre>;
 };

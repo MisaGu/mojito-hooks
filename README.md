@@ -62,9 +62,11 @@ const YouApp: React.FC = () => {
 
 **In Development > Dani:**
 
-- Working in `useCollection` (fixing fetching + moving logic to serializer).
-- Next add new `useCollectionSlug` hook which uses this hook/query and return only slug and itemSlug.
-- Adding additional functionality to demo `Json` component: Add refetch button, stale/fetching info, progress bar auto refresh...
+- Check if the refetch functions return the right shape and are type-checked properly (considering the normalizers and transformFns).
+- Next add new `useItemSlug` hook (similar to `useCollectionSlug`) and rename all `slug` props to either `auctionSlug` or `itemSlug`.
+- Update `useContentful` hook to have the same functionality `useMojitoFactory` has.
+- Extract test/demo constants/ids/etc. to constants...
+- Can we type-check queries and variables (check they match) in QueryKey.get and return type in prefetchQuery?
 
 **Not assigned / TODO:**
 
@@ -75,7 +77,44 @@ const YouApp: React.FC = () => {
 
 **Hooks Progress:**
 
-| Hook          | Code | Demo | Test | Docs |
-| ------------- | ---- | ---- | ---- | ---- |
-| useActiveBids | ✔️   | ❌   | ❌   | ❌   |
-| useCollection | ✔️   | ❌   | ❌   | ❌   |
+Progress:
+
+- ❌ Not done.
+- 👁️ Needs review.
+- ✔️ Done.
+
+Assignee:
+
+- ⚪ Unassigned
+- 🔵 Dani
+- 🟢 Sergey
+
+| Hook                                        | Code | Demo | Test | Docs |
+| ------------------------------------------- | ---- | ---- | ---- | ---- |
+| ⚪ useActiveBids                            | ❌   | ❌   | ❌   | ❌   |
+| 🔵 useCollection                            | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useCollectionItemBidsList                | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useCollectionItemCurrentBids             | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useCollectionItemRemainingCount          | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useCollectionItemsCurrentBids            | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useCollectionLotsIdList                  | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useCollectionSlug                        | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useContentfulAuctionsSlugList            | 👁️   | ❌   | ❌   | ❌   |
+| ⚪ useContentfulAuthors                     | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useContentfulCollectors                  | ❌   | ❌   | ❌   | ❌   |
+| 🔵 useContentfulFactory                     | 👁️   | ❌   | ❌   | ❌   |
+| ⚪ useContentfulLots                        | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useContentfulShortLots                   | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useFavorites                             | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useInvoiceDownload                       | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useInvoices                              | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useLazyMojitoOneLot                      | ❌   | ❌   | ❌   | ❌   |
+| 🔵 useMarketplaceCollectionsSlugWithItemsId | 👁️   | ❌   | ❌   | ❌   |
+| ⚪ useMojitoFactory                         | ✔️   | ❌   | ❌   | ❌   |
+| ⚪ useMojitoItem                            | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useMojitoMutation                        | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useMojitoWallets                         | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useOrganization                          | ❌   | ❌   | ❌   | ❌   |
+| ⚪ usePlaceBidMutation                      | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useProfile                               | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useServerTime                            | ❌   | ❌   | ❌   | ❌   |

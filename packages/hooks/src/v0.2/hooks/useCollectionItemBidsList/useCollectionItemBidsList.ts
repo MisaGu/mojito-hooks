@@ -1,15 +1,31 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
-import { normalizeQueryResult } from '../../domain/utils/gql.utils';
-import { useCollection } from '../useCollection/useCollection';
+import { ICollectionItemByIdBidsList } from '../../domain/interfaces';
+import { BaseHookProps } from '../../domain/interfaces/hooks.interface';
+import { QueryResult } from '../../domain/utils/gql.utils';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-export function useCollectionItemBidsList(id: string, _slug?: string) {
-  const { collection } = useCollection();
-  const slug = collection?.slug;
+export type UseCollectionItemBidsListData = undefined | ICollectionItemByIdBidsList;
 
-  return useMojitoFactory({
-    as: 'bids',
+export type UseCollectionItemBidsListReturn = QueryResult<
+  'itemBids',
+  UseCollectionItemBidsListData
+>;
+
+export interface UseCollectionItemBidsListProps
+  extends BaseHookProps<UseCollectionItemBidsListData> {
+  collectionItemID: string;
+}
+
+export function useCollectionItemBidsList({
+  collectionItemID,
+  options,
+}: UseCollectionItemBidsListProps): UseCollectionItemBidsListReturn {
+  // TODO: Do we want to unwrap the result?
+
+  return useMojitoFactory<'itemBids', UseCollectionItemBidsListData>({
+    as: 'itemBids',
     query: EMojitoQueries.collectionItemByIdBidsList,
-    variables: { id, slug: _slug ?? slug },
+    variables: { id: collectionItemID },
+    options,
   });
 }

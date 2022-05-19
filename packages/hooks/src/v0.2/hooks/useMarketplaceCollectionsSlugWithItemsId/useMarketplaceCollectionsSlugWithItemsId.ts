@@ -9,8 +9,7 @@ export function useMarketplaceCollectionsSlugWithItemsId() {
     variables: { id: config.MARKETPLACE_ID },
   });
 
-  // TODO: New hook which uses this hook/query and return only slug and itemSlug.
-
+  // TODO: The old logic must go into the normalizer:
   // data?.marketplace?.collections / IMojitoCollection[]
 }
 

@@ -1,12 +1,13 @@
 import { Variables } from 'graphql-request/dist/types';
 import { contentfulQueries, EContentfulQueries } from '../gql/contentful';
 import { EMojitoQueries, mojitoQueries } from '../gql/queries';
+import { QueryKey as ReactQueryQueryKey } from 'react-query';
 
-export type IQueryKey = string | [string, Variables];
+export type IQueryKey = [string] | [string, Variables];
 
-export const QUERY_KEY_PREFIX = 'MOJITO-HOOKS::';
-export const QUERY_KEY_INFIX_MOJITO = `${QUERY_KEY_PREFIX}API::`;
-export const QUERY_KEY_INFIX_CONTENTFUL = `${QUERY_KEY_PREFIX}CONTENTFUL::`;
+const QUERY_KEY_PREFIX = 'MOJITO-HOOKS::';
+const QUERY_KEY_INFIX_MOJITO = `${QUERY_KEY_PREFIX}API::`;
+const QUERY_KEY_INFIX_CONTENTFUL = `${QUERY_KEY_PREFIX}CONTENTFUL::`;
 
 export class QueryKey {
   private static _removeQueryKeyPrefix<T>(queryKey: string) {
@@ -24,7 +25,7 @@ export class QueryKey {
 
     const queryKey = `${prefix}${query}`;
 
-    return variables ? [queryKey, variables] : queryKey;
+    return variables ? [queryKey, variables] : [queryKey];
   };
 
   static getMojitoQuery = (queryKey: string) => {
@@ -44,4 +45,8 @@ export class QueryKey {
   static isContentful = (queryKey: string) => {
     return queryKey.startsWith(QUERY_KEY_INFIX_CONTENTFUL);
   };
+
+  static isMojitoHooksKey(queryKey: ReactQueryQueryKey): queryKey is IQueryKey {
+    return Array.isArray(queryKey) && queryKey[0].includes(QUERY_KEY_PREFIX);
+  }
 }

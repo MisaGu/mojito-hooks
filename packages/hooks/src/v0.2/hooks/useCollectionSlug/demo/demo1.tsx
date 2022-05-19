@@ -10,10 +10,12 @@ import React from 'react';
 import { DemoInterface } from '../../../components/demo/interface/DemoInterface';
 import { Json } from '../../../components/demo/json/Json';
 import { DemoProviders } from '../../../components/demo/provider/DemoProvider';
-import { useMarketplaceCollectionsSlugWithItemsId } from '../useMarketplaceCollectionsSlugWithItemsId';
+import { useCollectionSlug } from '../useCollectionSlug';
 
 const DemoContent: React.FC = () => {
-  const result = useMarketplaceCollectionsSlugWithItemsId();
+  const result = useCollectionSlug({
+    slug: 'bid-test-3',
+  });
 
   return <Json result={result} />;
 };

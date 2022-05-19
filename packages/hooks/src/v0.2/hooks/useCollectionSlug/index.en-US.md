@@ -3,7 +3,7 @@ nav:
   path: /hooks
 ---
 
-# useActiveBids
+# useCollectionSlug
 
 A hook that toggle states.
 
@@ -12,10 +12,6 @@ A hook that toggle states.
 ### Default usage
 
 <code src="./demo/demo1.tsx" />
-
-### Advanced usage
-
-<code src="./demo/demo2.tsx" />
 
 ## API
 

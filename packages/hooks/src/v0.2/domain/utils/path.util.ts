@@ -11,7 +11,7 @@ export interface GetSlugOptions {
   slug?: string;
 }
 
-export function getAuctionSlug({ pathname, slug }: GetSlugOptions = {}) {
+export function getCollectionSlug({ pathname, slug }: GetSlugOptions = {}) {
   return slug ? slug : getPath(pathname)[0];
 }
 

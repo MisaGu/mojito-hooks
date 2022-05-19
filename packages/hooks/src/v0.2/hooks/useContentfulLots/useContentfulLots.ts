@@ -10,7 +10,7 @@ export function useContentfulLots(mojitoIds?: string[]): {
   lotsError: any;
   lotsLoading: boolean;
 } {
-  const { data, error, loading } = useContentful(EContentfulQueries.shortLots, mojitoIds);
+  const { data, error, loading } = useContentfulFactory(EContentfulQueries.shortLots, mojitoIds);
   if (error) console.error(error);
 
   return {

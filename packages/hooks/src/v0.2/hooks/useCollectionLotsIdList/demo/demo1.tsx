@@ -13,9 +13,11 @@ import { DemoProviders } from '../../../components/demo/provider/DemoProvider';
 import { useCollectionLotsIdList } from '../useCollectionLotsIdList';
 
 const DemoContent: React.FC = () => {
-  const result = useCollectionLotsIdList('bid-test-3');
+  const result = useCollectionLotsIdList({
+    slug: 'bid-test-3',
+  });
 
-  return <Json obj={result} />;
+  return <Json result={result} />;
 };
 
 export default () => {

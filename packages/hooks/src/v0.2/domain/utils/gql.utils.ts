@@ -7,9 +7,15 @@ export type QueryResult<TDataPropertyName extends string, TData = any, TError = 
   queryResult: Omit<UseQueryResult<TData, TError>, 'data' | 'isLoading' | 'error' | 'refetch'>;
 } & { [P in TDataPropertyName]: TData | undefined };
 
-export function normalizeQueryResult<TDataPropertyName extends string, TData = any, TError = Error>(
+export function normalizeQueryResult<
+  TDataPropertyName extends string,
+  TData = any,
+  TReturn = TData,
+  TError = Error,
+>(
   key: TDataPropertyName,
   result: UseQueryResult<TData>,
+  transformFn?: (data: TData | undefined) => TReturn | undefined,
 ) {
   const { data, isLoading, error, refetch, ...queryResult } = result as UseQueryResult<
     TData,
@@ -21,6 +27,6 @@ export function normalizeQueryResult<TDataPropertyName extends string, TData = a
     error,
     refetch,
     queryResult,
-    [key]: data,
-  } as QueryResult<TDataPropertyName, TData, TError>;
+    [key]: transformFn ? transformFn(data) : data,
+  } as QueryResult<TDataPropertyName, TReturn, TError>;
 }

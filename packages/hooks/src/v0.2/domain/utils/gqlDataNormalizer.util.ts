@@ -28,8 +28,6 @@ const extendCollection = (
     QueryKey.get(EContentfulQueries.auctionBySlug, { slug: collection.slug }),
   )?.auctionCollection?.items?.[0];
 
-  // console.log(`NORMALIZER contentfulData (${ collection.slug }) =`, contentfulData);
-
   const auctionStartUnix = moment(collection.startDate ?? null).unix();
   const auctionEndUnix = moment(collection.endDate ?? null).unix();
   const nowUnix = moment().unix();
@@ -59,7 +57,7 @@ const extendCollection = (
 
   Object.assign(collection, {
     contentfulData,
-    isFake: !!contentfulData,
+    isFake: !contentfulData,
     viewStatus: {
       isPreSale,
       isDuringSale,

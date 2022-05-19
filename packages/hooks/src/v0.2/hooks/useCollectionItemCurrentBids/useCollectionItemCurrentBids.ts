@@ -1,32 +1,35 @@
-import { EMojitoQueries } from '../../domain/gql/queries';
-import { config } from '../../domain/constants/general.constants';
-import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
-import { useCollection } from '../useCollection/useCollection';
+import { IMojitoCollectionItemCurrentBids } from '../../domain/interfaces';
+import { QueryResult } from '../../domain/utils/gql.utils';
+import { BaseHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
+import { useCollectionItemsCurrentBids } from '../useCollectionItemsCurrentBids/useCollectionItemsCurrentBids';
+import { useMemo } from 'react';
 
-export function useCollectionItemCurrentBids(id?: string, _slug?: string) {
-  const { collection } = useCollection();
-  const slug = collection?.slug;
+export type UseCollectionItemCurrentBidsData = undefined | IMojitoCollectionItemCurrentBids;
 
-  return useMojitoFactory({
-    as: 'currentBids',
-    query: EMojitoQueries.collectionBySlugCurrentBids,
-    variables: { slug: _slug ?? slug, marketplaceID: config.MARKETPLACE_ID },
-  });
+export type UseCollectionItemCurrentBidsReturn = QueryResult<
+  'itemCurrentBids',
+  UseCollectionItemCurrentBidsData
+>;
 
-  /*
+export interface UseCollectionItemCurrentBidsProps
+  extends BaseHookPropsWithUrlAndSlug<UseCollectionItemCurrentBidsData> {
+  collectionItemID: string;
+}
+
+export function useCollectionItemCurrentBids({
+  collectionItemID,
+  ...props
+}: UseCollectionItemCurrentBidsProps): UseCollectionItemCurrentBidsReturn {
+  const { currentBids, ...result } = useCollectionItemsCurrentBids(props as any);
+
+  const itemCurrentBids = useMemo(() => {
+    return currentBids?.find((item) => item.id === collectionItemID);
+  }, [currentBids]);
 
   return {
-    allCurrentBids: data?.items,
-    currentBidsLoading: loading,
-    currentBidsError: error,
-    currentBidsRefetch: refetch,
+    ...(result as any),
+    itemCurrentBids,
   };
-
-  currentBids: id
-    ? data?.items?.find((item: IMojitoCollectionItemCurrentBids) => item.id == id)
-    : undefined,
-
-  */
 }
 
 // legacy function

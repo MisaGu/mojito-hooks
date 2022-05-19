@@ -9,5 +9,5 @@
 import React from 'react';
 
 export default () => {
-  return <pre>useCollectionLotsIdList()</pre>;
+  return <pre>INTERNAL: useContentfulFactory()</pre>;
 };
