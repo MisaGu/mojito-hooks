@@ -42,7 +42,7 @@ export function useCollectionLotsIdList({
     transformFn,
   });
 
-  // TODO: Serializer should be updated here to make sure items only have id and name. All the extended fields should
+  // TODO: Normalizer should be updated here to make sure items only have id and name. All the extended fields should
   // not be added
 
   // TODO: The old logic must go into the normalizer:

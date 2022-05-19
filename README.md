@@ -80,6 +80,7 @@ const YouApp: React.FC = () => {
 Progress:
 
 - ❌ Not done.
+- 🔨 In progress.
 - 👁️ Needs review.
 - ✔️ Done.
 
@@ -91,7 +92,7 @@ Assignee:
 
 | Hook                                        | Code | Demo | Test | Docs |
 | ------------------------------------------- | ---- | ---- | ---- | ---- |
-| ⚪ useActiveBids                            | ❌   | ❌   | ❌   | ❌   |
+| 🔵 useActiveBids                            | 🔨   | ❌   | ❌   | ❌   |
 | 🔵 useCollection                            | 👁️   | ❌   | ❌   | ❌   |
 | 🔵 useCollectionItemBidsList                | 👁️   | ❌   | ❌   | ❌   |
 | 🔵 useCollectionItemCurrentBids             | 👁️   | ❌   | ❌   | ❌   |
@@ -100,11 +101,11 @@ Assignee:
 | 🔵 useCollectionLotsIdList                  | 👁️   | ❌   | ❌   | ❌   |
 | 🔵 useCollectionSlug                        | 👁️   | ❌   | ❌   | ❌   |
 | 🔵 useContentfulAuctionsSlugList            | 👁️   | ❌   | ❌   | ❌   |
-| ⚪ useContentfulAuthors                     | ❌   | ❌   | ❌   | ❌   |
-| ⚪ useContentfulCollectors                  | ❌   | ❌   | ❌   | ❌   |
+| 🔵 useContentfulAuthors                     | 🔨   | ❌   | ❌   | ❌   |
+| 🔵 useContentfulCollectors                  | 🔨   | ❌   | ❌   | ❌   |
 | 🔵 useContentfulFactory                     | 👁️   | ❌   | ❌   | ❌   |
-| ⚪ useContentfulLots                        | ❌   | ❌   | ❌   | ❌   |
-| ⚪ useContentfulShortLots                   | ❌   | ❌   | ❌   | ❌   |
+| 🔵 useContentfulLots                        | 🔨   | ❌   | ❌   | ❌   |
+| 🔵 useContentfulShortLots                   | 🔨   | ❌   | ❌   | ❌   |
 | ⚪ useFavorites                             | ❌   | ❌   | ❌   | ❌   |
 | ⚪ useInvoiceDownload                       | ❌   | ❌   | ❌   | ❌   |
 | ⚪ useInvoices                              | ❌   | ❌   | ❌   | ❌   |
