@@ -37,7 +37,6 @@
     "@auth0/auth0-react": "^1.6.0",
     "@babel/runtime": "^7.17.9",
     "@sentry/react": "^6.15.0",
-    "@swyg/corre": "^1.0.1",
     "ahooks": "^3.3.10",
     "axios": "^0.21.4",
     "graphql": "^16.4.0",

@@ -1,8 +1,8 @@
-import { useThrottledRAF } from '@swyg/corre';
 import React, { useCallback, useRef, useState } from 'react';
 import { QueryResult } from '../../../domain/utils/gql.utils';
 import { QUERY_CLIENT_STALE_TIME } from '../../../domain/utils/gqlRequest.util';
 import { isBrowser } from '../../../domain/utils/isBrowser.util';
+import { useRAF } from '../hooks/use-raf.hook';
 import {
   ROOT_STYLE,
   ACTIONS_STYLE,
@@ -64,28 +64,25 @@ export const Json: React.FC<JsonProps> = ({ result, staleTime = QUERY_CLIENT_STA
   const progressBarRef = useRef<HTMLDivElement | null>(null);
 
   // TODO: Replace with useProgress once published:
-  useThrottledRAF(
-    () => {
-      const progressBar = progressBarRef.current;
+  useRAF(() => {
+    const progressBar = progressBarRef.current;
 
-      if (!progressBar) return;
+    if (!progressBar) return;
 
-      const dataExpiresAt = dataUpdatedAt + QUERY_CLIENT_STALE_TIME;
-      const dataRemainingTTL = (dataExpiresAt - Date.now()) / QUERY_CLIENT_STALE_TIME;
-      const dataExpirationProgress = 100 * Math.min(1, 1 - dataRemainingTTL);
+    const dataExpiresAt = dataUpdatedAt + QUERY_CLIENT_STALE_TIME;
+    const dataRemainingTTL = (dataExpiresAt - Date.now()) / QUERY_CLIENT_STALE_TIME;
+    const dataExpirationProgress = 100 * Math.min(1, 1 - dataRemainingTTL);
 
-      progressBar.style.width = `${dataExpirationProgress}%`;
+    progressBar.style.width = `${dataExpirationProgress}%`;
 
-      if (dataExpirationProgress === 100) {
-        progressBar.style.setProperty('--progressBarAccent', '#000');
-      } else if (dataExpirationProgress > 95) {
-        progressBar.style.setProperty('--progressBarAccent', '#F00');
-      } else if (dataExpirationProgress < 1) {
-        progressBar.style.setProperty('--progressBarAccent', '#4569D4');
-      }
-    },
-    dataUpdatedAt ? 16 : null,
-  );
+    if (dataExpirationProgress === 100) {
+      progressBar.style.setProperty('--progressBarAccent', '#000');
+    } else if (dataExpirationProgress > 95) {
+      progressBar.style.setProperty('--progressBarAccent', '#F00');
+    } else if (dataExpirationProgress < 1) {
+      progressBar.style.setProperty('--progressBarAccent', '#4569D4');
+    }
+  }, !!dataUpdatedAt);
 
   let statusLabel = '';
 

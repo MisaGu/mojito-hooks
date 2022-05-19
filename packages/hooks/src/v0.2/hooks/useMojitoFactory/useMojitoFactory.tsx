@@ -6,7 +6,7 @@ import { EMojitoQueries } from '../../domain/gql/queries';
 import { normalizeQueryResult } from '../../domain/utils/gql.utils';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 
-interface IUseMojitoOptions<
+export interface IUseMojitoFactoryOptions<
   TDataPropertyName extends string,
   TData = any,
   TReturn = TData,
@@ -34,7 +34,7 @@ export function useMojitoFactory<
   transformFn,
   force = false,
   onlyAuthenticated,
-}: IUseMojitoOptions<TDataPropertyName, TData, TReturn, TError>) {
+}: IUseMojitoFactoryOptions<TDataPropertyName, TData, TReturn, TError>) {
   const queryClient = useQueryClient();
 
   const { isAuthenticated } = useAuthContext();

@@ -1,5 +1,4 @@
 import { EContentfulQueries } from '../../domain/gql/contentful';
-import { IContentfulAuction } from '../../domain/interfaces';
 import { useContentfulFactory } from '../useContentfulFactory/useContentfulFactory';
 
 export function useContentfulAuctionsSlugList() {

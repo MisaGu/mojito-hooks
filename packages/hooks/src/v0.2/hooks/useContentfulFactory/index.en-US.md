@@ -3,7 +3,7 @@ nav:
   path: /hooks
 ---
 
-# useContentful
+# useContentfulFactory
 
 A hook that toggle states.
 

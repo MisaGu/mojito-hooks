@@ -77,7 +77,21 @@ const YouApp: React.FC = () => {
 
 **Hooks Progress:**
 
-| Hook          | Code | Demo | Test | Docs |
-| ------------- | ---- | ---- | ---- | ---- |
-| useActiveBids | ✔️   | ❌   | ❌   | ❌   |
-| useCollection | ✔️   | ❌   | ❌   | ❌   |
+- ❌ Not done.
+- 👁️ Needs review.
+- ✔️ Done.
+
+| Hook                                     | Code | Demo | Test | Docs |
+| ---------------------------------------- | ---- | ---- | ---- | ---- |
+| useActiveBids                            | ❌   | ❌   | ❌   | ❌   |
+| useCollection                            | ✔️   | ❌   | ❌   | ❌   |
+| useCollectionItemBidsList                | ✔️   | ❌   | ❌   | ❌   |
+| useCollectionItemCurrentBids             | ✔️   | ❌   | ❌   | ❌   |
+| useCollectionItemRemainingCount          | ✔️   | ❌   | ❌   | ❌   |
+| useCollectionItemsCurrentBids            | ✔️   | ❌   | ❌   | ❌   |
+| useCollectionLotsIdList                  | ✔️   | ❌   | ❌   | ❌   |
+| useCollectionSlug                        | ✔️   | ❌   | ❌   | ❌   |
+| useContentfulFactory                     | ✔️   | ❌   | ❌   | ❌   |
+| useContentfulAuctionsSlugList            | ✔️   | ❌   | ❌   | ❌   |
+| useMarketplaceCollectionsSlugWithItemsId | ✔️   | ❌   | ❌   | ❌   |
+| useMojitoFactory                         | ✔️   | ❌   | ❌   | ❌   |

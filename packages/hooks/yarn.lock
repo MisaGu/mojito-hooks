@@ -1015,11 +1015,6 @@
     "@sentry/types" "6.19.7"
     tslib "^1.9.3"
 
-"@swyg/corre@^1.0.1":
-  version "1.0.1"
-  resolved "https://registry.yarnpkg.com/@swyg/corre/-/corre-1.0.1.tgz#98aa75f1dc93dfba90066369c4a2ef9aedce6f42"
-  integrity sha512-yD95SfbaQlWONVOTeeiw/j4T6UnZDAeu+4M6AmS1i0MOLVxH9dM4mziCQX8LMDpKvWYM7HqEtoR7CYT2oS+tbQ==
-
 "@types/cheerio@*":
   version "0.22.31"
   resolved "https://registry.yarnpkg.com/@types/cheerio/-/cheerio-0.22.31.tgz#b8538100653d6bb1b08a1e46dec75b4f2a5d5eb6"
