@@ -58,7 +58,7 @@ export function useCollection(props?: UseCollectionProps) {
     }
   }
 
-  return useMojitoFactory<'collection', UseCollectionData>({
+  return useMojitoFactory({
     as: 'collection',
     query: EMojitoQueries.collectionBySlug,
     variables: {
