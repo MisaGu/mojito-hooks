@@ -9,49 +9,68 @@ function camelToKebab(str) {
   return str.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase();
 }
 
-async function genDesc(mdPath) {
+async function readDocsMetadata(mdPath) {
   if (!fs.existsSync(mdPath)) {
     return;
   }
+
   const mdFile = fs.readFileSync(mdPath, 'utf8');
-  const { content } = gm(mdFile);
+  const { matter, content } = gm(mdFile);
+
+  const pathMatch = matter.match(/^  path: (.+)$/m);
+  const path = pathMatch ? pathMatch[1] : '/hooks';
+
+  const groupMatch = matter.match(/^  group: (.+)$/m);
+  const group = groupMatch ? groupMatch[1] : 'Other';
+
   let description =
     (content.replace(/\r\n/g, '\n').match(/# \w+[\s\n]+(.+?)(?:, |\. |\n|\.\n)/m) || [])[1] || '';
 
   description = description.trim();
   description = description.charAt(0).toLowerCase() + description.slice(1);
-  return description;
+
+  return { path, group, description };
 }
 
 async function genMetaData() {
-  const metadata = {
-    functions: [],
-  };
+  const functions = [];
+
   const hooks = fg
     .sync('src/v0.2/hooks/use*', {
       onlyDirectories: true,
     })
     .map((hook) => hook.replace('src/v0.2/hooks/', ''))
     .sort();
+
   await Promise.allSettled(
     hooks.map(async (hook) => {
-      const description = await genDesc(`src/v0.2/hooks/${hook}/index.en-US.md`);
+      const { path, group, description } = await readDocsMetadata(
+        `src/v0.2/hooks/${hook}/index.en-US.md`,
+      );
+
+      console.log(group);
+
       // FIXME: GITHUB_PAGE url
       return {
         name: hook,
-        docs: `https://GITHUB_PAGE/hooks/${camelToKebab(hook)}`,
+        group,
+        docs: `https://GITHUB_PAGE${path}/${camelToKebab(hook)}`,
         description,
       };
     }),
   ).then((res) => {
-    metadata.functions = res.map((item) => {
+    res.forEach((item) => {
       if (item.status === 'fulfilled') {
-        return item.value;
+        functions.push(item.value);
+      } else {
+        console.log(item.reason || 'Unexpected error in `readDocsMetadata(...)`');
       }
-      return null;
     });
   });
-  return metadata;
+
+  return {
+    functions,
+  };
 }
 
 gulp.task('metadata', async function () {
@@ -59,12 +78,28 @@ gulp.task('metadata', async function () {
 
   await fse.writeJson('metadata.json', metadata, { spaces: 2 });
 
-  const menus = [
-    {
-      title: 'Advanced',
-      children: metadata.functions.map((f) => f.name),
-    },
-  ];
+  const menusMap = {};
+
+  metadata.functions.forEach(({ group, name }) => {
+    const functionsList = menusMap[group];
+
+    if (functionsList) {
+      functionsList.push(name);
+    } else {
+      menusMap[group] = [name];
+    }
+  });
+
+  const menus = [];
+
+  Object.entries(menusMap).forEach(([title, functionsList]) => {
+    menus.push({
+      title,
+      children: functionsList.sort(),
+    });
+  });
+
+  // TODO: Sort by group if needed.
 
   await fse.writeFile(
     '../../config/hooks.ts',

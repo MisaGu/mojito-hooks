@@ -7,21 +7,21 @@
  */
 
 import React from 'react';
-import { useActiveBids } from 'hooks';
+import { DemoInterface } from '../../../components/demo/interface/DemoInterface';
+import { Json } from '../../../components/demo/json/Json';
+import { DemoProviders } from '../../../components/demo/provider/DemoProvider';
+import { useActiveBids } from '../useActiveBids';
+
+const DemoContent: React.FC = () => {
+  const result = useActiveBids();
+
+  return <Json result={result} />;
+};
 
 export default () => {
-  const state = useActiveBids();
-
   return (
-    <div>
-      <p>Effects：{`${state}`}</p>
-      <p>
-        <button type="button">Toggle</button>
-        <button type="button" style={{ margin: '0 8px' }}>
-          Toggle False
-        </button>
-        <button type="button">Toggle True</button>
-      </p>
-    </div>
+    <DemoProviders>
+      <DemoInterface demoComponent={DemoContent} />
+    </DemoProviders>
   );
 };
