@@ -1,6 +1,6 @@
 export const menus = [
   {
-    title: 'Advanced',
+    title: 'Other',
     children: [
       'useActiveBids',
       'useCollection',
@@ -11,8 +11,6 @@ export const menus = [
       'useCollectionLotsIdList',
       'useCollectionSlug',
       'useContentfulAuctionsSlugList',
-      'useContentfulAuthors',
-      'useContentfulCollectors',
       'useContentfulFactory',
       'useContentfulLots',
       'useContentfulShortLots',
@@ -30,5 +28,9 @@ export const menus = [
       'useProfile',
       'useServerTime',
     ],
+  },
+  {
+    title: 'Mojito',
+    children: ['useContentfulAuthors', 'useContentfulCollectors'],
   },
 ];

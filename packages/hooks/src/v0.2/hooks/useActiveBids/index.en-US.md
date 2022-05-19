@@ -13,10 +13,6 @@ A hook that toggle states.
 
 <code src="./demo/demo1.tsx" />
 
-### Advanced usage
-
-<code src="./demo/demo2.tsx" />
-
 ## API
 
 ```typescript

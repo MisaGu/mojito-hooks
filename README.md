@@ -64,7 +64,6 @@ const YouApp: React.FC = () => {
 
 - Check if the refetch functions return the right shape and are type-checked properly (considering the normalizers and transformFns).
 - Next add new `useItemSlug` hook (similar to `useCollectionSlug`) and rename all `slug` props to either `auctionSlug` or `itemSlug`.
-- Update `useContentful` hook to have the same functionality `useMojitoFactory` has.
 - Extract test/demo constants/ids/etc. to constants...
 - Can we type-check queries and variables (check they match) in QueryKey.get and return type in prefetchQuery?
 
@@ -92,7 +91,7 @@ Assignee:
 
 | Hook                                        | Code | Demo | Test | Docs |
 | ------------------------------------------- | ---- | ---- | ---- | ---- |
-| 🔵 useActiveBids                            | 🔨   | ❌   | ❌   | ❌   |
+| 🔵 useActiveBids                            | 👁️   | ❌   | ❌   | ❌   |
 | 🔵 useCollection                            | 👁️   | ❌   | ❌   | ❌   |
 | 🔵 useCollectionItemBidsList                | 👁️   | ❌   | ❌   | ❌   |
 | 🔵 useCollectionItemCurrentBids             | 👁️   | ❌   | ❌   | ❌   |
@@ -101,11 +100,11 @@ Assignee:
 | 🔵 useCollectionLotsIdList                  | 👁️   | ❌   | ❌   | ❌   |
 | 🔵 useCollectionSlug                        | 👁️   | ❌   | ❌   | ❌   |
 | 🔵 useContentfulAuctionsSlugList            | 👁️   | ❌   | ❌   | ❌   |
-| 🔵 useContentfulAuthors                     | 🔨   | ❌   | ❌   | ❌   |
-| 🔵 useContentfulCollectors                  | 🔨   | ❌   | ❌   | ❌   |
-| 🔵 useContentfulFactory                     | ✔️   | ❌   | ❌   | ❌   |
-| 🔵 useContentfulLots                        | 🔨   | ❌   | ❌   | ❌   |
-| 🔵 useContentfulShortLots                   | 🔨   | ❌   | ❌   | ❌   |
+| 🔵 useContentfulAuthors                     | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useContentfulCollectors                  | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useContentfulFactory                     | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useContentfulLots                        | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useContentfulShortLots                   | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useFavorites                             | 🔨   | ❌   | ❌   | ❌   |
 | 🟢 useInvoiceDownload                       | 🔨   | ❌   | ❌   | ❌   |
 | 🟢 useInvoices                              | 🔨   | ❌   | ❌   | ❌   |
