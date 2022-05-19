@@ -119,7 +119,7 @@ Assignee:
 | 🟢 useMojitoItem                            | 🔨   | ❌   | ❌   | ❌   |
 | 🟢 useMojitoMutation                        | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useMojitoWallets                         | 🔨   | ❌   | ❌   | ❌   |
-| 🟢 useOrganization                          | 🔨   | ❌   | ❌   | ❌   |
+| 🟢 useOrganization                          | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 usePlaceBidMutation                      | 🔨   | ❌   | ❌   | ❌   |
 | 🟢 useProfile                               | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useServerTime                            | 👁️   | ❌   | ❌   | ❌   |
