@@ -15,6 +15,13 @@ export interface BaseQueryHookPropsWithUrlAndSlug<TData = any, TError = Error>
   slug?: string;
 }
 
+export interface BaseQueryHookPropsWithUrlAndSlugAndId<TData = any, TError = Error>
+  extends BaseQueryHookProps<TData, TError> {
+  url?: string;
+  slug?: string;
+  id?: string;
+}
+
 export interface BaseQueryHookPropsWithForce<TData = any, TError = Error>
   extends BaseQueryHookProps<TData, TError> {
   force?: boolean;

@@ -116,7 +116,7 @@ Assignee:
 | 🟢 useLazyMojitoOneLot                      | 🔨   | ❌   | ❌   | ❌   |
 | 🔵 useMarketplaceCollectionsSlugWithItemsId | 👁️   | ❌   | ❌   | ❌   |
 | 🔵 useMojitoFactory                         | 👁️   | ❌   | ❌   | ❌   |
-| 🟢 useMojitoItem                            | 🔨   | ❌   | ❌   | ❌   |
+| 🟢 useMojitoItem                            | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useMojitoMutation                        | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useMojitoWallets                         | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useOrganization                          | 👁️   | ❌   | ❌   | ❌   |
