@@ -1,4 +1,4 @@
-import React, { useCallback, useRef, useState } from 'react';
+import React, { useCallback, useEffect, useRef, useState } from 'react';
 import { QueryResult } from '../../../domain/utils/gql.utils';
 import { QUERY_CLIENT_STALE_TIME } from '../../../domain/utils/gqlRequest.util';
 import { isBrowser } from '../../../domain/utils/isBrowser.util';

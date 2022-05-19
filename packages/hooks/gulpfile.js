@@ -81,6 +81,8 @@ gulp.task('metadata', async function () {
   const menusMap = {};
 
   metadata.functions.forEach(({ group, name }) => {
+    if (group === 'Ignore') return;
+
     const functionsList = menusMap[group];
 
     if (functionsList) {

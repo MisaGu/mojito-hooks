@@ -26,6 +26,12 @@ export interface IContentfulAuctionsQuery {
   };
 }
 
+export interface IContentfulAuctionsSlugListQuery {
+  auctionCollection: {
+    items: { slug: string }[];
+  };
+}
+
 export interface IContentfulLotData {
   lotId: number;
   mojitoId: string;

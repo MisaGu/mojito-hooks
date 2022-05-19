@@ -1,25 +1,9 @@
-import {
-  IContentfulAuthor,
-  IContentfulLotsQuery,
-  IContentfulCollector,
-  IContentfulLotData,
-} from '../../domain/interfaces';
-import { QueryResult } from '../../domain/utils/gql.utils';
+import { IContentfulLotsQuery, IContentfulLotData } from '../../domain/interfaces';
 import { BaseHookProps } from '../../domain/interfaces/hooks.interface';
 import { useContentfulFactory } from '../useContentfulFactory/useContentfulFactory';
 import { EContentfulQueries } from '../../domain/gql/contentful';
 
-export type UseContentfulLotsData = undefined | null | Record<string, IContentfulLotData>;
-
-export type UseContentfulLotsReturn = QueryResult<'lots', UseContentfulLotsData>;
-
-export interface UseContentfulLotsProps extends BaseHookProps<IContentfulLotsQuery> {
-  mojitoID: string | string[];
-}
-
-// TODO: Memo this function:
-
-function transformFn(lotsQuery?: undefined | null | IContentfulLotsQuery): UseContentfulLotsData {
+function transformFn(lotsQuery?: IContentfulLotsQuery) {
   if (!lotsQuery) return undefined;
 
   const lots = lotsQuery.lotCollection?.items || [];
@@ -33,15 +17,20 @@ function transformFn(lotsQuery?: undefined | null | IContentfulLotsQuery): UseCo
     : {};
 }
 
-export function useContentfulLots({
-  mojitoID,
-  options,
-}: UseContentfulLotsProps): UseContentfulLotsReturn {
-  return useContentfulFactory<'lots', IContentfulLotsQuery, UseContentfulLotsData>({
+export type UseContentfulLotsData = ReturnType<typeof transformFn>;
+
+export type UseContentfulLotsReturn = ReturnType<typeof useContentfulLots>;
+
+export interface UseContentfulLotsProps extends BaseHookProps<UseContentfulLotsData> {
+  mojitoID: string;
+}
+
+export function useContentfulLots({ mojitoID, options }: UseContentfulLotsProps) {
+  return useContentfulFactory({
     as: 'lots',
     query: EContentfulQueries.fullLot,
     variables: {
-      mojitoIds: Array.isArray(mojitoID) ? mojitoID : [mojitoID],
+      mojitoId: mojitoID,
     },
     options,
     transformFn,

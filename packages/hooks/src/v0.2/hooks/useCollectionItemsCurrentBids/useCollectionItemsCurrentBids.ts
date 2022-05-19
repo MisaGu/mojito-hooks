@@ -1,49 +1,34 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { config } from '../../domain/constants/general.constants';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
-import {
-  IIMojitoCollectionItemCurrentBidsRequest,
-  IMojitoCollectionItemCurrentBids,
-} from '../../domain/interfaces';
-import { QueryResult } from '../../domain/utils/gql.utils';
+import { IIMojitoCollectionItemCurrentBids } from '../../domain/interfaces';
 import { BaseHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 import { useCollectionSlug } from '../useCollectionSlug/useCollectionSlug';
 
-export type UseCollectionItemsCurrentBidsData = undefined | IMojitoCollectionItemCurrentBids[];
+function transformFn(collectionItemCurrentBids?: IIMojitoCollectionItemCurrentBids) {
+  if (!collectionItemCurrentBids) return undefined;
 
-export type UseCollectionItemsCurrentBidsReturn = QueryResult<
-  'currentBids',
-  UseCollectionItemsCurrentBidsData
->;
+  return collectionItemCurrentBids.items || [];
+}
+
+export type UseCollectionItemsCurrentBidsData = ReturnType<typeof transformFn>;
+
+export type UseCollectionItemsCurrentBidsReturn = ReturnType<typeof useCollectionItemsCurrentBids>;
 
 export type UseCollectionItemsCurrentBidsProps =
   BaseHookPropsWithUrlAndSlug<UseCollectionItemsCurrentBidsData>;
 
-// TODO: Memo this function:
-
-function transformFn(
-  collectionBySlugBids?: IIMojitoCollectionItemCurrentBidsRequest['collectionBySlug'],
-): UseCollectionItemsCurrentBidsData {
-  if (!collectionBySlugBids) return undefined;
-
-  return collectionBySlugBids.items || [];
-}
-
 export function useCollectionItemsCurrentBids({
   options,
   ...props
-}: UseCollectionItemsCurrentBidsProps): UseCollectionItemsCurrentBidsReturn {
+}: UseCollectionItemsCurrentBidsProps) {
   const { slug } = useCollectionSlug(props);
 
-  return useMojitoFactory<
-    'currentBids',
-    IIMojitoCollectionItemCurrentBidsRequest['collectionBySlug'],
-    IMojitoCollectionItemCurrentBids[]
-  >({
+  return useMojitoFactory({
     as: 'currentBids',
     query: EMojitoQueries.collectionBySlugCurrentBids,
     variables: { slug, marketplaceID: config.MARKETPLACE_ID },
-    options: { ...(options as any), enabled: !!slug },
+    options: { ...options, enabled: !!slug },
     transformFn,
   });
 }

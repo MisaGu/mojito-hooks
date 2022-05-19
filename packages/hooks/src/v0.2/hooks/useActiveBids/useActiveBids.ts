@@ -1,26 +1,23 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
-import { IMojitoCollectionItemDetailsBid, IMojitoProfileRequest } from '../../domain/interfaces';
-import { QueryResult } from '../../domain/utils/gql.utils';
+import { IMojitoProfileRequest } from '../../domain/interfaces';
 import { BaseHookProps } from '../../domain/interfaces/hooks.interface';
 import { config } from '../../domain/constants/general.constants';
 
-export type UseActiveBidsData = undefined | null | IMojitoCollectionItemDetailsBid[];
-
-export type UseActiveBidsReturn = QueryResult<'activeBids', UseActiveBidsData>;
-
-export type UseActiveBidsProps = BaseHookProps<IMojitoProfileRequest>;
-
-// TODO: Memo this function:
-
-function transformFn(profileRequest?: undefined | null | IMojitoProfileRequest): UseActiveBidsData {
+function transformFn(profileRequest?: IMojitoProfileRequest) {
   if (!profileRequest) return undefined;
 
   return profileRequest.me.activeBids;
 }
 
-export function useActiveBids({ options }: UseActiveBidsProps = {}): UseActiveBidsReturn {
-  return useMojitoFactory<'activeBids', IMojitoProfileRequest, UseActiveBidsData>({
+export type UseActiveBidsData = ReturnType<typeof transformFn>;
+
+export type UseActiveBidsReturn = ReturnType<typeof useActiveBids>;
+
+export type UseActiveBidsProps = BaseHookProps<UseActiveBidsData>;
+
+export function useActiveBids({ options }: UseActiveBidsProps = {}) {
+  return useMojitoFactory({
     as: 'activeBids',
     query: EMojitoQueries.userActiveBids,
     variables: {
