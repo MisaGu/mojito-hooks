@@ -1,30 +1,24 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { IMojitoCollectionItemBuyNowLot } from '../../domain/interfaces';
 import { BaseHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
-import { QueryResult } from '../../domain/utils/gql.utils';
 import { useCollectionSlug } from '../useCollectionSlug/useCollectionSlug';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-export type UseCollectionItemRemainingCountData = undefined | number;
+function transformFn(collectionItemById?: IMojitoCollectionItemBuyNowLot) {
+  if (!collectionItemById) return undefined;
 
-export type UseCollectionItemRemainingCountReturn = QueryResult<
-  'remainingCount',
-  UseCollectionItemRemainingCountData
+  return collectionItemById.details.remainingCount;
+}
+
+export type UseCollectionItemRemainingCountData = ReturnType<typeof transformFn>;
+
+export type UseCollectionItemRemainingCountReturn = ReturnType<
+  typeof useCollectionItemRemainingCount
 >;
 
 export interface UseCollectionItemRemainingCountProps
   extends BaseHookPropsWithUrlAndSlug<UseCollectionItemRemainingCountData> {
   collectionItemID: string;
-}
-
-// TODO: Memo this function:
-
-function transformFn(
-  collectionItemById?: IMojitoCollectionItemBuyNowLot,
-): UseCollectionItemRemainingCountData {
-  if (!collectionItemById) return undefined;
-
-  return collectionItemById.details.remainingCount;
 }
 
 export function useCollectionItemRemainingCount({
@@ -38,7 +32,7 @@ export function useCollectionItemRemainingCount({
     as: 'remainingCount',
     query: EMojitoQueries.collectionItemByIdRemainingCount,
     variables: { id: collectionItemID, slug },
-    options: { ...(options as any), enabled: !!slug },
+    options: { ...options, enabled: !!slug },
     transformFn,
     onlyAuthenticated: true,
   });

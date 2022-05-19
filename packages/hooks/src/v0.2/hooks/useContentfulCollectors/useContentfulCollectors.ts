@@ -1,37 +1,22 @@
-import {
-  IContentfulAuthor,
-  IContentfulCollectorsQuery,
-  IContentfulCollector,
-} from '../../domain/interfaces';
-import { QueryResult } from '../../domain/utils/gql.utils';
+import { IContentfulCollectorsQuery } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useContentfulFactory } from '../useContentfulFactory/useContentfulFactory';
 import { EContentfulQueries } from '../../domain/gql/contentful';
 
-export type UseContentfulCollectorsData = undefined | null | IContentfulCollector[];
-
-export type UseContentfulCollectorsReturn = QueryResult<'collectors', UseContentfulCollectorsData>;
-
-export type UseContentfulCollectorsProps = BaseQueryHookProps<IContentfulCollectorsQuery>;
-
-// TODO: Memo this function:
-
-function transformFn(
-  collectorsQuery?: undefined | null | IContentfulCollectorsQuery,
-): UseContentfulCollectorsData {
+function transformFn(collectorsQuery?: IContentfulCollectorsQuery) {
   if (!collectorsQuery) return undefined;
 
   return collectorsQuery.collectorCollection?.items || [];
 }
 
-export function useContentfulCollectors({
-  options,
-}: UseContentfulCollectorsProps = {}): UseContentfulCollectorsReturn {
-  return useContentfulFactory<
-    'collectors',
-    IContentfulCollectorsQuery,
-    UseContentfulCollectorsData
-  >({
+export type UseContentfulCollectorsData = ReturnType<typeof transformFn>;
+
+export type UseContentfulCollectorsReturn = ReturnType<typeof useContentfulCollectors>;
+
+export type UseContentfulCollectorsProps = BaseQueryHookProps<UseContentfulCollectorsData>;
+
+export function useContentfulCollectors({ options }: UseContentfulCollectorsProps = {}) {
+  return useContentfulFactory({
     as: 'collectors',
     query: EContentfulQueries.collectors,
     options,

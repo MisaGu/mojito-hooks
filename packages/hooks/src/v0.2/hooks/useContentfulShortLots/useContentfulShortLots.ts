@@ -1,32 +1,25 @@
-import { IContentfulLotData, IContentfulLotsQuery } from '../../domain/interfaces';
-import { QueryResult } from '../../domain/utils/gql.utils';
+import { IContentfulLotsQuery } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useContentfulFactory } from '../useContentfulFactory/useContentfulFactory';
 import { EContentfulQueries } from '../../domain/gql/contentful';
 
-export type UseContentfulShortLotsData = undefined | null | IContentfulLotData[];
-
-export type UseContentfulShortLotsReturn = QueryResult<'shortLots', UseContentfulShortLotsData>;
-
-export interface UseContentfulShortLotsProps extends BaseQueryHookProps<IContentfulLotsQuery> {
-  mojitoID: string | string[];
-}
-
-// TODO: Memo this function:
-
-function transformFn(
-  lotsQuery?: undefined | null | IContentfulLotsQuery,
-): UseContentfulShortLotsData {
+function transformFn(lotsQuery?: IContentfulLotsQuery) {
   if (!lotsQuery) return undefined;
 
   return lotsQuery.lotCollection?.items || [];
 }
 
-export function useContentfulShortLots({
-  mojitoID,
-  options,
-}: UseContentfulShortLotsProps): UseContentfulShortLotsReturn {
-  return useContentfulFactory<'shortLots', IContentfulLotsQuery, UseContentfulShortLotsData>({
+export type UseContentfulShortLotsData = ReturnType<typeof transformFn>;
+
+export type UseContentfulShortLotsReturn = ReturnType<typeof useContentfulShortLots>;
+
+export interface UseContentfulShortLotsProps
+  extends BaseQueryHookProps<UseContentfulShortLotsData> {
+  mojitoID: string | string[];
+}
+
+export function useContentfulShortLots({ mojitoID, options }: UseContentfulShortLotsProps) {
+  return useContentfulFactory({
     as: 'shortLots',
     query: EContentfulQueries.shortLots,
     variables: {

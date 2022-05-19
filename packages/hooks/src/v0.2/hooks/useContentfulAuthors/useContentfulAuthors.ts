@@ -1,29 +1,22 @@
-import { IContentfulAuthor, IContentfulAuthorsQuery } from '../../domain/interfaces';
-import { QueryResult } from '../../domain/utils/gql.utils';
+import { IContentfulAuthorsQuery } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useContentfulFactory } from '../useContentfulFactory/useContentfulFactory';
 import { EContentfulQueries } from '../../domain/gql/contentful';
 
-export type UseContentfulAuthorsData = undefined | null | IContentfulAuthor[];
-
-export type UseContentfulAuthorsReturn = QueryResult<'authors', UseContentfulAuthorsData>;
-
-export type UseContentfulAuthorsProps = BaseQueryHookProps<IContentfulAuthorsQuery>;
-
-// TODO: Memo this function:
-
-function transformFn(
-  authorsQuery?: undefined | null | IContentfulAuthorsQuery,
-): UseContentfulAuthorsData {
+function transformFn(authorsQuery?: IContentfulAuthorsQuery) {
   if (!authorsQuery) return undefined;
 
   return authorsQuery.authorCollection?.items || [];
 }
 
-export function useContentfulAuthors({
-  options,
-}: UseContentfulAuthorsProps = {}): UseContentfulAuthorsReturn {
-  return useContentfulFactory<'authors', IContentfulAuthorsQuery, UseContentfulAuthorsData>({
+export type UseContentfulAuthorsData = ReturnType<typeof transformFn>;
+
+export type UseContentfulAuthorsReturn = ReturnType<typeof useContentfulAuthors>;
+
+export type UseContentfulAuthorsProps = BaseQueryHookProps<UseContentfulAuthorsData>;
+
+export function useContentfulAuthors({ options }: UseContentfulAuthorsProps = {}) {
+  return useContentfulFactory({
     as: 'authors',
     query: EContentfulQueries.authors,
     options,

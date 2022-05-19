@@ -9,23 +9,20 @@ import { getCollectionSlug } from '../../domain/utils/path.util';
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { EContentfulQueries } from '../../domain/gql/contentful';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
-import { QueryResult } from '../../domain/utils/gql.utils';
-import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 import { BaseHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 
 export type UseCollectionData = IMojitoCollection | null | undefined;
 
-export type UseCollectionReturn = QueryResult<'collection', UseCollectionData>;
+export type UseCollectionReturn = ReturnType<typeof useCollection>;
 
 export type UseCollectionProps = BaseHookPropsWithUrlAndSlug<UseCollectionData>;
 
-export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
+export function useCollection(props?: UseCollectionProps) {
   const queryClient = useQueryClient();
-  const queryFn = queryClient.getDefaultOptions().queries?.queryFn || defaultQueryFn;
   const collectionSlug = getCollectionSlug(props);
 
-  async function useCollectionFn() {
+  async function preloadFn() {
     const [mojitoCollections, contentfulCollectionSlugsOnly] = await Promise.all([
       queryClient.fetchQuery<IMojitoMarketplaceResponse>(
         QueryKey.get(EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug, {
@@ -59,30 +56,16 @@ export function useCollection(props?: UseCollectionProps): UseCollectionReturn {
         ),
       ]);
     }
-
-    // We can't call the queryClient for the same `queryKey` here:
-    // return await queryClient.fetchQuery<IMojitoCollection>(queryKey, { cacheTime: 0 });
-
-    // Instead, we need to get the queryFn from queryClient's options (getDefaultOptions):
-
-    const queryKey = QueryKey.get(EMojitoQueries.collectionBySlug, {
-      slug: collectionSlug,
-      marketplaceID: config.MARKETPLACE_ID,
-    });
-
-    return (await queryFn({ queryKey, meta: undefined })) as IMojitoCollection;
   }
 
-  return useMojitoFactory<'collection', UseCollectionData>({
+  return useMojitoFactory({
     as: 'collection',
     query: EMojitoQueries.collectionBySlug,
     variables: {
       slug: collectionSlug,
       marketplaceID: config.MARKETPLACE_ID,
     },
-    options: {
-      ...props?.options,
-      queryFn: useCollectionFn,
-    },
+    options: props?.options,
+    preloadFn,
   });
 }
