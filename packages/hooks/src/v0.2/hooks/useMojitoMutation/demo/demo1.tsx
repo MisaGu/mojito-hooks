@@ -1,5 +1,5 @@
 import React from 'react';
-// import { useMojitoMutationFactory } from 'hooks';
+// import { useMojitoMutation } from 'hooks';
 
 export default () => {
   return <div />;

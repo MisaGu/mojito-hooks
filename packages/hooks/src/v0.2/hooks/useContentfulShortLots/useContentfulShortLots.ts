@@ -1,6 +1,6 @@
 import { IContentfulLotData, IContentfulLotsQuery } from '../../domain/interfaces';
 import { QueryResult } from '../../domain/utils/gql.utils';
-import { BaseHookProps } from '../../domain/interfaces/hooks.interface';
+import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useContentfulFactory } from '../useContentfulFactory/useContentfulFactory';
 import { EContentfulQueries } from '../../domain/gql/contentful';
 
@@ -8,7 +8,7 @@ export type UseContentfulShortLotsData = undefined | null | IContentfulLotData[]
 
 export type UseContentfulShortLotsReturn = QueryResult<'shortLots', UseContentfulShortLotsData>;
 
-export interface UseContentfulShortLotsProps extends BaseHookProps<IContentfulLotsQuery> {
+export interface UseContentfulShortLotsProps extends BaseQueryHookProps<IContentfulLotsQuery> {
   mojitoID: string | string[];
 }
 

@@ -3,4 +3,4 @@ nav:
   path: /hooks
 ---
 
-# useMojitoMutationFactory
+# useMojitoMutation

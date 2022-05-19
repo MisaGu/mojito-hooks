@@ -4,7 +4,7 @@ import {
   IContentfulCollector,
 } from '../../domain/interfaces';
 import { QueryResult } from '../../domain/utils/gql.utils';
-import { BaseHookProps } from '../../domain/interfaces/hooks.interface';
+import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useContentfulFactory } from '../useContentfulFactory/useContentfulFactory';
 import { EContentfulQueries } from '../../domain/gql/contentful';
 
@@ -12,7 +12,7 @@ export type UseContentfulCollectorsData = undefined | null | IContentfulCollecto
 
 export type UseContentfulCollectorsReturn = QueryResult<'collectors', UseContentfulCollectorsData>;
 
-export type UseContentfulCollectorsProps = BaseHookProps<IContentfulCollectorsQuery>;
+export type UseContentfulCollectorsProps = BaseQueryHookProps<IContentfulCollectorsQuery>;
 
 // TODO: Memo this function:
 

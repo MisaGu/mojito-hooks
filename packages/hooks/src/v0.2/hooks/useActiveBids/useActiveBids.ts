@@ -2,14 +2,14 @@ import { EMojitoQueries } from '../../domain/gql/queries';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 import { IMojitoCollectionItemDetailsBid, IMojitoProfileRequest } from '../../domain/interfaces';
 import { QueryResult } from '../../domain/utils/gql.utils';
-import { BaseHookProps } from '../../domain/interfaces/hooks.interface';
+import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { config } from '../../domain/constants/general.constants';
 
 export type UseActiveBidsData = undefined | null | IMojitoCollectionItemDetailsBid[];
 
 export type UseActiveBidsReturn = QueryResult<'activeBids', UseActiveBidsData>;
 
-export type UseActiveBidsProps = BaseHookProps<IMojitoProfileRequest>;
+export type UseActiveBidsProps = BaseQueryHookProps<IMojitoProfileRequest>;
 
 // TODO: Memo this function:
 

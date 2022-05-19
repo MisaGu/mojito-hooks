@@ -110,9 +110,9 @@ Assignee:
 | 🟢 useInvoices                              | 🔨   | ❌   | ❌   | ❌   |
 | 🟢 useLazyMojitoOneLot                      | 🔨   | ❌   | ❌   | ❌   |
 | 🔵 useMarketplaceCollectionsSlugWithItemsId | 👁️   | ❌   | ❌   | ❌   |
-| 🔵 useMojitoFactory                         | ✔️   | ❌   | ❌   | ❌   |
+| 🔵 useMojitoFactory                         | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useMojitoItem                            | 🔨   | ❌   | ❌   | ❌   |
-| 🟢 useMojitoMutation                        | 🔨   | ❌   | ❌   | ❌   |
+| 🟢 useMojitoMutation                        | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useMojitoWallets                         | 🔨   | ❌   | ❌   | ❌   |
 | 🟢 useOrganization                          | 🔨   | ❌   | ❌   | ❌   |
 | 🟢 usePlaceBidMutation                      | 🔨   | ❌   | ❌   | ❌   |

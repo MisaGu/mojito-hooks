@@ -1,11 +1,16 @@
-import { UseQueryOptions } from 'react-query';
+import { Variables } from 'graphql-request';
+import { UseMutationOptions, UseQueryOptions } from 'react-query';
 
-export interface BaseHookProps<TData = any, TError = Error> {
+export interface BaseQueryHookProps<TData = any, TError = Error> {
   options?: UseQueryOptions<TData, TError>;
 }
 
+export interface BaseMutationHookProps<TData = any, TError = Error, TVariables = Variables> {
+  options?: UseMutationOptions<TData, TError, TVariables>;
+}
+
 export interface BaseHookPropsWithUrlAndSlug<TData = any, TError = Error>
-  extends BaseHookProps<TData, TError> {
+  extends BaseQueryHookProps<TData, TError> {
   url?: string;
   slug?: string;
 }

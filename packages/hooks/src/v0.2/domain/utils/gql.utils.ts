@@ -1,4 +1,5 @@
-import { UseQueryResult } from 'react-query';
+import { Variables } from 'graphql-request';
+import { UseMutationResult, UseQueryResult } from 'react-query';
 
 export type QueryResult<TDataPropertyName extends string, TData = any, TError = Error> = {
   isLoading: boolean;
@@ -29,4 +30,34 @@ export function normalizeQueryResult<
     queryResult,
     [key]: transformFn ? transformFn(data) : data,
   } as QueryResult<TDataPropertyName, TReturn, TError>;
+}
+
+export type MutationResult<TDataPropertyName extends string, TData = any, TError = Error> = {
+  data: TData;
+  error: TError | null;
+  isLoading: boolean;
+} & { [P in TDataPropertyName]: () => void };
+
+export function normalizeMutationResult<
+  TDataPropertyName extends string,
+  TData = any,
+  TError = Error,
+  TVariables = Variables,
+>(
+  key: TDataPropertyName,
+  result: UseMutationResult<TData, TError, TVariables>,
+  variables: TVariables,
+) {
+  const { mutate, data, isLoading, error, ...mutationResult } = result as UseMutationResult<
+    TData,
+    TError
+  >;
+
+  return {
+    data,
+    isLoading,
+    error,
+    mutationResult,
+    [key]: () => mutate(variables),
+  } as MutationResult<TDataPropertyName, TData, TError>;
 }

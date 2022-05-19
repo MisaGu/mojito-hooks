@@ -1,6 +1,6 @@
 import { IContentfulAuthor, IContentfulAuthorsQuery } from '../../domain/interfaces';
 import { QueryResult } from '../../domain/utils/gql.utils';
-import { BaseHookProps } from '../../domain/interfaces/hooks.interface';
+import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useContentfulFactory } from '../useContentfulFactory/useContentfulFactory';
 import { EContentfulQueries } from '../../domain/gql/contentful';
 
@@ -8,7 +8,7 @@ export type UseContentfulAuthorsData = undefined | null | IContentfulAuthor[];
 
 export type UseContentfulAuthorsReturn = QueryResult<'authors', UseContentfulAuthorsData>;
 
-export type UseContentfulAuthorsProps = BaseHookProps<IContentfulAuthorsQuery>;
+export type UseContentfulAuthorsProps = BaseQueryHookProps<IContentfulAuthorsQuery>;
 
 // TODO: Memo this function:
 

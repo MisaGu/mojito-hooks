@@ -1,6 +1,6 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { ICollectionItemByIdBidsList } from '../../domain/interfaces';
-import { BaseHookProps } from '../../domain/interfaces/hooks.interface';
+import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { QueryResult } from '../../domain/utils/gql.utils';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
@@ -12,7 +12,7 @@ export type UseCollectionItemBidsListReturn = QueryResult<
 >;
 
 export interface UseCollectionItemBidsListProps
-  extends BaseHookProps<UseCollectionItemBidsListData> {
+  extends BaseQueryHookProps<UseCollectionItemBidsListData> {
   collectionItemID: string;
 }
 
