@@ -77,21 +77,44 @@ const YouApp: React.FC = () => {
 
 **Hooks Progress:**
 
+Progress:
+
 - ❌ Not done.
 - 👁️ Needs review.
 - ✔️ Done.
 
-| Hook                                     | Code | Demo | Test | Docs |
-| ---------------------------------------- | ---- | ---- | ---- | ---- |
-| useActiveBids                            | ❌   | ❌   | ❌   | ❌   |
-| useCollection                            | ✔️   | ❌   | ❌   | ❌   |
-| useCollectionItemBidsList                | ✔️   | ❌   | ❌   | ❌   |
-| useCollectionItemCurrentBids             | ✔️   | ❌   | ❌   | ❌   |
-| useCollectionItemRemainingCount          | ✔️   | ❌   | ❌   | ❌   |
-| useCollectionItemsCurrentBids            | ✔️   | ❌   | ❌   | ❌   |
-| useCollectionLotsIdList                  | ✔️   | ❌   | ❌   | ❌   |
-| useCollectionSlug                        | ✔️   | ❌   | ❌   | ❌   |
-| useContentfulFactory                     | ✔️   | ❌   | ❌   | ❌   |
-| useContentfulAuctionsSlugList            | ✔️   | ❌   | ❌   | ❌   |
-| useMarketplaceCollectionsSlugWithItemsId | ✔️   | ❌   | ❌   | ❌   |
-| useMojitoFactory                         | ✔️   | ❌   | ❌   | ❌   |
+Assignee:
+
+- ⚪ Unassigned
+- 🔵 Dani
+- 🟢 Sergey
+
+| Hook                                        | Code | Demo | Test | Docs |
+| ------------------------------------------- | ---- | ---- | ---- | ---- |
+| ⚪ useActiveBids                            | ❌   | ❌   | ❌   | ❌   |
+| 🔵 useCollection                            | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useCollectionItemBidsList                | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useCollectionItemCurrentBids             | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useCollectionItemRemainingCount          | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useCollectionItemsCurrentBids            | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useCollectionLotsIdList                  | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useCollectionSlug                        | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useContentfulAuctionsSlugList            | 👁️   | ❌   | ❌   | ❌   |
+| ⚪ useContentfulAuthors                     | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useContentfulCollectors                  | ❌   | ❌   | ❌   | ❌   |
+| 🔵 useContentfulFactory                     | 👁️   | ❌   | ❌   | ❌   |
+| ⚪ useContentfulLots                        | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useContentfulShortLots                   | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useFavorites                             | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useInvoiceDownload                       | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useInvoices                              | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useLazyMojitoOneLot                      | ❌   | ❌   | ❌   | ❌   |
+| 🔵 useMarketplaceCollectionsSlugWithItemsId | 👁️   | ❌   | ❌   | ❌   |
+| ⚪ useMojitoFactory                         | ✔️   | ❌   | ❌   | ❌   |
+| ⚪ useMojitoItem                            | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useMojitoMutation                        | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useMojitoWallets                         | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useOrganization                          | ❌   | ❌   | ❌   | ❌   |
+| ⚪ usePlaceBidMutation                      | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useProfile                               | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useServerTime                            | ❌   | ❌   | ❌   | ❌   |

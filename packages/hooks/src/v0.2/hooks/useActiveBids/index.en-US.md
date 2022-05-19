@@ -3,7 +3,7 @@ nav:
   path: /hooks
 ---
 
-# useToggle
+# useActiveBids
 
 A hook that toggle states.
 
