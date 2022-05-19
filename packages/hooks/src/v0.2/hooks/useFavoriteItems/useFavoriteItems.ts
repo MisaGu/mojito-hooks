@@ -1,31 +1,24 @@
-import { config } from '../../domain/constants/general.constants';
 import { EMojitoQueries } from '../../domain/gql/queries';
-import { IMojitoCollectionItem, IMojitoFavoriteRequest } from '../../domain/interfaces';
+import { IMojitoFavoriteRequest } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
-import { QueryResult } from '../../domain/utils/gql.utils';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-export type UseFavoriteItemsData = undefined | null | IMojitoCollectionItem[];
-
-export type UseFavoriteItemsReturn = QueryResult<'favoriteItems', UseFavoriteItemsData>;
-
-export type UseFavoriteItemsProps = BaseQueryHookProps<IMojitoFavoriteRequest>;
-
-function transformFn(
-  favoriteItemsRequest?: undefined | null | IMojitoFavoriteRequest,
-): UseFavoriteItemsData {
+function transformFn(favoriteItemsRequest?: undefined | null | IMojitoFavoriteRequest) {
   if (!favoriteItemsRequest) return undefined;
 
-  return favoriteItemsRequest?.me?.favoriteItems;
+  return favoriteItemsRequest.me.favoriteItems;
 }
 
-export function useFavoriteItems({ options }: UseFavoriteItemsProps = {}): UseFavoriteItemsReturn {
-  return useMojitoFactory<'favoriteItems', IMojitoFavoriteRequest, UseFavoriteItemsData>({
+export type UseFavoriteItemsData = ReturnType<typeof transformFn>;
+
+export type UseFavoriteItemsReturn = ReturnType<typeof useFavoriteItems>;
+
+export type UseFavoriteItemsProps = BaseQueryHookProps<UseFavoriteItemsData>;
+
+export function useFavoriteItems({ options }: UseFavoriteItemsProps = {}) {
+  return useMojitoFactory({
     as: 'favoriteItems',
     query: EMojitoQueries.userFavorites,
-    variables: {
-      organizationID: config.ORGANIZATION_ID,
-    },
     options,
     transformFn,
   });

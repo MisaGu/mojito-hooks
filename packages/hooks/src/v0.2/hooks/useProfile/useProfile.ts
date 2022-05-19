@@ -1,4 +1,3 @@
-import { config } from '../../domain/constants/general.constants';
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { IMojitoProfileRequest } from '../../domain/interfaces';
 import { BaseHookPropsWithForce } from '../../domain/interfaces/hooks.interface';
@@ -20,9 +19,6 @@ export function useProfile({ force, options }: UseProfileProps = {}) {
   return useMojitoFactory({
     as: 'profile',
     query: EMojitoQueries.profile,
-    variables: {
-      organizationID: config.ORGANIZATION_ID,
-    },
     options,
     transformFn,
     force,

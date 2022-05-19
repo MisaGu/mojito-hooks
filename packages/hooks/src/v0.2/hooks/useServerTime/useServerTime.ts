@@ -1,4 +1,3 @@
-import { config } from '../../domain/constants/general.constants';
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
@@ -13,9 +12,6 @@ export function useServerTime({ options }: UseServerTimeProps = {}) {
   return useMojitoFactory({
     as: 'serverTime',
     query: EMojitoQueries.serverTime,
-    variables: {
-      organizationID: config.ORGANIZATION_ID,
-    },
     options,
   });
 }

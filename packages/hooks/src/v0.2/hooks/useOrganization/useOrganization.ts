@@ -1,5 +1,30 @@
-export function useOrganization() {
-  return true;
+import { config } from '../../domain/constants/general.constants';
+import { EMojitoQueries } from '../../domain/gql/queries';
+import { IMojitoProfileRequest } from '../../domain/interfaces';
+import { BaseHookPropsWithForce } from '../../domain/interfaces/hooks.interface';
+import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
+
+function transformFn(profileRequest?: IMojitoProfileRequest) {
+  if (!profileRequest) return undefined;
+
+  return profileRequest.me.userOrgs[0];
+}
+
+export type UseOrganizationData = ReturnType<typeof transformFn>;
+
+export type UseOrganizationReturn = ReturnType<typeof useOrganization>;
+
+export type UseOrganizationProps = BaseHookPropsWithForce<UseOrganizationData>;
+
+export function useOrganization({ force, options }: UseOrganizationProps = {}) {
+  return useMojitoFactory({
+    as: 'organization',
+    query: EMojitoQueries.organization,
+    options,
+    transformFn,
+    force,
+    onlyAuthenticated: true,
+  });
 }
 
 // legacy function
