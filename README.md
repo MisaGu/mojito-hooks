@@ -59,13 +59,13 @@ const YouApp: React.FC = () => {
 **In Development > Sergey:**
 
 - Working in `gqlDataNormalizer.util`.
+- Add new `useItemSlug` hook (similar to `useCollectionSlug`).
 
 **In Development > Dani:**
 
 - Then, break down Json component.
-- Check if the refetch functions return the right shape and are type-checked properly (considering the normalizers and transformFns).
-- Next add new `useItemSlug` hook (similar to `useCollectionSlug`) and rename all `slug` props to either `auctionSlug` or `itemSlug`.
 - Extract test/demo constants/ids/etc. to constants...
+- Check refetch function return for `useCollectionItemCurrentBids()`.
 - Can we type-check queries and variables (check they match) in QueryKey.get and return type in prefetchQuery?
 
 **Not assigned / TODO:**
