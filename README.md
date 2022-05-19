@@ -112,7 +112,7 @@ Assignee:
 | 🔵 useContentfulShortLots                   | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useFavoriteItems                         | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useInvoiceDownload                       | 🔨   | ❌   | ❌   | ❌   |
-| 🟢 useInvoices                              | 🔨   | ❌   | ❌   | ❌   |
+| 🟢 useMyInvoices                            | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useLazyMojitoOneLot                      | 🔨   | ❌   | ❌   | ❌   |
 | 🔵 useMarketplaceCollectionsSlugWithItemsId | 👁️   | ❌   | ❌   | ❌   |
 | 🔵 useMojitoFactory                         | 👁️   | ❌   | ❌   | ❌   |

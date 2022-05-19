@@ -1,5 +1,28 @@
-export function useInvoices() {
-  return true;
+import { EMojitoQueries } from '../../domain/gql/queries';
+import { IMojitoGetMyInvoicesRequest } from '../../domain/interfaces';
+import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
+import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
+
+function transformFn(profileRequest?: IMojitoGetMyInvoicesRequest) {
+  if (!profileRequest) return undefined;
+
+  return profileRequest.getMyInvoices;
+}
+
+export type UseMyInvoicesData = ReturnType<typeof transformFn>;
+
+export type UseMyInvoicesReturn = ReturnType<typeof useMyInvoices>;
+
+export type UseMyInvoicesProps = BaseQueryHookProps<UseMyInvoicesData>;
+
+export function useMyInvoices({ options }: UseMyInvoicesProps = {}) {
+  return useMojitoFactory({
+    as: 'organization',
+    query: EMojitoQueries.organization,
+    options,
+    transformFn,
+    onlyAuthenticated: true,
+  });
 }
 
 // legacy function

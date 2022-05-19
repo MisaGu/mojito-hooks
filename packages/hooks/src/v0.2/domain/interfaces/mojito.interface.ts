@@ -148,6 +148,16 @@ export interface IMojitoServerTimeRequest {
   serverTime: string;
 }
 
+export interface IMojitoGetMyInvoicesRequest {
+  getMyInvoices: IMojitoInvoice & {
+    userName: string;
+    paymentID: string;
+    externalPaymentID: string;
+    billingAddress: IMojitoInvoiceBillingAddress;
+    OrganizationID: string;
+  };
+}
+
 export interface IMojitoProfile {
   id: string;
   user: IMojitoProfileUser;
@@ -204,6 +214,13 @@ export interface IMojitoInvoice {
   status: InvoiceStatus;
 }
 
+export interface IMojitoInvoiceBillingAddress {
+  street1: string;
+  city: string;
+  state: string;
+  postalCode: string;
+  country: string;
+}
 // Collection items and collection item details common data:
 
 interface IMojitoCollectionItemDetailsCommonProps {
