@@ -14,7 +14,7 @@ export const menus = [
       'useContentfulFactory',
       'useContentfulLots',
       'useContentfulShortLots',
-      'useFavorites',
+      'useFavoriteItems',
       'useInvoiceDownload',
       'useInvoices',
       'useLazyMojitoOneLot',

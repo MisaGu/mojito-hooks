@@ -140,6 +140,10 @@ export interface IMojitoProfileRequest {
   me: IMojitoProfile;
 }
 
+export interface IMojitoFavoriteRequest {
+  me: Pick<IMojitoProfile, 'favoriteItems'>;
+}
+
 export interface IMojitoProfile {
   id: string;
   user: IMojitoProfileUser;

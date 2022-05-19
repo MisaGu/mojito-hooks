@@ -105,7 +105,7 @@ Assignee:
 | 🔵 useContentfulFactory                     | 👁️   | ❌   | ❌   | ❌   |
 | 🔵 useContentfulLots                        | 👁️   | ❌   | ❌   | ❌   |
 | 🔵 useContentfulShortLots                   | 👁️   | ❌   | ❌   | ❌   |
-| 🟢 useFavorites                             | 🔨   | ❌   | ❌   | ❌   |
+| 🟢 useFavoriteItems                         | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useInvoiceDownload                       | 🔨   | ❌   | ❌   | ❌   |
 | 🟢 useInvoices                              | 🔨   | ❌   | ❌   | ❌   |
 | 🟢 useLazyMojitoOneLot                      | 🔨   | ❌   | ❌   | ❌   |
