@@ -4,9 +4,9 @@
  */
 
 import React from 'react';
-import { DemoInterface } from '../../../components/demo/interface/DemoInterface';
-import { Json } from '../../../components/demo/json/Json';
-import { DemoProviders } from '../../../components/demo/provider/DemoProvider';
+import { DemoInterface } from '../../../components/demo/Interface/DemoInterface';
+import { Json } from '../../../components/demo/Json/Json';
+import { DemoProviders } from '../../../components/demo/Provider/DemoProvider';
 import { useContentfulCollectors } from '../useContentfulCollectors';
 
 const DemoContent: React.FC = () => {
