@@ -63,7 +63,6 @@ const YouApp: React.FC = () => {
 
 **In Development > Dani:**
 
-- Then, break down Json component.
 - Extract test/demo constants/ids/etc. to constants...
 
 - Check refetch function return for `useCollectionItemCurrentBids()`.
