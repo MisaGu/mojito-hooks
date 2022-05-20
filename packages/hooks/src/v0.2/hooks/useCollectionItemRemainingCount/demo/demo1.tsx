@@ -7,6 +7,10 @@
  */
 
 import React from 'react';
+import {
+  DEMO_COLLECTION_ITEM_ID,
+  DEMO_SLUG,
+} from '../../../components/demo/constants/demo.constants';
 import { DemoInterface } from '../../../components/demo/Interface/DemoInterface';
 import { Json } from '../../../components/demo/Json/Json';
 import { DemoProviders } from '../../../components/demo/Provider/DemoProvider';
@@ -14,8 +18,8 @@ import { useCollectionItemRemainingCount } from '../useCollectionItemRemainingCo
 
 const DemoContent: React.FC = () => {
   const result = useCollectionItemRemainingCount({
-    collectionItemID: '549c4f64-ca4d-4087-a8a6-3b8ce1ecf059',
-    slug: 'bid-test-3',
+    collectionItemID: DEMO_COLLECTION_ITEM_ID,
+    slug: DEMO_SLUG,
   });
 
   return <Json result={result} />;
