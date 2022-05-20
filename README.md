@@ -123,3 +123,9 @@ Assignee:
 | 🟢 usePlaceBidMutation                      | 🔨   | ❌   | ❌   | ❌   |
 | 🟢 useProfile                               | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useServerTime                            | 👁️   | ❌   | ❌   | ❌   |
+
+| Utils                      | Status |
+| -------------------------- | ------ |
+| 🟢 gqlDataNormalizer.util  | 🔨     |
+| 🔵 getDehydratedState.util | 👁️     |
+| 🔵 gqlRequest.util         | 👁️     |
