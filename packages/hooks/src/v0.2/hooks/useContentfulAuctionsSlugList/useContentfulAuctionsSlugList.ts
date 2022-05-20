@@ -1,6 +1,6 @@
 import { EContentfulQueries } from '../../domain/gql/contentful';
 import { IContentfulAuctionsSlugListQuery } from '../../domain/interfaces';
-import { BaseHookProps } from '../../domain/interfaces/hooks.interface';
+import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useContentfulFactory } from '../useContentfulFactory/useContentfulFactory';
 
 function transformFn(auctionsSlugListQuery?: IContentfulAuctionsSlugListQuery) {
@@ -13,7 +13,8 @@ export type UseContentfulAuctionsSlugListData = ReturnType<typeof transformFn>;
 
 export type UseContentfulAuctionsSlugListReturn = ReturnType<typeof useContentfulAuctionsSlugList>;
 
-export type UseContentfulAuctionsSlugListProps = BaseHookProps<UseContentfulAuctionsSlugListData>;
+export type UseContentfulAuctionsSlugListProps =
+  BaseQueryHookProps<UseContentfulAuctionsSlugListData>;
 
 export function useContentfulAuctionsSlugList({
   options,

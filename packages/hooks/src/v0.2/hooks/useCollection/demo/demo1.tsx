@@ -7,14 +7,15 @@
  */
 
 import React from 'react';
-import { DemoInterface } from '../../../components/demo/interface/DemoInterface';
-import { Json } from '../../../components/demo/json/Json';
-import { DemoProviders } from '../../../components/demo/provider/DemoProvider';
+import { DEMO_SLUG } from '../../../components/demo/constants/demo.constants';
+import { DemoInterface } from '../../../components/demo/Interface/DemoInterface';
+import { Json } from '../../../components/demo/Json/Json';
+import { DemoProviders } from '../../../components/demo/Provider/DemoProvider';
 import { useCollection } from '../useCollection';
 
 const DemoContent: React.FC = () => {
   const result = useCollection({
-    slug: 'bid-test-3',
+    slug: DEMO_SLUG,
   });
 
   return <Json result={result} />;

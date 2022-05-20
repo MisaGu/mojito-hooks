@@ -28747,9 +28747,10 @@ object-assign
                             var m = e;
                             if (m.serverTime) {
                               var _ = new Date(m.serverTime).getTime() - Date.now();
-                              q.a.now = function () {
+                              (q.a.now = function () {
                                 return _ + Date.now();
-                              };
+                              }),
+                                Object.assign(m, { serverTime: new Date(m.serverTime) });
                             }
                             if (
                               null ===

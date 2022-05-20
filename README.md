@@ -63,8 +63,6 @@ const YouApp: React.FC = () => {
 
 **In Development > Dani:**
 
-- Then, break down Json component.
-- Extract test/demo constants/ids/etc. to constants...
 - Check refetch function return for `useCollectionItemCurrentBids()`.
 - Can we type-check queries and variables (check they match) in QueryKey.get and return type in prefetchQuery?
 
