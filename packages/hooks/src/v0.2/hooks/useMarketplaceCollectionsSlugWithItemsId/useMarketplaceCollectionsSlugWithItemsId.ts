@@ -1,7 +1,7 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { config } from '../../domain/constants/general.constants';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
-import { BaseHookProps } from '../../domain/interfaces/hooks.interface';
+import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { IMojitoMarketplaceResponse } from '../../domain/interfaces';
 
 function transformFn(marketplaceRequest?: IMojitoMarketplaceResponse) {
@@ -17,7 +17,7 @@ export type UseMarketplaceCollectionsSlugWithItemsIdReturn = ReturnType<
 >;
 
 export type UseMarketplaceCollectionsSlugWithItemsIdProps =
-  BaseHookProps<UseMarketplaceCollectionsSlugWithItemsIdData>;
+  BaseQueryHookProps<UseMarketplaceCollectionsSlugWithItemsIdData>;
 
 export function useMarketplaceCollectionsSlugWithItemsId({
   options,

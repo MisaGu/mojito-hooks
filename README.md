@@ -67,6 +67,7 @@ const YouApp: React.FC = () => {
 - Extract test/demo constants/ids/etc. to constants...
 - Check refetch function return for `useCollectionItemCurrentBids()`.
 - Can we type-check queries and variables (check they match) in QueryKey.get and return type in prefetchQuery?
+- Get rid of all console.log()s or make them optional / work only in development.
 
 **Not assigned / TODO:**
 
@@ -86,6 +87,7 @@ Progress:
 - ❌ Not done.
 - 🔨 In progress.
 - 👁️ Needs review.
+- ⛔ Don't have.
 - ✔️ Done.
 
 Assignee:
@@ -96,26 +98,26 @@ Assignee:
 
 | Hook                                        | Code | Demo | Test | Docs |
 | ------------------------------------------- | ---- | ---- | ---- | ---- |
-| 🔵 useActiveBids                            | 👁️   | ❌   | ❌   | ❌   |
-| 🔵 useCollection                            | 👁️   | ❌   | ❌   | ❌   |
-| 🔵 useCollectionItemBidsList                | 👁️   | ❌   | ❌   | ❌   |
-| 🔵 useCollectionItemCurrentBids             | 👁️   | ❌   | ❌   | ❌   |
-| 🔵 useCollectionItemRemainingCount          | 👁️   | ❌   | ❌   | ❌   |
-| 🔵 useCollectionItemsCurrentBids            | 👁️   | ❌   | ❌   | ❌   |
-| 🔵 useCollectionLotsIdList                  | 👁️   | ❌   | ❌   | ❌   |
-| 🔵 useCollectionSlug                        | 👁️   | ❌   | ❌   | ❌   |
-| 🔵 useContentfulAuctionsSlugList            | 👁️   | ❌   | ❌   | ❌   |
-| 🔵 useContentfulAuthors                     | 👁️   | ❌   | ❌   | ❌   |
-| 🔵 useContentfulCollectors                  | 👁️   | ❌   | ❌   | ❌   |
-| 🔵 useContentfulFactory                     | 👁️   | ❌   | ❌   | ❌   |
-| 🔵 useContentfulLots                        | 👁️   | ❌   | ❌   | ❌   |
-| 🔵 useContentfulShortLots                   | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useActiveBids                            | ✔️   | ✔️   | ❌   | ✔️   |
+| 🔵 useCollection                            | ✔️   | ✔️   | ❌   | ✔️   |
+| 🔵 useCollectionItemBidsList                | ✔️   | ✔️   | ❌   | ✔️   |
+| 🔵 useCollectionItemCurrentBids             | 👁️   | ✔️   | ❌   | ✔️   |
+| 🔵 useCollectionItemRemainingCount          | ✔️   | ✔️   | ❌   | ✔️   |
+| 🔵 useCollectionItemsCurrentBids            | ✔️   | ✔️   | ❌   | ✔️   |
+| 🔵 useCollectionLotsIdList                  | 👁️   | ✔️   | ❌   | ✔️   |
+| 🔵 useCollectionSlug                        | ✔️   | ✔️   | ❌   | ✔️   |
+| 🔵 useContentfulAuctionsSlugList            | ✔️   | ✔️   | ❌   | 👁️   |
+| 🔵 useContentfulAuthors                     | ✔️   | ✔️   | ❌   | ✔️   |
+| 🔵 useContentfulCollectors                  | ✔️   | ✔️   | ❌   | ✔️   |
+| 🔵 useContentfulFactory                     | ✔️   | ⛔   | ❌   | ✔️   |
+| 🔵 useContentfulLots                        | ✔️   | 👁️   | ❌   | ✔️   |
+| 🔵 useContentfulShortLots                   | ✔️   | 👁️   | ❌   | ✔️   |
 | 🟢 useFavoriteItems                         | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useInvoiceDownload                       | 🔨   | ❌   | ❌   | ❌   |
 | 🟢 useMyInvoices                            | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useLazyMojitoOneLot                      | 🔨   | ❌   | ❌   | ❌   |
-| 🔵 useMarketplaceCollectionsSlugWithItemsId | 👁️   | ❌   | ❌   | ❌   |
-| 🔵 useMojitoFactory                         | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useMarketplaceCollectionsSlugWithItemsId | ✔️   | ❌   | ✔️   | ✔️   |
+| 🔵 useMojitoFactory                         | ✔️   | ⛔   | ❌   | ✔️   |
 | 🟢 useMojitoItem                            | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useMojitoMutation                        | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useMojitoWallets                         | 👁️   | ❌   | ❌   | ❌   |
