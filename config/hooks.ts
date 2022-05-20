@@ -1,6 +1,6 @@
 export const menus = [
   {
-    title: 'Other',
+    title: 'Mojito',
     children: [
       'useActiveBids',
       'useCollection',
@@ -10,16 +10,30 @@ export const menus = [
       'useCollectionItemsCurrentBids',
       'useCollectionLotsIdList',
       'useCollectionSlug',
+      'useMarketplaceCollectionsSlugWithItemsId',
+    ],
+  },
+  {
+    title: 'Contentful',
+    children: [
       'useContentfulAuctionsSlugList',
-      'useContentfulFactory',
+      'useContentfulAuthors',
+      'useContentfulCollectors',
       'useContentfulLots',
       'useContentfulShortLots',
+    ],
+  },
+  {
+    title: 'Internal',
+    children: ['useContentfulFactory', 'useMojitoFactory'],
+  },
+  {
+    title: 'Other',
+    children: [
       'useFavoriteItems',
       'useInvoiceDownload',
       'useInvoices',
       'useLazyMojitoOneLot',
-      'useMarketplaceCollectionsSlugWithItemsId',
-      'useMojitoFactory',
       'useMojitoItem',
       'useMojitoMutation',
       'useMojitoWallets',
@@ -28,9 +42,5 @@ export const menus = [
       'useProfile',
       'useServerTime',
     ],
-  },
-  {
-    title: 'Mojito',
-    children: ['useContentfulAuthors', 'useContentfulCollectors'],
   },
 ];

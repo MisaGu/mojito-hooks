@@ -12,6 +12,4 @@ Note the difference with `useContentfulLots(...)`, which returns a single lots, 
 
 ## Examples
 
-### Default usage
-
 <code src="./demo/demo1.tsx" />

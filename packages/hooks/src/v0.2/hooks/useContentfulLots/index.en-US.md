@@ -12,6 +12,4 @@ Note the difference with `useContentfulShortLots(...)`, which can return multipl
 
 ## Examples
 
-### Default usage
-
 <code src="./demo/demo1.tsx" />

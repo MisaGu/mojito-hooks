@@ -12,6 +12,4 @@ Useful when working with buy now lots.
 
 ## Examples
 
-### Default usage
-
 <code src="./demo/demo1.tsx" />

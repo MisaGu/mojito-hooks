@@ -10,6 +10,4 @@ This slugs loads all collection items from the selected collection, including it
 
 ## Examples
 
-### Default usage
-
 <code src="./demo/demo1.tsx" />

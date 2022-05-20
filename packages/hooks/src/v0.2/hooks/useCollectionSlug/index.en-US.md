@@ -11,6 +11,4 @@ the provided slug or pathname param (defaults to location.pathname).
 
 ## Examples
 
-### Default usage
-
 <code src="./demo/demo1.tsx" />

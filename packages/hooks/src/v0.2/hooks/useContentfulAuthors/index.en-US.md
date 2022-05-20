@@ -10,6 +10,4 @@ Returns all authors.
 
 ## Examples
 
-### Default usage
-
 <code src="./demo/demo1.tsx" />
