@@ -1,6 +1,6 @@
 import { Variables } from 'graphql-request/dist/types';
 import { contentfulQueries, EContentfulQueries } from '../gql/contentful';
-import { EMojitoQueries, EMojitoVariables, mojitoQueries } from '../gql/queries';
+import { EMojitoQueries, mojitoQueries } from '../gql/queries';
 import { QueryKey as ReactQueryQueryKey } from 'react-query';
 
 export type IQueryKey = [string] | [string, Variables];
