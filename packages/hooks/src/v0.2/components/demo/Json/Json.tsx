@@ -1,8 +1,8 @@
-import React, { useCallback, useEffect, useRef, useState } from 'react';
+import React, { useCallback, useState } from 'react';
 import { QueryResult } from '../../../domain/utils/gql.utils';
 import { QUERY_CLIENT_STALE_TIME } from '../../../domain/utils/gqlRequest.util';
 import { isBrowser } from '../../../domain/utils/isBrowser.util';
-import { useRAF } from '../hooks/use-raf.hook';
+import { ProgressBar } from '../ProgressBar/ProgressBar';
 import {
   ROOT_STYLE,
   ACTIONS_STYLE,
@@ -10,7 +10,6 @@ import {
   HEADER_STYLE,
   LABEL_STYLE,
   CHECKBOX_STYLE,
-  PROGRESS_BAR_STYLE,
 } from './Json.constants';
 
 function jsonReplacerFunctions(key: string, value: any) {
@@ -26,6 +25,20 @@ function jsonReplacerSummary(key: string, value: any) {
   return jsonReplacerFunctions(key, value);
 }
 
+function getQueryResultLabel(result: QueryResult<string>) {
+  const {
+    isLoading,
+    error,
+    queryResult: { isFetching, isStale, dataUpdatedAt },
+  } = result;
+
+  if (isLoading) return '💿 Loading...';
+  else if (isFetching) return '💿 Fetching...';
+  else if (error) return '❌ Error';
+  else if (isStale) return '⌛ Stale';
+  else return `📅 Fetched at ${new Date(dataUpdatedAt).toLocaleString()}`;
+}
+
 const showQueryResultKey = 'showQueryResult';
 
 export interface JsonProps {
@@ -35,10 +48,8 @@ export interface JsonProps {
 
 export const Json: React.FC<JsonProps> = ({ result, staleTime = QUERY_CLIENT_STALE_TIME }) => {
   const {
-    isLoading,
-    error,
     refetch,
-    queryResult: { isFetching, isStale, dataUpdatedAt },
+    queryResult: { dataUpdatedAt },
   } = result;
 
   const handleRefetch = useCallback(() => {
@@ -61,43 +72,12 @@ export const Json: React.FC<JsonProps> = ({ result, staleTime = QUERY_CLIENT_STA
     });
   }, []);
 
-  const progressBarRef = useRef<HTMLDivElement | null>(null);
-
-  // TODO: Replace with useProgress once published:
-  useRAF(() => {
-    const progressBar = progressBarRef.current;
-
-    if (!progressBar) return;
-
-    const dataExpiresAt = dataUpdatedAt + QUERY_CLIENT_STALE_TIME;
-    const dataRemainingTTL = (dataExpiresAt - Date.now()) / QUERY_CLIENT_STALE_TIME;
-    const dataExpirationProgress = 100 * Math.min(1, 1 - dataRemainingTTL);
-
-    progressBar.style.width = `${dataExpirationProgress}%`;
-
-    if (dataExpirationProgress === 100) {
-      progressBar.style.setProperty('--progressBarAccent', '#000');
-    } else if (dataExpirationProgress > 95) {
-      progressBar.style.setProperty('--progressBarAccent', '#F00');
-    } else if (dataExpirationProgress < 1) {
-      progressBar.style.setProperty('--progressBarAccent', '#4569D4');
-    }
-  }, !!dataUpdatedAt);
-
-  let statusLabel = '';
-
-  if (isLoading) statusLabel = '💿 Loading...';
-  else if (isFetching) statusLabel = '💿 Fetching...';
-  else if (error) statusLabel = '❌ Error';
-  else if (isStale) statusLabel = '⌛ Stale';
-  else statusLabel = `📅 Fetched at ${new Date(dataUpdatedAt).toLocaleString()}`;
-
   return (
     <div style={ROOT_STYLE}>
       <div style={HEADER_STYLE}>
-        <div style={PROGRESS_BAR_STYLE} ref={progressBarRef}></div>
+        <ProgressBar start={dataUpdatedAt} duration={QUERY_CLIENT_STALE_TIME} />
 
-        {statusLabel}
+        {getQueryResultLabel(result)}
 
         <button style={BUTTON_STYLE} onClick={handleRefetch}>
           🔄

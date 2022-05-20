@@ -21,7 +21,7 @@ export const menus = [
       'useMarketplaceCollectionsSlugWithItemsId',
       'useMojitoFactory',
       'useMojitoItem',
-      'useMojitoMutationFactory',
+      'useMojitoMutation',
       'useMojitoWallets',
       'useOrganization',
       'usePlaceBidMutation',
