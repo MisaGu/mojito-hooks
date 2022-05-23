@@ -1,6 +1,6 @@
 import { Variables } from 'graphql-request/dist/types';
 import { contentfulQueries, EContentfulQueries } from '../gql/contentful';
-import { EMojitoQueries, EMojitoVariables, mojitoQueries } from '../gql/queries';
+import { EMojitoQueries, mojitoQueries } from '../gql/queries';
 import { QueryKey as ReactQueryQueryKey } from 'react-query';
 
 export type IQueryKey = [string] | [string, Variables];
@@ -14,10 +14,10 @@ export class QueryKey {
     return queryKey.replace(/^MOJITO-HOOKS::(API|CONTENTFUL)::/, '') as unknown as T;
   }
 
-  static get<TQuery extends keyof EMojitoVariables>(
-    query: TQuery,
-    variables: EMojitoVariables[TQuery],
-  ): IQueryKey {
+  static get = (
+    query: EMojitoQueries | EContentfulQueries,
+    variables: Variables = {},
+  ): IQueryKey => {
     let prefix = '';
 
     if (EMojitoQueries[query]) prefix = QUERY_KEY_INFIX_MOJITO;
@@ -26,7 +26,7 @@ export class QueryKey {
     const queryKey = `${prefix}${query}`;
 
     return variables ? [queryKey, variables] : [queryKey];
-  }
+  };
 
   static getMojitoQuery = (queryKey: string) => {
     const mojitoQueryKey = QueryKey._removeQueryKeyPrefix<EMojitoQueries>(queryKey);

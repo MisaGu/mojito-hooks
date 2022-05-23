@@ -27,13 +27,6 @@ export enum EMojitoQueries {
   collectionItemByIdRemainingCount = 'collectionItemByIdRemainingCount',
 }
 
-// TODO: We should use codegen to generate the variable types as well as all "raw" types:
-
-export type EMojitoVariables = {
-  [EMojitoQueries.userActiveBids]: { organizationID: string };
-  [EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug]: { id: string };
-};
-
 export const mojitoQueries: Record<EMojitoQueries, string> = {
   [EMojitoQueries.profile]: gql`
     query GetProfile($filter: UserOrgFilter) {

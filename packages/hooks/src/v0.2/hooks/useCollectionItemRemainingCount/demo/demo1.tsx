@@ -1,9 +1,6 @@
 /**
  * title: Basic usage
- * desc: Default value is boolean，alike useBoolean.
- *
- * title.zh-CN: 基础用法
- * desc.zh-CN: 默认为 boolean 切换，基础用法与 useBoolean 一致。
+ * desc: This hook takes a required `collectionItemID` param.
  */
 
 import React from 'react';
@@ -19,7 +16,6 @@ import { useCollectionItemRemainingCount } from '../useCollectionItemRemainingCo
 const DemoContent: React.FC = () => {
   const result = useCollectionItemRemainingCount({
     collectionItemID: DEMO_COLLECTION_ITEM_ID,
-    slug: DEMO_SLUG,
   });
 
   return <Json result={result} />;

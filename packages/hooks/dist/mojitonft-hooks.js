@@ -28369,8 +28369,9 @@ object-assign
             }),
             e
           );
-        })(),
-        se = function (e) {
+        })();
+      ie.get(c.userActiveBids, { organizationID: '234' });
+      var se = function (e) {
           for (
             var t,
               n,
