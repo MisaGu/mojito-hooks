@@ -4,7 +4,8 @@ module.exports = {
   testPathIgnorePatterns: ['/.history/'],
   modulePathIgnorePatterns: ['<rootDir>/package.json'],
   resetMocks: false,
-  setupFiles: ['<rootDir>/jest.setup.ts'],
+  setupFiles: ['<rootDir>/jestSetup.ts'],
+  setupFilesAfterEnv: ['<rootDir>/packages/hooks/jestSetupAfterEnv.ts'],
   globals: {
     'ts-jest': {
       tsconfig: 'tsconfig.json',

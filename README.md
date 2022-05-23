@@ -96,7 +96,7 @@ Assignee:
 
 | Hook                                        | Code | Demo | Test | Docs |
 | ------------------------------------------- | ---- | ---- | ---- | ---- |
-| 🔵 useActiveBids                            | ✔️   | ✔️   | ❌   | ✔️   |
+| 🔵 useActiveBids                            | ✔️   | ✔️   | ✔️   | ✔️   |
 | 🔵 useCollection                            | ✔️   | ✔️   | ❌   | ✔️   |
 | 🔵 useCollectionItemBidsList                | ✔️   | ✔️   | ❌   | ✔️   |
 | 🔵 useCollectionItemCurrentBids             | 👁️   | ✔️   | ❌   | ✔️   |

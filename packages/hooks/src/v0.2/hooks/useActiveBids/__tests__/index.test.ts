@@ -1,23 +1,8 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { TestWrapper } from '../../../components/test/wrapper/TestWrapper';
 import { useActiveBids, UseActiveBidsProps, UseActiveBidsReturn } from '../useActiveBids';
-import { useAuth0 } from '@auth0/auth0-react';
-import { mocked } from 'jest-mock';
-
-jest.mock('@auth0/auth0-react');
-
-const mockedUseAuth0 = mocked(useAuth0, true);
 
 describe.only('useActiveBids()', () => {
-  beforeEach(() => {
-    mockedUseAuth0.mockReturnValue({
-      getIdTokenClaims: jest.fn(() => ({ __raw: 'mocked-token' })),
-      isAuthenticated: true,
-      isLoading: false,
-      loginWithPopup: jest.fn(),
-    } as any);
-  });
-
   it('should be defined', () => {
     expect(useActiveBids).toBeDefined();
   });
@@ -32,17 +17,17 @@ describe.only('useActiveBids()', () => {
       },
     );
 
-    await act(async () => {
-      rerender();
+    // Trigger request...
+    await act(async () => rerender());
+
+    // ...and wait for response:
+    await waitFor(() => result.current.queryResult.isSuccess);
+
+    // Check data matches snapshot:
+    expect(result.current).toMatchSnapshot({
+      queryResult: {
+        dataUpdatedAt: expect.any(Number),
+      },
     });
-
-    await waitFor(() => result.current.queryResult.isSuccess, { timeout: 5000 });
-
-    // console.log(result.current);
-
-    // expect(fetchMock.mock.calls.length).toEqual(1);
-    // expect(fetchMock.mock.calls[0][0]).toEqual('https://google.com')
-
-    // expect(result.current).toMatchSnapshot();
   });
 });
