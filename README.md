@@ -124,8 +124,8 @@ Assignee:
 | 🟢 useProfile                               | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useServerTime                            | 👁️   | ❌   | ❌   | ❌   |
 
-| Utils                      | Status |
-| -------------------------- | ------ |
-| 🟢 gqlDataNormalizer.util  | 🔨     |
-| 🔵 getDehydratedState.util | 👁️     |
-| 🔵 gqlRequest.util         | 👁️     |
+| Utils                      | Code | Test |
+| -------------------------- | ---- | ---- |
+| 🟢 gqlDataNormalizer.util  | 🔨   | ❌   |
+| 🔵 getDehydratedState.util | 👁️   | ❌   |
+| 🔵 gqlRequest.util         | 👁️   | ❌   |

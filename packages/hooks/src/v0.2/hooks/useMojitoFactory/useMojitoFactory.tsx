@@ -72,6 +72,9 @@ export function useMojitoFactory<
 
   const result = useQuery<TReturn | undefined, TError>(queryKey, mojitoFactoryUseQueryOptions);
 
+  console.log('isAuthenticated', isAuthenticated);
+  // console.log("result", result);
+
   useEffect(() => {
     if (force) {
       queryClient.removeQueries(queryKey);

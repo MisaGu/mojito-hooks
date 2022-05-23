@@ -17,6 +17,8 @@ export type UseActiveBidsReturn = ReturnType<typeof useActiveBids>;
 export type UseActiveBidsProps = BaseQueryHookProps<UseActiveBidsData>;
 
 export function useActiveBids({ options }: UseActiveBidsProps = {}) {
+  // console.log("useActiveBids");
+
   return useMojitoFactory({
     as: 'activeBids',
     query: EMojitoQueries.userActiveBids,
