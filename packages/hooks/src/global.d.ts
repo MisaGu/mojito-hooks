@@ -1,3 +1,5 @@
+import 'jest-fetch-mock';
+
 declare module '*.jpg';
 
 interface Window {

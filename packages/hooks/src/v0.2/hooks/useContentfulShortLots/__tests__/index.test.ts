@@ -1,7 +1,7 @@
-import { useActiveBids } from '../useActiveBids';
+import { useContentfulShortLots } from '../useContentfulShortLots';
 
-describe('useToggle', () => {
+describe('useContentfulShortLots', () => {
   it('should be defined', () => {
-    expect(useActiveBids).toBeDefined();
+    expect(useContentfulShortLots).toBeDefined();
   });
 });

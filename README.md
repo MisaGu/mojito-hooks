@@ -96,7 +96,7 @@ Assignee:
 
 | Hook                                        | Code | Demo | Test | Docs |
 | ------------------------------------------- | ---- | ---- | ---- | ---- |
-| 🔵 useActiveBids                            | ✔️   | ✔️   | ❌   | ✔️   |
+| 🔵 useActiveBids                            | ✔️   | ✔️   | ✔️   | ✔️   |
 | 🔵 useCollection                            | ✔️   | ✔️   | ❌   | ✔️   |
 | 🔵 useCollectionItemBidsList                | ✔️   | ✔️   | ❌   | ✔️   |
 | 🔵 useCollectionItemCurrentBids             | 👁️   | ✔️   | ❌   | ✔️   |
@@ -124,8 +124,8 @@ Assignee:
 | 🟢 useProfile                               | 👁️   | ❌   | ❌   | ❌   |
 | 🟢 useServerTime                            | 👁️   | ❌   | ❌   | ❌   |
 
-| Utils                      | Status |
-| -------------------------- | ------ |
-| 🟢 gqlDataNormalizer.util  | 🔨     |
-| 🔵 getDehydratedState.util | 👁️     |
-| 🔵 gqlRequest.util         | 👁️     |
+| Utils                      | Code | Test |
+| -------------------------- | ---- | ---- |
+| 🟢 gqlDataNormalizer.util  | 🔨   | ❌   |
+| 🔵 getDehydratedState.util | 👁️   | ❌   |
+| 🔵 gqlRequest.util         | 👁️   | ❌   |

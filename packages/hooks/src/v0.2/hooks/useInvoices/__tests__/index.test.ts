@@ -1,7 +1,7 @@
-import { useInvoices } from '../useInvoices';
+import { useMyInvoices } from '../useInvoices';
 
 describe('useToggle', () => {
   it('should be defined', () => {
-    expect(useInvoices).toBeDefined();
+    expect(useMyInvoices).toBeDefined();
   });
 });

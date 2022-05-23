@@ -179,7 +179,7 @@ export const mojitoQueries: Record<EMojitoQueries, string> = {
   `,
   [EMojitoQueries.collectionBySlug]: gql`
     ${COLLECTION_ITEM_FIELD}
-    query collectionBySlug($slug: String!, $marketplaceID: UUID1!) {
+    query GetCollectionBySlug($slug: String!, $marketplaceID: UUID1!) {
       collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {
         id
         slug
@@ -197,7 +197,7 @@ export const mojitoQueries: Record<EMojitoQueries, string> = {
     ${COLLECTION_ITEM_AUCTION_LOT_CURRENT_BID_FIELD}
     ${COLLECTION_ITEM_AUCTION_LOT_MY_BID_FIELD}
 
-    query collectionBySlugCurrentBids($slug: String!, $marketplaceID: UUID1!) {
+    query GetCollectionBySlugCurrentBids($slug: String!, $marketplaceID: UUID1!) {
       collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {
         id
         items(statuses: [Active]) {
@@ -221,7 +221,7 @@ export const mojitoQueries: Record<EMojitoQueries, string> = {
     }
   `,
   [EMojitoQueries.collectionItemByIdRemainingCount]: gql`
-    query collectionItemByIdBidsList($id: UUID1!) {
+    query GetCollectionItemByIdRemainingCount($id: UUID1!) {
       collectionItemById(id: $id) {
         id
         details {
@@ -236,7 +236,7 @@ export const mojitoQueries: Record<EMojitoQueries, string> = {
   [EMojitoQueries.collectionItemByIdBidsList]: gql`
     ${COLLECTION_ITEM_AUCTION_LOT_BIDS_LIST_FIELD}
 
-    query collectionItemByIdBidsList($id: UUID1!) {
+    query GetCollectionItemByIdBidsList($id: UUID1!) {
       collectionItemById(id: $id) {
         id
         details {
@@ -253,7 +253,7 @@ export const mojitoQueries: Record<EMojitoQueries, string> = {
     }
   `,
   [EMojitoQueries.collectionLotsIdList]: gql`
-    query collectionLotsIdList($slug: String!, $marketplaceID: UUID1!) {
+    query GetCollectionLotsIdList($slug: String!, $marketplaceID: UUID1!) {
       collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {
         items(statuses: [Active]) {
           id
@@ -265,14 +265,14 @@ export const mojitoQueries: Record<EMojitoQueries, string> = {
   `,
   [EMojitoQueries.oneLot]: gql`
     ${COLLECTION_ITEM_AUCTION_LOT_DETAILS_FIELD}
-    query oneLot($marketplaceAuctionLotId: UUID!) {
+    query GetOneLot($marketplaceAuctionLotId: UUID!) {
       getMarketplaceAuctionLot(marketplaceAuctionLotId: $marketplaceAuctionLotId) {
         ...CollectionItemAuctionLotDetailsFields
       }
     }
   `,
   [EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug]: gql`
-    query marketplaceCollectionsInfoWithItemsIdAndSlug($id: UUID!) {
+    query GetMarketplaceCollectionsInfoWithItemsIdAndSlug($id: UUID!) {
       marketplace(id: $id) {
         collections {
           id
@@ -290,7 +290,7 @@ export const mojitoQueries: Record<EMojitoQueries, string> = {
     }
   `,
   [EMojitoQueries.serverTime]: gql`
-    query {
+    query GetServerTime {
       serverTime
     }
   `,
