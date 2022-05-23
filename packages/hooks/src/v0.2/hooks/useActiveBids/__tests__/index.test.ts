@@ -2,7 +2,7 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { TestWrapper } from '../../../components/test/wrapper/TestWrapper';
 import { useActiveBids, UseActiveBidsProps, UseActiveBidsReturn } from '../useActiveBids';
 import { useAuth0 } from '@auth0/auth0-react';
-import { mocked } from 'ts-jest/utils';
+import { mocked } from 'jest-mock';
 
 jest.mock('@auth0/auth0-react');
 
@@ -23,12 +23,12 @@ describe.only('useActiveBids()', () => {
   });
 
   it('returns the right result when needed', async () => {
-    const { result, rerender } = renderHook<[UseActiveBidsProps?], UseActiveBidsReturn>(
+    const { result, rerender, waitFor } = renderHook<[UseActiveBidsProps?], UseActiveBidsReturn>(
       (args = []) => {
         return useActiveBids(...args);
       },
       {
-        wrapper: TestWrapper,
+        wrapper: TestWrapper as any,
       },
     );
 
@@ -36,7 +36,7 @@ describe.only('useActiveBids()', () => {
       rerender();
     });
 
-    await waitFor(() => result.current.queryResult.isSuccess);
+    await waitFor(() => result.current.queryResult.isSuccess, { timeout: 5000 });
 
     // console.log(result.current);
 
