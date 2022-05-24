@@ -3,10 +3,10 @@ import { ICollectionItemByIdBidsListRequest } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(collectionItem?: ICollectionItemByIdBidsListRequest) {
-  if (!collectionItem) return undefined;
+function transformFn(collectionItemRequest?: ICollectionItemByIdBidsListRequest) {
+  if (!collectionItemRequest) return undefined;
 
-  return collectionItem.collectionItemById;
+  return collectionItemRequest.collectionItemById;
 }
 
 export type UseCollectionItemBidsListData = ReturnType<typeof transformFn>;

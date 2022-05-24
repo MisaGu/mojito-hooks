@@ -98,31 +98,31 @@ Assignee:
 | ------------------------------------------- | ---- | ---- | ---- | ---- |
 | 🔵 useActiveBids                            | ✔️   | ✔️   | ✔️   | ✔️   |
 | 🔵 useCollection                            | ✔️   | ✔️   | ❌   | ✔️   |
-| 🔵 useCollectionItemBidsList                | ✔️   | ✔️   | ❌   | ✔️   |
-| 🔵 useCollectionItemCurrentBids             | 👁️   | ✔️   | ❌   | ✔️   |
-| 🔵 useCollectionItemRemainingCount          | ✔️   | ✔️   | ❌   | ✔️   |
-| 🔵 useCollectionItemsCurrentBids            | ✔️   | ✔️   | ❌   | ✔️   |
-| 🔵 useCollectionLotsIdList                  | 👁️   | ✔️   | ❌   | ✔️   |
-| 🔵 useCollectionSlug                        | ✔️   | ✔️   | ❌   | ✔️   |
+| 🔵 useCollectionItemBidsList                | ✔️   | ✔️   | ✔️   | ✔️   |
+| 🔵 useCollectionItemCurrentBids             | 👁️   | ✔️   | 👁️   | ✔️   |
+| 🔵 useCollectionItemRemainingCount          | ✔️   | ✔️   | ✔️   | ✔️   |
+| 🔵 useCollectionItemsCurrentBids            | ✔️   | ✔️   | ✔️   | ✔️   |
+| 🔵 useCollectionLotsIdList                  | 👁️   | ✔️   | ✔️   | ✔️   |
+| 🔵 useCollectionSlug                        | ✔️   | ✔️   | 👁️   | ✔️   |
 | 🔵 useContentfulAuctionsSlugList            | ✔️   | ✔️   | ❌   | 👁️   |
 | 🔵 useContentfulAuthors                     | ✔️   | ✔️   | ❌   | ✔️   |
 | 🔵 useContentfulCollectors                  | ✔️   | ✔️   | ❌   | ✔️   |
 | 🔵 useContentfulFactory                     | ✔️   | ⛔   | ❌   | ✔️   |
 | 🔵 useContentfulLots                        | ✔️   | 👁️   | ❌   | ✔️   |
 | 🔵 useContentfulShortLots                   | ✔️   | 👁️   | ❌   | ✔️   |
-| 🟢 useFavoriteItems                         | 👁️   | ❌   | ❌   | ❌   |
-| 🟢 useInvoiceDownload                       | 🔨   | ❌   | ❌   | ❌   |
-| 🟢 useMyInvoices                            | 👁️   | ❌   | ❌   | ❌   |
-| 🟢 useLazyMojitoOneLot                      | 🔨   | ❌   | ❌   | ❌   |
+| 🟢 useFavoriteItems                         | 👁️   | ❌   | ❌   | 🔨   |
+| 🟢 useInvoiceDownload                       | 🔨   | ❌   | ❌   | 🔨   |
+| 🟢 useMyInvoices                            | 👁️   | ❌   | ❌   | 🔨   |
+| 🟢 useLazyMojitoOneLot                      | 🔨   | ❌   | ❌   | 🔨   |
 | 🔵 useMarketplaceCollectionsSlugWithItemsId | ✔️   | ❌   | ✔️   | ✔️   |
 | 🔵 useMojitoFactory                         | ✔️   | ⛔   | ❌   | ✔️   |
-| 🟢 useMojitoItem                            | 👁️   | ❌   | ❌   | ❌   |
-| 🟢 useMojitoMutation                        | 👁️   | ❌   | ❌   | ❌   |
-| 🟢 useMojitoWallets                         | 👁️   | ❌   | ❌   | ❌   |
-| 🟢 useOrganization                          | 👁️   | ❌   | ❌   | ❌   |
-| 🟢 usePlaceBidMutation                      | 🔨   | ❌   | ❌   | ❌   |
-| 🟢 useProfile                               | 👁️   | ❌   | ❌   | ❌   |
-| 🟢 useServerTime                            | 👁️   | ❌   | ❌   | ❌   |
+| 🟢 useMojitoItem                            | 👁️   | ❌   | ❌   | 🔨   |
+| 🟢 useMojitoMutation                        | 👁️   | ❌   | ❌   | 🔨   |
+| 🟢 useMojitoWallets                         | 👁️   | ❌   | ❌   | 🔨   |
+| 🟢 useOrganization                          | 👁️   | ❌   | ❌   | 🔨   |
+| 🟢 usePlaceBidMutation                      | 🔨   | ❌   | ❌   | 🔨   |
+| 🟢 useProfile                               | 👁️   | ❌   | ❌   | 🔨   |
+| 🟢 useServerTime                            | 👁️   | ❌   | ❌   | 🔨   |
 
 | Utils                      | Code | Test |
 | -------------------------- | ---- | ---- |

@@ -1,16 +1,17 @@
+import { ICollectionItemByIdBidsListRequest } from '../../domain/interfaces';
+
 export function resolveGetCollectionItemByIdBidsList(req, res, ctx) {
   return res(
     ctx.data({
-      users: [
-        {
-          firstName: 'John',
-          lastName: 'Maverick',
+      collectionItemById: {
+        id: 'mock-item-id',
+        details: {
+          id: 'mock-item-id',
+          endDate: '',
+          startDate: '',
+          bids: [],
         },
-        {
-          firstName: 'Cathaline',
-          lastName: 'McCoy',
-        },
-      ],
-    }),
+      },
+    } as ICollectionItemByIdBidsListRequest),
   );
 }

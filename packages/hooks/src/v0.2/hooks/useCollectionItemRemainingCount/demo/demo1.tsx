@@ -15,6 +15,7 @@ import { useCollectionItemRemainingCount } from '../useCollectionItemRemainingCo
 
 const DemoContent: React.FC = () => {
   const result = useCollectionItemRemainingCount({
+    slug: DEMO_SLUG,
     collectionItemID: DEMO_COLLECTION_ITEM_ID,
   });
 

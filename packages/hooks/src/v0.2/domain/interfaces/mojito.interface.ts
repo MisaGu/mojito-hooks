@@ -332,26 +332,34 @@ export interface ICollectionItemByIdBidsListRequest {
   collectionItemById: ICollectionItemByIdBidsList;
 }
 
+export interface ICollectionItemByIdRemainingCount {
+  id: string;
+  details: {
+    id: string;
+    remainingCount: number;
+  };
+}
+
+export interface ICollectionItemByIdRemainingCountRequest {
+  collectionItemById: ICollectionItemByIdRemainingCount;
+}
+
 export interface IIMojitoCollectionItemCurrentBids {
   id: string;
   items: IMojitoCollectionItemCurrentBids[];
 }
 
-/*
 export interface IIMojitoCollectionItemCurrentBidsRequest {
   collectionBySlug: IIMojitoCollectionItemCurrentBids;
 }
-*/
 
 export interface IIMojitoCollectionLotsIdList {
   items: IMojitoCollectionItemSummary[];
 }
 
-/*
 export interface IIMojitoCollectionLotsIdListRequest {
   collectionBySlug: IIMojitoCollectionLotsIdList;
 }
-*/
 
 export interface IIMojitoCollectionItemCurrentBidsItems {
   items: IMojitoCollectionItemCurrentBids[];

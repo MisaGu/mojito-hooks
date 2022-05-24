@@ -30229,7 +30229,6 @@
         h || delete p.queryFn;
         var y = Object(W.useQuery)(_, p);
         return (
-          console.log('isAuthenticated', c),
           Object(R.useEffect)(
             function () {
               l && m.removeQueries(_);
@@ -30621,7 +30620,7 @@
           return n;
         };
       function Ge(e) {
-        if (e) return e.details.remainingCount;
+        if (e) return e.collectionItemById.details.remainingCount;
       }
       function $e(e) {
         var t = e.collectionItemID,

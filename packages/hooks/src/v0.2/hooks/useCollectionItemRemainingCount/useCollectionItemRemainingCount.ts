@@ -1,13 +1,18 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
-import { IMojitoCollectionItemBuyNowLot } from '../../domain/interfaces';
-import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
+import { ICollectionItemByIdRemainingCountRequest } from '../../domain/interfaces';
+import {
+  BaseQueryHookProps,
+  BaseQueryHookPropsWithUrlAndSlug,
+} from '../../domain/interfaces/hooks.interface';
 import { useCollectionSlug } from '../useCollectionSlug/useCollectionSlug';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(collectionItemById?: IMojitoCollectionItemBuyNowLot) {
-  if (!collectionItemById) return undefined;
+function transformFn(collectionItemRequest?: ICollectionItemByIdRemainingCountRequest) {
+  if (!collectionItemRequest) return undefined;
 
-  return collectionItemById.details.remainingCount;
+  console.log('collectionItemRequest =', collectionItemRequest);
+
+  return collectionItemRequest.collectionItemById.details.remainingCount;
 }
 
 export type UseCollectionItemRemainingCountData = ReturnType<typeof transformFn>;
@@ -17,7 +22,7 @@ export type UseCollectionItemRemainingCountReturn = ReturnType<
 >;
 
 export interface UseCollectionItemRemainingCountProps
-  extends BaseQueryHookProps<UseCollectionItemRemainingCountData> {
+  extends BaseQueryHookPropsWithUrlAndSlug<UseCollectionItemRemainingCountData> {
   collectionItemID: string;
 }
 
@@ -27,6 +32,8 @@ export function useCollectionItemRemainingCount({
   ...props
 }: UseCollectionItemRemainingCountProps) {
   const { slug } = useCollectionSlug(props);
+
+  console.log('slug =', slug);
 
   return useMojitoFactory({
     as: 'remainingCount',
