@@ -1,7 +1,7 @@
 ---
 nav:
   path: /hooks
-  group: Mojito
+  group: Downloads
 ---
 
 # useInvoiceDownload

@@ -30620,20 +30620,26 @@
           return n;
         };
       function Ge(e) {
-        if (e) return e.collectionItemById.details.remainingCount;
+        if (e)
+          return (
+            console.log('collectionItemRequest =', e), e.collectionItemById.details.remainingCount
+          );
       }
       function $e(e) {
         var t = e.collectionItemID,
           n = e.options,
           r = Re(Je(e, ['collectionItemID', 'options'])).slug;
-        return xe({
-          as: 'remainingCount',
-          query: c.collectionItemByIdRemainingCount,
-          variables: { id: t, slug: r },
-          options: Qe(Qe({}, n), { enabled: !!r }),
-          transformFn: Ge,
-          onlyAuthenticated: !0,
-        });
+        return (
+          console.log('slug =', r),
+          xe({
+            as: 'remainingCount',
+            query: c.collectionItemByIdRemainingCount,
+            variables: { id: t, slug: r },
+            options: Qe(Qe({}, n), { enabled: !!r }),
+            transformFn: Ge,
+            onlyAuthenticated: !0,
+          })
+        );
       }
       var Ze = function () {
           return (Ze =
