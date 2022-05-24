@@ -1,42 +1,48 @@
 import { useMemo } from 'react';
 import { RefetchOptions, RefetchQueryFilters } from 'react-query';
-import {
-  BaseQueryHookPropsWithUrlAndSlug,
-  BaseQueryHookPropsWithUrlAndSlugAndId,
-} from '../../domain/interfaces/hooks.interface';
+import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 import { QueryResult } from '../../domain/utils/gql.utils';
-import { getPath } from '../../domain/utils/path.util';
+import { getItemSlug } from '../../domain/utils/path.util';
 import { useCollection, UseCollectionData } from '../useCollection/useCollection';
 
-function transformFn(props: { collection?: UseCollectionData; id?: string }) {
-  if (!props.collection) return undefined;
-  const itemSlug = getPath[3];
+interface TransformFnProps {
+  pathname?: string;
+  collectionItemID?: string;
+}
 
-  if (props.id) {
-    return props.collection.items.find((e) => e.id == props.id);
-  } else {
-    props.collection.items.find((e) => e.slug == itemSlug);
-  }
+function transformFn(collection?: UseCollectionData, props?: TransformFnProps) {
+  if (!collection) return undefined;
+
+  const collectionItemID = props?.collectionItemID;
+  const itemSlug = getItemSlug({ pathname: props?.pathname });
+
+  return collection.items.find(
+    collectionItemID
+      ? (collectionItem) => collectionItem.id == collectionItemID
+      : (collectionItem) => collectionItem.slug == itemSlug,
+  );
 }
 
 export type UseMojitoItemData = ReturnType<typeof transformFn>;
 
 export type UseMojitoItemReturn = ReturnType<typeof useMojitoItem>;
 
-export type UseMojitoItemProps = BaseQueryHookPropsWithUrlAndSlugAndId<UseMojitoItemData>;
+export interface UseMojitoItemProps extends BaseQueryHookPropsWithUrlAndSlug<UseMojitoItemData> {
+  collectionItemID?: string;
+}
 
-export function useMojitoItem({ id, ...props }: UseMojitoItemProps = {}): QueryResult<
-  'collectionItem',
-  UseMojitoItemData,
-  Error
-> {
+export function useMojitoItem(
+  props: UseMojitoItemProps = {},
+): QueryResult<'collectionItem', UseMojitoItemData, Error> {
   const { collection, error, isLoading, refetch, queryResult } = useCollection({
-    url: props.url,
+    pathname: props.pathname,
     slug: props.slug,
     options: props.options as BaseQueryHookPropsWithUrlAndSlug<UseCollectionData>['options'],
   });
 
-  const collectionItem = useMemo(() => transformFn({ collection, id }), [id, collection?.items]);
+  const collectionItem = useMemo(() => {
+    return transformFn(collection, props);
+  }, [collection?.items, props.collectionItemID, props.pathname]);
 
   return {
     collectionItem,
@@ -48,7 +54,7 @@ export function useMojitoItem({ id, ...props }: UseMojitoItemProps = {}): QueryR
       const collection = await refetch(options);
 
       return new Promise(() => ({
-        data: transformFn({ collection: collection.data, id }),
+        data: transformFn(collection.data, props),
         error,
         isLoading,
         refetch,

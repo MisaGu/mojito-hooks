@@ -72,6 +72,7 @@ const YouApp: React.FC = () => {
 - Use react-query to store auth data and get rid of AuthProvider, etc.
 - Create backend task to automatically log in with demo account (non-expiring token).
 - Use Codegen.
+- Docs API tables.
 
 **Note:**
 
@@ -111,19 +112,19 @@ Assignee:
 | 🔵 useContentfulFactory                     | ✔️   | ⛔   | ❌   | ✔️   |
 | 🔵 useContentfulLots                        | ✔️   | 👁️   | ❌   | ✔️   |
 | 🔵 useContentfulShortLots                   | ✔️   | 👁️   | ❌   | ✔️   |
-| 🟢 useFavoriteItems                         | 👁️   | ❌   | ❌   | 🔨   |
-| 🟢 useInvoiceDownload                       | 🔨   | ❌   | ❌   | 🔨   |
-| 🟢 useMyInvoices                            | 👁️   | ❌   | ❌   | 🔨   |
-| 🟢 useLazyMojitoOneLot                      | 🔨   | ❌   | ❌   | 🔨   |
+| 🟢 useFavoriteItems                         | 👁️   | ❌   | ❌   | ✔️   |
+| 🟢 useInvoiceDownload                       | 🔨   | ❌   | ❌   | 👁️   |
+| 🟢 useInvoices                              | 👁️   | ❌   | ❌   | ✔️   |
+| 🟢 useLazyMojitoOneLot                      | 🔨   | ❌   | ❌   | 👁️   |
 | 🔵 useMarketplaceCollectionsSlugWithItemsId | ✔️   | ✔️   | ✔️   | ✔️   |
 | 🔵 useMojitoFactory                         | ✔️   | ⛔   | ❌   | ✔️   |
-| 🟢 useMojitoItem                            | 👁️   | ❌   | ❌   | 🔨   |
-| 🟢 useMojitoMutation                        | 👁️   | ❌   | ❌   | 🔨   |
-| 🟢 useMojitoWallets                         | 👁️   | ❌   | ❌   | 🔨   |
-| 🟢 useOrganization                          | 👁️   | ❌   | ❌   | 🔨   |
-| 🟢 usePlaceBidMutation                      | 🔨   | ❌   | ❌   | 🔨   |
-| 🟢 useProfile                               | 👁️   | ❌   | ❌   | 🔨   |
-| 🟢 useServerTime                            | 👁️   | ❌   | ❌   | 🔨   |
+| 🔵 useMojitoItem                            | 👁️   | ❌   | ❌   | 👁️   |
+| 🔵 useMojitoMutation                        | 👁️   | ❌   | ❌   | 👁️   |
+| 🟢 useMojitoWallets                         | 👁️   | ❌   | ❌   | ✔️   |
+| 🟢 useOrganization                          | 👁️   | ❌   | ❌   | ✔️   |
+| 🟢 usePlaceBidMutation                      | 🔨   | ❌   | ❌   | ✔️   |
+| 🟢 useProfile                               | 👁️   | ❌   | ❌   | ✔️   |
+| 🟢 useServerTime                            | 👁️   | ❌   | ❌   | ✔️   |
 
 | Utils                      | Code | Test |
 | -------------------------- | ---- | ---- |
