@@ -1,25 +1,26 @@
 import { act, renderHook } from '@testing-library/react-hooks';
 import { TestWrapper } from '../../../components/test/wrapper/TestWrapper';
 import {
-  useContentfulCollectors,
-  UseContentfulCollectorsProps,
-  UseContentfulCollectorsReturn,
-} from '../useContentfulCollectors';
+  useContentfulFullLot,
+  UseContentfulFullLotProps,
+  UseContentfulFullLotReturn,
+} from '../useContentfulFullLot';
 
-describe('useContentfulCollectors()', () => {
+describe('useContentfulFullLot()', () => {
   it('should be defined', () => {
-    expect(useContentfulCollectors).toBeDefined();
+    expect(useContentfulFullLot).toBeDefined();
   });
 
   it('returns the right result when needed', async () => {
     const { result, rerender, waitFor } = renderHook<
-      [UseContentfulCollectorsProps?],
-      UseContentfulCollectorsReturn
+      [UseContentfulFullLotProps],
+      UseContentfulFullLotReturn
     >(
-      (args = []) => {
-        return useContentfulCollectors(...args);
+      (args) => {
+        return useContentfulFullLot(...args);
       },
       {
+        initialProps: [{ mojitoID: '5f6a59f0-63bb-4628-b0ff-fcad26559a09' }],
         wrapper: TestWrapper as any,
       },
     );

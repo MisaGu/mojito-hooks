@@ -3,9 +3,15 @@ import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useContentfulFactory } from '../useContentfulFactory/useContentfulFactory';
 import { EContentfulQueries } from '../../domain/gql/contentful';
 
-function transformFn(lotsQuery?: IContentfulLotsQuery) {
-  if (!lotsQuery) return undefined;
+// function transformFn(lotsQuery?: IContentfulLotsQuery) {
+function transformFn(lotsMap?: Record<string, IContentfulLotData>) {
+  if (!lotsMap) return undefined;
 
+  // TODO: Match by ID instead:
+  // TODO: This should return a single item, not an object that is always going to have a single item.
+  return Object.values(lotsMap)[0];
+
+  /*
   const lots = lotsQuery.lotCollection?.items || [];
 
   return lots
@@ -15,17 +21,18 @@ function transformFn(lotsQuery?: IContentfulLotsQuery) {
         return lotsAcc;
       }, {} as Record<string, IContentfulLotData>)
     : {};
+  */
 }
 
-export type UseContentfulLotsData = ReturnType<typeof transformFn>;
+export type UseContentfulFullLotData = ReturnType<typeof transformFn>;
 
-export type UseContentfulLotsReturn = ReturnType<typeof useContentfulLots>;
+export type UseContentfulFullLotReturn = ReturnType<typeof useContentfulFullLot>;
 
-export interface UseContentfulLotsProps extends BaseQueryHookProps<UseContentfulLotsData> {
+export interface UseContentfulFullLotProps extends BaseQueryHookProps<UseContentfulFullLotData> {
   mojitoID: string;
 }
 
-export function useContentfulLots({ mojitoID, options }: UseContentfulLotsProps) {
+export function useContentfulFullLot({ mojitoID, options }: UseContentfulFullLotProps) {
   return useContentfulFactory({
     as: 'lots',
     query: EContentfulQueries.fullLot,

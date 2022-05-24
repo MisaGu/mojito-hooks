@@ -27,7 +27,7 @@ export const menus = [
       'useContentfulAuctionsSlugList',
       'useContentfulAuthors',
       'useContentfulCollectors',
-      'useContentfulLots',
+      'useContentfulFullLot',
       'useContentfulShortLots',
     ],
   },

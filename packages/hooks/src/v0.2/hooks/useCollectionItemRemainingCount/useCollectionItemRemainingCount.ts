@@ -1,16 +1,11 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { ICollectionItemByIdRemainingCountRequest } from '../../domain/interfaces';
-import {
-  BaseQueryHookProps,
-  BaseQueryHookPropsWithUrlAndSlug,
-} from '../../domain/interfaces/hooks.interface';
+import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 import { useCollectionSlug } from '../useCollectionSlug/useCollectionSlug';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
 function transformFn(collectionItemRequest?: ICollectionItemByIdRemainingCountRequest) {
   if (!collectionItemRequest) return undefined;
-
-  console.log('collectionItemRequest =', collectionItemRequest);
 
   return collectionItemRequest.collectionItemById.details.remainingCount;
 }
@@ -32,8 +27,6 @@ export function useCollectionItemRemainingCount({
   ...props
 }: UseCollectionItemRemainingCountProps) {
   const { slug } = useCollectionSlug(props);
-
-  console.log('slug =', slug);
 
   return useMojitoFactory({
     as: 'remainingCount',

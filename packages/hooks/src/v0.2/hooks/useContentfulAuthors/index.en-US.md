@@ -6,7 +6,7 @@ nav:
 
 # useContentfulAuthors
 
-Returns all authors.
+Returns all authors, including all their lots.
 
 ## Examples
 

@@ -73,6 +73,7 @@ const YouApp: React.FC = () => {
 - Create backend task to automatically log in with demo account (non-expiring token).
 - Use Codegen.
 - Docs API tables.
+- When calling refetch on `useMarketplaceCollectionsSlugWithItemsId`, results are sorted differently.
 
 **Note:**
 
@@ -96,35 +97,38 @@ Who's working on it now:
 - 🔵 Dani
 - 🟢 Sergey
 
-| Hook                                        | Code | Demo | Test | Docs |
-| ------------------------------------------- | ---- | ---- | ---- | ---- |
-| ⚪ useActiveBids                            | ✔️   | ✔️   | ✔️   | ✔️   |
-| ⚪ useCollection                            | ✔️   | ✔️   | ❌   | ✔️   |
-| ⚪ useCollectionItemBidsList                | ✔️   | ✔️   | ✔️   | ✔️   |
-| ⚪ useCollectionItemCurrentBids             | 👁️   | ✔️   | 👁️   | ✔️   |
-| ⚪ useCollectionItemRemainingCount          | ✔️   | ✔️   | ✔️   | ✔️   |
-| ⚪ useCollectionItemsCurrentBids            | ✔️   | ✔️   | ✔️   | ✔️   |
-| ⚪ useCollectionLotsIdList                  | 👁️   | ✔️   | ✔️   | ✔️   |
-| ⚪ useCollectionSlug                        | ✔️   | ✔️   | 👁️   | ✔️   |
-| 🔵 useContentfulAuctionsSlugList            | ✔️   | ✔️   | 🔨   | 👁️   |
-| 🔵 useContentfulAuthors                     | ✔️   | ✔️   | ❌   | ✔️   |
-| 🔵 useContentfulCollectors                  | ✔️   | ✔️   | ❌   | ✔️   |
-| 🔵 useContentfulFactory                     | ✔️   | ⛔   | ❌   | ✔️   |
-| 🔵 useContentfulLots                        | ✔️   | 👁️   | ❌   | ✔️   |
-| 🔵 useContentfulShortLots                   | ✔️   | 👁️   | ❌   | ✔️   |
-| 🔵 useFavoriteItems                         | 👁️   | ❌   | ❌   | ✔️   |
-| ⚪ useInvoiceDownload                       | ❌   | ❌   | ❌   | 👁️   |
-| ⚪ useInvoices                              | 👁️   | ❌   | ❌   | ✔️   |
-| ⚪ useLazyMojitoOneLot                      | ❌   | ❌   | ❌   | 👁️   |
-| 🔵 useMarketplaceCollectionsSlugWithItemsId | ✔️   | ✔️   | ✔️   | ✔️   |
-| 🔵 useMojitoFactory                         | ✔️   | ⛔   | ❌   | ✔️   |
-| 🔵 useMojitoItem                            | 👁️   | ❌   | ❌   | 👁️   |
-| ⚪ useMojitoMutation                        | 👁️   | ❌   | ❌   | 👁️   |
-| 🔵 useMojitoWallets                         | 👁️   | ❌   | ❌   | ✔️   |
-| 🔵 useOrganization                          | 👁️   | ❌   | ❌   | ✔️   |
-| ⚪ usePlaceBidMutation                      | ❌   | ❌   | ❌   | 👁️   |
-| 🔵 useProfile                               | 👁️   | ❌   | ❌   | ✔️   |
-| 🔵 useServerTime                            | 👁️   | ❌   | ❌   | ✔️   |
+| Hook                               | Code | Demo | Test | Docs |
+| ---------------------------------- | ---- | ---- | ---- | ---- |
+| ⚪ useActiveBids                   | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollection                   | ✔️   | ✔️   | ❌   | ✔️   |
+| ⚪ useCollectionItemBidsList       | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollectionItemCurrentBids    | 👁️   | ✔️   | 👁️   | ✔️   |
+| ⚪ useCollectionItemRemainingCount | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollectionItemsCurrentBids   | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollectionLotsIdList         | 👁️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollectionSlug               | ✔️   | ✔️   | 👁️   | ✔️   |
+
+TODO: Add two missing contentful hooks.
+
+| ⚪ useContentfulAuctionsSlugList | ✔️ | ✔️ | ✔️ | 👁️ |
+| ⚪ useContentfulAuthors | ✔️ | ✔️ | ✔️ | ✔️ |
+| ⚪ useContentfulCollectors | ✔️ | ✔️ | ✔️ | ✔️ |
+| ⚪ useContentfulFactory | ✔️ | ⛔ | ❌ | ✔️ |
+| ⚪ useContentfulLots | ✔️ | 👁️ | 👁️ | ✔️ |
+| ⚪ useContentfulShortLots | ✔️ | 👁️ | 👁️ | ✔️ |
+| 🔵 useFavoriteItems | 👁️ | ❌ | ❌ | ✔️ |
+| ⚪ useInvoiceDownload | ❌ | ❌ | ❌ | 👁️ |
+| ⚪ useInvoices | 👁️ | ❌ | ❌ | ✔️ |
+| ⚪ useLazyMojitoOneLot | ❌ | ❌ | ❌ | 👁️ |
+| 🔵 useMarketplaceCollectionsSlugWithItemsId | ✔️ | ✔️ | ✔️ | ✔️ |
+| 🔵 useMojitoFactory | ✔️ | ⛔ | ❌ | ✔️ |
+| 🔵 useMojitoItem | 👁️ | ❌ | ❌ | 👁️ |
+| ⚪ useMojitoMutation | 👁️ | ❌ | ❌ | 👁️ |
+| 🔵 useMojitoWallets | 👁️ | ❌ | ❌ | ✔️ |
+| 🔵 useOrganization | 👁️ | ❌ | ❌ | ✔️ |
+| ⚪ usePlaceBidMutation | ❌ | ❌ | ❌ | 👁️ |
+| 🔵 useProfile | 👁️ | ❌ | ❌ | ✔️ |
+| 🔵 useServerTime | 👁️ | ❌ | ❌ | ✔️ |
 
 | Utils                      | Code | Test |
 | -------------------------- | ---- | ---- |

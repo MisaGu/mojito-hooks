@@ -10,7 +10,7 @@ import {
   UseCollectionItemCurrentBidsReturn,
 } from '../useCollectionItemCurrentBids';
 
-describe.only('useCollectionItemCurrentBids()', () => {
+describe('useCollectionItemCurrentBids()', () => {
   it('should be defined', () => {
     expect(useCollectionItemCurrentBids).toBeDefined();
   });

@@ -1,12 +1,14 @@
-import { IContentfulLotsQuery } from '../../domain/interfaces';
+import { IContentfulLotData } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useContentfulFactory } from '../useContentfulFactory/useContentfulFactory';
 import { EContentfulQueries } from '../../domain/gql/contentful';
 
-function transformFn(lotsQuery?: IContentfulLotsQuery) {
-  if (!lotsQuery) return undefined;
+// function transformFn(lotsQuery?: IContentfulLotsQuery) {
+function transformFn(lotsMap?: Record<string, IContentfulLotData>) {
+  if (!lotsMap) return undefined;
 
-  return lotsQuery.lotCollection?.items || [];
+  // TODO: Filter by id, just to be sure?
+  return Object.values(lotsMap);
 }
 
 export type UseContentfulShortLotsData = ReturnType<typeof transformFn>;

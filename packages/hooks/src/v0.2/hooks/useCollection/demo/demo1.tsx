@@ -12,7 +12,7 @@ import { useCollection } from '../useCollection';
 
 const DemoContent: React.FC = () => {
   const result = useCollection({
-    slug: DEMO_SLUG,
+    slug: 'lfc',
   });
 
   return <Json result={result} />;
