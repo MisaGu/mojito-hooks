@@ -90,7 +90,7 @@ Progress:
 - ⛔ Don't have.
 - ✔️ Done.
 
-Assignee:
+Who's working on it now:
 
 - ⚪ Unassigned
 - 🔵 Dani
@@ -98,36 +98,36 @@ Assignee:
 
 | Hook                                        | Code | Demo | Test | Docs |
 | ------------------------------------------- | ---- | ---- | ---- | ---- |
-| 🔵 useActiveBids                            | ✔️   | ✔️   | ✔️   | ✔️   |
-| 🔵 useCollection                            | ✔️   | ✔️   | ❌   | ✔️   |
-| 🔵 useCollectionItemBidsList                | ✔️   | ✔️   | ✔️   | ✔️   |
-| 🔵 useCollectionItemCurrentBids             | 👁️   | ✔️   | 👁️   | ✔️   |
-| 🔵 useCollectionItemRemainingCount          | ✔️   | ✔️   | ✔️   | ✔️   |
-| 🔵 useCollectionItemsCurrentBids            | ✔️   | ✔️   | ✔️   | ✔️   |
-| 🔵 useCollectionLotsIdList                  | 👁️   | ✔️   | ✔️   | ✔️   |
-| 🔵 useCollectionSlug                        | ✔️   | ✔️   | 👁️   | ✔️   |
+| ⚪ useActiveBids                            | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollection                            | ✔️   | ✔️   | ❌   | ✔️   |
+| ⚪ useCollectionItemBidsList                | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollectionItemCurrentBids             | 👁️   | ✔️   | 👁️   | ✔️   |
+| ⚪ useCollectionItemRemainingCount          | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollectionItemsCurrentBids            | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollectionLotsIdList                  | 👁️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollectionSlug                        | ✔️   | ✔️   | 👁️   | ✔️   |
 | 🔵 useContentfulAuctionsSlugList            | ✔️   | ✔️   | 🔨   | 👁️   |
 | 🔵 useContentfulAuthors                     | ✔️   | ✔️   | ❌   | ✔️   |
 | 🔵 useContentfulCollectors                  | ✔️   | ✔️   | ❌   | ✔️   |
 | 🔵 useContentfulFactory                     | ✔️   | ⛔   | ❌   | ✔️   |
 | 🔵 useContentfulLots                        | ✔️   | 👁️   | ❌   | ✔️   |
 | 🔵 useContentfulShortLots                   | ✔️   | 👁️   | ❌   | ✔️   |
-| 🟢 useFavoriteItems                         | 👁️   | ❌   | ❌   | ✔️   |
-| 🟢 useInvoiceDownload                       | ❌   | ❌   | ❌   | 👁️   |
-| 🟢 useInvoices                              | 👁️   | ❌   | ❌   | ✔️   |
-| 🟢 useLazyMojitoOneLot                      | ❌   | ❌   | ❌   | 👁️   |
+| 🔵 useFavoriteItems                         | 👁️   | ❌   | ❌   | ✔️   |
+| ⚪ useInvoiceDownload                       | ❌   | ❌   | ❌   | 👁️   |
+| ⚪ useInvoices                              | 👁️   | ❌   | ❌   | ✔️   |
+| ⚪ useLazyMojitoOneLot                      | ❌   | ❌   | ❌   | 👁️   |
 | 🔵 useMarketplaceCollectionsSlugWithItemsId | ✔️   | ✔️   | ✔️   | ✔️   |
 | 🔵 useMojitoFactory                         | ✔️   | ⛔   | ❌   | ✔️   |
 | 🔵 useMojitoItem                            | 👁️   | ❌   | ❌   | 👁️   |
-| 🔵 useMojitoMutation                        | 👁️   | ❌   | ❌   | 👁️   |
-| 🟢 useMojitoWallets                         | 👁️   | ❌   | ❌   | ✔️   |
-| 🟢 useOrganization                          | 👁️   | ❌   | ❌   | ✔️   |
-| 🟢 usePlaceBidMutation                      | ❌   | ❌   | ❌   | 👁️   |
-| 🟢 useProfile                               | 👁️   | ❌   | ❌   | ✔️   |
-| 🟢 useServerTime                            | 👁️   | ❌   | ❌   | ✔️   |
+| ⚪ useMojitoMutation                        | 👁️   | ❌   | ❌   | 👁️   |
+| 🔵 useMojitoWallets                         | 👁️   | ❌   | ❌   | ✔️   |
+| 🔵 useOrganization                          | 👁️   | ❌   | ❌   | ✔️   |
+| ⚪ usePlaceBidMutation                      | ❌   | ❌   | ❌   | 👁️   |
+| 🔵 useProfile                               | 👁️   | ❌   | ❌   | ✔️   |
+| 🔵 useServerTime                            | 👁️   | ❌   | ❌   | ✔️   |
 
 | Utils                      | Code | Test |
 | -------------------------- | ---- | ---- |
 | 🟢 gqlDataNormalizer.util  | 🔨   | ❌   |
-| 🔵 getDehydratedState.util | 👁️   | ❌   |
-| 🔵 gqlRequest.util         | 👁️   | ❌   |
+| ⚪ getDehydratedState.util | 👁️   | ❌   |
+| ⚪ gqlRequest.util         | 👁️   | ❌   |
