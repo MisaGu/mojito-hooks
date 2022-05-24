@@ -104,7 +104,7 @@ Assignee:
 | 🔵 useCollectionItemsCurrentBids            | ✔️   | ✔️   | ✔️   | ✔️   |
 | 🔵 useCollectionLotsIdList                  | 👁️   | ✔️   | ✔️   | ✔️   |
 | 🔵 useCollectionSlug                        | ✔️   | ✔️   | 👁️   | ✔️   |
-| 🔵 useContentfulAuctionsSlugList            | ✔️   | ✔️   | ❌   | 👁️   |
+| 🔵 useContentfulAuctionsSlugList            | ✔️   | ✔️   | 🔨   | 👁️   |
 | 🔵 useContentfulAuthors                     | ✔️   | ✔️   | ❌   | ✔️   |
 | 🔵 useContentfulCollectors                  | ✔️   | ✔️   | ❌   | ✔️   |
 | 🔵 useContentfulFactory                     | ✔️   | ⛔   | ❌   | ✔️   |
