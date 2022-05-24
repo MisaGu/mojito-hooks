@@ -1,16 +1,17 @@
+import { IIMojitoCollectionLotsIdListRequest } from '../../domain/interfaces';
+
 export function resolveGetCollectionLotsIdList(req, res, ctx) {
   return res(
     ctx.data({
-      users: [
-        {
-          firstName: 'John',
-          lastName: 'Maverick',
-        },
-        {
-          firstName: 'Cathaline',
-          lastName: 'McCoy',
-        },
-      ],
-    }),
+      collectionBySlug: {
+        items: [
+          {
+            id: 'mock-item-id',
+            name: 'mock-item',
+            saleType: 'Auction',
+          },
+        ],
+      },
+    } as IIMojitoCollectionLotsIdListRequest),
   );
 }

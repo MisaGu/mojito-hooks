@@ -1,16 +1,15 @@
+import { ICollectionItemByIdRemainingCountRequest } from '../../domain/interfaces';
+
 export function resolveGetCollectionItemByIdRemainingCount(req, res, ctx) {
   return res(
     ctx.data({
-      users: [
-        {
-          firstName: 'John',
-          lastName: 'Maverick',
+      collectionItemById: {
+        id: 'mock-item-id',
+        details: {
+          id: 'mock-item-id',
+          remainingCount: 100,
         },
-        {
-          firstName: 'Cathaline',
-          lastName: 'McCoy',
-        },
-      ],
-    }),
+      },
+    } as ICollectionItemByIdRemainingCountRequest),
   );
 }
