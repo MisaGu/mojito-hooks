@@ -71,6 +71,7 @@ const YouApp: React.FC = () => {
 
 - Use react-query to store auth data and get rid of AuthProvider, etc.
 - Create backend task to automatically log in with demo account (non-expiring token).
+- Use Codegen.
 
 **Note:**
 
@@ -114,7 +115,7 @@ Assignee:
 | 🟢 useInvoiceDownload                       | 🔨   | ❌   | ❌   | 🔨   |
 | 🟢 useMyInvoices                            | 👁️   | ❌   | ❌   | 🔨   |
 | 🟢 useLazyMojitoOneLot                      | 🔨   | ❌   | ❌   | 🔨   |
-| 🔵 useMarketplaceCollectionsSlugWithItemsId | ✔️   | ❌   | ✔️   | ✔️   |
+| 🔵 useMarketplaceCollectionsSlugWithItemsId | ✔️   | ✔️   | ✔️   | ✔️   |
 | 🔵 useMojitoFactory                         | ✔️   | ⛔   | ❌   | ✔️   |
 | 🟢 useMojitoItem                            | 👁️   | ❌   | ❌   | 🔨   |
 | 🟢 useMojitoMutation                        | 👁️   | ❌   | ❌   | 🔨   |
