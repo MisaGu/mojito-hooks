@@ -19,6 +19,7 @@ export interface IUseMojitoFactoryOptions<
   options?: UseMutationOptions<TData, TError, TVariables>;
   transformFn?: (data: TData | undefined) => TData;
   onlyAuthenticated?: boolean;
+  auto?: boolean;
 }
 
 export function useMojitoMutation<
@@ -33,6 +34,7 @@ export function useMojitoMutation<
   options,
   transformFn,
   onlyAuthenticated,
+  auto = true,
 }: IUseMojitoFactoryOptions<TDataPropertyName, TData, TError, TVariables>) {
   const queryClient = useQueryClient();
   const queryFn = queryClient.getDefaultOptions().queries?.queryFn || defaultQueryFn;
@@ -57,12 +59,16 @@ export function useMojitoMutation<
   }
 
   useEffect(() => {
+    if (!auto) return;
+
     if (onlyAuthenticated) {
       if (isAuthenticated) result.mutate(variables);
     } else {
       result.mutate(variables);
     }
   }, [isAuthenticated, variables]);
+
+  // TODO: We should return a wrap around `mutate` that takes into account authentication...
 
   return normalizeMutationResult(as, result, variables);
 }

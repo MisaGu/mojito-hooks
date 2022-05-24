@@ -72,6 +72,7 @@ const YouApp: React.FC = () => {
 - Use react-query to store auth data and get rid of AuthProvider, etc.
 - Create backend task to automatically log in with demo account (non-expiring token).
 - Use Codegen.
+- Docs API tables.
 
 **Note:**
 
@@ -89,7 +90,7 @@ Progress:
 - ⛔ Don't have.
 - ✔️ Done.
 
-Assignee:
+Who's working on it now:
 
 - ⚪ Unassigned
 - 🔵 Dani
@@ -97,36 +98,36 @@ Assignee:
 
 | Hook                                        | Code | Demo | Test | Docs |
 | ------------------------------------------- | ---- | ---- | ---- | ---- |
-| 🔵 useActiveBids                            | ✔️   | ✔️   | ✔️   | ✔️   |
-| 🔵 useCollection                            | ✔️   | ✔️   | ❌   | ✔️   |
-| 🔵 useCollectionItemBidsList                | ✔️   | ✔️   | ✔️   | ✔️   |
-| 🔵 useCollectionItemCurrentBids             | 👁️   | ✔️   | 👁️   | ✔️   |
-| 🔵 useCollectionItemRemainingCount          | ✔️   | ✔️   | ✔️   | ✔️   |
-| 🔵 useCollectionItemsCurrentBids            | ✔️   | ✔️   | ✔️   | ✔️   |
-| 🔵 useCollectionLotsIdList                  | 👁️   | ✔️   | ✔️   | ✔️   |
-| 🔵 useCollectionSlug                        | ✔️   | ✔️   | 👁️   | ✔️   |
+| ⚪ useActiveBids                            | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollection                            | ✔️   | ✔️   | ❌   | ✔️   |
+| ⚪ useCollectionItemBidsList                | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollectionItemCurrentBids             | 👁️   | ✔️   | 👁️   | ✔️   |
+| ⚪ useCollectionItemRemainingCount          | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollectionItemsCurrentBids            | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollectionLotsIdList                  | 👁️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollectionSlug                        | ✔️   | ✔️   | 👁️   | ✔️   |
 | 🔵 useContentfulAuctionsSlugList            | ✔️   | ✔️   | 🔨   | 👁️   |
 | 🔵 useContentfulAuthors                     | ✔️   | ✔️   | ❌   | ✔️   |
 | 🔵 useContentfulCollectors                  | ✔️   | ✔️   | ❌   | ✔️   |
 | 🔵 useContentfulFactory                     | ✔️   | ⛔   | ❌   | ✔️   |
 | 🔵 useContentfulLots                        | ✔️   | 👁️   | ❌   | ✔️   |
 | 🔵 useContentfulShortLots                   | ✔️   | 👁️   | ❌   | ✔️   |
-| 🟢 useFavoriteItems                         | 👁️   | ❌   | ❌   | 🔨   |
-| 🟢 useInvoiceDownload                       | 🔨   | ❌   | ❌   | 🔨   |
-| 🟢 useMyInvoices                            | 👁️   | ❌   | ❌   | 🔨   |
-| 🟢 useLazyMojitoOneLot                      | 🔨   | ❌   | ❌   | 🔨   |
+| 🔵 useFavoriteItems                         | 👁️   | ❌   | ❌   | ✔️   |
+| ⚪ useInvoiceDownload                       | ❌   | ❌   | ❌   | 👁️   |
+| ⚪ useInvoices                              | 👁️   | ❌   | ❌   | ✔️   |
+| ⚪ useLazyMojitoOneLot                      | ❌   | ❌   | ❌   | 👁️   |
 | 🔵 useMarketplaceCollectionsSlugWithItemsId | ✔️   | ✔️   | ✔️   | ✔️   |
 | 🔵 useMojitoFactory                         | ✔️   | ⛔   | ❌   | ✔️   |
-| 🟢 useMojitoItem                            | 👁️   | ❌   | ❌   | 🔨   |
-| 🟢 useMojitoMutation                        | 👁️   | ❌   | ❌   | 🔨   |
-| 🟢 useMojitoWallets                         | 👁️   | ❌   | ❌   | 🔨   |
-| 🟢 useOrganization                          | 👁️   | ❌   | ❌   | 🔨   |
-| 🟢 usePlaceBidMutation                      | 🔨   | ❌   | ❌   | 🔨   |
-| 🟢 useProfile                               | 👁️   | ❌   | ❌   | 🔨   |
-| 🟢 useServerTime                            | 👁️   | ❌   | ❌   | 🔨   |
+| 🔵 useMojitoItem                            | 👁️   | ❌   | ❌   | 👁️   |
+| ⚪ useMojitoMutation                        | 👁️   | ❌   | ❌   | 👁️   |
+| 🔵 useMojitoWallets                         | 👁️   | ❌   | ❌   | ✔️   |
+| 🔵 useOrganization                          | 👁️   | ❌   | ❌   | ✔️   |
+| ⚪ usePlaceBidMutation                      | ❌   | ❌   | ❌   | 👁️   |
+| 🔵 useProfile                               | 👁️   | ❌   | ❌   | ✔️   |
+| 🔵 useServerTime                            | 👁️   | ❌   | ❌   | ✔️   |
 
 | Utils                      | Code | Test |
 | -------------------------- | ---- | ---- |
 | 🟢 gqlDataNormalizer.util  | 🔨   | ❌   |
-| 🔵 getDehydratedState.util | 👁️   | ❌   |
-| 🔵 gqlRequest.util         | 👁️   | ❌   |
+| ⚪ getDehydratedState.util | 👁️   | ❌   |
+| ⚪ gqlRequest.util         | 👁️   | ❌   |

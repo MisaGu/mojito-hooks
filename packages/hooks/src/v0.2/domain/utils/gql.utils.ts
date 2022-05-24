@@ -52,6 +52,7 @@ export function normalizeMutationResult<
     isLoading,
     error,
     mutationResult,
+    // TODO: This should accept the same arguments as `mutate(...)`
     [key]: () => mutate(variables),
   } as MutationResult<TDataPropertyName, TData, TError>;
 }
