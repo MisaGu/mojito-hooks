@@ -6,7 +6,12 @@ nav:
 
 # usePlaceBidMutation
 
-Returns a function that, when called, places a bid for the selected lot.
+Places a bid and returns a [`mutation`](https://react-query.tanstack.com/reference/useMutation) that, if called again,
+places another bid for the selected lot.
+
+TODO: Should this actually place the mutation automatically?
+
+
 
 ## Examples
 

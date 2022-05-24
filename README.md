@@ -113,16 +113,16 @@ Assignee:
 | 🔵 useContentfulLots                        | ✔️   | 👁️   | ❌   | ✔️   |
 | 🔵 useContentfulShortLots                   | ✔️   | 👁️   | ❌   | ✔️   |
 | 🟢 useFavoriteItems                         | 👁️   | ❌   | ❌   | ✔️   |
-| 🟢 useInvoiceDownload                       | 🔨   | ❌   | ❌   | 👁️   |
+| 🟢 useInvoiceDownload                       | ❌   | ❌   | ❌   | 👁️   |
 | 🟢 useInvoices                              | 👁️   | ❌   | ❌   | ✔️   |
-| 🟢 useLazyMojitoOneLot                      | 🔨   | ❌   | ❌   | 👁️   |
+| 🟢 useLazyMojitoOneLot                      | ❌   | ❌   | ❌   | 👁️   |
 | 🔵 useMarketplaceCollectionsSlugWithItemsId | ✔️   | ✔️   | ✔️   | ✔️   |
 | 🔵 useMojitoFactory                         | ✔️   | ⛔   | ❌   | ✔️   |
 | 🔵 useMojitoItem                            | 👁️   | ❌   | ❌   | 👁️   |
 | 🔵 useMojitoMutation                        | 👁️   | ❌   | ❌   | 👁️   |
 | 🟢 useMojitoWallets                         | 👁️   | ❌   | ❌   | ✔️   |
 | 🟢 useOrganization                          | 👁️   | ❌   | ❌   | ✔️   |
-| 🟢 usePlaceBidMutation                      | 🔨   | ❌   | ❌   | ✔️   |
+| 🟢 usePlaceBidMutation                      | ❌   | ❌   | ❌   | 👁️   |
 | 🟢 useProfile                               | 👁️   | ❌   | ❌   | ✔️   |
 | 🟢 useServerTime                            | 👁️   | ❌   | ❌   | ✔️   |
 

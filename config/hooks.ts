@@ -11,15 +11,12 @@ export const menus = [
       'useCollectionLotsIdList',
       'useCollectionSlug',
       'useFavoriteItems',
-      'useInvoiceDownload',
       'useInvoices',
       'useLazyMojitoOneLot',
       'useMarketplaceCollectionsSlugWithItemsId',
       'useMojitoItem',
-      'useMojitoMutation',
       'useMojitoWallets',
       'useOrganization',
-      'usePlaceBidMutation',
       'useProfile',
       'useServerTime',
     ],
@@ -37,5 +34,13 @@ export const menus = [
   {
     title: 'Internal',
     children: ['useContentfulFactory', 'useMojitoFactory'],
+  },
+  {
+    title: 'Downloads',
+    children: ['useInvoiceDownload'],
+  },
+  {
+    title: 'Mutations',
+    children: ['useMojitoMutation', 'usePlaceBidMutation'],
   },
 ];
