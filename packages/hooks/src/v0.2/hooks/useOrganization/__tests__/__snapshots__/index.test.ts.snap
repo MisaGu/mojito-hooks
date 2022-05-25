@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useOrganization() returns the right result when needed 1`] = `
+Object {
+  "error": null,
+  "isLoading": false,
+  "organization": Object {
+    "avatar": null,
+    "bidAllowed": false,
+    "externalUserId": "   ",
+    "hasNotifications": false,
+    "id": "mock-organization-to-user-id",
+    "kycStatus": "",
+    "notifications": Object {
+      "completeYourProfile": false,
+      "contactUs": false,
+      "isTransactionalWithID": false,
+      "uploadID": false,
+    },
+    "organizationId": "mock-organization-id",
+    "role": "Admin",
+    "settings": Object {
+      "hasCompletedOnboarding": false,
+      "notifications": Object {
+        "bidOnSold": false,
+        "savedBidOn": false,
+        "savedSold": false,
+      },
+      "privacy": Object {
+        "hideActivity": false,
+        "showCollection": false,
+        "showSaved": false,
+      },
+    },
+    "username": null,
+  },
+  "queryResult": Object {
+    "dataUpdatedAt": Any<Number>,
+    "errorUpdateCount": 0,
+    "errorUpdatedAt": 0,
+    "failureCount": 0,
+    "isError": false,
+    "isFetched": true,
+    "isFetchedAfterMount": true,
+    "isFetching": false,
+    "isIdle": false,
+    "isLoadingError": false,
+    "isPlaceholderData": false,
+    "isPreviousData": false,
+    "isRefetchError": false,
+    "isRefetching": false,
+    "isStale": true,
+    "isSuccess": true,
+    "remove": [Function],
+    "status": "success",
+  },
+  "refetch": [Function],
+}
+`;

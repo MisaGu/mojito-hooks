@@ -4228,7 +4228,7 @@
           AUTH0_CLIENTID: e.env.AUTH0_CLIENTID || '',
           AUTH_REDIRECT_URI: e.env.AUTH_REDIRECT_URI || '',
         };
-        console.log(e.env.MOJITO_API_URL || '');
+        e.env.MOJITO_API_URL;
       }.call(this, n(26)));
     },
     function (e, t, n) {
@@ -29147,10 +29147,10 @@
             D ||
               (D = g(
                 [
-                  '\n    query GetInvoices {\n      getMyInvoices {\n        invoiceID\n        invoiceNumber\n        invoiceCreatedAt\n        status\n        items {\n          collectionItemID\n          collectionTitle\n          destinationAddress\n          collectionItemTitle\n          units\n          unitPrice\n          buyersPremium\n          overheadPremium\n          totalPrice\n          saleDate\n          taxes\n          salesTaxRate\n        }\n      }\n    }\n  ',
+                  '\n    query GetInvoices {\n      getMyInvoices {\n        invoiceID\n        invoiceNumber\n        invoiceCreatedAt\n        status\n        items {\n          collectionItemID: collectionItemId\n          collectionTitle\n          destinationAddress\n          collectionItemTitle\n          units\n          unitPrice\n          buyersPremium\n          overheadPremium\n          totalPrice\n          saleDate\n          taxes\n          salesTaxRate\n        }\n      }\n    }\n  ',
                 ],
                 [
-                  '\n    query GetInvoices {\n      getMyInvoices {\n        invoiceID\n        invoiceNumber\n        invoiceCreatedAt\n        status\n        items {\n          collectionItemID\n          collectionTitle\n          destinationAddress\n          collectionItemTitle\n          units\n          unitPrice\n          buyersPremium\n          overheadPremium\n          totalPrice\n          saleDate\n          taxes\n          salesTaxRate\n        }\n      }\n    }\n  ',
+                  '\n    query GetInvoices {\n      getMyInvoices {\n        invoiceID\n        invoiceNumber\n        invoiceCreatedAt\n        status\n        items {\n          collectionItemID: collectionItemId\n          collectionTitle\n          destinationAddress\n          collectionItemTitle\n          units\n          unitPrice\n          buyersPremium\n          overheadPremium\n          totalPrice\n          saleDate\n          taxes\n          salesTaxRate\n        }\n      }\n    }\n  ',
                 ],
               )),
           )),
