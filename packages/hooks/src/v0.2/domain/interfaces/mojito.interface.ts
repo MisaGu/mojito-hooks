@@ -137,6 +137,7 @@ export interface IMojitoCollectionItemDetailsBid {
 }
 
 export interface IMojitoProfileRequest {
+  serverTime: string;
   me: IMojitoProfile;
 }
 
@@ -156,13 +157,13 @@ export interface IMojitoServerTimeRequest {
 }
 
 export interface IMojitoGetMyInvoicesRequest {
-  getMyInvoices: IMojitoInvoice & {
+  getMyInvoices: (IMojitoInvoice & {
     userName: string;
     paymentID: string;
     externalPaymentID: string;
     billingAddress: IMojitoInvoiceBillingAddress;
     OrganizationID: string;
-  };
+  })[];
 }
 
 export interface IMojitoProfile {
@@ -213,10 +214,10 @@ export interface IMojitoInvoiceDetailsItem {
 
 export interface IMojitoInvoice {
   invoiceID: string;
-  invoiceNumber: string;
+  invoiceNumber: number;
   invoiceCreatedAt: string;
-  externalUserID: string;
-  internalUserID: string;
+  // externalUserID: string;
+  // internalUserID: string;
   items: IMojitoInvoiceDetailsItem[];
   status: InvoiceStatus;
 }

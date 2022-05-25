@@ -11,11 +11,11 @@ function transformFn(profileRequest?: IMojitoGetMyInvoicesRequest) {
 
 export type UseMyInvoicesData = ReturnType<typeof transformFn>;
 
-export type UseMyInvoicesReturn = ReturnType<typeof useInvoices>;
+export type UseInvoicesReturn = ReturnType<typeof useInvoices>;
 
-export type UseMyInvoicesProps = BaseQueryHookProps<UseMyInvoicesData>;
+export type UseInvoicesProps = BaseQueryHookProps<UseMyInvoicesData>;
 
-export function useInvoices({ options }: UseMyInvoicesProps = {}) {
+export function useInvoices({ options }: UseInvoicesProps = {}) {
   return useMojitoFactory({
     as: 'invoices',
     query: EMojitoQueries.invoices,

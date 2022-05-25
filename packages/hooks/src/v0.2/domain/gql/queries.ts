@@ -120,7 +120,7 @@ export const mojitoQueries: Record<EMojitoQueries, string> = {
         invoiceCreatedAt
         status
         items {
-          collectionItemID
+          collectionItemID: collectionItemId
           collectionTitle
           destinationAddress
           collectionItemTitle

@@ -75,7 +75,7 @@ const YouApp: React.FC = () => {
 - Docs API tables.
 - When calling refetch on `useMarketplaceCollectionsSlugWithItemsId`, results are sorted differently.
 - Rename almost everything that say "auction" to collection.
-- Make console.logs() in the library toggleable.
+- Add force option to all hooks. Is this the best implementation (removeQuery vs refetch).
 
 **Note:**
 
@@ -102,34 +102,34 @@ Who's working on it now:
 | Hook                                        | Code | Demo | Test | Docs |
 | ------------------------------------------- | ---- | ---- | ---- | ---- |
 | ⚪ useActiveBids                            | ✔️   | ✔️   | ✔️   | ✔️   |
-| ⚪ useCollection                            | ✔️   | ✔️   | ❌   | ✔️   |
+| 🔵 useCollection                            | ✔️   | ✔️   | ❌   | ✔️   |
 | ⚪ useCollectionItemBidsList                | ✔️   | ✔️   | ✔️   | ✔️   |
-| ⚪ useCollectionItemCurrentBids             | 👁️   | ✔️   | 👁️   | ✔️   |
+| 🔵 useCollectionItemCurrentBids             | 👁️   | ✔️   | 👁️   | ✔️   |
 | ⚪ useCollectionItemRemainingCount          | ✔️   | ✔️   | ✔️   | ✔️   |
 | ⚪ useCollectionItemsCurrentBids            | ✔️   | ✔️   | ✔️   | ✔️   |
 | ⚪ useCollectionLotsIdList                  | 👁️   | ✔️   | ✔️   | ✔️   |
-| ⚪ useCollectionSlug                        | ✔️   | ✔️   | 👁️   | ✔️   |
+| 🔵 useCollectionSlug                        | ✔️   | ✔️   | 👁️   | ✔️   |
 | ⚪ useContentfulAuctionBySlug               | 👁️   | ✔️   | ✔️   | ✔️   |
 | ⚪ useContentfulAuctionsSlugList            | ✔️   | ✔️   | ✔️   | 👁️   |
 | ⚪ useContentfulAuthors                     | ✔️   | ✔️   | ✔️   | ✔️   |
 | ⚪ useContentfulCollectors                  | ✔️   | ✔️   | ✔️   | ✔️   |
-| ⚪ useContentfulFactory                     | ✔️   | ⛔   | ❌   | ✔️   |
+| 🔵 useContentfulFactory                     | ✔️   | ⛔   | ❌   | ✔️   |
 | ⚪ useContentfulLots                        | ✔️   | 👁️   | 👁️   | ✔️   |
 | ⚪ useContentfulOrganizations               | ✔️   | ✔️   | ✔️   | ✔️   |
 | ⚪ useContentfulShortLots                   | ✔️   | 👁️   | 👁️   | ✔️   |
-| 🔵 useFavoriteItems                         | 👁️   | ✔️   | ❌   | ✔️   |
+| ⚪ useFavoriteItems                         | 👁️   | ✔️   | ✔️   | ✔️   |
 | ⚪ useInvoiceDownload                       | ❌   | ❌   | ❌   | 👁️   |
-| ⚪ useInvoices                              | 👁️   | ✔️   | ❌   | ✔️   |
+| ⚪ useInvoices                              | 👁️   | ✔️   | ✔️   | ✔️   |
 | ⚪ useLazyMojitoOneLot                      | ❌   | ❌   | ❌   | 👁️   |
-| 🔵 useMarketplaceCollectionsSlugWithItemsId | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useMarketplaceCollectionsSlugWithItemsId | ✔️   | ✔️   | ✔️   | ✔️   |
 | 🔵 useMojitoFactory                         | ✔️   | ⛔   | ❌   | ✔️   |
-| 🔵 useMojitoItem                            | 👁️   | ✔️   | ❌   | 👁️   |
+| 🔵 useMojitoItem                            | 👁️   | ✔️   | ✔️   | 👁️   |
 | ⚪ useMojitoMutation                        | 👁️   | ❌   | ❌   | 👁️   |
-| 🔵 useMojitoWallets                         | 👁️   | ✔️   | ❌   | ✔️   |
-| 🔵 useOrganization                          | 👁️   | ✔️   | ❌   | ✔️   |
+| ⚪ useMojitoWallets                         | 👁️   | ✔️   | 👁️   | ✔️   |
+| ⚪ useOrganization                          | 👁️   | ✔️   | 👁️   | ✔️   |
 | ⚪ usePlaceBidMutation                      | ❌   | ❌   | ❌   | 👁️   |
-| 🔵 useProfile                               | 👁️   | ✔️   | ❌   | ✔️   |
-| 🔵 useServerTime                            | 👁️   | ✔️   | ❌   | ✔️   |
+| ⚪ useProfile                               | 👁️   | ✔️   | 👁️   | ✔️   |
+| ⚪ useServerTime                            | 👁️   | ✔️   | ✔️   | ✔️   |
 
 | Utils                      | Code | Test |
 | -------------------------- | ---- | ---- |
