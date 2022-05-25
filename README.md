@@ -76,6 +76,7 @@ const YouApp: React.FC = () => {
 - When calling refetch on `useMarketplaceCollectionsSlugWithItemsId`, results are sorted differently.
 - Rename almost everything that say "auction" to collection.
 - Add force option to all hooks. Is this the best implementation (removeQuery vs refetch).
+- Rename "Query" types/interfaces. See IMojitoMarketplaceResponse, IIMojitoCollectionBySlugRequest...
 
 **Note:**
 
@@ -102,7 +103,8 @@ Who's working on it now:
 | Hook                                        | Code | Demo | Test | Docs |
 | ------------------------------------------- | ---- | ---- | ---- | ---- |
 | ⚪ useActiveBids                            | ✔️   | ✔️   | ✔️   | ✔️   |
-| 🔵 useCollection                            | ✔️   | ✔️   | ❌   | ✔️   |
+| 🔵 useCheckUsername                         | ✔️   | ✔️   | ✔️   | ✔️   |
+| 🔵 useCollection                            | ✔️   | ✔️   | ✔️   | ✔️   |
 | ⚪ useCollectionItemBidsList                | ✔️   | ✔️   | ✔️   | ✔️   |
 | 🔵 useCollectionItemCurrentBids             | 👁️   | ✔️   | 👁️   | ✔️   |
 | ⚪ useCollectionItemRemainingCount          | ✔️   | ✔️   | ✔️   | ✔️   |
@@ -133,6 +135,10 @@ Who's working on it now:
 
 | Utils                      | Code | Test |
 | -------------------------- | ---- | ---- |
-| 🟢 gqlDataNormalizer.util  | 🔨   | ❌   |
 | ⚪ getDehydratedState.util | 👁️   | ❌   |
+| ⚪ gql.util                | 👁️   | ❌   |
+| 🟢 gqlDataNormalizer.util  | 🔨   | ❌   |
 | ⚪ gqlRequest.util         | 👁️   | ❌   |
+| 🔵 isBrowser.util.ts       | ✔️   | ❌   |
+| 🔵 path.util.ts            | ✔️   | ❌   |
+| 🔵 queryKeyFactory.util.ts | ✔️   | ❌   |

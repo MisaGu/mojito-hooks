@@ -29183,10 +29183,10 @@
             S ||
               (S = g(
                 [
-                  '\n    query CheckUsername($organizationID: String!, $username: String!) {\n      orgUsernameAvailable(organizationID: $organizationID, username: $username)\n    }\n  ',
+                  '\n    query CheckUsername($organizationID: UUID1!, $username: String!) {\n      orgUsernameAvailable(organizationID: $organizationID, username: $username)\n    }\n  ',
                 ],
                 [
-                  '\n    query CheckUsername($organizationID: String!, $username: String!) {\n      orgUsernameAvailable(organizationID: $organizationID, username: $username)\n    }\n  ',
+                  '\n    query CheckUsername($organizationID: UUID1!, $username: String!) {\n      orgUsernameAvailable(organizationID: $organizationID, username: $username)\n    }\n  ',
                 ],
               )),
           )),
