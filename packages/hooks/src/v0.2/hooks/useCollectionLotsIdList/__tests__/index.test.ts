@@ -7,7 +7,7 @@ import {
   UseCollectionLotsIdListReturn,
 } from '../useCollectionLotsIdList';
 
-describe.only('useCollectionLotsIdList()', () => {
+describe('useCollectionLotsIdList()', () => {
   it('should be defined', () => {
     expect(useCollectionLotsIdList).toBeDefined();
   });

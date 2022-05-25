@@ -10,7 +10,7 @@ import {
   UseCollectionItemRemainingCountReturn,
 } from '../useCollectionItemRemainingCount';
 
-describe.only('useCollectionItemRemainingCount()', () => {
+describe('useCollectionItemRemainingCount()', () => {
   it('should be defined', () => {
     expect(useCollectionItemRemainingCount).toBeDefined();
   });

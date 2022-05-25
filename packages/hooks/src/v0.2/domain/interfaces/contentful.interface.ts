@@ -20,9 +20,23 @@ export interface IContentfulAuthorsQuery {
   };
 }
 
-export interface IContentfulAuctionsQuery {
+export interface IContentfulAuctionItem {
+  name: string;
+  title: string;
+  subtitle: string | null;
+  duration: string | null;
+  description: string | null;
+  data: _auctionData | null;
+  startDate: string;
+  endDate: string;
+  videoId: string | null;
+  slug: string;
+  saleId: string;
+}
+
+export interface IContentfulAuctionBySlugQuery {
   auctionCollection: {
-    items: IContentfulAuction[];
+    items: IContentfulAuctionItem[];
   };
 }
 
@@ -36,11 +50,10 @@ export interface IContentfulLotData {
   lotId: number;
   mojitoId: string;
   sys: {
-    id: string;
     publishedAt: string;
   };
   title: string;
-  subtitle: string;
+  subtitle: string | null;
   imagesCollection: {
     items: IContentfulImageItem[];
   };
@@ -54,31 +67,42 @@ export interface IContentfulLotData {
     slug: string;
   };
   createdAt: string;
-  estimatePrice: string;
+  estimatePrice: string | null;
   purchasedAt: string;
   smartContractAddress: string;
   tokenId: string;
-  collector: IContentfulCollector;
+  collector: {
+    name: string;
+    about: string;
+    avatar: {
+      title: string;
+      url: string;
+    };
+    smartContractAddress: string;
+    videoId: string | null;
+    twitterLink: string;
+    slug: string;
+  };
   aboutLot: string;
-  note: string;
+  note: string | null;
   history: {
     buyerName: string;
     date: string;
     price: string;
     smartContractAddress: string;
   }[];
-  video: string;
-  conditionReportText: string;
-  shortCollectorDescription: string;
+  video: string | null;
+  conditionReportText: string | null;
+  shortCollectorDescription: string | null;
   slug: string;
-  nftLink: string;
+  nftLink: string | null;
   nftVideoIds: string[];
   mojitoLotData?: any;
-  lotPreviewBackgroundColor: string;
+  lotPreviewBackgroundColor: string | null;
   gridPreviewImage: {
     url: string;
     title: string;
-  };
+  } | null;
 }
 export interface IContentfulCollector {
   sys: {
@@ -94,12 +118,13 @@ export interface IContentfulCollector {
   linkedFrom: {
     lotCollection: {
       items: {
-        title: string;
         mojitoId: string;
+        title: string;
+        slug: string;
       }[];
     };
   };
-  videoId: string;
+  videoId: string | null;
   twitterLink: string;
   slug: string;
 }
@@ -116,11 +141,12 @@ export interface IContentfulAuthor {
   linkedFrom: {
     lotCollection: {
       items: {
+        mojitoId: string;
         title: string;
+        slug: string;
       }[];
     };
   };
-  twitterLink: string;
   slug: string;
 }
 
@@ -153,5 +179,14 @@ export interface IContentfulImageItem {
 }
 
 export interface IContentfulOrganization {
-  homepageRedirect: IContentfulAuction;
+  homepageRedirect: {
+    name: string;
+    slug: string;
+  };
+}
+
+export interface IContentfulOrganizationQuery {
+  organizationCollection: {
+    items: IContentfulOrganization[];
+  };
 }

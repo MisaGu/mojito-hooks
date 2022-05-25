@@ -5,6 +5,13 @@ import { resolveGetCollectionBySlugCurrentBids } from './resolveGetCollectionByS
 import { resolveGetCollectionItemByIdBidsList } from './resolveGetCollectionItemByIdBidsList';
 import { resolveGetCollectionItemByIdRemainingCount } from './resolveGetCollectionItemByIdRemainingCount';
 import { resolveGetCollectionLotsIdList } from './resolveGetCollectionLotsIdList';
+import { resolveGetContentfulAuctionBySlug } from './resolveGetContentfulAuctionBySlug';
+import { resolveGetContentfulAuctionsSlugs } from './resolveGetContentfulAuctionsSlugs';
+import { resolveGetContentfulAuthors } from './resolveGetContentfulAuthors';
+import { resolveGetContentfulCollectors } from './resolveGetContentfulCollectors';
+import { resolveGetContentfulFullLot } from './resolveGetContentfulFullLot';
+import { resolveGetContentfulOrganizations } from './resolveGetContentfulOrganizations';
+import { resolveGetContentfulShortLots } from './resolveGetContentfulShortLots';
 import { resolveGetInvoices } from './resolveGetInvoices';
 import { resolveGetMarketplaceCollectionsInfoWithItemsIdAndSlug } from './resolveGetMarketplaceCollectionsInfoWithItemsIdAndSlug';
 import { resolveGetOneLot } from './resolveGetOneLot';
@@ -16,8 +23,7 @@ import { resolveGetUserFavorites } from './resolveGetUserFavorites';
 import { resolveGetWallets } from './resolveGetWallets';
 
 export const handlers = [
-  // graphql.mutation('Login', null),
-
+  // Mojito:
   graphql.query('GetProfile', resolveGetProfile),
   graphql.query('GetOrganization', resolveGetOrganization),
   graphql.query('GetWallets', resolveGetWallets),
@@ -36,4 +42,13 @@ export const handlers = [
     resolveGetMarketplaceCollectionsInfoWithItemsIdAndSlug,
   ),
   graphql.query('GetServerTime', resolveGetServerTime),
+
+  // Contentful:
+  graphql.query('GetFullLot', resolveGetContentfulFullLot),
+  graphql.query('GetShortLots', resolveGetContentfulShortLots),
+  graphql.query('GetAuctionBySlug', resolveGetContentfulAuctionBySlug),
+  graphql.query('GetAuctionsSlugs', resolveGetContentfulAuctionsSlugs),
+  graphql.query('GetCollectors', resolveGetContentfulCollectors),
+  graphql.query('GetAuthors', resolveGetContentfulAuthors),
+  graphql.query('GetOrganizations', resolveGetContentfulOrganizations),
 ];

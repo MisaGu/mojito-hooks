@@ -1,7 +1,7 @@
 import { useQueryClient } from 'react-query';
 import { config } from '../../domain/constants/general.constants';
 import {
-  IContentfulAuctionsQuery,
+  IContentfulAuctionsSlugListQuery,
   IMojitoCollection,
   IMojitoMarketplaceResponse,
 } from '../../domain/interfaces';
@@ -29,10 +29,12 @@ export function useCollection(props?: UseCollectionProps) {
           id: config.MARKETPLACE_ID,
         }),
       ),
-      queryClient.fetchQuery<IContentfulAuctionsQuery>(
+      queryClient.fetchQuery<IContentfulAuctionsSlugListQuery>(
         QueryKey.get(EContentfulQueries.auctionsSlugList),
       ),
     ]);
+
+    console.log(mojitoCollections);
 
     const mojitoCollection = mojitoCollections.marketplace.collections.find(
       (collection) => collection.slug == collectionSlug,

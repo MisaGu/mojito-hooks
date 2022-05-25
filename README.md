@@ -73,6 +73,9 @@ const YouApp: React.FC = () => {
 - Create backend task to automatically log in with demo account (non-expiring token).
 - Use Codegen.
 - Docs API tables.
+- When calling refetch on `useMarketplaceCollectionsSlugWithItemsId`, results are sorted differently.
+- Rename almost everything that say "auction" to collection.
+- Make console.logs() in the library toggleable.
 
 **Note:**
 
@@ -106,12 +109,14 @@ Who's working on it now:
 | ⚪ useCollectionItemsCurrentBids            | ✔️   | ✔️   | ✔️   | ✔️   |
 | ⚪ useCollectionLotsIdList                  | 👁️   | ✔️   | ✔️   | ✔️   |
 | ⚪ useCollectionSlug                        | ✔️   | ✔️   | 👁️   | ✔️   |
-| 🔵 useContentfulAuctionsSlugList            | ✔️   | ✔️   | 🔨   | 👁️   |
-| 🔵 useContentfulAuthors                     | ✔️   | ✔️   | ❌   | ✔️   |
-| 🔵 useContentfulCollectors                  | ✔️   | ✔️   | ❌   | ✔️   |
-| 🔵 useContentfulFactory                     | ✔️   | ⛔   | ❌   | ✔️   |
-| 🔵 useContentfulLots                        | ✔️   | 👁️   | ❌   | ✔️   |
-| 🔵 useContentfulShortLots                   | ✔️   | 👁️   | ❌   | ✔️   |
+| ⚪ useContentfulAuctionBySlug               | 👁️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useContentfulAuctionsSlugList            | ✔️   | ✔️   | ✔️   | 👁️   |
+| ⚪ useContentfulAuthors                     | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useContentfulCollectors                  | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useContentfulFactory                     | ✔️   | ⛔   | ❌   | ✔️   |
+| ⚪ useContentfulLots                        | ✔️   | 👁️   | 👁️   | ✔️   |
+| ⚪ useContentfulOrganizations               | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useContentfulShortLots                   | ✔️   | 👁️   | 👁️   | ✔️   |
 | 🔵 useFavoriteItems                         | 👁️   | ❌   | ❌   | ✔️   |
 | ⚪ useInvoiceDownload                       | ❌   | ❌   | ❌   | 👁️   |
 | ⚪ useInvoices                              | 👁️   | ❌   | ❌   | ✔️   |
