@@ -1,7 +1,7 @@
 import { isBrowser } from './isBrowser.util';
 
 function getPath(pathname: string = window.location.pathname): string[] {
-  if (isBrowser) return [];
+  if (!isBrowser) return [];
 
   return pathname.split('/').filter(Boolean);
 }

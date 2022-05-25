@@ -1,12 +1,12 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
-import { IMojitoProfileRequest } from '../../domain/interfaces';
+import { IMojitoWalletsRequest } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(profileRequest?: IMojitoProfileRequest) {
+function transformFn(profileRequest?: IMojitoWalletsRequest) {
   if (!profileRequest) return undefined;
 
-  return profileRequest.me.user.wallets;
+  return profileRequest.me.wallets;
 }
 
 export type UseMojitoWalletsData = ReturnType<typeof transformFn>;

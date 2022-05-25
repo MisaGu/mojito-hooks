@@ -10,3 +10,5 @@ export const config = {
   AUTH0_CLIENTID: process.env.AUTH0_CLIENTID || '',
   AUTH_REDIRECT_URI: process.env.AUTH_REDIRECT_URI || '',
 };
+
+console.log(process.env.MOJITO_API_URL || '');

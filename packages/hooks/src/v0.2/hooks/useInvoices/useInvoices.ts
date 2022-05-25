@@ -17,7 +17,7 @@ export type UseMyInvoicesProps = BaseQueryHookProps<UseMyInvoicesData>;
 
 export function useInvoices({ options }: UseMyInvoicesProps = {}) {
   return useMojitoFactory({
-    as: 'organization',
+    as: 'invoices',
     query: EMojitoQueries.invoices,
     options,
     transformFn,

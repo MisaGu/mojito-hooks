@@ -119,7 +119,7 @@ Who's working on it now:
 | ⚪ useContentfulShortLots                   | ✔️   | 👁️   | 👁️   | ✔️   |
 | 🔵 useFavoriteItems                         | 👁️   | ✔️   | ❌   | ✔️   |
 | ⚪ useInvoiceDownload                       | ❌   | ❌   | ❌   | 👁️   |
-| ⚪ useInvoices                              | 👁️   | ❌   | ❌   | ✔️   |
+| ⚪ useInvoices                              | 👁️   | ✔️   | ❌   | ✔️   |
 | ⚪ useLazyMojitoOneLot                      | ❌   | ❌   | ❌   | 👁️   |
 | 🔵 useMarketplaceCollectionsSlugWithItemsId | ✔️   | ✔️   | ✔️   | ✔️   |
 | 🔵 useMojitoFactory                         | ✔️   | ⛔   | ❌   | ✔️   |

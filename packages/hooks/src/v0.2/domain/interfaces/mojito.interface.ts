@@ -140,6 +140,13 @@ export interface IMojitoProfileRequest {
   me: IMojitoProfile;
 }
 
+export interface IMojitoWalletsRequest {
+  me: {
+    id: string;
+    wallets: IMojitoWallet[];
+  };
+}
+
 export interface IMojitoFavoriteRequest {
   me: Pick<IMojitoProfile, 'favoriteItems'>;
 }

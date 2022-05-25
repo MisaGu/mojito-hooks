@@ -12,7 +12,7 @@ import { useMojitoItem } from '../useMojitoItem';
 
 const DemoContent: React.FC = () => {
   const result = useMojitoItem({
-    slug: DEMO_SLUG,
+    pathname: `/${DEMO_SLUG}/item/test/`,
   });
 
   return <Json result={result} />;
