@@ -4228,6 +4228,7 @@
           AUTH0_CLIENTID: e.env.AUTH0_CLIENTID || '',
           AUTH_REDIRECT_URI: e.env.AUTH_REDIRECT_URI || '',
         };
+        console.log(e.env.MOJITO_API_URL || '');
       }.call(this, n(26)));
     },
     function (e, t, n) {
@@ -30278,7 +30279,7 @@
       }
       function Ee(e) {
         return (
-          void 0 === e && (e = window.location.pathname), B ? [] : e.split('/').filter(Boolean)
+          void 0 === e && (e = window.location.pathname), B ? e.split('/').filter(Boolean) : []
         );
       }
       function He(e) {
@@ -30455,7 +30456,6 @@
                       (e = Ie.apply(void 0, [u.sent(), 2])),
                       (r = e[0]),
                       (a = e[1]),
-                      console.log(r),
                       (i = r.marketplace.collections.find(function (e) {
                         return e.slug == n;
                       })),
