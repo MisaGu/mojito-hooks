@@ -11,4 +11,5 @@ export const config = {
   AUTH_REDIRECT_URI: process.env.AUTH_REDIRECT_URI || '',
 };
 
-console.log(process.env.MOJITO_API_URL || '');
+// For some reason, dumi seems to somehow cache this value. Doing this here forces it to always take the latest value:
+!!process.env.MOJITO_API_URL;
