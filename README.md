@@ -75,6 +75,7 @@ const YouApp: React.FC = () => {
 - Docs API tables.
 - When calling refetch on `useMarketplaceCollectionsSlugWithItemsId`, results are sorted differently.
 - Rename almost everything that say "auction" to collection.
+- Make console.logs() in the library toggleable.
 
 **Note:**
 
