@@ -2,7 +2,7 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { TestWrapper } from '../../../components/test/wrapper/TestWrapper';
 import { useActiveBids, UseActiveBidsProps, UseActiveBidsReturn } from '../useActiveBids';
 
-describe.only('useActiveBids()', () => {
+describe('useActiveBids()', () => {
   it('should be defined', () => {
     expect(useActiveBids).toBeDefined();
   });

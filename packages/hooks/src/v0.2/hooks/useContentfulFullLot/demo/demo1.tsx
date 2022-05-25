@@ -7,11 +7,11 @@ import React from 'react';
 import { DemoInterface } from '../../../components/demo/Interface/DemoInterface';
 import { Json } from '../../../components/demo/Json/Json';
 import { DemoProviders } from '../../../components/demo/Provider/DemoProvider';
-import { useContentfulLots } from '../useContentfulLots';
+import { useContentfulFullLot } from '../useContentfulFullLot';
 
 const DemoContent: React.FC = () => {
-  const result = useContentfulLots({
-    mojitoID: '',
+  const result = useContentfulFullLot({
+    mojitoID: '5f6a59f0-63bb-4628-b0ff-fcad26559a09',
   });
 
   return <Json result={result} />;

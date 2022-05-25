@@ -12,7 +12,7 @@ export enum EContentfulQueries {
 
 export const contentfulQueries: Record<EContentfulQueries, string> = {
   [EContentfulQueries.fullLot]: gql`
-    query lot($mojitoId: String) {
+    query GetFullLot($mojitoId: String) {
       lotCollection(where: { mojitoId: $mojitoId }) {
         items {
           lotId
@@ -74,7 +74,7 @@ export const contentfulQueries: Record<EContentfulQueries, string> = {
     }
   `,
   [EContentfulQueries.shortLots]: gql`
-    query lots($mojitoIds: [String]) {
+    query GetShortLots($mojitoIds: [String]) {
       lotCollection(order: lotId_ASC, where: { mojitoId_in: $mojitoIds }) {
         items {
           sys {
@@ -114,7 +114,7 @@ export const contentfulQueries: Record<EContentfulQueries, string> = {
     }
   `,
   [EContentfulQueries.auctionBySlug]: gql`
-    query Auction($slug: String) {
+    query GetAuctionBySlug($slug: String) {
       auctionCollection(order: sys_publishedAt_DESC, where: { slug: $slug }) {
         items {
           name
@@ -133,7 +133,7 @@ export const contentfulQueries: Record<EContentfulQueries, string> = {
     }
   `,
   [EContentfulQueries.auctionsSlugList]: gql`
-    query Auction {
+    query GetAuctionsSlugs {
       auctionCollection(order: sys_publishedAt_DESC) {
         items {
           slug
@@ -142,7 +142,7 @@ export const contentfulQueries: Record<EContentfulQueries, string> = {
     }
   `,
   [EContentfulQueries.collectors]: gql`
-    query Collector {
+    query GetCollectors {
       collectorCollection(order: name_ASC) {
         items {
           sys {
@@ -172,7 +172,7 @@ export const contentfulQueries: Record<EContentfulQueries, string> = {
     }
   `,
   [EContentfulQueries.authors]: gql`
-    query Author {
+    query GetAuthors {
       authorCollection {
         items {
           sys {
@@ -199,7 +199,7 @@ export const contentfulQueries: Record<EContentfulQueries, string> = {
     }
   `,
   [EContentfulQueries.organizations]: gql`
-    query Organizations {
+    query GetOrganizations {
       organizationCollection {
         items {
           homepageRedirect {
@@ -211,6 +211,7 @@ export const contentfulQueries: Record<EContentfulQueries, string> = {
     }
   `,
 };
+
 // 6267c3d0-bdba-45a2-bcca-6c7ff10fd193
 // 6678e79a-ae68-450f-bd7f-21e47bed3e5f
 // lotCollection(order: lotId_ASC, where: {OR: [{mojitoId: "6678e79a-ae68-450f-bd7f-21e47bed3e5f"}, {mojitoId: "6267c3d0-bdba-45a2-bcca-6c7ff10fd193"}]}) {

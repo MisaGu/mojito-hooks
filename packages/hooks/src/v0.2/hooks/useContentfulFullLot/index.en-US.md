@@ -4,7 +4,7 @@ nav:
   group: Contentful
 ---
 
-# useContentfulLots
+# useContentfulFullLot
 
 Returns detailed data about the selected lot based on the provided `mojitoID` param. 
 

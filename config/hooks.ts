@@ -24,10 +24,12 @@ export const menus = [
   {
     title: 'Contentful',
     children: [
+      'useContentfulAuctionBySlug',
       'useContentfulAuctionsSlugList',
       'useContentfulAuthors',
       'useContentfulCollectors',
-      'useContentfulLots',
+      'useContentfulFullLot',
+      'useContentfulOrganization',
       'useContentfulShortLots',
     ],
   },

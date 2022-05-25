@@ -7,7 +7,7 @@ import {
   UseCollectionSlugReturn,
 } from '../useCollectionSlug';
 
-describe.only('useCollectionSlug()', () => {
+describe('useCollectionSlug()', () => {
   it('should be defined', () => {
     expect(useCollectionSlug).toBeDefined();
   });

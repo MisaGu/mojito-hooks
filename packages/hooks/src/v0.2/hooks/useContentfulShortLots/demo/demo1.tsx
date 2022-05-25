@@ -11,7 +11,7 @@ import { useContentfulShortLots } from '../useContentfulShortLots';
 
 const DemoContent: React.FC = () => {
   const result = useContentfulShortLots({
-    mojitoID: '',
+    mojitoID: ['5f6a59f0-63bb-4628-b0ff-fcad26559a09', '600f19c6-0bad-4442-bc69-1d2db645292c'],
   });
 
   return <Json result={result} />;
