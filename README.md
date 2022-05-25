@@ -117,19 +117,19 @@ Who's working on it now:
 | ⚪ useContentfulLots                        | ✔️   | 👁️   | 👁️   | ✔️   |
 | ⚪ useContentfulOrganizations               | ✔️   | ✔️   | ✔️   | ✔️   |
 | ⚪ useContentfulShortLots                   | ✔️   | 👁️   | 👁️   | ✔️   |
-| 🔵 useFavoriteItems                         | 👁️   | ❌   | ❌   | ✔️   |
+| 🔵 useFavoriteItems                         | 👁️   | ✔️   | ❌   | ✔️   |
 | ⚪ useInvoiceDownload                       | ❌   | ❌   | ❌   | 👁️   |
 | ⚪ useInvoices                              | 👁️   | ❌   | ❌   | ✔️   |
 | ⚪ useLazyMojitoOneLot                      | ❌   | ❌   | ❌   | 👁️   |
 | 🔵 useMarketplaceCollectionsSlugWithItemsId | ✔️   | ✔️   | ✔️   | ✔️   |
 | 🔵 useMojitoFactory                         | ✔️   | ⛔   | ❌   | ✔️   |
-| 🔵 useMojitoItem                            | 👁️   | ❌   | ❌   | 👁️   |
+| 🔵 useMojitoItem                            | 👁️   | ✔️   | ❌   | 👁️   |
 | ⚪ useMojitoMutation                        | 👁️   | ❌   | ❌   | 👁️   |
-| 🔵 useMojitoWallets                         | 👁️   | ❌   | ❌   | ✔️   |
-| 🔵 useOrganization                          | 👁️   | ❌   | ❌   | ✔️   |
+| 🔵 useMojitoWallets                         | 👁️   | ✔️   | ❌   | ✔️   |
+| 🔵 useOrganization                          | 👁️   | ✔️   | ❌   | ✔️   |
 | ⚪ usePlaceBidMutation                      | ❌   | ❌   | ❌   | 👁️   |
-| 🔵 useProfile                               | 👁️   | ❌   | ❌   | ✔️   |
-| 🔵 useServerTime                            | 👁️   | ❌   | ❌   | ✔️   |
+| 🔵 useProfile                               | 👁️   | ✔️   | ❌   | ✔️   |
+| 🔵 useServerTime                            | 👁️   | ✔️   | ❌   | ✔️   |
 
 | Utils                      | Code | Test |
 | -------------------------- | ---- | ---- |
