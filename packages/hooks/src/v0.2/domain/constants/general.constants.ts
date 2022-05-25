@@ -10,3 +10,7 @@ export const config = {
   AUTH0_CLIENTID: process.env.AUTH0_CLIENTID || '',
   AUTH_REDIRECT_URI: process.env.AUTH_REDIRECT_URI || '',
 };
+
+if (process.env.MOJITO_API_URL?.includes('api.dev')) {
+  console.log(`Incorrect API endpoing. Use https://api-dev.mojito.xyz/query instead.`);
+}

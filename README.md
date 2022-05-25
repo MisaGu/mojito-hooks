@@ -74,6 +74,7 @@ const YouApp: React.FC = () => {
 - Use Codegen.
 - Docs API tables.
 - When calling refetch on `useMarketplaceCollectionsSlugWithItemsId`, results are sorted differently.
+- Rename almost everything that say "auction" to collection.
 
 **Note:**
 
@@ -107,12 +108,13 @@ Who's working on it now:
 | ⚪ useCollectionItemsCurrentBids            | ✔️   | ✔️   | ✔️   | ✔️   |
 | ⚪ useCollectionLotsIdList                  | 👁️   | ✔️   | ✔️   | ✔️   |
 | ⚪ useCollectionSlug                        | ✔️   | ✔️   | 👁️   | ✔️   |
-| ⚪ TODO: Add two missing contentful hooks.  | ❌   | ❌   | ❌   | ❌   |
+| ⚪ useContentfulAuctionBySlug               | 👁️   | ✔️   | ✔️   | ✔️   |
 | ⚪ useContentfulAuctionsSlugList            | ✔️   | ✔️   | ✔️   | 👁️   |
 | ⚪ useContentfulAuthors                     | ✔️   | ✔️   | ✔️   | ✔️   |
 | ⚪ useContentfulCollectors                  | ✔️   | ✔️   | ✔️   | ✔️   |
 | ⚪ useContentfulFactory                     | ✔️   | ⛔   | ❌   | ✔️   |
 | ⚪ useContentfulLots                        | ✔️   | 👁️   | 👁️   | ✔️   |
+| ⚪ useContentfulOrganizations               | ✔️   | ✔️   | ✔️   | ✔️   |
 | ⚪ useContentfulShortLots                   | ✔️   | 👁️   | 👁️   | ✔️   |
 | 🔵 useFavoriteItems                         | 👁️   | ❌   | ❌   | ✔️   |
 | ⚪ useInvoiceDownload                       | ❌   | ❌   | ❌   | 👁️   |

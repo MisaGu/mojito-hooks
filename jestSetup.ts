@@ -21,8 +21,8 @@ console.error = (msg: string) => {
 
 process.env.CONTENTFUL_URL = 'https://graphql.contentful.com/test';
 process.env.CONTENTFUL_AUTH_TOKEN = 'contentful-test';
-process.env.MOJITO_API_URL = 'https://api.dev.mojito.xyz/query';
-process.env.INVOICE_URL = 'https://api.dev.mojito.xyz/invoice';
+process.env.MOJITO_API_URL = 'https://api-dev.mojito.xyz/query';
+process.env.INVOICE_URL = 'https://api-dev.mojito.xyz/invoice';
 process.env.MARKETPLACE_ID = 'marketplace-test';
 process.env.TEST_ENV = 'test';
 process.env.AUTH0_DOMAIN = 'test.auth0.com';

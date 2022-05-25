@@ -5,7 +5,7 @@ import { SaleType } from '../enums';
 import { config } from '../constants/general.constants';
 import {
   ICollectionItemByIdBidsList,
-  IContentfulAuctionsQuery,
+  IContentfulAuctionBySlugQuery,
   IContentfulLotData,
   IIMojitoCollectionItemCurrentBidsItems,
   IMojitoCollection,
@@ -24,7 +24,7 @@ type ILotBidsOrCurrentBid = IMojitoCollectionItemCurrentBids & ICollectionItemBy
 const extendCollection = (
   collection: IMojitoCollection & IIMojitoCollectionItemCurrentBidsItems,
 ) => {
-  const contentfulData = queryClient.getQueryData<IContentfulAuctionsQuery>(
+  const contentfulData = queryClient.getQueryData<IContentfulAuctionBySlugQuery>(
     QueryKey.get(EContentfulQueries.auctionBySlug, { slug: collection.slug }),
   )?.auctionCollection?.items?.[0];
 

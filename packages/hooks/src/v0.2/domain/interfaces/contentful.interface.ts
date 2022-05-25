@@ -20,9 +20,23 @@ export interface IContentfulAuthorsQuery {
   };
 }
 
-export interface IContentfulAuctionsQuery {
+export interface IContentfulAuctionItem {
+  name: string;
+  title: string;
+  subtitle: string | null;
+  duration: string | null;
+  description: string | null;
+  data: _auctionData | null;
+  startDate: string;
+  endDate: string;
+  videoId: string | null;
+  slug: string;
+  saleId: string;
+}
+
+export interface IContentfulAuctionBySlugQuery {
   auctionCollection: {
-    items: IContentfulAuction[];
+    items: IContentfulAuctionItem[];
   };
 }
 
@@ -165,5 +179,14 @@ export interface IContentfulImageItem {
 }
 
 export interface IContentfulOrganization {
-  homepageRedirect: IContentfulAuction;
+  homepageRedirect: {
+    name: string;
+    slug: string;
+  };
+}
+
+export interface IContentfulOrganizationQuery {
+  organizationCollection: {
+    items: IContentfulOrganization[];
+  };
 }
