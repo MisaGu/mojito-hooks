@@ -2,8 +2,8 @@ import { act, renderHook } from '@testing-library/react-hooks';
 import { TestWrapper } from '../../../components/test/wrapper/TestWrapper';
 import {
   useContentfulAuctionBySlug,
-  UseContentfulFullLotProps,
-  UseContentfulFullLotReturn,
+  UseContentfulAuctionBySlugProps,
+  UseContentfulAuctionBySlugReturn,
 } from '../useContentfulAuctionBySlug';
 
 describe('useContentfulAuctionBySlug()', () => {
@@ -13,14 +13,14 @@ describe('useContentfulAuctionBySlug()', () => {
 
   it('returns the right result when needed', async () => {
     const { result, rerender, waitFor } = renderHook<
-      [UseContentfulFullLotProps],
-      UseContentfulFullLotReturn
+      [UseContentfulAuctionBySlugProps],
+      UseContentfulAuctionBySlugReturn
     >(
       (args) => {
         return useContentfulAuctionBySlug(...args);
       },
       {
-        initialProps: [{ mojitoID: '5f6a59f0-63bb-4628-b0ff-fcad26559a09' }],
+        initialProps: [{ slug: 'bid-test-3' }],
         wrapper: TestWrapper as any,
       },
     );
@@ -28,7 +28,10 @@ describe('useContentfulAuctionBySlug()', () => {
     // Trigger request...
     await act(async () => rerender());
 
-    // ...and wait for response:
+    // ...and wait for the main query to start fetching...:
+    await waitFor(() => result.current.queryResult.isFetching);
+
+    // ...and for its response:
     await waitFor(() => result.current.queryResult.isSuccess);
 
     // Check data matches snapshot:

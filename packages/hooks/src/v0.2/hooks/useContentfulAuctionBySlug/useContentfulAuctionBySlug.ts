@@ -10,13 +10,14 @@ function transformFn(auctionBySlug?: IContentfulAuctionBySlugQuery) {
   return auctionBySlug.auctionCollection?.items[0];
 }
 
-export type UseAuctionBySlugData = ReturnType<typeof transformFn>;
+export type UseContentfulAuctionBySlugData = ReturnType<typeof transformFn>;
 
-export type UseAuctionBySlugReturn = ReturnType<typeof useContentfulAuctionBySlug>;
+export type UseContentfulAuctionBySlugReturn = ReturnType<typeof useContentfulAuctionBySlug>;
 
-export type UseAuctionBySlugProps = BaseQueryHookPropsWithUrlAndSlug<UseAuctionBySlugData>;
+export type UseContentfulAuctionBySlugProps =
+  BaseQueryHookPropsWithUrlAndSlug<UseContentfulAuctionBySlugData>;
 
-export function useContentfulAuctionBySlug({ options, ...props }: UseAuctionBySlugProps) {
+export function useContentfulAuctionBySlug({ options, ...props }: UseContentfulAuctionBySlugProps) {
   const { slug } = useCollectionSlug(props);
 
   return useContentfulFactory({
