@@ -47,8 +47,6 @@ export class QueryKey {
   };
 
   static isMojitoHooksKey(queryKey: ReactQueryQueryKey): queryKey is IQueryKey {
-    return Array.isArray(queryKey) && queryKey[0].includes(QUERY_KEY_PREFIX);
+    return Array.isArray(queryKey) && queryKey[0]?.includes(QUERY_KEY_PREFIX) === true;
   }
 }
-
-QueryKey.get(EMojitoQueries.userActiveBids, { organizationID: '234' });

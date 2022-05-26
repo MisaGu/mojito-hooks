@@ -20,7 +20,7 @@ Object {
     "isPreviousData": false,
     "isRefetchError": false,
     "isRefetching": false,
-    "isStale": true,
+    "isStale": false,
     "isSuccess": true,
     "remove": [Function],
     "status": "success",

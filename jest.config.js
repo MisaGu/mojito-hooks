@@ -6,6 +6,7 @@ module.exports = {
   resetMocks: false,
   setupFiles: ['<rootDir>/jestSetup.ts'],
   setupFilesAfterEnv: ['<rootDir>/packages/hooks/jestSetupAfterEnv.ts'],
+  testEnvironment: 'jsdom',
   globals: {
     'ts-jest': {
       tsconfig: 'tsconfig.json',

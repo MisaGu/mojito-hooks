@@ -98,7 +98,7 @@ They aim to spread and promote positivity within the space, best shown in their 
     "isPreviousData": false,
     "isRefetchError": false,
     "isRefetching": false,
-    "isStale": true,
+    "isStale": false,
     "isSuccess": true,
     "remove": [Function],
     "status": "success",

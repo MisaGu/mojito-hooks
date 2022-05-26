@@ -139,6 +139,6 @@ Who's working on it now:
 | ⚪ gql.util                | 👁️   | ❌   |
 | 🟢 gqlDataNormalizer.util  | 🔨   | ❌   |
 | ⚪ gqlRequest.util         | 👁️   | ❌   |
-| 🔵 isBrowser.util.ts       | ✔️   | ❌   |
-| 🔵 path.util.ts            | ✔️   | ❌   |
-| 🔵 queryKeyFactory.util.ts | ✔️   | ❌   |
+| ⚪ isBrowser.util.ts       | ✔️   | ✔️   |
+| ⚪ path.util.ts            | ✔️   | ✔️   |
+| ⚪ queryKeyFactory.util.ts | ✔️   | ✔️   |
