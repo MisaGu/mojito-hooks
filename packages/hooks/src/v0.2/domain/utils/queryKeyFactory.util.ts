@@ -14,10 +14,7 @@ export class QueryKey {
     return queryKey.replace(/^MOJITO-HOOKS::(API|CONTENTFUL)::/, '') as unknown as T;
   }
 
-  static get = (
-    query: EMojitoQueries | EContentfulQueries,
-    variables: Variables = {},
-  ): IQueryKey => {
+  static get = (query: EMojitoQueries | EContentfulQueries, variables?: Variables): IQueryKey => {
     let prefix = '';
 
     if (EMojitoQueries[query]) prefix = QUERY_KEY_INFIX_MOJITO;

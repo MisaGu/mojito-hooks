@@ -31,6 +31,22 @@ describe('getCollectionSlug()', () => {
   it('works without params', () => {
     expect(getCollectionSlug()).toBe('collection-slug');
   });
+
+  it('returns undefined in SSR/Node', () => {
+    const location = window.location;
+
+    delete (window as any).location;
+
+    window.location = null as any;
+
+    expect(getCollectionSlug({ slug: 'collection-slug' })).toBe('collection-slug');
+    expect(getCollectionSlug({ pathname: '/collection-slug/item/item-slug' })).toBe(
+      'collection-slug',
+    );
+    expect(getCollectionSlug()).toBeUndefined();
+
+    window.location = location;
+  });
 });
 
 describe('getItemSlug()', () => {
@@ -61,5 +77,19 @@ describe('getItemSlug()', () => {
 
   it('works without params', () => {
     expect(getItemSlug()).toBe('item-slug');
+  });
+
+  it('returns undefined in SSR/Node', () => {
+    const location = window.location;
+
+    delete (window as any).location;
+
+    window.location = null as any;
+
+    expect(getItemSlug({ slug: 'item-slug' })).toBe('item-slug');
+    expect(getItemSlug({ pathname: '/collection-slug/item/item-slug' })).toBe('item-slug');
+    expect(getItemSlug()).toBeUndefined();
+
+    window.location = location;
   });
 });

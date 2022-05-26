@@ -15,7 +15,7 @@ describe('QueryKey', () => {
     expect(mojitoQueryKey[1]).toMatchObject({ username: 'test-username' });
 
     expect(contentfulQueryKey[0]).toBe('MOJITO-HOOKS::CONTENTFUL::authors');
-    expect(contentfulQueryKey[1]).toMatchObject({});
+    expect(contentfulQueryKey[1]).toBeUndefined();
   });
 
   it('.getMojitoQuery(...) to return a Mojito GQL query', () => {
