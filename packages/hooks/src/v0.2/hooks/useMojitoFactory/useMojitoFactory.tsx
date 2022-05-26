@@ -91,9 +91,5 @@ export function useMojitoFactory<
     }
   }, [isAuthenticated]);
 
-  if (result.isError) {
-    console.log(result.error);
-  }
-
   return normalizeQueryResult(as, result);
 }

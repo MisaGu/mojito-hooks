@@ -141,6 +141,10 @@ export interface IMojitoProfileRequest {
   me: IMojitoProfile;
 }
 
+export interface IMojitoCheckUsernameRequest {
+  orgUsernameAvailable: boolean;
+}
+
 export interface IMojitoWalletsRequest {
   me: {
     id: string;
@@ -232,6 +236,7 @@ export interface IMojitoInvoiceBillingAddress {
 // Collection items and collection item details common data:
 
 interface IMojitoCollectionItemDetailsCommonProps {
+  __typename?: string;
   id: string;
   marketplaceCollectionItemId: string;
   startDate: string;
@@ -244,7 +249,7 @@ interface IMojitoCollectionItemGeneric<S extends SaleType, D extends IMojitoColl
   id: string;
   slug: string;
   collectionId: string;
-  marketplaceTokenId: string;
+  marketplaceTokenId: string | null;
   saleType: S;
   status: EMojitoCollectionItemStatus;
   details: D;
@@ -367,6 +372,18 @@ export interface IIMojitoCollectionLotsIdList {
 
 export interface IIMojitoCollectionLotsIdListRequest {
   collectionBySlug: IIMojitoCollectionLotsIdList;
+}
+
+export interface IIMojitoCollectionBySlugRequest {
+  collectionBySlug: {
+    id: string;
+    slug: string;
+    name: string;
+    description: string;
+    startDate: string;
+    endDate: string;
+    items: IMojitoCollectionItem[];
+  };
 }
 
 export interface IIMojitoCollectionItemCurrentBidsItems {

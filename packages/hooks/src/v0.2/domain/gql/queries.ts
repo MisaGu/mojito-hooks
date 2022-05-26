@@ -173,7 +173,7 @@ export const mojitoQueries: Record<EMojitoQueries, string> = {
     }
   `,
   [EMojitoQueries.checkUsername]: gql`
-    query CheckUsername($organizationID: String!, $username: String!) {
+    query CheckUsername($organizationID: UUID1!, $username: String!) {
       orgUsernameAvailable(organizationID: $organizationID, username: $username)
     }
   `,

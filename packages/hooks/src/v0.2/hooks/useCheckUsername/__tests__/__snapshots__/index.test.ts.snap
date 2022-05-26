@@ -1,8 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`useMojitoItem() returns the right result when needed 1`] = `
+exports[`useCheckUsername() returns the right result when needed 1`] = `
 Object {
-  "collectionItem": undefined,
   "error": null,
   "isLoading": false,
   "queryResult": Object {
@@ -26,5 +25,6 @@ Object {
     "status": "success",
   },
   "refetch": [Function],
+  "usernameAvailable": true,
 }
 `;

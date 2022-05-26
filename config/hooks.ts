@@ -3,6 +3,7 @@ export const menus = [
     title: 'Mojito',
     children: [
       'useActiveBids',
+      'useCheckUsername',
       'useCollection',
       'useCollectionItemBidsList',
       'useCollectionItemCurrentBids',
