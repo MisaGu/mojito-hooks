@@ -27,32 +27,31 @@ export function normalizeQueryResult<TDataPropertyName extends string, TData = a
 }
 
 export type MutationResult<TDataPropertyName extends string, TData = any, TError = Error> = {
-  data: TData;
-  error: TError | null;
   isLoading: boolean;
-} & { [P in TDataPropertyName]: () => void };
+  error: TError | null;
+  mutate: UseMutationResult<TData, TError>['mutate'];
+  mutateAsync: UseMutationResult<TData, TError>['mutateAsync'];
+  mutationResult: Omit<
+    UseMutationResult<TData, TError>,
+    'data' | 'isLoading' | 'error' | 'mutate' | 'mutateAsync'
+  >;
+} & { [P in TDataPropertyName]: TData | undefined };
 
 export function normalizeMutationResult<
   TDataPropertyName extends string,
   TData = any,
-  TError = Error,
   TVariables = Variables,
->(
-  key: TDataPropertyName,
-  result: UseMutationResult<TData, TError, TVariables>,
-  variables: TVariables,
-) {
-  const { mutate, data, isLoading, error, ...mutationResult } = result as UseMutationResult<
-    TData,
-    TError
-  >;
+  TError = Error,
+>(key: TDataPropertyName, result: UseMutationResult<TData, TError, TVariables>) {
+  const { mutate, mutateAsync, data, isLoading, error, ...mutationResult } =
+    result as UseMutationResult<TData, TError>;
 
   return {
-    data,
     isLoading,
     error,
+    mutate,
+    mutateAsync,
     mutationResult,
-    // TODO: This should accept the same arguments as `mutate(...)`
-    [key]: () => mutate(variables),
+    [key]: data,
   } as MutationResult<TDataPropertyName, TData, TError>;
 }

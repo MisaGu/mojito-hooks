@@ -126,7 +126,7 @@ Who's working on it now:
 | ⚪ useMarketplaceCollectionsSlugWithItemsId | ✔️   | ✔️   | ✔️   | ✔️   |
 | 🔵 useMojitoFactory                         | ✔️   | ⛔   | ❌   | ✔️   |
 | 🔵 useMojitoItem                            | 👁️   | ✔️   | ✔️   | 👁️   |
-| ⚪ useMojitoMutation                        | 👁️   | ❌   | ❌   | 👁️   |
+| 🔵 useMojitoMutation                        | 👁️   | ❌   | ❌   | 👁️   |
 | ⚪ useMojitoWallets                         | 👁️   | ✔️   | 👁️   | ✔️   |
 | ⚪ useOrganization                          | 👁️   | ✔️   | 👁️   | ✔️   |
 | ⚪ usePlaceBidMutation                      | ❌   | ❌   | ❌   | 👁️   |
@@ -136,9 +136,9 @@ Who's working on it now:
 | Utils                      | Code | Test |
 | -------------------------- | ---- | ---- |
 | ⚪ getDehydratedState.util | 👁️   | ❌   |
-| ⚪ gql.util                | 👁️   | ❌   |
+| ⚪ gql.util                | ✔️   | ✔️   |
 | 🟢 gqlDataNormalizer.util  | 🔨   | ❌   |
-| ⚪ gqlRequest.util         | 👁️   | ❌   |
+| 🔵 gqlRequest.util         | 👁️   | ❌   |
 | ⚪ isBrowser.util.ts       | ✔️   | ✔️   |
 | ⚪ path.util.ts            | ✔️   | ✔️   |
 | ⚪ queryKeyFactory.util.ts | ✔️   | ✔️   |

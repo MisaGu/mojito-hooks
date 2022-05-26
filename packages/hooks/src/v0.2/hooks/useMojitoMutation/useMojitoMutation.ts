@@ -1,5 +1,5 @@
 import { Variables } from 'graphql-request';
-import { useEffect } from 'react';
+import { useCallback, useEffect } from 'react';
 import { useMutation, useQueryClient, UseMutationOptions } from 'react-query';
 import { useAuthContext } from '../../domain/context/auth.context';
 import { EMojitoQueries } from '../../domain/gql/queries';
@@ -10,14 +10,16 @@ import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 export interface IUseMojitoFactoryOptions<
   TDataPropertyName extends string,
   TData = any,
+  TReturn = TData,
   TError = Error,
   TVariables = Variables,
+  TContext = unknown,
 > {
   as: TDataPropertyName;
   query: EMojitoQueries;
   variables: TVariables;
-  options?: UseMutationOptions<TData, TError, TVariables>;
-  transformFn?: (data: TData | undefined) => TData;
+  options?: UseMutationOptions<TReturn, TError, TVariables, TContext>;
+  transformFn?: (data: TData | undefined) => TReturn;
   onlyAuthenticated?: boolean;
   auto?: boolean;
 }
@@ -25,8 +27,10 @@ export interface IUseMojitoFactoryOptions<
 export function useMojitoMutation<
   TDataPropertyName extends string,
   TData = any,
+  TReturn = TData,
   TError = Error,
   TVariables = Variables,
+  TContext = unknown,
 >({
   as,
   query,
@@ -35,42 +39,75 @@ export function useMojitoMutation<
   transformFn,
   onlyAuthenticated,
   auto = true,
-}: IUseMojitoFactoryOptions<TDataPropertyName, TData, TError, TVariables>) {
-  const queryClient = useQueryClient();
-  const queryFn = queryClient.getDefaultOptions().queries?.queryFn || defaultQueryFn;
-  const mutationKey = QueryKey.get(query, variables);
+}: IUseMojitoFactoryOptions<TDataPropertyName, TData, TReturn, TError, TVariables, TContext>) {
   const { isAuthenticated } = useAuthContext();
+  const queryClient = useQueryClient();
+  const mutationKey = QueryKey.get(query, variables);
 
-  const result = useMutation<TData, TError, TVariables>(
-    async () => {
-      const _query = (await queryFn({ queryKey: mutationKey, meta: undefined })) as TData;
+  const mutationFn = transformFn
+    ? async () => {
+        const configuredQueryFn =
+          (options as any)?.queryFn ||
+          queryClient.getDefaultOptions().queries?.queryFn ||
+          defaultQueryFn;
 
-      return transformFn ? transformFn(_query) : _query;
-    },
-    {
-      ...options,
-      mutationKey,
-      meta: { ...options?.meta, authorization: isAuthenticated },
-    },
+        // TODO: Is this code ok? Should it be like this? In any case, mutations.mutationFn type seem wrong,
+        // as they only take variables, nothing else.
+        // options?.mutationFn || queryClient.getDefaultOptions().mutations?.mutationFn || defaultQueryFn;
+
+        const result = (await configuredQueryFn({
+          queryKey: mutationKey,
+          meta: undefined,
+        })) as TData;
+
+        return transformFn ? transformFn(result) : (result as unknown as TReturn);
+      }
+    : (options as any)?.queryFn;
+
+  const mojitoFactoryUseMutationOptions = {
+    ...options,
+    mutationFn,
+    meta: { ...options?.meta, authorization: isAuthenticated },
+  };
+
+  if (!mutationFn) delete mojitoFactoryUseMutationOptions.mutationFn;
+
+  const result = useMutation<TReturn, TError, TVariables, TContext>(
+    mutationKey,
+    mojitoFactoryUseMutationOptions,
   );
 
-  if (result.isError) {
-    console.log(result.error);
-  }
-
   useEffect(() => {
-    if (!auto) return;
+    if (!auto || (onlyAuthenticated && !isAuthenticated)) return;
 
-    if (onlyAuthenticated) {
-      if (isAuthenticated) result.mutate(variables);
-    } else {
-      result.mutate(variables);
-    }
+    result.mutate(variables);
   }, [isAuthenticated, variables]);
 
-  // TODO: We should return a wrap around `mutate` that takes into account authentication...
+  const normalizedResult = normalizeMutationResult(as, result);
 
-  return normalizeMutationResult(as, result, variables);
+  const mutate = useCallback(
+    (variablesProp: TVariables, context: TContext) => {
+      if (onlyAuthenticated && !isAuthenticated) Promise.resolve();
+
+      return result.mutate(variablesProp || variables, context);
+    },
+    [isAuthenticated, result.mutate, variables],
+  );
+
+  const mutateAsync = useCallback(
+    (variablesProp: TVariables, context: TContext) => {
+      if (onlyAuthenticated && !isAuthenticated) Promise.resolve();
+
+      return result.mutateAsync(variablesProp || variables, context);
+    },
+    [isAuthenticated, result.mutateAsync, variables],
+  );
+
+  return {
+    ...normalizedResult,
+    mutate,
+    mutateAsync,
+  };
 }
 
 // legacy function
