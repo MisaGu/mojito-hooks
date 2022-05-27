@@ -5,7 +5,6 @@ import { useAuthContext } from '../../domain/context/auth.context';
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { normalizeQueryResult } from '../../domain/utils/gql.utils';
 import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
-import { log } from '../../domain/utils/log.utils';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 
 export interface IUseMojitoFactoryOptions<
@@ -86,7 +85,7 @@ export function useMojitoFactory<
       enabled &&
       queryClient.getQueryData(queryKey) === undefined
     ) {
-      log('🔄 useMojitoFactory refetch...');
+      console.log('🔄 useMojitoFactory refetch...');
 
       result.refetch();
     }

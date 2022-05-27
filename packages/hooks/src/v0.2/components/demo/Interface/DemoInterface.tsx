@@ -3,7 +3,6 @@ import React, { useCallback } from 'react';
 import { useEffect } from 'react';
 import { EAuthActionTypes, useAuthContext } from '../../../domain/context/auth.context';
 import { MojitoHooksProvider } from '../../../domain/context/mojito.context';
-import { log } from '../../../domain/utils/log.utils';
 
 interface DemoInterfaceProps {
   demoComponent: React.ComponentType;
@@ -26,7 +25,7 @@ export const DemoInterface: React.FC<DemoInterfaceProps> = ({ demoComponent: Dem
     async function initAuthentication() {
       const nextToken = await getAuthenticationToken();
 
-      log(`${nextToken ? '🔒 Adding' : '🔓 Removing'} authentication token...`);
+      console.log(`${nextToken ? '🔒 Adding' : '🔓 Removing'} authentication token...`);
 
       dispatch(
         nextToken
