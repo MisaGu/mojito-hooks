@@ -30,7 +30,7 @@ export const menus = [
       'useContentfulAuthors',
       'useContentfulCollectors',
       'useContentfulFullLot',
-      'useContentfulOrganization',
+      'useContentfulOrganizations',
       'useContentfulShortLots',
     ],
   },

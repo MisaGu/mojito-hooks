@@ -72,8 +72,6 @@ const extendCollection = (
     collection.hasMultipleLots = collection.items.length > 1;
   }
 
-  // console.log("RETURN COLLECTION", collection);
-
   return collection;
 };
 
@@ -259,8 +257,6 @@ export function mojitoNormalizer(response: any, variables?: { slug?: string }, k
     const completeYourProfile = isBasic || isMissingInfo || isEndUser;
     const uploadID = isTransactionalNoID;
     const contactUs = isNotAllowedToBid || isCoreUnavailable || isBidAuthUnavailable;
-
-    // console.log(_organization.settings);
 
     Object.assign(_organization, {
       notifications: {

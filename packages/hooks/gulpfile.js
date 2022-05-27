@@ -48,8 +48,6 @@ async function genMetaData() {
         `src/v0.2/hooks/${hook}/index.en-US.md`,
       );
 
-      console.log(group);
-
       // FIXME: GITHUB_PAGE url
       return {
         name: hook,

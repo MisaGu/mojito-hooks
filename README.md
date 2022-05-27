@@ -36,7 +36,7 @@ import { MojitoHooksProvider, onErrorCallback, useRequest  } from '@mojito-mixer
 
 onErrorCallback((e) => {
   // Log error to Sentry or anywhere you'd like:
-  console.log(e);
+  console.error(e);
 });
 
 const YourComponent: React.FC = () => {
@@ -65,7 +65,6 @@ const YouApp: React.FC = () => {
 
 - Check refetch function return for `useCollectionItemCurrentBids()`.
 - Can we type-check queries and variables (check they match) in QueryKey.get and return type in prefetchQuery?
-- Get rid of all console.log()s or make them optional / work only in development.
 
 **Not assigned / TODO:**
 
