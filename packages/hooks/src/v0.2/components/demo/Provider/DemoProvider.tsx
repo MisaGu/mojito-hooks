@@ -1,5 +1,5 @@
 import { Auth0Provider } from '@auth0/auth0-react';
-import React, { useEffect } from 'react';
+import React from 'react';
 import { config } from '../../../domain/constants/general.constants';
 import { AuthProvider } from '../../../domain/context/auth.context';
 
