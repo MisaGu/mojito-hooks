@@ -1,14 +1,16 @@
 import 'jest-extended';
 
 console.log = (...args: any[]) => {
+  /*
   const msg = typeof args[0] === 'string' ? args[0] : '';
 
   if (
     msg.includes(' QUERY = ') ||
     msg.includes('authentication token...') ||
     msg.includes('refetch...')
-  )
-    return;
+  ) return;
+
+  */
 
   console.warn('Forgotten console.log(...)!', ...args);
 

@@ -8,11 +8,7 @@ export interface TestWrapperProps {
 }
 
 export const TestWrapper: React.FC<TestWrapperProps> = ({ children }) => {
-  // console.log(children);
-
   const DemoContent: React.FC = () => {
-    // console.log("Render demo content");
-
     return <>{children || null}</>;
   };
 
