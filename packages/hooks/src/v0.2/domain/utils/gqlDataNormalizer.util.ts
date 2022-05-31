@@ -1,29 +1,30 @@
 import moment from 'moment';
-import { EMojitoQueries } from '../gql/queries';
-import { EContentfulQueries } from '../gql/contentful';
-import { SaleType } from '../enums';
 import { config } from '../constants/general.constants';
+import { SaleType } from '../enums';
+import { EContentfulQueries } from '../gql/contentful';
+import { EMojitoQueries } from '../gql/queries';
 import {
   ICollectionItemByIdBidsList,
   IContentfulAuctionsQuery,
   IContentfulLotData,
-  IIMojitoCollectionItemCurrentBidsItems,
-  IMojitoCollection,
-  IMojitoCollectionItem,
   IMojitoCollectionItemBuyNowLot,
   IMojitoCollectionItemCurrentBids,
-  IMojitoInvoiceDetailsItem,
-  IMojitoProfileRequest,
-  IMojitoWallet,
+  IMojitoProfileResponse,
+  MojitoCurrentUser,
+  MojitoCurrentUserNormalizer,
+  MojitoMarketplaceCollectionItem,
+  MojitoWallet,
+  MojitoWalletNormalizer,
+  NormalizedQuery,
 } from '../interfaces';
+import * as Schema from '../interfaces/mojito-schema.interface';
+import { Combine, Compare, DeepCompare } from '../interfaces/_utils.interface';
 import { queryClient } from './gqlRequest.util';
 import { QueryKey } from './queryKeyFactory.util';
 
 type ILotBidsOrCurrentBid = IMojitoCollectionItemCurrentBids & ICollectionItemByIdBidsList;
 
-const extendCollection = (
-  collection: IMojitoCollection & IIMojitoCollectionItemCurrentBidsItems,
-) => {
+const extendCollection = (collection: any) => {
   const contentfulData = queryClient.getQueryData<IContentfulAuctionsQuery>(
     QueryKey.get(EContentfulQueries.auctionBySlug, { slug: collection.slug }),
   )?.auctionCollection?.items?.[0];
@@ -78,7 +79,7 @@ const extendCollection = (
 };
 
 const extendCollectionSingleItem = (
-  item: IMojitoCollectionItem | ILotBidsOrCurrentBid,
+  item: any,
   slug: string,
   shortLots?: {
     [key: string]: IContentfulLotData;
@@ -97,7 +98,7 @@ const extendCollectionSingleItem = (
       QueryKey.get(EContentfulQueries.fullLot, { mojitoId: item.id }),
     );
 
-    (item as IMojitoCollectionItem).contentfulData =
+    (item as MojitoMarketplaceCollectionItem).contentfulData =
       lot?.[item.id] ??
       shortLots?.[item.id] ??
       ({
@@ -113,11 +114,11 @@ const extendCollectionSingleItem = (
     item.details = extendItemDetails(item.details as ILotBidsOrCurrentBid['details'], slug);
   }
 
-  return item as IMojitoCollectionItem & IMojitoCollectionItemCurrentBids;
+  return item as any;
 };
 
 const extendCollectionItems = (
-  collectionItems: IMojitoCollectionItem[] & IMojitoCollectionItemCurrentBids[],
+  collectionItems: MojitoMarketplaceCollectionItem[] & IMojitoCollectionItemCurrentBids[],
   slug: string,
 ) => {
   const lots = queryClient.getQueryData<{
@@ -127,8 +128,8 @@ const extendCollectionItems = (
   return collectionItems.map((item) => extendCollectionSingleItem(item, slug, lots));
 };
 
-const extendItemDetails = (details: ILotBidsOrCurrentBid['details'], slug: string) => {
-  const profile = queryClient.getQueryData<IMojitoProfileRequest>(
+const extendItemDetails = (details: any, slug: string) => {
+  const profile = queryClient.getQueryData<IMojitoProfileResponse>(
     QueryKey.get(EMojitoQueries.profile),
   )?.me;
 
@@ -228,24 +229,27 @@ const extendItemDetails = (details: ILotBidsOrCurrentBid['details'], slug: strin
   return details;
 };
 
-export function mojitoNormalizer(response: any, variables?: { slug?: string }, key?: any): any {
+export function mojitoNormalizer(
+  response: Schema.Query,
+  variables?: { slug?: string },
+  key?: any,
+): any {
   if (!response) return null;
-  const _data = response;
+  const normalizedResponse: Partial<NormalizedQuery> = {};
 
-  if (_data.serverTime) {
-    const serverTimeOffset = new Date(_data.serverTime).getTime() - Date.now();
-
-    moment.now = function () {
-      return serverTimeOffset + Date.now();
-    };
-
-    Object.assign(_data, {
-      serverTime: new Date(_data.serverTime),
-    });
+  if (response.serverTime) {
+    Object.assign(normalizedResponse, { serverTime: ServerTimeNormalizer(response.serverTime) });
   }
 
-  if (_data?.me?.userOrgs?.[0]) {
-    const _organization = _data.me.userOrgs[0];
+  if (response.me) {
+    var user = CurrentUserNormalizer(response.me);
+    // user?.wallets?.[0]?.tokens?.[0]?.walletId;
+
+    Object.assign(normalizedResponse, { me: user });
+  }
+
+  if (response?.me?.userOrgs?.[0]) {
+    const _organization = response.me.userOrgs[0];
 
     const role = _organization.role;
     const isBasic = role === 'Basic';
@@ -286,69 +290,58 @@ export function mojitoNormalizer(response: any, variables?: { slug?: string }, k
             },
           },
     });
-    _data.me.userOrgs[0] = _organization;
+    response.me.userOrgs[0] = _organization;
   }
 
-  if (_data?.getMarketplaceAuctionLot) {
-    _data.getMarketplaceAuctionLot = extendItemDetails(
-      _data.getMarketplaceAuctionLot,
+  if (response?.getMarketplaceAuctionLot) {
+    response.getMarketplaceAuctionLot = extendItemDetails(
+      response.getMarketplaceAuctionLot,
       variables?.slug as string,
     );
   }
 
-  if (_data?.collection?.items) {
-    _data.collection = extendCollection(_data.collection);
+  if (response?.collection?.items) {
+    response.collection = extendCollection(response.collection);
   }
 
-  if (_data?.collectionBySlug?.items) {
-    Object.assign(_data, extendCollection(_data.collectionBySlug));
-    delete _data.collectionBySlug;
+  if (response?.collectionBySlug?.items) {
+    Object.assign(response, extendCollection(response.collectionBySlug));
+    delete response.collectionBySlug;
   }
 
-  if (_data?.collectionItemById) {
+  if (response?.collectionItemById) {
     if (variables?.slug) {
-      _data.collectionItemById = extendCollectionSingleItem(
-        _data.collectionItemById,
+      response.collectionItemById = extendCollectionSingleItem(
+        response.collectionItemById,
         variables.slug,
       );
     }
-    Object.assign(_data, _data.collectionItemById);
+    Object.assign(response, response.collectionItemById);
   }
 
-  // TODO replace the mojito marketplace request to multiple collectionBySlug requests
-  if (_data?.marketplace?.collections) {
-    _data.marketplace.collections = _data?.marketplace?.collections.map((collection: any) =>
+  if (response?.marketplace?.collections) {
+    response.marketplace.collections = response?.marketplace?.collections.map((collection: any) =>
       extendCollection(collection),
     );
   }
 
-  if (_data?.me?.wallets) {
-    const _wallets = (_data?.me?.wallets as IMojitoWallet[])?.map((wallet) => {
-      wallet.tokens = wallet.tokens?.map((token) => Object.assign(token, { walletId: wallet.id }));
-
-      return wallet;
-    });
-
-    _data.me.wallets = _wallets;
-  }
-
-  if (_data?.getMyInvoices) {
+  if (response?.getMyInvoices) {
     const lots = queryClient.getQueryData<{
       [key: string]: IContentfulLotData;
     }>(QueryKey.get(EContentfulQueries.shortLots, { slug: variables?.slug }));
 
-    _data.getMyInvoices = _data?.getMyInvoices.map((invoice: IMojitoInvoiceDetailsItem) => {
-      const lot = lots?.[invoice.collectionItemId];
+    // _data.getMyInvoices = _data?.getMyInvoices.map((invoice) => {
+    //   const lot = lots?.[invoice.collectionItemId];
 
-      if (lot) {
-        invoice.contentfulData = lot;
-      }
+    //   if (lot) {
+    //     invoice.contentfulData = lot;
+    //   }
 
-      return invoice;
-    });
+    //   return invoice;
+    // });
   }
 
-  return _data;
+  return normalizedResponse;
 }
 
 export function contentfulNormalizer(
@@ -366,4 +359,52 @@ export function contentfulNormalizer(
   }
 
   return response;
+}
+
+function ServerTimeNormalizer(details: Schema.Scalars['Time']) {
+  const serverTime: NormalizedQuery['serverTime'] = new Date(details);
+  const serverTimeOffset = serverTime.getTime() - Date.now();
+
+  moment.now = function () {
+    return serverTimeOffset + Date.now();
+  };
+
+  return serverTime;
+}
+
+function CurrentUserNormalizer(details: Schema.CurrentUser) {
+  const me = {
+    ...details,
+    wallets: details.wallets ? CurrentUserWalletsNormalizer(details.wallets) : [],
+    wonBids: null, //TODO
+    activeBids: null, //TODO
+    userOrgs: null, //TODO
+    favoriteItems: null, //TODO
+  };
+
+  return _merge<typeof details, typeof me, MojitoCurrentUser>(details, me);
+}
+
+function CurrentUserWalletsNormalizer(details: Schema.Wallet[]) {
+  const wallets = details.map((wallet) => Object.assign(wallet, WalletItemNormalizer(wallet)));
+
+  return _merge<typeof details, typeof wallets, MojitoWallet[]>(details, wallets);
+}
+
+function WalletItemNormalizer(details: Schema.Wallet) {
+  const wallet = {
+    ...details,
+    tokens: details.tokens
+      ? details.tokens.map((token) => Object.assign(token, { walletId: details.id }))
+      : [],
+  };
+
+  return _merge<typeof details, typeof wallet, MojitoWallet>(details, wallet);
+}
+
+function _merge<Schema, Normalized, Result>(raw: Schema, normalized: Normalized) {
+  return Object.assign(Array.isArray(normalized) ? [] : {}, raw, normalized) as DeepCompare<
+    Combine<Schema, Required<Normalized>>,
+    Result
+  >;
 }

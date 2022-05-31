@@ -1,12 +1,12 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
-import { IMojitoFavoriteRequest } from '../../domain/interfaces';
+import { IMojitoFavoriteResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(favoriteItemsRequest?: undefined | null | IMojitoFavoriteRequest) {
-  if (!favoriteItemsRequest) return undefined;
+function transformFn(response?: IMojitoFavoriteResponse | null) {
+  if (!response) return undefined;
 
-  return favoriteItemsRequest.me.favoriteItems;
+  return response.me.favoriteItems;
 }
 
 export type UseFavoriteItemsData = ReturnType<typeof transformFn>;

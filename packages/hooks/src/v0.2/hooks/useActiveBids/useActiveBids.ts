@@ -1,13 +1,13 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
-import { IMojitoProfileRequest } from '../../domain/interfaces';
+import { IMojitoProfileResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { config } from '../../domain/constants/general.constants';
 
-function transformFn(profileRequest?: IMojitoProfileRequest) {
-  if (!profileRequest) return undefined;
+function transformFn(response?: IMojitoProfileResponse) {
+  if (!response) return undefined;
 
-  return profileRequest.me.activeBids;
+  return response.me.activeBids;
 }
 
 export type UseActiveBidsData = ReturnType<typeof transformFn>;

@@ -7,6 +7,7 @@ import {
   COLLECTION_ITEM_AUCTION_LOT_MY_BID_FIELD,
   COLLECTION_ITEM_FIELD,
   FAVORITE_ITEMS_FIELD,
+  ME_USER_ORGS_FIELD,
 } from './fragments';
 
 export enum EMojitoQueries {
@@ -29,6 +30,8 @@ export enum EMojitoQueries {
 
 export const mojitoQueries: Record<EMojitoQueries, string> = {
   [EMojitoQueries.profile]: gql`
+    ${ME_USER_ORGS_FIELD}
+
     query GetProfile($filter: UserOrgFilter) {
       serverTime
       me {
@@ -39,32 +42,20 @@ export const mojitoQueries: Record<EMojitoQueries, string> = {
           email
         }
         userOrgs(filter: $filter) {
-          id
-          organizationId
-          role
-          bidAllowed
-          kycStatus
-          avatar
-          username
-          settings
-          externalUserId
+          ...UserOrganizationSchema
         }
       }
     }
   `,
   [EMojitoQueries.organization]: gql`
+    ${ME_USER_ORGS_FIELD}
+
     query GetOrganization($filter: UserOrgFilter) {
       serverTime
       me {
         id
         userOrgs(filter: $filter) {
-          id
-          role
-          kycStatus
-          bidAllowed
-          avatar
-          username
-          settings
+          ...UserOrganizationSchema
         }
       }
     }

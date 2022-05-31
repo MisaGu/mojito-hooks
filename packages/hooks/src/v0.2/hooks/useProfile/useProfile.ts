@@ -1,9 +1,9 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
-import { IMojitoProfileRequest } from '../../domain/interfaces';
+import { IMojitoProfileResponse } from '../../domain/interfaces';
 import { BaseQueryHookPropsWithForce } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(profileRequest?: IMojitoProfileRequest) {
+function transformFn(profileRequest?: IMojitoProfileResponse) {
   if (!profileRequest) return undefined;
 
   return profileRequest.me;

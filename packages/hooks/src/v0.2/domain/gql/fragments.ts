@@ -1,5 +1,21 @@
 import { gql } from 'graphql-request';
 
+export const ME_USER_ORGS_FIELD = gql`
+  fragment UserOrganizationSchema on UserOrganization {
+    id
+    userId
+    user
+    externalUserId
+    organizationId
+    kycStatus
+    role
+    bidAllowed
+    username
+    avatar
+    settings
+  }
+`;
+
 export const COLLECTION_ITEM_AUCTION_LOT_BIDS_LIST_FIELD = gql`
   fragment CollectionItemAuctionLotBidsList on MarketplaceAuctionBid {
     id
