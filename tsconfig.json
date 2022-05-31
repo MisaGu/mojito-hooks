@@ -12,5 +12,5 @@
     "declaration": false,
     "strictNullChecks": true
   },
-  "exclude": ["node_modules", "lib", "es", "dist", "example"]
+  "exclude": ["node_modules", "lib", "es", "dist", "example", "**/jestSetupAfterEnv.ts"]
 }

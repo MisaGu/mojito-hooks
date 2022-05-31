@@ -172,13 +172,13 @@ export interface IMojitoServerTimeResponse {
 }
 
 export interface IMojitoGetMyInvoicesRequest {
-  getMyInvoices: IMojitoInvoice & {
+  getMyInvoices: (IMojitoInvoice & {
     userName: string;
     paymentID: string;
     externalPaymentID: string;
     billingAddress: IMojitoInvoiceBillingAddress;
     OrganizationID: string;
-  };
+  })[];
 }
 
 export interface IMojitoProfileCustomOrgs {
@@ -220,10 +220,10 @@ export interface IMojitoInvoiceDetailsItem {
 
 export interface IMojitoInvoice {
   invoiceID: string;
-  invoiceNumber: string;
+  invoiceNumber: number;
   invoiceCreatedAt: string;
-  externalUserID: string;
-  internalUserID: string;
+  // externalUserID: string;
+  // internalUserID: string;
   items: IMojitoInvoiceDetailsItem[];
   status: InvoiceStatus;
 }
@@ -238,6 +238,7 @@ export interface IMojitoInvoiceBillingAddress {
 // Collection items and collection item details common data:
 
 interface IMojitoCollectionItemDetailsCommonProps {
+  __typename?: string;
   id: string;
   marketplaceCollectionItemId: string;
   startDate: string;
@@ -250,7 +251,7 @@ interface IMojitoCollectionItemGeneric<S extends SaleType, D extends IMojitoColl
   id: string;
   slug: string;
   collectionId: string;
-  marketplaceTokenId: string;
+  marketplaceTokenId: string | null;
   saleType: S;
   status: EMojitoCollectionItemStatus;
   details: D;
@@ -346,26 +347,46 @@ export interface ICollectionItemByIdBidsListRequest {
   collectionItemById: ICollectionItemByIdBidsList;
 }
 
+export interface ICollectionItemByIdRemainingCount {
+  id: string;
+  details: {
+    id: string;
+    remainingCount: number;
+  };
+}
+
+export interface ICollectionItemByIdRemainingCountRequest {
+  collectionItemById: ICollectionItemByIdRemainingCount;
+}
+
 export interface IIMojitoCollectionItemCurrentBids {
   id: string;
   items: IMojitoCollectionItemCurrentBids[];
 }
 
-/*
 export interface IIMojitoCollectionItemCurrentBidsRequest {
   collectionBySlug: IIMojitoCollectionItemCurrentBids;
 }
-*/
 
 export interface IIMojitoCollectionLotsIdList {
   items: IMojitoCollectionItemSummary[];
 }
 
-/*
 export interface IIMojitoCollectionLotsIdListRequest {
   collectionBySlug: IIMojitoCollectionLotsIdList;
 }
-*/
+
+export interface IIMojitoCollectionBySlugRequest {
+  collectionBySlug: {
+    id: string;
+    slug: string;
+    name: string;
+    description: string;
+    startDate: string;
+    endDate: string;
+    items: MojitoMarketplaceCollectionItem[];
+  };
+}
 
 export interface IIMojitoCollectionItemCurrentBidsItems {
   items: IMojitoCollectionItemCurrentBids[];

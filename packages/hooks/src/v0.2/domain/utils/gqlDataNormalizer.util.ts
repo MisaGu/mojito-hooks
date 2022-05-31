@@ -5,27 +5,29 @@ import { EContentfulQueries } from '../gql/contentful';
 import { EMojitoQueries } from '../gql/queries';
 import {
   ICollectionItemByIdBidsList,
-  IContentfulAuctionsQuery,
+  IContentfulAuctionBySlugQuery,
   IContentfulLotData,
+  IIMojitoCollectionItemCurrentBidsItems,
+  IMojitoCollection,
   IMojitoCollectionItemBuyNowLot,
   IMojitoCollectionItemCurrentBids,
   IMojitoProfileResponse,
   MojitoCurrentUser,
-  MojitoCurrentUserNormalizer,
   MojitoMarketplaceCollectionItem,
   MojitoWallet,
-  MojitoWalletNormalizer,
   NormalizedQuery,
 } from '../interfaces';
 import * as Schema from '../interfaces/mojito-schema.interface';
-import { Combine, Compare, DeepCompare } from '../interfaces/_utils.interface';
+import { Combine, DeepCompare } from '../interfaces/_utils.interface';
 import { queryClient } from './gqlRequest.util';
 import { QueryKey } from './queryKeyFactory.util';
 
 type ILotBidsOrCurrentBid = IMojitoCollectionItemCurrentBids & ICollectionItemByIdBidsList;
 
-const extendCollection = (collection: any) => {
-  const contentfulData = queryClient.getQueryData<IContentfulAuctionsQuery>(
+const extendCollection = (
+  collection: IMojitoCollection & IIMojitoCollectionItemCurrentBidsItems,
+) => {
+  const contentfulData = queryClient.getQueryData<IContentfulAuctionBySlugQuery>(
     QueryKey.get(EContentfulQueries.auctionBySlug, { slug: collection.slug }),
   )?.auctionCollection?.items?.[0];
 
@@ -72,8 +74,6 @@ const extendCollection = (collection: any) => {
     collection.items = extendCollectionItems(collection.items, collection.slug);
     collection.hasMultipleLots = collection.items.length > 1;
   }
-
-  // console.log("RETURN COLLECTION", collection);
 
   return collection;
 };
@@ -212,7 +212,7 @@ const extendItemDetails = (details: any, slug: string) => {
       amount: details.startingBid ?? 50, // 50 = bidIncrement[0]
       isStart: true,
       marketplaceAuctionLotId: details.id,
-    } as ILotBidsOrCurrentBid['details']['currentBid'];
+    } as unknown as ILotBidsOrCurrentBid['details']['currentBid'];
   } else {
     details.currentBid = null as any;
   }
@@ -264,8 +264,6 @@ export function mojitoNormalizer(
     const uploadID = isTransactionalNoID;
     const contactUs = isNotAllowedToBid || isCoreUnavailable || isBidAuthUnavailable;
 
-    // console.log(_organization.settings);
-
     Object.assign(_organization, {
       notifications: {
         isTransactionalWithID,
@@ -301,10 +299,12 @@ export function mojitoNormalizer(
   }
 
   if (response?.collection?.items) {
+    // @ts-ignore
     response.collection = extendCollection(response.collection);
   }
 
   if (response?.collectionBySlug?.items) {
+    // @ts-ignore
     Object.assign(response, extendCollection(response.collectionBySlug));
     delete response.collectionBySlug;
   }
@@ -320,6 +320,7 @@ export function mojitoNormalizer(
   }
 
   if (response?.marketplace?.collections) {
+    // @ts-ignore
     response.marketplace.collections = response?.marketplace?.collections.map((collection: any) =>
       extendCollection(collection),
     );

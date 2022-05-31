@@ -36,7 +36,7 @@ import { MojitoHooksProvider, onErrorCallback, useRequest  } from '@mojito-mixer
 
 onErrorCallback((e) => {
   // Log error to Sentry or anywhere you'd like:
-  console.log(e);
+  console.error(e);
 });
 
 const YourComponent: React.FC = () => {
@@ -65,12 +65,17 @@ const YouApp: React.FC = () => {
 
 - Check refetch function return for `useCollectionItemCurrentBids()`.
 - Can we type-check queries and variables (check they match) in QueryKey.get and return type in prefetchQuery?
-- Get rid of all console.log()s or make them optional / work only in development.
 
 **Not assigned / TODO:**
 
 - Use react-query to store auth data and get rid of AuthProvider, etc.
 - Create backend task to automatically log in with demo account (non-expiring token).
+- Use Codegen.
+- Docs API tables.
+- When calling refetch on `useMarketplaceCollectionsSlugWithItemsId`, results are sorted differently.
+- Rename almost everything that say "auction" to collection.
+- Add force option to all hooks. Is this the best implementation (removeQuery vs refetch).
+- Rename "Query" types/interfaces. See IMojitoMarketplaceResponse, IIMojitoCollectionBySlugRequest...
 
 **Note:**
 
@@ -88,7 +93,7 @@ Progress:
 - ⛔ Don't have.
 - ✔️ Done.
 
-Assignee:
+Who's working on it now:
 
 - ⚪ Unassigned
 - 🔵 Dani
@@ -96,36 +101,43 @@ Assignee:
 
 | Hook                                        | Code | Demo | Test | Docs |
 | ------------------------------------------- | ---- | ---- | ---- | ---- |
-| 🔵 useActiveBids                            | ✔️   | ✔️   | ❌   | ✔️   |
-| 🔵 useCollection                            | ✔️   | ✔️   | ❌   | ✔️   |
-| 🔵 useCollectionItemBidsList                | ✔️   | ✔️   | ❌   | ✔️   |
-| 🔵 useCollectionItemCurrentBids             | 👁️   | ✔️   | ❌   | ✔️   |
-| 🔵 useCollectionItemRemainingCount          | ✔️   | ✔️   | ❌   | ✔️   |
-| 🔵 useCollectionItemsCurrentBids            | ✔️   | ✔️   | ❌   | ✔️   |
-| 🔵 useCollectionLotsIdList                  | 👁️   | ✔️   | ❌   | ✔️   |
-| 🔵 useCollectionSlug                        | ✔️   | ✔️   | ❌   | ✔️   |
-| 🔵 useContentfulAuctionsSlugList            | ✔️   | ✔️   | ❌   | 👁️   |
-| 🔵 useContentfulAuthors                     | ✔️   | ✔️   | ❌   | ✔️   |
-| 🔵 useContentfulCollectors                  | ✔️   | ✔️   | ❌   | ✔️   |
+| ⚪ useActiveBids                            | ✔️   | ✔️   | ✔️   | ✔️   |
+| 🔵 useCheckUsername                         | ✔️   | ✔️   | ✔️   | ✔️   |
+| 🔵 useCollection                            | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollectionItemBidsList                | ✔️   | ✔️   | ✔️   | ✔️   |
+| 🔵 useCollectionItemCurrentBids             | 👁️   | ✔️   | 👁️   | ✔️   |
+| ⚪ useCollectionItemRemainingCount          | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollectionItemsCurrentBids            | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useCollectionLotsIdList                  | 👁️   | ✔️   | ✔️   | ✔️   |
+| 🔵 useCollectionSlug                        | ✔️   | ✔️   | 👁️   | ✔️   |
+| ⚪ useContentfulAuctionBySlug               | 👁️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useContentfulAuctionsSlugList            | ✔️   | ✔️   | ✔️   | 👁️   |
+| ⚪ useContentfulAuthors                     | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useContentfulCollectors                  | ✔️   | ✔️   | ✔️   | ✔️   |
 | 🔵 useContentfulFactory                     | ✔️   | ⛔   | ❌   | ✔️   |
-| 🔵 useContentfulLots                        | ✔️   | 👁️   | ❌   | ✔️   |
-| 🔵 useContentfulShortLots                   | ✔️   | 👁️   | ❌   | ✔️   |
-| 🟢 useFavoriteItems                         | 👁️   | ❌   | ❌   | ❌   |
-| 🟢 useInvoiceDownload                       | 🔨   | ❌   | ❌   | ❌   |
-| 🟢 useMyInvoices                            | 👁️   | ❌   | ❌   | ❌   |
-| 🟢 useLazyMojitoOneLot                      | 🔨   | ❌   | ❌   | ❌   |
-| 🔵 useMarketplaceCollectionsSlugWithItemsId | ✔️   | ❌   | ✔️   | ✔️   |
+| ⚪ useContentfulLots                        | ✔️   | 👁️   | 👁️   | ✔️   |
+| ⚪ useContentfulOrganizations               | ✔️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useContentfulShortLots                   | ✔️   | 👁️   | 👁️   | ✔️   |
+| ⚪ useFavoriteItems                         | 👁️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useInvoiceDownload                       | ❌   | ❌   | ❌   | 👁️   |
+| ⚪ useInvoices                              | 👁️   | ✔️   | ✔️   | ✔️   |
+| ⚪ useLazyMojitoOneLot                      | ❌   | ❌   | ❌   | 👁️   |
+| ⚪ useMarketplaceCollectionsSlugWithItemsId | ✔️   | ✔️   | ✔️   | ✔️   |
 | 🔵 useMojitoFactory                         | ✔️   | ⛔   | ❌   | ✔️   |
-| 🟢 useMojitoItem                            | 👁️   | ❌   | ❌   | ❌   |
-| 🟢 useMojitoMutation                        | 👁️   | ❌   | ❌   | ❌   |
-| 🟢 useMojitoWallets                         | 👁️   | ❌   | ❌   | ❌   |
-| 🟢 useOrganization                          | 👁️   | ❌   | ❌   | ❌   |
-| 🟢 usePlaceBidMutation                      | 🔨   | ❌   | ❌   | ❌   |
-| 🟢 useProfile                               | 👁️   | ❌   | ❌   | ❌   |
-| 🟢 useServerTime                            | 👁️   | ❌   | ❌   | ❌   |
+| 🔵 useMojitoItem                            | 👁️   | ✔️   | ✔️   | 👁️   |
+| 🔵 useMojitoMutation                        | 👁️   | ❌   | ❌   | 👁️   |
+| ⚪ useMojitoWallets                         | 👁️   | ✔️   | 👁️   | ✔️   |
+| ⚪ useOrganization                          | 👁️   | ✔️   | 👁️   | ✔️   |
+| ⚪ usePlaceBidMutation                      | ❌   | ❌   | ❌   | 👁️   |
+| ⚪ useProfile                               | 👁️   | ✔️   | 👁️   | ✔️   |
+| ⚪ useServerTime                            | 👁️   | ✔️   | ✔️   | ✔️   |
 
-| Utils                      | Status |
-| -------------------------- | ------ |
-| 🟢 gqlDataNormalizer.util  | 🔨     |
-| 🔵 getDehydratedState.util | 👁️     |
-| 🔵 gqlRequest.util         | 👁️     |
+| Utils                      | Code | Test |
+| -------------------------- | ---- | ---- |
+| ⚪ getDehydratedState.util | 👁️   | ❌   |
+| ⚪ gql.util                | ✔️   | ✔️   |
+| 🟢 gqlDataNormalizer.util  | 🔨   | ❌   |
+| 🔵 gqlRequest.util         | 👁️   | ❌   |
+| ⚪ isBrowser.util.ts       | ✔️   | ✔️   |
+| ⚪ path.util.ts            | ✔️   | ✔️   |
+| ⚪ queryKeyFactory.util.ts | ✔️   | ✔️   |

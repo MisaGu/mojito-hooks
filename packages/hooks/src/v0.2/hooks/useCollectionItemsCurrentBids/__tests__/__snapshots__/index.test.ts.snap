@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useCollectionItemsCurrentBids() returns the right result when needed 1`] = `
+Object {
+  "currentBids": Array [
+    Object {
+      "details": Object {
+        "currentBid": Object {
+          "amount": 1500,
+          "createdAt": "2022-03-11T15:29:13Z",
+          "id": "e55e9850-959c-404c-bcce-51270ed59da0",
+          "isSold": true,
+          "marketplaceAuctionLotId": "a4479453-b457-4f6b-ae06-3e4016db77f8",
+          "marketplaceUser": Object {
+            "avatar": null,
+            "id": "8bff118f-ffa5-4db5-badb-649b629225ca",
+            "username": null,
+          },
+          "maximumBid": 1500,
+          "nextBidIncrement": 1600,
+        },
+        "endDate": "2022-03-14T11:10:13Z",
+        "endTimestamp": Any<Number>,
+        "id": "a4479453-b457-4f6b-ae06-3e4016db77f8",
+        "myBid": null,
+        "saleView": Object {
+          "isDuringSale": false,
+          "isPostSale": true,
+          "isPreSale": false,
+        },
+        "startDate": "2022-03-10T06:30:13Z",
+        "startingBid": 50,
+      },
+      "id": "mock-item-id",
+    },
+  ],
+  "error": null,
+  "isLoading": false,
+  "queryResult": Object {
+    "dataUpdatedAt": Any<Number>,
+    "errorUpdateCount": 0,
+    "errorUpdatedAt": 0,
+    "failureCount": 0,
+    "isError": false,
+    "isFetched": true,
+    "isFetchedAfterMount": true,
+    "isFetching": false,
+    "isIdle": false,
+    "isLoadingError": false,
+    "isPlaceholderData": false,
+    "isPreviousData": false,
+    "isRefetchError": false,
+    "isRefetching": false,
+    "isStale": false,
+    "isSuccess": true,
+    "remove": [Function],
+    "status": "success",
+  },
+  "refetch": [Function],
+}
+`;

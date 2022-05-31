@@ -1,7 +1,7 @@
 import { isBrowser } from './isBrowser.util';
 
-export function getPath(pathname: string = window.location.pathname): string[] {
-  if (isBrowser) return [];
+function getPath(pathnameParam?: string): string[] {
+  const pathname = pathnameParam || (isBrowser && location ? location.pathname : '');
 
   return pathname.split('/').filter(Boolean);
 }

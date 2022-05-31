@@ -1,0 +1,57 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useMojitoWallets() returns the right result when needed 1`] = `
+Object {
+  "error": null,
+  "isLoading": false,
+  "queryResult": Object {
+    "dataUpdatedAt": Any<Number>,
+    "errorUpdateCount": 0,
+    "errorUpdatedAt": 0,
+    "failureCount": 0,
+    "isError": false,
+    "isFetched": true,
+    "isFetchedAfterMount": true,
+    "isFetching": false,
+    "isIdle": false,
+    "isLoadingError": false,
+    "isPlaceholderData": false,
+    "isPreviousData": false,
+    "isRefetchError": false,
+    "isRefetching": false,
+    "isStale": false,
+    "isSuccess": true,
+    "remove": [Function],
+    "status": "success",
+  },
+  "refetch": [Function],
+  "wallets": Array [
+    Object {
+      "address": "0x1646BB353Ce7E259fB1BaC65Da64b469b648b5Da",
+      "id": "mock-wallet-id",
+      "name": "Mock Rinkeby Testnet Wallet",
+      "network": Object {
+        "chainID": 4,
+      },
+      "networkId": "ee800f19-d924-405a-9189-c561dad8af29",
+      "parentID": "mock-user-id",
+      "parentType": "user",
+      "tokens": Array [
+        Object {
+          "contractAddress": "0x1646BB698bc7E259fB1BaC65Da64b469b64851bc",
+          "id": 96,
+          "metadata": Object {
+            "attributes": Array [],
+            "description": "",
+            "image": "https://mock-cdn/mock-token-image.png",
+            "name": "",
+          },
+          "timeLastUpdated": "2022-05-13T15:18:24.011Z",
+          "title": "",
+          "walletId": "mock-wallet-id",
+        },
+      ],
+    },
+  ],
+}
+`;

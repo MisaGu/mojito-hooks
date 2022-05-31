@@ -1,0 +1,53 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useInvoices() returns the right result when needed 1`] = `
+Object {
+  "error": null,
+  "invoices": Array [
+    Object {
+      "invoiceCreatedAt": "2022-05-23T00:18:12Z",
+      "invoiceID": "mock-invoice-id-1",
+      "invoiceNumber": 7030,
+      "items": Array [
+        Object {
+          "buyersPremium": 0,
+          "collectionItemId": "mock-collection-item-id",
+          "collectionItemTitle": "Mock Collection Item",
+          "collectionTitle": "",
+          "destinationAddress": "0x1646BB353Ce7E259fB1BaC65Da64b469b648b5Da",
+          "overheadPremium": 0,
+          "saleDate": "2022-05-23T00:18:12Z",
+          "salesTaxRate": 0,
+          "taxes": 0,
+          "totalPrice": 100,
+          "unitPrice": 100,
+          "units": 1,
+        },
+      ],
+      "status": "Expired",
+    },
+  ],
+  "isLoading": false,
+  "queryResult": Object {
+    "dataUpdatedAt": Any<Number>,
+    "errorUpdateCount": 0,
+    "errorUpdatedAt": 0,
+    "failureCount": 0,
+    "isError": false,
+    "isFetched": true,
+    "isFetchedAfterMount": true,
+    "isFetching": false,
+    "isIdle": false,
+    "isLoadingError": false,
+    "isPlaceholderData": false,
+    "isPreviousData": false,
+    "isRefetchError": false,
+    "isRefetching": false,
+    "isStale": false,
+    "isSuccess": true,
+    "remove": [Function],
+    "status": "success",
+  },
+  "refetch": [Function],
+}
+`;

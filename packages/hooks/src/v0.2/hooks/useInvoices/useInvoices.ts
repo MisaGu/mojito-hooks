@@ -9,16 +9,16 @@ function transformFn(profileRequest?: IMojitoGetMyInvoicesRequest) {
   return profileRequest.getMyInvoices;
 }
 
-export type UseMyInvoicesData = ReturnType<typeof transformFn>;
+export type UseInvoicesData = ReturnType<typeof transformFn>;
 
-export type UseMyInvoicesReturn = ReturnType<typeof useMyInvoices>;
+export type UseInvoicesReturn = ReturnType<typeof useInvoices>;
 
-export type UseMyInvoicesProps = BaseQueryHookProps<UseMyInvoicesData>;
+export type UseInvoicesProps = BaseQueryHookProps<UseInvoicesData>;
 
-export function useMyInvoices({ options }: UseMyInvoicesProps = {}) {
+export function useInvoices({ options }: UseInvoicesProps = {}) {
   return useMojitoFactory({
-    as: 'organization',
-    query: EMojitoQueries.organization,
+    as: 'invoices',
+    query: EMojitoQueries.invoices,
     options,
     transformFn,
     onlyAuthenticated: true,

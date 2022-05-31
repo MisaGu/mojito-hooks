@@ -1,0 +1,42 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`useContentfulAuctionBySlug() returns the right result when needed 1`] = `
+Object {
+  "error": null,
+  "isLoading": false,
+  "lots": Object {
+    "data": null,
+    "description": null,
+    "duration": null,
+    "endDate": "2022-03-18T12:00:00.000Z",
+    "name": "bid test 3",
+    "saleId": "BID_TEST_3",
+    "slug": "bid-test-3",
+    "startDate": "2022-03-16T12:00:00.000Z",
+    "subtitle": null,
+    "title": "bid test 3",
+    "videoId": null,
+  },
+  "queryResult": Object {
+    "dataUpdatedAt": Any<Number>,
+    "errorUpdateCount": 0,
+    "errorUpdatedAt": 0,
+    "failureCount": 0,
+    "isError": false,
+    "isFetched": true,
+    "isFetchedAfterMount": true,
+    "isFetching": false,
+    "isIdle": false,
+    "isLoadingError": false,
+    "isPlaceholderData": false,
+    "isPreviousData": false,
+    "isRefetchError": false,
+    "isRefetching": false,
+    "isStale": false,
+    "isSuccess": true,
+    "remove": [Function],
+    "status": "success",
+  },
+  "refetch": [Function],
+}
+`;
