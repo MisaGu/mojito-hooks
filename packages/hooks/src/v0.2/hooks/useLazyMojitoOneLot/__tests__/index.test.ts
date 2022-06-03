@@ -1,7 +1,7 @@
-import { useLazyMojitoOneLot } from '../useLazyMojitoOneLot';
+import { useCollectionItem } from '../useCollectionItemById';
 
 describe('useToggle', () => {
   it('should be defined', () => {
-    expect(useLazyMojitoOneLot).toBeDefined();
+    expect(useCollectionItem).toBeDefined();
   });
 });

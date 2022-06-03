@@ -11,10 +11,10 @@ import {
 import { DemoInterface } from '../../../components/demo/Interface/DemoInterface';
 import { Json } from '../../../components/demo/Json/Json';
 import { DemoProviders } from '../../../components/demo/Provider/DemoProvider';
-import { useCollectionItemCurrentBids } from '../useCollectionItemCurrentBids';
+import { useCollectionItemCurrentBid } from '../useCollectionItemCurrentBids';
 
 const DemoContent: React.FC = () => {
-  const result = useCollectionItemCurrentBids({
+  const result = useCollectionItemCurrentBid({
     collectionItemID: DEMO_COLLECTION_ITEM_ID,
     slug: DEMO_SLUG,
   });

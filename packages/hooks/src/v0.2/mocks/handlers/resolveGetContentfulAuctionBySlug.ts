@@ -1,4 +1,4 @@
-import { IContentfulAuctionBySlugQuery } from '../../domain/interfaces';
+import { ContentfulAuctionBySlugResponse } from '../../domain/interfaces';
 
 export function resolveGetContentfulAuctionBySlug(req, res, ctx) {
   return res(
@@ -20,6 +20,6 @@ export function resolveGetContentfulAuctionBySlug(req, res, ctx) {
           },
         ],
       },
-    } as IContentfulAuctionBySlugQuery),
+    } as ContentfulAuctionBySlugResponse),
   );
 }

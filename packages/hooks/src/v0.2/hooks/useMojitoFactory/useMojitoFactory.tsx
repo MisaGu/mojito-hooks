@@ -3,11 +3,11 @@ import { useEffect } from 'react';
 import { useQuery, useQueryClient, UseQueryOptions } from 'react-query';
 import { useAuthContext } from '../../domain/context/auth.context';
 import { EMojitoQueries } from '../../domain/gql/queries';
-import { normalizeQueryResult } from '../../domain/utils/gql.utils';
+import { normalizeQueryResult } from '../../domain/utils/gqlResult.utils';
 import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 
-export interface IUseMojitoFactoryOptions<
+export interface MojitoFactoryOptions<
   TDataPropertyName extends string,
   TData = any,
   TReturn = TData,
@@ -17,7 +17,7 @@ export interface IUseMojitoFactoryOptions<
   query: EMojitoQueries;
   variables?: Variables;
   options?: UseQueryOptions<TReturn, TError>;
-  preloadFn?: () => Promise<TReturn | void>;
+  preloadFn?: () => Promise<TReturn | undefined | void>;
   transformFn?: (data: TData | undefined) => TReturn | undefined;
   force?: boolean;
   onlyAuthenticated?: boolean;
@@ -37,7 +37,7 @@ export function useMojitoFactory<
   transformFn,
   force = false,
   onlyAuthenticated,
-}: IUseMojitoFactoryOptions<TDataPropertyName, TData, TReturn, TError>) {
+}: MojitoFactoryOptions<TDataPropertyName, TData, TReturn, TError>) {
   const { isAuthenticated } = useAuthContext();
   const queryClient = useQueryClient();
   const queryKey = QueryKey.get(query, variables);
@@ -46,11 +46,7 @@ export function useMojitoFactory<
   const queryFn =
     preloadFn || transformFn
       ? async () => {
-          if (preloadFn) {
-            const preloadResult = await preloadFn();
-
-            if (preloadResult !== undefined) return preloadResult;
-          }
+          if (preloadFn) await preloadFn();
 
           const configuredQueryFn =
             options?.queryFn || queryClient.getDefaultOptions().queries?.queryFn || defaultQueryFn;
@@ -85,8 +81,6 @@ export function useMojitoFactory<
       enabled &&
       queryClient.getQueryData(queryKey) === undefined
     ) {
-      console.log('🔄 useMojitoFactory refetch...');
-
       result.refetch();
     }
   }, [isAuthenticated]);

@@ -3,7 +3,7 @@ import { useCallback, useEffect } from 'react';
 import { useMutation, useQueryClient, UseMutationOptions } from 'react-query';
 import { useAuthContext } from '../../domain/context/auth.context';
 import { EMojitoQueries } from '../../domain/gql/queries';
-import { normalizeMutationResult } from '../../domain/utils/gql.utils';
+import { normalizeMutationResult } from '../../domain/utils/gqlResult.utils';
 import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 

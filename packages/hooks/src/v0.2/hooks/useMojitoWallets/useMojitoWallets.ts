@@ -1,9 +1,9 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
-import { IMojitoProfileResponse } from '../../domain/interfaces';
+import { WalletsResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(response?: IMojitoProfileResponse) {
+function transformFn(response?: WalletsResponse) {
   if (!response) return undefined;
 
   return response.me.wallets;

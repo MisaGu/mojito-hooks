@@ -6,7 +6,7 @@ import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 function transformFn(collectionItemRequest?: ICollectionItemByIdBidsListRequest) {
   if (!collectionItemRequest) return undefined;
 
-  return collectionItemRequest.collectionItemById;
+  return collectionItemRequest.collectionItemById.details.bids;
 }
 
 export type UseCollectionItemBidsListData = ReturnType<typeof transformFn>;
@@ -23,10 +23,12 @@ export function useCollectionItemBidsList({
   options,
 }: UseCollectionItemBidsListProps) {
   return useMojitoFactory({
-    as: 'itemBids',
+    as: 'bids',
     query: EMojitoQueries.collectionItemByIdBidsList,
     variables: { id: collectionItemID },
     options,
     transformFn,
   });
 }
+
+export default useCollectionItemBidsList;

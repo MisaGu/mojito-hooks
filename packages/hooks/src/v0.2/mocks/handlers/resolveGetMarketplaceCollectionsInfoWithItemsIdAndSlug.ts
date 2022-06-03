@@ -1,4 +1,4 @@
-import { IMojitoMarketplaceResponse } from '../../domain/interfaces';
+import { MarketplaceResponse } from '../../domain/interfaces';
 
 export function resolveGetMarketplaceCollectionsInfoWithItemsIdAndSlug(req, res, ctx) {
   return res(
@@ -21,6 +21,6 @@ export function resolveGetMarketplaceCollectionsInfoWithItemsIdAndSlug(req, res,
           },
         ],
       },
-    } as IMojitoMarketplaceResponse),
+    } as MarketplaceResponse),
   );
 }

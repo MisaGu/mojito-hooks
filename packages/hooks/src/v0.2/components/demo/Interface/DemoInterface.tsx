@@ -25,7 +25,7 @@ export const DemoInterface: React.FC<DemoInterfaceProps> = ({ demoComponent: Dem
     async function initAuthentication() {
       const nextToken = await getAuthenticationToken();
 
-      console.log(`${nextToken ? '🔒 Adding' : '🔓 Removing'} authentication token...`);
+      // console.log(`${nextToken ? '🔒 Adding' : '🔓 Removing'} authentication token...`);
 
       dispatch(
         nextToken

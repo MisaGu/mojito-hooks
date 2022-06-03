@@ -25,6 +25,6 @@ Object {
     "status": "success",
   },
   "refetch": [Function],
-  "usernameAvailable": true,
+  "isUsernameAvailable": true,
 }
 `;

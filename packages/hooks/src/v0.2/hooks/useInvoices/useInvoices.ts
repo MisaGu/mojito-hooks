@@ -1,12 +1,12 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
-import { IMojitoGetMyInvoicesRequest } from '../../domain/interfaces';
+import { MojitoGetMyInvoicesResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(profileRequest?: IMojitoGetMyInvoicesRequest) {
-  if (!profileRequest) return undefined;
+function transformFn(response?: MojitoGetMyInvoicesResponse) {
+  if (!response) return undefined;
 
-  return profileRequest.getMyInvoices;
+  return response.getMyInvoices;
 }
 
 export type UseInvoicesData = ReturnType<typeof transformFn>;
@@ -25,22 +25,4 @@ export function useInvoices({ options }: UseInvoicesProps = {}) {
   });
 }
 
-// legacy function
-/*
-
-export function useInvoices(): {
-  invoices: IMojitoInvoice[];
-} & ReturnType<typeof useMojito> {
-  const result = useMojito({
-    query: EMojitoQueries.invoices,
-    onlyAuthenticated: true,
-  });
-
-  return {
-    invoices: result?.data?.getMyInvoices,
-    ...result,
-  };
-}
-
-
-*/
+export default useInvoices;

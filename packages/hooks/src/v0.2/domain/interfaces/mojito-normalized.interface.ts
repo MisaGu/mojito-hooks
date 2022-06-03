@@ -11,55 +11,49 @@ import { Combine } from './_utils.interface';
 
 export type IMojitoServerTime = Date;
 
-export type NormalizedQuery = {
+type MojitoQueryNormalizer = {
   __typename?: 'Query';
-  ping: any;
   serverTime: IMojitoServerTime;
   me: MojitoCurrentUser;
-  mailSalesReportByCollectionID: any;
-  mailInvoiceLotDetailReportMailByCollectionID: any;
-  validateIp: any;
-  getApplicant: any;
-  getSDKToken: any;
-  getMarketplaceAuctionLot: any;
-  collection: any;
-  collectionBySlug: any;
-  getBuyNowBuyerInfo: any;
-  collectionItemById: any;
-  nftContract: any;
-  nftToken: any;
-  organization: any;
-  organizationByID: any;
-  orgUsernameAvailable: any;
-  marketplace: any;
-  internalUsers: any;
-  preparePaymentMethod: any;
-  getPaymentMethod: any;
-  getPaymentPublicKey: any;
-  getPaymentMethodList: any;
-  getMyInvoices: any;
-  getInvoicesByUserID: any;
-  getInvoiceDetails: any;
-  getMyPayments: any;
-  getPaymentsByUserID: any;
-  getPaymentNotification: any;
-  validatePaymentLimit: any;
-  getTaxQuote: any;
-  getAvailableClaimables: any;
-  canRedeemClaimable: any;
-  getUserByWalletAddress: any;
-  wallet: any;
-  network: any;
 };
+export type MojitoQuery = Combine<Schema.Query, MojitoQueryNormalizer>;
 
 type MojitoCurrentUserNormalizer = {
   wallets: MojitoWallet[];
   wonBids: any; //TODO overload with Combine<>
   activeBids: MojitoMarketplaceAuctionBid[]; //TODO overload with Combine<>
-  userOrgs: any; //TODO overload with Combine<>
-  favoriteItems: any; //TODO overload with Combine<>
+  userOrgs: MojitoUserOrganization[]; //TODO overload with Combine<>
+  favoriteItems: MojitoCollectionItem; //TODO overload with Combine<>
 };
 export type MojitoCurrentUser = Combine<Schema.CurrentUser, MojitoCurrentUserNormalizer>;
+
+// Schema.UserOrganization
+
+type MojitoUserOrganizationNormalizer = {
+  settings: {
+    hasCompletedOnboarding: boolean;
+    notifications: {
+      bidOnSold: boolean;
+      savedBidOn: boolean;
+      savedSold: boolean;
+    };
+    privacy: {
+      hideActivity: boolean;
+      showCollection: boolean;
+      showSaved: boolean;
+    };
+  };
+  hasNotifications: boolean;
+  notifications: {
+    completeYourProfile: boolean;
+    uploadID: boolean;
+    contactUs: boolean;
+  };
+};
+export type MojitoUserOrganization = Combine<
+  Schema.UserOrganization,
+  MojitoUserOrganizationNormalizer
+>;
 
 type MojitoWalletNormalizer = {
   tokens: MojitoWalletToken[];
@@ -94,61 +88,97 @@ export type MojitoMarketplaceAuctionLot = Combine<
   MarketplaceAuctionLotNormalizer
 >;
 
+type MojitoMarketplaceNormalizer = {
+  collections: MojitoCollection[];
+};
+export type MojitoMojitoMarketplace = Combine<Schema.Marketplace, MojitoMarketplaceNormalizer>;
+
+type CollectionItemNormalizer<T> = { details: MojitoCollectionItemDetails<T> };
+export type MojitoCollectionItem<T = Schema.MarketplaceSaleType> = Combine<
+  Schema.MarketplaceCollectionItem,
+  CollectionItemNormalizer<T>
+>;
+
+type CollectionItemDetailsNormalizer = {};
+export type MojitoCollectionItemDetails<T = Schema.MarketplaceSaleType> =
+  T extends Schema.MarketplaceSaleType.BuyNow
+    ? Combine<Schema.MarketplaceBuyNowOutput, CollectionItemDetailsNormalizer>
+    : T extends Schema.MarketplaceSaleType.Auction
+    ? Combine<Schema.MarketplaceAuctionLot, CollectionItemDetailsNormalizer>
+    : T extends Schema.MarketplaceSaleType.Claimable
+    ? Combine<Schema.MarketplaceClaimableOutput, CollectionItemDetailsNormalizer>
+    : Combine<Schema.MarketplaceCollectionItemDetails, CollectionItemDetailsNormalizer>;
+
+type CollectionItemRemainingCountNormalizer = {
+  details: Pick<
+    MojitoCollectionItemDetails<Schema.MarketplaceSaleType.BuyNow>,
+    'id' | 'remainingCount'
+  >;
+};
+export type MojitoCollectionItemRemainingCount = Combine<
+  Pick<Schema.MarketplaceCollectionItem, 'id' | 'details'>,
+  CollectionItemRemainingCountNormalizer
+>;
+
+type InvoiceDetailsNormalizer = {
+  items: MojitoInvoiceDetailsItem[];
+};
+export type MojitoInvoiceDetails = Combine<Schema.InvoiceDetails, InvoiceDetailsNormalizer>;
+
+type InvoiceDetailsItemNormalizer = {
+  content: IContentfulLotData;
+};
+export type MojitoInvoiceDetailsItem = Combine<
+  Schema.ItemInvoiceDetail,
+  InvoiceDetailsItemNormalizer
+>;
+
+// =============================================== API Response ===============================================
+
+export interface CurrentUserResponse {
+  me: MojitoCurrentUser;
+}
+
+export interface ProfileResponse {
+  me: Pick<MojitoCurrentUser, 'user'>;
+}
+
+export interface FavoriteResponse {
+  me: Pick<MojitoCurrentUser, 'favoriteItems'>;
+}
+
+export interface WalletsResponse {
+  me: Pick<MojitoCurrentUser, 'wallets'>;
+}
+
+export interface UserOrganizationResponse {
+  me: Pick<MojitoCurrentUser, 'userOrgs'>;
+}
+
+export interface ServerTimeResponse {
+  serverTime: string;
+}
+export interface OrgUsernameAvailableResponse {
+  orgUsernameAvailable: boolean;
+}
+
+export type MarketplaceResponse = {
+  marketplace: MojitoMojitoMarketplace;
+};
+
+export interface CollectionItemResponse {
+  collectionItemById: MojitoCollectionItem;
+}
+
+export interface CollectionItemRemainingCountResponse {
+  collectionItemById: MojitoCollectionItemRemainingCount;
+}
+
+export interface MojitoGetMyInvoicesResponse {
+  getMyInvoices: MojitoInvoiceDetails[];
+}
+
 // =============================================== OLD ===============================================
-export interface MojitoUserOrganization {
-  id: string;
-  userId: string;
-  user: MojitoUser;
-  externalUserId: string;
-  organizationId: string;
-  organization: any;
-  kycStatus: EKycStatus;
-  role: string;
-  bidAllowed: boolean;
-  username: string;
-  avatar: string;
-  settings: {
-    hasCompletedOnboarding?: boolean;
-    notifications: {
-      bidOnSold?: boolean;
-      savedBidOn?: boolean;
-      savedSold?: boolean;
-    };
-    privacy: {
-      hideActivity?: boolean;
-      showCollection?: boolean;
-      showSaved?: boolean;
-    };
-  };
-  notifications: {
-    isTransactionalWithID: boolean; // todo move to userStatus, this is not notification!!!!
-    completeYourProfile: boolean;
-    uploadID: boolean;
-    contactUs: boolean;
-  } | null;
-}
-
-export interface MojitoUserAPIKey {
-  id: string;
-  key: string;
-  updatedAt: string;
-  createdAt: string;
-}
-
-// export interface MojitoWallet {
-//   id: string;
-//   name: string;
-//   address: string; //EthAddress
-//   parentType: string;
-//   parentID: string;
-//   network: MojitoWalletNetwork;
-//   networkId: string;
-//   transactionId: string;
-//   deploymentTxHash: string;
-//   gnosisSafeURL: string;
-//   tokens: MojitoWalletToken[];
-
-// }
 
 export interface MojitoUser {
   id: string;
@@ -157,32 +187,6 @@ export interface MojitoUser {
   name: string;
   email: string;
   wallets: MojitoWallet[];
-}
-
-export interface IMojitoProfileResponse {
-  me: MojitoCurrentUser;
-}
-
-export interface IMojitoFavoriteResponse {
-  me: Pick<MojitoCurrentUser, 'favoriteItems'>;
-}
-
-export interface IMojitoServerTimeResponse {
-  serverTime: string;
-}
-
-export interface IMojitoGetMyInvoicesRequest {
-  getMyInvoices: (IMojitoInvoice & {
-    userName: string;
-    paymentID: string;
-    externalPaymentID: string;
-    billingAddress: IMojitoInvoiceBillingAddress;
-    OrganizationID: string;
-  })[];
-}
-
-export interface IMojitoProfileCustomOrgs {
-  hasNotifications: boolean;
 }
 
 export interface IMojitoViewType {
@@ -200,32 +204,6 @@ export interface IMojitoFeeStructure {
   from: number;
   rate: number;
   to: number;
-}
-
-export interface IMojitoInvoiceDetailsItem {
-  collectionItemId: string;
-  collectionTitle: string;
-  collectionItemTitle: string;
-  units: number;
-  unitPrice: number;
-  buyersPremium: number;
-  overheadPremium: number;
-  totalPrice: number;
-  saleDate: string;
-  taxes: number;
-  salesTaxRate: number;
-  destinationAddress: string;
-  contentfulData?: IContentfulLotData;
-}
-
-export interface IMojitoInvoice {
-  invoiceID: string;
-  invoiceNumber: number;
-  invoiceCreatedAt: string;
-  // externalUserID: string;
-  // internalUserID: string;
-  items: IMojitoInvoiceDetailsItem[];
-  status: InvoiceStatus;
 }
 
 export interface IMojitoInvoiceBillingAddress {
@@ -300,7 +278,7 @@ export interface IMojitoCollectionItemDetailsBuyNowLot
   totalUnits: number;
   totalAvailableUnits: number;
   sortNumber: number;
-  invoice: IMojitoInvoice;
+  invoice: MojitoInvoiceDetails;
   remainingCount: number;
 }
 
@@ -347,18 +325,6 @@ export interface ICollectionItemByIdBidsListRequest {
   collectionItemById: ICollectionItemByIdBidsList;
 }
 
-export interface ICollectionItemByIdRemainingCount {
-  id: string;
-  details: {
-    id: string;
-    remainingCount: number;
-  };
-}
-
-export interface ICollectionItemByIdRemainingCountRequest {
-  collectionItemById: ICollectionItemByIdRemainingCount;
-}
-
 export interface IIMojitoCollectionItemCurrentBids {
   id: string;
   items: IMojitoCollectionItemCurrentBids[];
@@ -401,20 +367,7 @@ export interface IMojitoMarketplaceToken {
   nftContractAddress: string;
 }
 
-export interface IMojitoMarketplace {
-  id: string;
-  name: string;
-  organizationID: string;
-  theme: string;
-  collections: IMojitoCollection[];
-  tokens: IMojitoMarketplaceToken;
-}
-
-export type IMojitoMarketplaceResponse = {
-  marketplace: IMojitoMarketplace;
-};
-
-export interface IMojitoCollection {
+export interface MojitoCollection {
   id: string;
   slug: string;
   description: string;

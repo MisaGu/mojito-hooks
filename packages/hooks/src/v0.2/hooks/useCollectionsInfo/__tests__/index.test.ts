@@ -1,18 +1,27 @@
 import { act, renderHook } from '@testing-library/react-hooks';
+import { DEMO_SLUG } from '../../../components/demo/constants/demo.constants';
 import { TestWrapper } from '../../../components/test/wrapper/TestWrapper';
-import { useMojitoUser, UseProfileProps, UseProfileReturn } from '../useProfile';
+import {
+  useCollectionSlug,
+  UseCollectionSlugProps,
+  UseCollectionSlugReturn,
+} from '../useMarketplaceCollections';
 
-describe('useProfile()', () => {
+describe('useCollectionSlug()', () => {
   it('should be defined', () => {
-    expect(useMojitoUser).toBeDefined();
+    expect(useCollectionSlug).toBeDefined();
   });
 
   it('returns the right result when needed', async () => {
-    const { result, rerender, waitFor } = renderHook<[UseProfileProps?], UseProfileReturn>(
-      (args = []) => {
-        return useMojitoUser(...args);
+    const { result, rerender, waitFor } = renderHook<
+      [UseCollectionSlugProps],
+      UseCollectionSlugReturn
+    >(
+      (args) => {
+        return useCollectionSlug(...args);
       },
       {
+        initialProps: [{ slug: DEMO_SLUG }],
         wrapper: TestWrapper as any,
       },
     );
@@ -29,5 +38,8 @@ describe('useProfile()', () => {
         dataUpdatedAt: expect.any(Number),
       },
     });
+
+    // Check the actual slug value:
+    expect(result.current.slug).toBe(DEMO_SLUG);
   });
 });

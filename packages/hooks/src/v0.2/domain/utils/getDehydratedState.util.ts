@@ -2,7 +2,7 @@ import { dehydrate, DehydratedState } from 'react-query';
 import { config } from '../constants/general.constants';
 import { EContentfulQueries } from '../gql/contentful';
 import { EMojitoQueries } from '../gql/queries';
-import { IMojitoCollection } from '../interfaces';
+import { MojitoCollection } from '../interfaces';
 import { queryClient } from './gqlRequest.util';
 import { QueryKey } from './queryKeyFactory.util';
 
@@ -35,8 +35,8 @@ export async function getDehydratedState(
   const collections = queryClient.getQueryState<any>(marketplaceCollectionsSlugQueryKey)?.data
     ?.marketplace.collections;
 
-  const collectionByPath: IMojitoCollection = collections?.find(
-    (e: IMojitoCollection) => e.slug == auctionPageSlug,
+  const collectionByPath: MojitoCollection = collections?.find(
+    (e: MojitoCollection) => e.slug == auctionPageSlug,
   );
 
   if (collectionByPath) {

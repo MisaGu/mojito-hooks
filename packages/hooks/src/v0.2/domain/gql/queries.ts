@@ -1,9 +1,7 @@
 import { gql } from 'graphql-request';
-import { UseQueryResult } from 'react-query';
 import {
   COLLECTION_ITEM_AUCTION_LOT_BIDS_LIST_FIELD,
   COLLECTION_ITEM_AUCTION_LOT_CURRENT_BID_FIELD,
-  COLLECTION_ITEM_AUCTION_LOT_DETAILS_FIELD,
   COLLECTION_ITEM_AUCTION_LOT_MY_BID_FIELD,
   COLLECTION_ITEM_FIELD,
   FAVORITE_ITEMS_FIELD,
@@ -18,12 +16,11 @@ export enum EMojitoQueries {
   userWallets = 'userWallets',
   profile = 'profile',
   organization = 'organization',
-  oneLot = 'oneLot',
   invoices = 'invoices',
   collectionBySlug = 'collectionBySlug',
-  collectionLotsIdList = 'collectionLotsIdList',
   marketplaceCollectionsInfoWithItemsIdAndSlug = 'marketplaceCollectionsInfoWithItemsIdAndSlug',
   collectionBySlugCurrentBids = 'collectionBySlugCurrentBids',
+  collectionItemById = 'collectionItemById',
   collectionItemByIdBidsList = 'collectionItemByIdBidsList',
   collectionItemByIdRemainingCount = 'collectionItemByIdRemainingCount',
 }
@@ -243,22 +240,12 @@ export const mojitoQueries: Record<EMojitoQueries, string> = {
       }
     }
   `,
-  [EMojitoQueries.collectionLotsIdList]: gql`
-    query GetCollectionLotsIdList($slug: String!, $marketplaceID: UUID1!) {
-      collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {
-        items(statuses: [Active]) {
-          id
-          name
-          saleType
-        }
-      }
-    }
-  `,
-  [EMojitoQueries.oneLot]: gql`
-    ${COLLECTION_ITEM_AUCTION_LOT_DETAILS_FIELD}
-    query GetOneLot($marketplaceAuctionLotId: UUID!) {
-      getMarketplaceAuctionLot(marketplaceAuctionLotId: $marketplaceAuctionLotId) {
-        ...CollectionItemAuctionLotDetailsFields
+  [EMojitoQueries.collectionItemById]: gql`
+    ${COLLECTION_ITEM_FIELD}
+
+    query GetCollectionItemById($id: UUID1!) {
+      collectionItemById(id: $id) {
+        ...CollectionItemFields
       }
     }
   `,
@@ -273,8 +260,8 @@ export const mojitoQueries: Record<EMojitoQueries, string> = {
           startDate
           endDate
           items(statuses: [Active]) {
-            slug
             id
+            slug
           }
         }
       }

@@ -1,10 +1,10 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
-import { ICollectionItemByIdRemainingCountRequest } from '../../domain/interfaces';
+import { CollectionItemRemainingCountResponse } from '../../domain/interfaces';
 import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
-import { useCollectionSlug } from '../useCollectionSlug/useCollectionSlug';
+import { getCollectionSlug } from '../../domain/utils/getSlug.util';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(collectionItemRequest?: ICollectionItemByIdRemainingCountRequest) {
+function transformFn(collectionItemRequest?: CollectionItemRemainingCountResponse) {
   if (!collectionItemRequest) return undefined;
 
   return collectionItemRequest.collectionItemById.details.remainingCount;
@@ -26,7 +26,7 @@ export function useCollectionItemRemainingCount({
   options,
   ...props
 }: UseCollectionItemRemainingCountProps) {
-  const { slug } = useCollectionSlug(props);
+  const slug = getCollectionSlug(props.slug);
 
   return useMojitoFactory({
     as: 'remainingCount',
@@ -38,34 +38,4 @@ export function useCollectionItemRemainingCount({
   });
 }
 
-/*
-
-
-export function useCollectionItemRemainingCount(
-  id: string,
-  _slug?: string,
-): {
-  remainingCount: number;
-  remainingCountLoading: boolean;
-  remainingCountError: IUseQueryResult['error'];
-  remainingCountRefetch: () => void;
-} {
-  const { slug } = useCollection();
-  const { data, error, loading, refetch } = useMojito({
-    query: EMojitoQueries.collectionItemByIdRemainingCount,
-    variables: { id, slug: _slug ?? slug },
-    onlyAuthenticated: true,
-  });
-
-  if (error) console.error(error);
-
-  return {
-    remainingCount: data?.details?.remainingCount,
-    remainingCountLoading: loading,
-    remainingCountError: error,
-    remainingCountRefetch: refetch,
-  };
-}
-
-
-*/
+export default useCollectionItemRemainingCount;

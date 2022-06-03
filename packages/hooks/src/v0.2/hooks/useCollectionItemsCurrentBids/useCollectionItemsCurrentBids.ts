@@ -3,7 +3,7 @@ import { config } from '../../domain/constants/general.constants';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 import { IIMojitoCollectionItemCurrentBids } from '../../domain/interfaces';
 import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
-import { useCollectionSlug } from '../useCollectionSlug/useCollectionSlug';
+import { getCollectionSlug } from '../../domain/utils/getSlug.util';
 
 function transformFn(collectionItemCurrentBids?: IIMojitoCollectionItemCurrentBids) {
   if (!collectionItemCurrentBids) return undefined;
@@ -22,7 +22,7 @@ export function useCollectionItemsCurrentBids({
   options,
   ...props
 }: UseCollectionItemsCurrentBidsProps) {
-  const { slug } = useCollectionSlug(props);
+  const slug = getCollectionSlug(props.slug);
 
   return useMojitoFactory({
     as: 'currentBids',
@@ -32,3 +32,5 @@ export function useCollectionItemsCurrentBids({
     transformFn,
   });
 }
+
+export default useCollectionItemsCurrentBids;

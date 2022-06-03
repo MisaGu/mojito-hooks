@@ -5,6 +5,10 @@ export interface BaseQueryHookProps<TData = any, TError = Error> {
   options?: UseQueryOptions<TData, TError>;
 }
 
+export interface BaseLazyQueryHookProps<TData = any, TError = Error> {
+  options?: Omit<UseQueryOptions<TData, TError>, 'enabled'> & { enabled: false };
+}
+
 export interface BaseMutationHookProps<TData = any, TError = Error, TVariables = Variables> {
   options?: UseMutationOptions<TData, TError, TVariables>;
 }

@@ -2,17 +2,17 @@ import { useQueryClient } from 'react-query';
 import { config } from '../../domain/constants/general.constants';
 import {
   IContentfulAuctionsSlugListQuery,
-  IMojitoCollection,
-  IMojitoMarketplaceResponse,
+  MojitoCollection,
+  MarketplaceResponse,
 } from '../../domain/interfaces';
-import { getCollectionSlug } from '../../domain/utils/path.util';
+import { getCollectionSlugFromUrl } from '../../domain/utils/state/path.util';
 import { EMojitoQueries } from '../../domain/gql/queries';
 import { EContentfulQueries } from '../../domain/gql/contentful';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 
-export type UseCollectionData = IMojitoCollection | null | undefined;
+export type UseCollectionData = MojitoCollection | null | undefined;
 
 export type UseCollectionReturn = ReturnType<typeof useCollection>;
 
@@ -20,11 +20,11 @@ export type UseCollectionProps = BaseQueryHookPropsWithUrlAndSlug<UseCollectionD
 
 export function useCollection(props?: UseCollectionProps) {
   const queryClient = useQueryClient();
-  const collectionSlug = getCollectionSlug(props);
+  const collectionSlug = getCollectionSlugFromUrl(props);
 
   async function preloadFn() {
     const [mojitoCollections, contentfulCollectionSlugsOnly] = await Promise.all([
-      queryClient.fetchQuery<IMojitoMarketplaceResponse>(
+      queryClient.fetchQuery<MarketplaceResponse>(
         QueryKey.get(EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug, {
           id: config.MARKETPLACE_ID,
         }),
@@ -42,7 +42,7 @@ export function useCollection(props?: UseCollectionProps) {
       (collection) => collection.slug == collectionSlug,
     );
 
-    if (!mojitoCollection) return null;
+    if (!mojitoCollection) return;
 
     if (contentfulCollection) {
       const collectionItems = mojitoCollection.items.map((item) => item.id);
@@ -69,3 +69,5 @@ export function useCollection(props?: UseCollectionProps) {
     preloadFn,
   });
 }
+
+export default useCollection;

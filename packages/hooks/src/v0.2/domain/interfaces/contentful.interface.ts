@@ -1,3 +1,11 @@
+export interface ContentfulAuctionBySlugResponse {
+  auctionCollection: {
+    items: ContentfulAuction[];
+  };
+}
+
+// --------------------------------------------- OLD -------------------------------- //
+
 export interface IContentfulLotsQuery {
   lotCollection: {
     items: IContentfulLotData[];
@@ -20,24 +28,18 @@ export interface IContentfulAuthorsQuery {
   };
 }
 
-export interface IContentfulAuctionItem {
+export interface ContentfulAuction {
   name: string;
   title: string;
-  subtitle: string | null;
-  duration: string | null;
-  description: string | null;
-  data: _auctionData | null;
+  subtitle: string;
+  duration: string;
+  description: string;
+  data: _auctionData;
   startDate: string;
   endDate: string;
-  videoId: string | null;
+  videoId: string;
   slug: string;
   saleId: string;
-}
-
-export interface IContentfulAuctionBySlugQuery {
-  auctionCollection: {
-    items: IContentfulAuctionItem[];
-  };
 }
 
 export interface IContentfulAuctionsSlugListQuery {

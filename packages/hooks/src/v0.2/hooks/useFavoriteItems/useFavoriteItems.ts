@@ -1,9 +1,9 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
-import { IMojitoFavoriteResponse } from '../../domain/interfaces';
+import { FavoriteResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(response?: IMojitoFavoriteResponse | null) {
+function transformFn(response?: FavoriteResponse) {
   if (!response) return undefined;
 
   return response.me.favoriteItems;
@@ -21,5 +21,8 @@ export function useFavoriteItems({ options }: UseFavoriteItemsProps = {}) {
     query: EMojitoQueries.userFavorites,
     options,
     transformFn,
+    onlyAuthenticated: true,
   });
 }
+
+export default useFavoriteItems;

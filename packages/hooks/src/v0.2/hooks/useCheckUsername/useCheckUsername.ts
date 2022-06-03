@@ -1,33 +1,36 @@
 import { config } from '../../domain/constants/general.constants';
 import { EMojitoQueries } from '../../domain/gql/queries';
-import { IMojitoCheckUsernameRequest } from '../../domain/interfaces';
-import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
+import { OrgUsernameAvailableResponse } from '../../domain/interfaces';
+import { BaseLazyQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(checkUsernameRequest?: IMojitoCheckUsernameRequest) {
-  if (!checkUsernameRequest) return undefined;
+function transformFn(response?: OrgUsernameAvailableResponse) {
+  if (!response) return undefined;
 
-  return checkUsernameRequest.orgUsernameAvailable;
+  return response.orgUsernameAvailable;
 }
 
 export type UseCheckUsername = ReturnType<typeof transformFn>;
 
 export type UseCheckUsernameReturn = ReturnType<typeof useCheckUsername>;
 
-export interface UseCheckUsernameProps extends BaseQueryHookProps<UseCheckUsername> {
+export interface UseCheckUsernameProps extends BaseLazyQueryHookProps<UseCheckUsername> {
   username: string;
 }
 
 export function useCheckUsername({ username, options }: UseCheckUsernameProps) {
-  return useMojitoFactory({
+  const { refetch: checkUsername, ...factory } = useMojitoFactory({
     as: 'usernameAvailable',
     query: EMojitoQueries.checkUsername,
     variables: {
       organizationID: config.ORGANIZATION_ID,
       username,
     },
-    options,
+    options: { ...options, enabled: false },
     transformFn,
-    onlyAuthenticated: true,
   });
+
+  return { ...factory, checkUsername };
 }
+
+export default useCheckUsername;

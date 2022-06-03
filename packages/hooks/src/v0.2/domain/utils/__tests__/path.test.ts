@@ -1,4 +1,4 @@
-import { getCollectionSlug, getItemSlug } from '../path.util';
+import { getCollectionSlugFromUrl, getItemSlugFromUrl } from '../state/path.util';
 
 describe('getCollectionSlug()', () => {
   const location = window.location;
@@ -15,21 +15,21 @@ describe('getCollectionSlug()', () => {
   });
 
   it('should be defined', () => {
-    expect(getCollectionSlug).toBeDefined();
+    expect(getCollectionSlugFromUrl).toBeDefined();
   });
 
   it('works with slug', () => {
-    expect(getCollectionSlug({ slug: 'collection-slug' })).toBe('collection-slug');
+    expect(getCollectionSlugFromUrl({ slug: 'collection-slug' })).toBe('collection-slug');
   });
 
   it('works with pathname', () => {
-    expect(getCollectionSlug({ pathname: '/collection-slug/item/item-slug' })).toBe(
+    expect(getCollectionSlugFromUrl({ pathname: '/collection-slug/item/item-slug' })).toBe(
       'collection-slug',
     );
   });
 
   it('works without params', () => {
-    expect(getCollectionSlug()).toBe('collection-slug');
+    expect(getCollectionSlugFromUrl()).toBe('collection-slug');
   });
 
   it('returns undefined in SSR/Node', () => {
@@ -39,11 +39,11 @@ describe('getCollectionSlug()', () => {
 
     window.location = null as any;
 
-    expect(getCollectionSlug({ slug: 'collection-slug' })).toBe('collection-slug');
-    expect(getCollectionSlug({ pathname: '/collection-slug/item/item-slug' })).toBe(
+    expect(getCollectionSlugFromUrl({ slug: 'collection-slug' })).toBe('collection-slug');
+    expect(getCollectionSlugFromUrl({ pathname: '/collection-slug/item/item-slug' })).toBe(
       'collection-slug',
     );
-    expect(getCollectionSlug()).toBeUndefined();
+    expect(getCollectionSlugFromUrl()).toBeUndefined();
 
     window.location = location;
   });
@@ -64,19 +64,19 @@ describe('getItemSlug()', () => {
   });
 
   it('should be defined', () => {
-    expect(getItemSlug).toBeDefined();
+    expect(getItemSlugFromUrl).toBeDefined();
   });
 
   it('works with slug', () => {
-    expect(getItemSlug({ slug: 'collection-slug' })).toBe('collection-slug');
+    expect(getItemSlugFromUrl({ slug: 'collection-slug' })).toBe('collection-slug');
   });
 
   it('works with pathname', () => {
-    expect(getItemSlug({ pathname: '/collection-slug/item/item-slug' })).toBe('item-slug');
+    expect(getItemSlugFromUrl({ pathname: '/collection-slug/item/item-slug' })).toBe('item-slug');
   });
 
   it('works without params', () => {
-    expect(getItemSlug()).toBe('item-slug');
+    expect(getItemSlugFromUrl()).toBe('item-slug');
   });
 
   it('returns undefined in SSR/Node', () => {
@@ -86,9 +86,9 @@ describe('getItemSlug()', () => {
 
     window.location = null as any;
 
-    expect(getItemSlug({ slug: 'item-slug' })).toBe('item-slug');
-    expect(getItemSlug({ pathname: '/collection-slug/item/item-slug' })).toBe('item-slug');
-    expect(getItemSlug()).toBeUndefined();
+    expect(getItemSlugFromUrl({ slug: 'item-slug' })).toBe('item-slug');
+    expect(getItemSlugFromUrl({ pathname: '/collection-slug/item/item-slug' })).toBe('item-slug');
+    expect(getItemSlugFromUrl()).toBeUndefined();
 
     window.location = location;
   });

@@ -5,14 +5,14 @@ import {
 } from '../../../components/demo/constants/demo.constants';
 import { TestWrapper } from '../../../components/test/wrapper/TestWrapper';
 import {
-  useCollectionItemCurrentBids,
+  useCollectionItemCurrentBid,
   UseCollectionItemCurrentBidsProps,
   UseCollectionItemCurrentBidsReturn,
 } from '../useCollectionItemCurrentBids';
 
 describe('useCollectionItemCurrentBids()', () => {
   it('should be defined', () => {
-    expect(useCollectionItemCurrentBids).toBeDefined();
+    expect(useCollectionItemCurrentBid).toBeDefined();
   });
 
   it('returns the right result when needed', async () => {
@@ -21,7 +21,7 @@ describe('useCollectionItemCurrentBids()', () => {
       UseCollectionItemCurrentBidsReturn
     >(
       (args) => {
-        return useCollectionItemCurrentBids(...args);
+        return useCollectionItemCurrentBid(...args);
       },
       {
         initialProps: [{ collectionItemID: DEMO_COLLECTION_ITEM_ID, slug: DEMO_SLUG }],

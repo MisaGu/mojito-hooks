@@ -1,5 +1,5 @@
 import React, { useCallback, useState } from 'react';
-import { QueryResult } from '../../../domain/utils/gql.utils';
+import { QueryResult } from '../../../domain/utils/gqlResult.utils';
 import { QUERY_CLIENT_STALE_TIME } from '../../../domain/utils/gqlRequest.util';
 import { isBrowser } from '../../../domain/utils/isBrowser.util';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
@@ -53,8 +53,6 @@ export const Json: React.FC<JsonProps> = ({ result, staleTime = QUERY_CLIENT_STA
   } = result;
 
   const handleRefetch = useCallback(() => {
-    console.log('🔄 Refetching clicked...');
-
     refetch();
   }, []);
 

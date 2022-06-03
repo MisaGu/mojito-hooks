@@ -5,13 +5,13 @@ import { EContentfulQueries } from '../gql/contentful';
 import { EMojitoQueries } from '../gql/queries';
 import {
   ICollectionItemByIdBidsList,
-  IContentfulAuctionBySlugQuery,
+  ContentfulAuctionBySlugResponse,
   IContentfulLotData,
   IIMojitoCollectionItemCurrentBidsItems,
-  IMojitoCollection,
+  MojitoCollection,
   IMojitoCollectionItemBuyNowLot,
   IMojitoCollectionItemCurrentBids,
-  IMojitoProfileResponse,
+  CurrentUserResponse,
   MojitoCurrentUser,
   MojitoMarketplaceCollectionItem,
   MojitoWallet,
@@ -25,9 +25,9 @@ import { QueryKey } from './queryKeyFactory.util';
 type ILotBidsOrCurrentBid = IMojitoCollectionItemCurrentBids & ICollectionItemByIdBidsList;
 
 const extendCollection = (
-  collection: IMojitoCollection & IIMojitoCollectionItemCurrentBidsItems,
+  collection: MojitoCollection & IIMojitoCollectionItemCurrentBidsItems,
 ) => {
-  const contentfulData = queryClient.getQueryData<IContentfulAuctionBySlugQuery>(
+  const contentfulData = queryClient.getQueryData<ContentfulAuctionBySlugResponse>(
     QueryKey.get(EContentfulQueries.auctionBySlug, { slug: collection.slug }),
   )?.auctionCollection?.items?.[0];
 
@@ -129,7 +129,7 @@ const extendCollectionItems = (
 };
 
 const extendItemDetails = (details: any, slug: string) => {
-  const profile = queryClient.getQueryData<IMojitoProfileResponse>(
+  const profile = queryClient.getQueryData<CurrentUserResponse>(
     QueryKey.get(EMojitoQueries.profile),
   )?.me;
 
@@ -266,7 +266,6 @@ export function mojitoNormalizer(
 
     Object.assign(_organization, {
       notifications: {
-        isTransactionalWithID,
         completeYourProfile,
         uploadID,
         contactUs,

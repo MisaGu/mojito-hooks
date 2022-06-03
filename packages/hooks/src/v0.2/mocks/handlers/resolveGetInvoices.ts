@@ -1,4 +1,4 @@
-import { IMojitoGetMyInvoicesRequest } from '../../domain/interfaces';
+import { MojitoGetMyInvoicesResponse } from '../../domain/interfaces';
 
 export function resolveGetInvoices(req, res, ctx) {
   return res(
@@ -27,6 +27,6 @@ export function resolveGetInvoices(req, res, ctx) {
           ],
         },
       ],
-    } as IMojitoGetMyInvoicesRequest),
+    } as MojitoGetMyInvoicesResponse),
   );
 }

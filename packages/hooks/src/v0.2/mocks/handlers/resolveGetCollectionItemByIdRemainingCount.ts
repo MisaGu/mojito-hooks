@@ -1,4 +1,4 @@
-import { ICollectionItemByIdRemainingCountRequest } from '../../domain/interfaces';
+import { CollectionItemRemainingCountResponse } from '../../domain/interfaces';
 
 export function resolveGetCollectionItemByIdRemainingCount(req, res, ctx) {
   return res(
@@ -10,6 +10,6 @@ export function resolveGetCollectionItemByIdRemainingCount(req, res, ctx) {
           remainingCount: 100,
         },
       },
-    } as ICollectionItemByIdRemainingCountRequest),
+    } as CollectionItemRemainingCountResponse),
   );
 }

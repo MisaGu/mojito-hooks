@@ -1,24 +1,24 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
-import { UserOrganizationResponse } from '../../domain/interfaces';
+import { ProfileResponse } from '../../domain/interfaces';
 import { BaseQueryHookPropsWithForce } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(response?: UserOrganizationResponse) {
+function transformFn(response?: ProfileResponse) {
   if (!response) return undefined;
 
-  return response.me.userOrgs[0];
+  return response.me.user;
 }
 
-export type UseOrganizationData = ReturnType<typeof transformFn>;
+export type UseMojitoUserData = ReturnType<typeof transformFn>;
 
-export type UseOrganizationReturn = ReturnType<typeof useOrganization>;
+export type UseMojitoUserReturn = ReturnType<typeof useMojitoUser>;
 
-export type UseOrganizationProps = BaseQueryHookPropsWithForce<UseOrganizationData>;
+export type UseMojitoUserProps = BaseQueryHookPropsWithForce<UseMojitoUserData>;
 
-export function useOrganization({ force, options }: UseOrganizationProps = {}) {
+export function useMojitoUser({ force, options }: UseMojitoUserProps = {}) {
   return useMojitoFactory({
-    as: 'organization',
-    query: EMojitoQueries.organization,
+    as: 'user',
+    query: EMojitoQueries.profile,
     options,
     transformFn,
     force,
@@ -26,17 +26,17 @@ export function useOrganization({ force, options }: UseOrganizationProps = {}) {
   });
 }
 
-export default useOrganization;
+export default useMojitoUser;
 
 // legacy function
 /*
 
-export function useOrganization(options: UseQueryOptions<any> = {}): {
-  organization: (IMojitoProfileUserOrg & IMojitoProfileCustomOrgs) | null;
+export function useProfile(props?: { force?: boolean }): {
+  profile: IMojitoProfile;
 } & ReturnType<typeof useMojito> {
   const result = useMojito({
-    query: EMojitoQueries.organization,
-    options,
+    query: EMojitoQueries.profile,
+    force: props?.force,
     onlyAuthenticated: true,
   });
 
@@ -52,7 +52,7 @@ export function useOrganization(options: UseQueryOptions<any> = {}): {
   }, [profile, organization]);
 
   return {
-    organization,
+    profile,
     ...result,
   };
 }

@@ -55,7 +55,7 @@ export const mojitoQueryFn = async <T = unknown>({
   const [query, variables] = queryKey;
   const mojitoQuery = QueryKey.getMojitoQuery(query);
 
-  console.log(`${mojitoQuery ? '🍸' : '❌'} MOJITO QUERY = ${query} => ${mojitoQuery}...`);
+  // console.log(`${mojitoQuery ? '🍸' : '❌'} MOJITO QUERY = ${query} => ${mojitoQuery}...`);
 
   // TODO: Add token with requestHeaders from request-client / mojitoGqlClient.setHeader("", token)
 
@@ -71,9 +71,9 @@ export const contentfulQueryFn = async <T = unknown>({
   const [query, variables] = queryKey;
   const contentfulQuery = QueryKey.getContentfulQuery(query);
 
-  console.log(
-    `${contentfulQuery ? '💾' : '❌'} CONTENTFUL QUERY = ${query} => ${contentfulQuery}...`,
-  );
+  // console.log(
+  //   `${contentfulQuery ? '💾' : '❌'} CONTENTFUL QUERY = ${query} => ${contentfulQuery}...`,
+  // );
 
   return (await contentfulGqlClient
     .request(contentfulQuery, variables)
