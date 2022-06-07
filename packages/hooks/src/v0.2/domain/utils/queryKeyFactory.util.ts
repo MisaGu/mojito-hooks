@@ -6,6 +6,7 @@ import { QueryKey as ReactQueryQueryKey } from 'react-query';
 export type IQueryKey = [string] | [string, Variables];
 
 const QUERY_KEY_PREFIX = 'MOJITO-HOOKS::';
+const QUERY_KEY_INFIX_OPT = `${QUERY_KEY_PREFIX}OPT::`;
 const QUERY_KEY_INFIX_MOJITO = `${QUERY_KEY_PREFIX}API::`;
 const QUERY_KEY_INFIX_CONTENTFUL = `${QUERY_KEY_PREFIX}CONTENTFUL::`;
 
@@ -33,6 +34,10 @@ export class QueryKey {
   static getContentfulQuery = (queryKey: string) => {
     const contentfulQueryKey = QueryKey._removeQueryKeyPrefix<EContentfulQueries>(queryKey);
     return contentfulQueries[contentfulQueryKey];
+  };
+
+  static isOpt = (queryKey: string) => {
+    return queryKey.startsWith(QUERY_KEY_INFIX_OPT);
   };
 
   static isMojito = (queryKey: string) => {
