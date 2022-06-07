@@ -22,10 +22,9 @@ type MojitoCurrentUserNormalizer = {
 export type MojitoCurrentUser = Combine<Schema.CurrentUser, MojitoCurrentUserNormalizer>;
 
 type MojitoOrganizationNormalizer = {
-  wallets: MojitoWallet;
-  // marketplaces: any;
-  assets: any; // FIX TYPE
-  nftContracts: any; // FIX TYPE
+  wallets: MojitoWallet[];
+  assets: MojitoAsset[]; // FIX TYPE
+  nftContracts: MojitoNftContract[]; // FIX TYPE
 };
 export type MojitoOrganization = Combine<
   Omit<Schema.Organization, 'marketplaces'>,
@@ -156,17 +155,6 @@ export type MojitoCollectionItemDetails<T = Schema.MarketplaceSaleType> =
       >
     : Combine<Schema.MarketplaceCollectionItemDetails, CollectionItemDetailsNormalizer>;
 
-type CollectionItemRemainingCountNormalizer = {
-  details: Pick<
-    MojitoCollectionItemDetails<Schema.MarketplaceSaleType.BuyNow>,
-    'id' | 'remainingCount'
-  >;
-};
-export type MojitoCollectionItemRemainingCount = Combine<
-  Pick<Schema.MarketplaceCollectionItem, 'id' | 'details'>,
-  CollectionItemRemainingCountNormalizer
->;
-
 type InvoiceDetailsNormalizer = {
   items: MojitoInvoiceDetailsItem[];
 };
@@ -180,7 +168,46 @@ export type MojitoInvoiceDetailsItem = Combine<
   InvoiceDetailsItemNormalizer
 >;
 
-// =============================================== API Response ===============================================
+type AssetNormalizer = {
+  versions: MojitoAssetVersion[];
+  currentVersion: MojitoAssetVersion;
+};
+export type MojitoAsset = Combine<Schema.Asset, AssetNormalizer>;
+
+type AssetVersionNormalizer = {};
+export type MojitoAssetVersion = Combine<
+  Omit<Schema.AssetVersion, 'asset'>,
+  AssetVersionNormalizer
+>;
+
+type NftContractNormalizer = {
+  nftTokens: MojitoNftToken;
+};
+export type MojitoNftContract = Combine<Schema.NftContract, NftContractNormalizer>;
+
+type NftTokenNormalizer = {
+  asset: MojitoAsset;
+};
+export type MojitoNftToken = Combine<Omit<Schema.NftToken, 'nftContract'>, NftTokenNormalizer>;
+
+type CollectionItemRemainingCountNormalizer = {
+  details: Pick<
+    MojitoCollectionItemDetails<Schema.MarketplaceSaleType.BuyNow>,
+    'id' | 'remainingCount'
+  >;
+};
+export type MojitoCollectionItemRemainingCount = Combine<
+  Pick<Schema.MarketplaceCollectionItem, 'id' | 'details'>,
+  CollectionItemRemainingCountNormalizer
+>;
+
+type CollectionItemBidsListNormalizer = {
+  details: Pick<MojitoCollectionItemDetails<Schema.MarketplaceSaleType.Auction>, 'bids'>;
+};
+export type MojitoCollectionItemBidsList = Combine<
+  Pick<Schema.MarketplaceCollectionItem, 'details'>,
+  CollectionItemBidsListNormalizer
+>;
 
 export interface CurrentUserResponse {
   me: MojitoCurrentUser;
@@ -225,105 +252,27 @@ export interface MojitoGetMyInvoicesResponse {
   getMyInvoices: MojitoInvoiceDetails[];
 }
 
-// =============================================== OLD ===============================================
+export interface CollectionItemBidsListResponse {
+  collectionItemById: MojitoCollectionItemBidsList;
+}
 
-export interface IMojitoViewType {
+export interface MojitoCollectionItemCurrentBidsResponse {
+  items: {
+    id: string;
+    details: Pick<
+      MojitoCollectionItemDetails<Schema.MarketplaceSaleType.Auction>,
+      'id' | 'endDate' | 'startDate' | 'startingBid' | 'currentBid' | 'myBid'
+    >;
+  }[];
+}
+
+export type IMojitoViewType = {
   isDuringSale: boolean;
   isPostSale: boolean;
   isPreSale: boolean;
-}
+};
 
-export interface IMojitoCollectionView extends IMojitoViewType {
+export type IMojitoCollectionView = IMojitoViewType & {
   hasActiveBuyNowItems: boolean;
   hasActiveAuctionItems: boolean;
-}
-
-export interface IMojitoInvoiceBillingAddress {
-  street1: string;
-  city: string;
-  state: string;
-  postalCode: string;
-  country: string;
-}
-
-export interface IMojitoCollectionItemCurrentBids {
-  id: string;
-  details: {
-    id: string;
-    endDate: string;
-    startDate: string;
-    startingBid: number;
-    currentBid: MojitoMarketplaceAuctionBid;
-    myBid: MojitoMarketplaceAuctionBid | null;
-    endTimestamp: number;
-    saleView: IMojitoViewType;
-  };
-}
-
-export interface ICollectionItemByIdBidsList {
-  id: string;
-  details: {
-    id: string;
-    endDate: string;
-    startDate: string;
-    bids: MojitoMarketplaceAuctionBid[];
-  };
-}
-
-export interface ICollectionItemByIdBidsListRequest {
-  collectionItemById: ICollectionItemByIdBidsList;
-}
-
-export interface IIMojitoCollectionItemCurrentBids {
-  id: string;
-  items: IMojitoCollectionItemCurrentBids[];
-}
-
-export interface IIMojitoCollectionItemCurrentBidsRequest {
-  collectionBySlug: IIMojitoCollectionItemCurrentBids;
-}
-
-export interface IIMojitoCollectionItemCurrentBidsItems {
-  items: IMojitoCollectionItemCurrentBids[];
-}
-
-export interface IMojitoMarketplaceToken {
-  id: string;
-  name: string;
-  marketplaceID: string;
-  onChainTokenID: number;
-  nftTokenID: string;
-  nftContractAddress: string;
-}
-
-export interface IMojitoItemInvoice {
-  collectionTitle: string;
-  collectionItemTitle: string;
-  totalPrice: number;
-}
-
-export interface IMojitoTokenData {
-  description: string;
-  external_url: string;
-  image: string;
-  name: string;
-  attributes: { trait_type: string; value: string }[];
-}
-
-export interface IUseMojitoOneLotSubscription {
-  data: {
-    getMarketplaceAuctionLot: Pick<
-      IMojitoCollectionItemCurrentBids['details'],
-      'id' | 'currentBid' | 'myBid'
-    >;
-  };
-}
-
-export interface IUseMojitoCollectionSubscription {
-  data: {
-    marketplaceCollectionLotsUpdates: Pick<
-      IMojitoCollectionItemCurrentBids['details'],
-      'id' | 'currentBid' | 'myBid'
-    >;
-  };
-}
+};

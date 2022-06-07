@@ -187,15 +187,9 @@ export const mojitoQueries: Record<EMojitoQueries, string> = {
 
     query GetCollectionBySlugCurrentBids($slug: String!, $marketplaceID: UUID1!) {
       collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {
-        id
         items(statuses: [Active]) {
-          id
           details {
             ... on MarketplaceAuctionLot {
-              id
-              endDate
-              startDate
-              startingBid
               currentBid {
                 ...CollectionItemAuctionLotCurrentBid
               }

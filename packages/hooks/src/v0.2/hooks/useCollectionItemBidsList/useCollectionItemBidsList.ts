@@ -1,12 +1,12 @@
 import { EMojitoQueries } from '../../domain/gql/queries';
-import { ICollectionItemByIdBidsListRequest } from '../../domain/interfaces';
+import { CollectionItemBidsListResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(collectionItemRequest?: ICollectionItemByIdBidsListRequest) {
-  if (!collectionItemRequest) return undefined;
+function transformFn(response?: CollectionItemBidsListResponse) {
+  if (!response) return undefined;
 
-  return collectionItemRequest.collectionItemById.details.bids;
+  return response.collectionItemById.details.bids;
 }
 
 export type UseCollectionItemBidsListData = ReturnType<typeof transformFn>;
