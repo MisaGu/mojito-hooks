@@ -1,5 +1,3 @@
-import { IIMojitoCollectionBySlugRequest } from '../../domain/interfaces';
-
 export function resolveGetCollectionBySlug(req, res, ctx) {
   return res(
     ctx.data({
@@ -31,6 +29,6 @@ export function resolveGetCollectionBySlug(req, res, ctx) {
           },
         ],
       },
-    } as IIMojitoCollectionBySlugRequest),
+    }),
   );
 }
