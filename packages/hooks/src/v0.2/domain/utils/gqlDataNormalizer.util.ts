@@ -8,14 +8,10 @@ import {
   ContentfulAuctionBySlugResponse,
   IContentfulLotData,
   IIMojitoCollectionItemCurrentBidsItems,
-  MojitoCollection,
-  IMojitoCollectionItemBuyNowLot,
   IMojitoCollectionItemCurrentBids,
   CurrentUserResponse,
   MojitoCurrentUser,
-  MojitoMarketplaceCollectionItem,
   MojitoWallet,
-  NormalizedQuery,
 } from '../interfaces';
 import * as Schema from '../interfaces/mojito-schema.interface';
 import { Combine, DeepCompare } from '../interfaces/_utils.interface';
