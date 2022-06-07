@@ -1,16 +1,15 @@
 import moment from 'moment';
 import { config } from '../constants/general.constants';
-import { SaleType } from '../enums';
 import { EContentfulQueries } from '../gql/contentful';
 import { EMojitoQueries } from '../gql/queries';
 import {
-  ICollectionItemByIdBidsList,
   ContentfulAuctionBySlugResponse,
-  IContentfulLotData,
-  IIMojitoCollectionItemCurrentBidsItems,
-  IMojitoCollectionItemCurrentBids,
   CurrentUserResponse,
+  IContentfulLotData,
   MojitoCurrentUser,
+  MojitoMarketplaceCollection,
+  MojitoMarketplaceCollectionItem,
+  MojitoQuery,
   MojitoWallet,
 } from '../interfaces';
 import * as Schema from '../interfaces/mojito-schema.interface';
@@ -18,11 +17,7 @@ import { Combine, DeepCompare } from '../interfaces/_utils.interface';
 import { queryClient } from './gqlRequest.util';
 import { QueryKey } from './queryKeyFactory.util';
 
-type ILotBidsOrCurrentBid = IMojitoCollectionItemCurrentBids & ICollectionItemByIdBidsList;
-
-const extendCollection = (
-  collection: MojitoCollection & IIMojitoCollectionItemCurrentBidsItems,
-) => {
+const extendCollection = (collection: MojitoMarketplaceCollection) => {
   const contentfulData = queryClient.getQueryData<ContentfulAuctionBySlugResponse>(
     QueryKey.get(EContentfulQueries.auctionBySlug, { slug: collection.slug }),
   )?.auctionCollection?.items?.[0];
@@ -41,11 +36,11 @@ const extendCollection = (
   while (i < totalItems && !(hasBuyNowItems && hasAuctionItems)) {
     const { saleType } = items[i++];
 
-    if (saleType === SaleType.BuyNow) {
+    if (saleType === Schema.MarketplaceSaleType.BuyNow) {
       hasBuyNowItems = true;
     }
 
-    if (saleType === SaleType.Auction) {
+    if (saleType === Schema.MarketplaceSaleType.Auction) {
       hasAuctionItems = true;
     }
   }
@@ -81,9 +76,9 @@ const extendCollectionSingleItem = (
     [key: string]: IContentfulLotData;
   },
 ) => {
-  const _item = item as IMojitoCollectionItemCurrentBids & ICollectionItemByIdBidsList;
+  const _item = item as MojitoMarketplaceCollectionItem<Schema.MarketplaceSaleType.Auction>;
 
-  const __itemAsBuyNow = item as IMojitoCollectionItemBuyNowLot;
+  const __itemAsBuyNow = item as MojitoMarketplaceCollectionItem<Schema.MarketplaceSaleType.BuyNow>;
 
   if (__itemAsBuyNow?.details?.remainingCount < 0) {
     __itemAsBuyNow.details.remainingCount = 0;
@@ -94,7 +89,7 @@ const extendCollectionSingleItem = (
       QueryKey.get(EContentfulQueries.fullLot, { mojitoId: item.id }),
     );
 
-    (item as MojitoMarketplaceCollectionItem).contentfulData =
+    (item as MojitoMarketplaceCollectionItem).content =
       lot?.[item.id] ??
       shortLots?.[item.id] ??
       ({
@@ -107,14 +102,14 @@ const extendCollectionSingleItem = (
   }
 
   if (item?.details) {
-    item.details = extendItemDetails(item.details as ILotBidsOrCurrentBid['details'], slug);
+    item.details = extendItemDetails(item.details, slug);
   }
 
   return item as any;
 };
 
 const extendCollectionItems = (
-  collectionItems: MojitoMarketplaceCollectionItem[] & IMojitoCollectionItemCurrentBids[],
+  collectionItems: MojitoMarketplaceCollectionItem[],
   slug: string,
 ) => {
   const lots = queryClient.getQueryData<{
@@ -130,7 +125,7 @@ const extendItemDetails = (details: any, slug: string) => {
   )?.me;
 
   const item = queryClient
-    .getQueryData<{ items: IMojitoCollectionItemCurrentBids[] }>(
+    .getQueryData<{ items }>(
       QueryKey.get(EMojitoQueries.collectionBySlugCurrentBids, {
         slug,
         marketplaceID: config.MARKETPLACE_ID,
@@ -208,7 +203,7 @@ const extendItemDetails = (details: any, slug: string) => {
       amount: details.startingBid ?? 50, // 50 = bidIncrement[0]
       isStart: true,
       marketplaceAuctionLotId: details.id,
-    } as unknown as ILotBidsOrCurrentBid['details']['currentBid'];
+    };
   } else {
     details.currentBid = null as any;
   }
@@ -231,7 +226,7 @@ export function mojitoNormalizer(
   key?: any,
 ): any {
   if (!response) return null;
-  const normalizedResponse: Partial<NormalizedQuery> = {};
+  const normalizedResponse = {};
 
   if (response.serverTime) {
     Object.assign(normalizedResponse, { serverTime: ServerTimeNormalizer(response.serverTime) });
@@ -358,7 +353,7 @@ export function contentfulNormalizer(
 }
 
 function ServerTimeNormalizer(details: Schema.Scalars['Time']) {
-  const serverTime: NormalizedQuery['serverTime'] = new Date(details);
+  const serverTime: MojitoQuery['serverTime'] = new Date(details);
   const serverTimeOffset = serverTime.getTime() - Date.now();
 
   moment.now = function () {

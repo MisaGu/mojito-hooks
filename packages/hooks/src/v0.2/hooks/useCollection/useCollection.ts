@@ -2,7 +2,7 @@ import { useQueryClient } from 'react-query';
 import { config } from '../../domain/constants/general.constants';
 import {
   IContentfulAuctionsSlugListQuery,
-  MojitoCollection,
+  MojitoMarketplaceCollection,
   MarketplaceResponse,
 } from '../../domain/interfaces';
 import { getCollectionSlugFromUrl } from '../../domain/utils/state/path.util';
@@ -12,7 +12,7 @@ import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 
-export type UseCollectionData = MojitoCollection | null | undefined;
+export type UseCollectionData = MojitoMarketplaceCollection | null | undefined;
 
 export type UseCollectionReturn = ReturnType<typeof useCollection>;
 

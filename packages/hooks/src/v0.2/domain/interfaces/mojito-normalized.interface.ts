@@ -14,17 +14,17 @@ export type MojitoQuery = Combine<Schema.Query, MojitoQueryNormalizer>;
 
 type MojitoCurrentUserNormalizer = {
   wallets: MojitoWallet[];
-  wonBids: MojitoMarketplaceAuctionBid[]; //TODO overload with Combine<>
-  activeBids: MojitoMarketplaceAuctionBid[]; //TODO overload with Combine<>
-  userOrgs: MojitoUserOrganization[]; //TODO overload with Combine<>
-  favoriteItems: any; //TODO overload with Combine<>
+  wonBids: MojitoMarketplaceAuctionBid[];
+  activeBids: MojitoMarketplaceAuctionBid[];
+  userOrgs: MojitoUserOrganization[];
+  favoriteItems: MojitoMarketplaceCollectionItem[];
 };
 export type MojitoCurrentUser = Combine<Schema.CurrentUser, MojitoCurrentUserNormalizer>;
 
 type MojitoOrganizationNormalizer = {
   wallets: MojitoWallet[];
-  assets: MojitoAsset[]; // FIX TYPE
-  nftContracts: MojitoNftContract[]; // FIX TYPE
+  assets: MojitoAsset[];
+  nftContracts: MojitoNftContract[];
 };
 export type MojitoOrganization = Combine<
   Omit<Schema.Organization, 'marketplaces'>,
@@ -69,9 +69,7 @@ type MojitoWalletTokenNormalizer = {
 export type MojitoWalletToken = Combine<Schema.WalletToken, MojitoWalletTokenNormalizer>;
 
 interface MojitoMarketplaceAuctionBidNormalizer {
-  marketplaceAuctionLot: any;
-  userOrganization: any;
-  marketplaceUser: any;
+  userOrganization: MojitoUserOrganization;
   isMine: boolean;
   isCurrent: boolean;
   isHold: boolean;
@@ -83,44 +81,36 @@ interface MojitoMarketplaceAuctionBidNormalizer {
   isStart: boolean;
 }
 export type MojitoMarketplaceAuctionBid = Combine<
-  Schema.MarketplaceAuctionBid,
+  Omit<Schema.MarketplaceAuctionBid, 'marketplaceAuctionLot'>,
   MojitoMarketplaceAuctionBidNormalizer
 >;
 
-type MarketplaceAuctionLotNormalizer = {
-  marketplaceCollectionItem: any;
-  currentBid: any;
-  myBid: any;
-  bids: any;
-};
-export type MojitoMarketplaceAuctionLot = Combine<
-  Omit<Schema.MarketplaceAuctionLot, 'marketplaceCollectionItem'>,
-  MarketplaceAuctionLotNormalizer
->;
-
-type MojitoCollectionNormalizer = {
+type MarketplaceCollectionNormalizer = {
   contentfulData: IContentfulAuction;
-  items: MojitoCollectionItem[];
+  items: MojitoMarketplaceCollectionItem[];
   viewStatus: IMojitoCollectionView;
+  hasMultipleLots: boolean;
 };
-export type MojitoMojitoCollection = Combine<
+export type MojitoMarketplaceCollection = Combine<
   Schema.MarketplaceCollection,
-  MojitoCollectionNormalizer
+  MarketplaceCollectionNormalizer
 >;
 
 type MojitoMarketplaceNormalizer = {
-  collections: MojitoMojitoCollection[];
+  collections: MojitoMarketplaceCollection[];
 };
 export type MojitoMojitoMarketplace = Combine<Schema.Marketplace, MojitoMarketplaceNormalizer>;
 
-type CollectionItemNormalizer<T> = { details: MojitoCollectionItemDetails<T> };
-export type MojitoCollectionItem<T = Schema.MarketplaceSaleType> = Combine<
-  Schema.MarketplaceCollectionItem,
-  CollectionItemNormalizer<T>
+type MojitoMarketplaceCollectionItemNormalizer<T> = {
+  content: any; // TODO: contentful data type
+  details: MojitoCollectionItemDetails<T>;
+};
+export type MojitoMarketplaceCollectionItem<T = Schema.MarketplaceSaleType> = Combine<
+  Omit<Schema.MarketplaceCollectionItem, 'lot'>,
+  MojitoMarketplaceCollectionItemNormalizer<T>
 >;
 
 type CollectionItemDetailsCommonNormalizer = {
-  content: any; // TODO: contentful data type
   saleView: IMojitoViewType;
 };
 type CollectionItemDetailsBuyNowOutputNormalizer = CollectionItemDetailsCommonNormalizer & {
@@ -129,8 +119,8 @@ type CollectionItemDetailsBuyNowOutputNormalizer = CollectionItemDetailsCommonNo
 type CollectionItemDetailsAuctionLotNormalizer = CollectionItemDetailsCommonNormalizer & {
   status: EMojitoCollectionItemAuctionLotStatus;
   currentBid: MojitoMarketplaceAuctionBid;
-  myBid: any;
-  bids: any;
+  myBid: MojitoMarketplaceAuctionBid;
+  bids: MojitoMarketplaceAuctionBid[];
 };
 type CollectionItemDetailsClaimableOutputNormalizer = CollectionItemDetailsCommonNormalizer & {};
 type CollectionItemDetailsNormalizer =
@@ -241,7 +231,7 @@ export type MarketplaceResponse = {
 };
 
 export interface CollectionItemResponse {
-  collectionItemById: MojitoCollectionItem;
+  collectionItemById: MojitoMarketplaceCollectionItem;
 }
 
 export interface CollectionItemRemainingCountResponse {
