@@ -352,6 +352,8 @@ export function contentfulNormalizer(
   return response;
 }
 
+// =================================================== NEW ===================================================
+
 function ServerTimeNormalizer(details: Schema.Scalars['Time']) {
   const serverTime: MojitoQuery['serverTime'] = new Date(details);
   const serverTimeOffset = serverTime.getTime() - Date.now();

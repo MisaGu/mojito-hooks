@@ -3,11 +3,10 @@ import { IContentfulAuction, IContentfulLotData } from './contentful.interface';
 import * as Schema from './mojito-schema.interface';
 import { Combine } from './_utils.interface';
 
-export type IMojitoServerTime = Date;
+export type MojitoServerTime = Date;
 
 type MojitoQueryNormalizer = {
-  __typename?: 'Query';
-  serverTime: IMojitoServerTime;
+  serverTime: MojitoServerTime;
   me: MojitoCurrentUser;
 };
 export type MojitoQuery = Combine<Schema.Query, MojitoQueryNormalizer>;
