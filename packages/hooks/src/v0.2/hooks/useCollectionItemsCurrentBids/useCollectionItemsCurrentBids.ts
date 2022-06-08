@@ -1,14 +1,14 @@
 import { EMojitoKey } from '../../domain/enums/state.enum';
 import { config } from '../../domain/constants/general.constants';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
-import { IIMojitoCollectionItemCurrentBids } from '../../domain/interfaces';
+import { MojitoCollectionItemCurrentBidsResponse } from '../../domain/interfaces';
 import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 import { getCollectionSlug } from '../../domain/utils/getSlug.util';
 
-function transformFn(collectionItemCurrentBids?: IIMojitoCollectionItemCurrentBids) {
-  if (!collectionItemCurrentBids) return undefined;
+function transformFn(response?: MojitoCollectionItemCurrentBidsResponse) {
+  if (!response) return undefined;
 
-  return collectionItemCurrentBids.items || [];
+  return response.items || [];
 }
 
 export type UseCollectionItemsCurrentBidsData = ReturnType<typeof transformFn>;

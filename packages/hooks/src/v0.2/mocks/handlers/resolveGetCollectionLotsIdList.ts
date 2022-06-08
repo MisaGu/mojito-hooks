@@ -1,5 +1,3 @@
-import { IIMojitoCollectionLotsIdListRequest } from '../../domain/interfaces';
-
 export function resolveGetCollectionLotsIdList(req, res, ctx) {
   return res(
     ctx.data({
@@ -12,6 +10,6 @@ export function resolveGetCollectionLotsIdList(req, res, ctx) {
           },
         ],
       },
-    } as IIMojitoCollectionLotsIdListRequest),
+    }),
   );
 }

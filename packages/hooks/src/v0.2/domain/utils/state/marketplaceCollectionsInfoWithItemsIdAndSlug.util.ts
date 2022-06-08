@@ -1,7 +1,7 @@
 import { config } from '../../constants/general.constants';
 import { EMojitoKey } from '../../enums/state.enum';
 import {
-  MojitoCollection,
+  MojitoMarketplaceCollection,
   MojitoMarketplaceCollectionItem,
 } from '../../interfaces/mojito-normalized.interface';
 import { queryClient } from '../gqlRequest.util';
@@ -15,7 +15,9 @@ const marketplaceCollectionsSlugQueryKey = QueryKey.get(
 export function checkCollectionSlug(slug?: string): string | undefined {
   if (!slug) return undefined;
 
-  const _data = queryClient.getQueryData<MojitoCollection[]>(marketplaceCollectionsSlugQueryKey);
+  const _data = queryClient.getQueryData<MojitoMarketplaceCollection[]>(
+    marketplaceCollectionsSlugQueryKey,
+  );
 
   return _data?.find((collection) => collection.slug == slug)?.slug;
 }
@@ -23,7 +25,9 @@ export function checkCollectionSlug(slug?: string): string | undefined {
 export function checkCollectionId(id?: string): string | undefined {
   if (!id) return undefined;
 
-  const _data = queryClient.getQueryData<MojitoCollection[]>(marketplaceCollectionsSlugQueryKey);
+  const _data = queryClient.getQueryData<MojitoMarketplaceCollection[]>(
+    marketplaceCollectionsSlugQueryKey,
+  );
 
   return _data?.find((collection) => collection.id == id)?.id;
 }
@@ -31,7 +35,9 @@ export function checkCollectionId(id?: string): string | undefined {
 export function checkCollectionItemSlug(slug?: string): string | undefined {
   if (!slug) return undefined;
 
-  const _data = queryClient.getQueryData<MojitoCollection[]>(marketplaceCollectionsSlugQueryKey);
+  const _data = queryClient.getQueryData<MojitoMarketplaceCollection[]>(
+    marketplaceCollectionsSlugQueryKey,
+  );
 
   return _data
     ?.reduce<MojitoMarketplaceCollectionItem[]>(
@@ -44,7 +50,9 @@ export function checkCollectionItemSlug(slug?: string): string | undefined {
 export function checkCollectionItemId(id?: string): string | undefined {
   if (!id) return undefined;
 
-  const _data = queryClient.getQueryData<MojitoCollection[]>(marketplaceCollectionsSlugQueryKey);
+  const _data = queryClient.getQueryData<MojitoMarketplaceCollection[]>(
+    marketplaceCollectionsSlugQueryKey,
+  );
 
   return _data
     ?.reduce<MojitoMarketplaceCollectionItem[]>(

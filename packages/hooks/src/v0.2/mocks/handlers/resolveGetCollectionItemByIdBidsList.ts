@@ -1,4 +1,4 @@
-import { ICollectionItemByIdBidsListRequest } from '../../domain/interfaces';
+import { CollectionItemBidsListResponse } from '../../domain/interfaces';
 
 export function resolveGetCollectionItemByIdBidsList(req, res, ctx) {
   return res(
@@ -12,6 +12,6 @@ export function resolveGetCollectionItemByIdBidsList(req, res, ctx) {
           bids: [],
         },
       },
-    } as ICollectionItemByIdBidsListRequest),
+    } as CollectionItemBidsListResponse),
   );
 }
