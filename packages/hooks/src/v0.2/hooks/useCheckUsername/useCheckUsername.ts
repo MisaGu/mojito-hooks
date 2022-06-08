@@ -27,7 +27,7 @@ export function useCheckUsername({ username, options }: UseCheckUsernameProps) {
       username,
     },
     options: { ...options, enabled: false },
-    selectFn: transformFn,
+    selectorFn: transformFn,
   });
 
   return { ...factory, checkUsername };

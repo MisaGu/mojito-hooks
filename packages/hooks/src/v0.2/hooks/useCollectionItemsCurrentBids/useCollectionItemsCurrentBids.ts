@@ -29,7 +29,7 @@ export function useCollectionItemsCurrentBids({
     query: EMojitoKey.collectionBySlugCurrentBids,
     variables: { slug, marketplaceID: config.MARKETPLACE_ID },
     options: { ...options, enabled: !!slug },
-    selectFn: transformFn,
+    selectorFn: transformFn,
   });
 }
 

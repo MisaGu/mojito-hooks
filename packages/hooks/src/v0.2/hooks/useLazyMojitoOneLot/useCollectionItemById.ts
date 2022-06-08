@@ -26,7 +26,7 @@ export function useCollectionItemById({ id, options }: UseCollectionItemByIdProp
     query: EMojitoKey.collectionItemById,
     variables: { id: _id },
     options: { ...options, enabled: !!_id },
-    selectFn: transformFn,
+    selectorFn: transformFn,
   });
 }
 

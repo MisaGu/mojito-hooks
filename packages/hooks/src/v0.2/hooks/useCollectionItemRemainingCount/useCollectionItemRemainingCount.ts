@@ -33,7 +33,7 @@ export function useCollectionItemRemainingCount({
     query: EMojitoKey.collectionItemByIdRemainingCount,
     variables: { id: collectionItemID, slug },
     options: { ...options, enabled: !!slug },
-    selectFn: transformFn,
+    selectorFn: transformFn,
     onlyAuthenticated: true,
   });
 }

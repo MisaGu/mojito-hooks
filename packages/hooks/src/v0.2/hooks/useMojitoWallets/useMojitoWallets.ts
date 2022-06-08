@@ -20,7 +20,7 @@ export function useMojitoWallets({ options }: UseMojitoWalletsProps = {}) {
     as: 'wallets',
     query: EMojitoKey.userWallets,
     options,
-    selectFn: transformFn,
+    selectorFn: transformFn,
     onlyAuthenticated: true,
   });
 }

@@ -20,7 +20,7 @@ export function useInvoices({ options }: UseInvoicesProps = {}) {
     as: 'invoices',
     query: EMojitoKey.invoices,
     options,
-    selectFn: transformFn,
+    selectorFn: transformFn,
     onlyAuthenticated: true,
   });
 }

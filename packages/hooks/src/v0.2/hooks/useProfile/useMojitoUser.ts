@@ -20,7 +20,7 @@ export function useMojitoUser({ force, options }: UseMojitoUserProps = {}) {
     as: 'user',
     query: EMojitoKey.profile,
     options,
-    selectFn: transformFn,
+    selectorFn: transformFn,
     force,
     onlyAuthenticated: true,
   });
