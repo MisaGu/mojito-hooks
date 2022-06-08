@@ -1,4 +1,4 @@
-import { EMojitoQueries } from '../../domain/gql/queries';
+import { EMojitoKey } from '../../domain/enums/state.enum';
 import { config } from '../../domain/constants/general.constants';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 import { IIMojitoCollectionItemCurrentBids } from '../../domain/interfaces';
@@ -26,7 +26,7 @@ export function useCollectionItemsCurrentBids({
 
   return useMojitoFactory({
     as: 'currentBids',
-    query: EMojitoQueries.collectionBySlugCurrentBids,
+    query: EMojitoKey.collectionBySlugCurrentBids,
     variables: { slug, marketplaceID: config.MARKETPLACE_ID },
     options: { ...options, enabled: !!slug },
     transformFn,

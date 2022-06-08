@@ -1,4 +1,4 @@
-import { EMojitoQueries } from '../../domain/gql/queries';
+import { EMojitoKey } from '../../domain/enums/state.enum';
 import { CollectionItemRemainingCountResponse } from '../../domain/interfaces';
 import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 import { getCollectionSlug } from '../../domain/utils/getSlug.util';
@@ -30,7 +30,7 @@ export function useCollectionItemRemainingCount({
 
   return useMojitoFactory({
     as: 'remainingCount',
-    query: EMojitoQueries.collectionItemByIdRemainingCount,
+    query: EMojitoKey.collectionItemByIdRemainingCount,
     variables: { id: collectionItemID, slug },
     options: { ...options, enabled: !!slug },
     transformFn,

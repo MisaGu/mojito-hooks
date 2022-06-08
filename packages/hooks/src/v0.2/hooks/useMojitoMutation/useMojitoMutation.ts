@@ -2,7 +2,7 @@ import { Variables } from 'graphql-request';
 import { useCallback, useEffect } from 'react';
 import { useMutation, useQueryClient, UseMutationOptions } from 'react-query';
 import { useAuthContext } from '../../domain/context/auth.context';
-import { EMojitoQueries } from '../../domain/gql/queries';
+import { EMojitoKey } from '../../domain/enums/state.enum';
 import { normalizeMutationResult } from '../../domain/utils/gqlResult.utils';
 import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
@@ -16,7 +16,7 @@ export interface IUseMojitoFactoryOptions<
   TContext = unknown,
 > {
   as: TDataPropertyName;
-  query: EMojitoQueries;
+  query: EMojitoKey;
   variables: TVariables;
   options?: UseMutationOptions<TReturn, TError, TVariables, TContext>;
   transformFn?: (data: TData | undefined) => TReturn;

@@ -1,4 +1,4 @@
-import { EMojitoQueries } from '../../domain/gql/queries';
+import { EMojitoKey } from '../../domain/enums/state.enum';
 import { ProfileResponse } from '../../domain/interfaces';
 import { BaseQueryHookPropsWithForce } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
@@ -18,7 +18,7 @@ export type UseMojitoUserProps = BaseQueryHookPropsWithForce<UseMojitoUserData>;
 export function useMojitoUser({ force, options }: UseMojitoUserProps = {}) {
   return useMojitoFactory({
     as: 'user',
-    query: EMojitoQueries.profile,
+    query: EMojitoKey.profile,
     options,
     transformFn,
     force,
@@ -35,7 +35,7 @@ export function useProfile(props?: { force?: boolean }): {
   profile: IMojitoProfile;
 } & ReturnType<typeof useMojito> {
   const result = useMojito({
-    query: EMojitoQueries.profile,
+    query: EMojitoKey.profile,
     force: props?.force,
     onlyAuthenticated: true,
   });

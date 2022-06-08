@@ -1,10 +1,9 @@
-import { EContentfulQueries } from '../../gql/contentful';
-import { EMojitoQueries } from '../../gql/queries';
+import { EMojitoKey, EContentfulKey } from '../../enums/state.enum';
 import { QueryKey } from '../queryKeyFactory.util';
 
 describe('QueryKey', () => {
-  const mojitoQueryKey = QueryKey.get(EMojitoQueries.checkUsername, { username: 'test-username' });
-  const contentfulQueryKey = QueryKey.get(EContentfulQueries.authors);
+  const mojitoQueryKey = QueryKey.get(EMojitoKey.checkUsername, { username: 'test-username' });
+  const contentfulQueryKey = QueryKey.get(EContentfulKey.authors);
 
   it('should be defined', () => {
     expect(QueryKey).toBeDefined();

@@ -1,4 +1,4 @@
-import { EMojitoQueries } from '../../domain/gql/queries';
+import { EMojitoKey } from '../../domain/enums/state.enum';
 import { ICollectionItemByIdBidsListRequest } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
@@ -24,7 +24,7 @@ export function useCollectionItemBidsList({
 }: UseCollectionItemBidsListProps) {
   return useMojitoFactory({
     as: 'bids',
-    query: EMojitoQueries.collectionItemByIdBidsList,
+    query: EMojitoKey.collectionItemByIdBidsList,
     variables: { id: collectionItemID },
     options,
     transformFn,

@@ -6,8 +6,8 @@ import {
   MarketplaceResponse,
 } from '../../domain/interfaces';
 import { getCollectionSlugFromUrl } from '../../domain/utils/state/path.util';
-import { EMojitoQueries } from '../../domain/gql/queries';
-import { EContentfulQueries } from '../../domain/gql/contentful';
+import { EMojitoKey } from '../../domain/enums/state.enum';
+import { EContentfulKey } from '../../domain/enums/state.enum';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
@@ -25,12 +25,12 @@ export function useCollection(props?: UseCollectionProps) {
   async function preloadFn() {
     const [mojitoCollections, contentfulCollectionSlugsOnly] = await Promise.all([
       queryClient.fetchQuery<MarketplaceResponse>(
-        QueryKey.get(EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug, {
+        QueryKey.get(EMojitoKey.marketplaceCollectionsInfoWithItemsIdAndSlug, {
           id: config.MARKETPLACE_ID,
         }),
       ),
       queryClient.fetchQuery<IContentfulAuctionsSlugListQuery>(
-        QueryKey.get(EContentfulQueries.auctionsSlugList),
+        QueryKey.get(EContentfulKey.auctionsSlugList),
       ),
     ]);
 
@@ -49,10 +49,10 @@ export function useCollection(props?: UseCollectionProps) {
 
       await Promise.all([
         queryClient.prefetchQuery(
-          QueryKey.get(EContentfulQueries.auctionBySlug, { slug: collectionSlug }),
+          QueryKey.get(EContentfulKey.auctionBySlug, { slug: collectionSlug }),
         ),
         queryClient.prefetchQuery(
-          QueryKey.get(EContentfulQueries.shortLots, { mojitoIds: collectionItems }),
+          QueryKey.get(EContentfulKey.shortLots, { mojitoIds: collectionItems }),
         ),
       ]);
     }
@@ -60,7 +60,7 @@ export function useCollection(props?: UseCollectionProps) {
 
   return useMojitoFactory({
     as: 'collection',
-    query: EMojitoQueries.collectionBySlug,
+    query: EMojitoKey.collectionBySlug,
     variables: {
       slug: collectionSlug,
       marketplaceID: config.MARKETPLACE_ID,

@@ -1,4 +1,4 @@
-import { EMojitoQueries } from '../../domain/gql/queries';
+import { EMojitoKey } from '../../domain/enums/state.enum';
 import { WalletsResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
@@ -18,7 +18,7 @@ export type UseMojitoWalletsProps = BaseQueryHookProps<UseMojitoWalletsData>;
 export function useMojitoWallets({ options }: UseMojitoWalletsProps = {}) {
   return useMojitoFactory({
     as: 'wallets',
-    query: EMojitoQueries.userWallets,
+    query: EMojitoKey.userWallets,
     options,
     transformFn,
     onlyAuthenticated: true,
@@ -32,7 +32,7 @@ export function useMojitoWallets(): {
   wallets: IMojitoWallet[];
 } & ReturnType<typeof useMojito> {
   const result = useMojito({
-    query: EMojitoQueries.userWallets,
+    query: EMojitoKey.userWallets,
     onlyAuthenticated: true,
   });
 

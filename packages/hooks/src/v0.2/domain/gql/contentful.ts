@@ -1,17 +1,8 @@
 import { gql } from 'graphql-request';
+import { EContentfulKey } from '../enums/state.enum';
 
-export enum EContentfulQueries {
-  fullLot = 'fullLot',
-  shortLots = 'shortLots',
-  auctionBySlug = 'auctionBySlug',
-  auctionsSlugList = 'auctionsSlugList',
-  collectors = 'collectors',
-  authors = 'authors',
-  organizations = 'organizations',
-}
-
-export const contentfulQueries: Record<EContentfulQueries, string> = {
-  [EContentfulQueries.fullLot]: gql`
+export const contentfulQueries: Record<EContentfulKey, string> = {
+  [EContentfulKey.fullLot]: gql`
     query GetFullLot($mojitoId: String) {
       lotCollection(where: { mojitoId: $mojitoId }) {
         items {
@@ -73,7 +64,7 @@ export const contentfulQueries: Record<EContentfulQueries, string> = {
       }
     }
   `,
-  [EContentfulQueries.shortLots]: gql`
+  [EContentfulKey.shortLots]: gql`
     query GetShortLots($mojitoIds: [String]) {
       lotCollection(order: lotId_ASC, where: { mojitoId_in: $mojitoIds }) {
         items {
@@ -113,7 +104,7 @@ export const contentfulQueries: Record<EContentfulQueries, string> = {
       }
     }
   `,
-  [EContentfulQueries.auctionBySlug]: gql`
+  [EContentfulKey.auctionBySlug]: gql`
     query GetAuctionBySlug($slug: String) {
       auctionCollection(order: sys_publishedAt_DESC, where: { slug: $slug }) {
         items {
@@ -132,7 +123,7 @@ export const contentfulQueries: Record<EContentfulQueries, string> = {
       }
     }
   `,
-  [EContentfulQueries.auctionsSlugList]: gql`
+  [EContentfulKey.auctionsSlugList]: gql`
     query GetAuctionsSlugs {
       auctionCollection(order: sys_publishedAt_DESC) {
         items {
@@ -141,7 +132,7 @@ export const contentfulQueries: Record<EContentfulQueries, string> = {
       }
     }
   `,
-  [EContentfulQueries.collectors]: gql`
+  [EContentfulKey.collectors]: gql`
     query GetCollectors {
       collectorCollection(order: name_ASC) {
         items {
@@ -171,7 +162,7 @@ export const contentfulQueries: Record<EContentfulQueries, string> = {
       }
     }
   `,
-  [EContentfulQueries.authors]: gql`
+  [EContentfulKey.authors]: gql`
     query GetAuthors {
       authorCollection {
         items {
@@ -198,7 +189,7 @@ export const contentfulQueries: Record<EContentfulQueries, string> = {
       }
     }
   `,
-  [EContentfulQueries.organizations]: gql`
+  [EContentfulKey.organizations]: gql`
     query GetOrganizations {
       organizationCollection {
         items {

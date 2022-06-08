@@ -1,8 +1,8 @@
-import { EMojitoQueries } from '../../domain/gql/queries';
-import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
+import { config } from '../../domain/constants/general.constants';
+import { EMojitoKey } from '../../domain/enums/state.enum';
 import { CurrentUserResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
-import { config } from '../../domain/constants/general.constants';
+import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
 function transformFn(response?: CurrentUserResponse) {
   if (!response) return undefined;
@@ -19,7 +19,7 @@ export type UseActiveBidsProps = BaseQueryHookProps<UseActiveBidsData>;
 export function useActiveBids({ options }: UseActiveBidsProps = {}) {
   return useMojitoFactory({
     as: 'activeBids',
-    query: EMojitoQueries.userActiveBids,
+    query: EMojitoKey.userActiveBids,
     variables: {
       organizationID: config.ORGANIZATION_ID,
     },

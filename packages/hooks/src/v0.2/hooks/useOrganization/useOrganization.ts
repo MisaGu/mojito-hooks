@@ -1,4 +1,4 @@
-import { EMojitoQueries } from '../../domain/gql/queries';
+import { EMojitoKey } from '../../domain/enums/state.enum';
 import { UserOrganizationResponse } from '../../domain/interfaces';
 import { BaseQueryHookPropsWithForce } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
@@ -18,7 +18,7 @@ export type UseOrganizationProps = BaseQueryHookPropsWithForce<UseOrganizationDa
 export function useOrganization({ force, options }: UseOrganizationProps = {}) {
   return useMojitoFactory({
     as: 'organization',
-    query: EMojitoQueries.organization,
+    query: EMojitoKey.organization,
     options,
     transformFn,
     force,
@@ -35,7 +35,7 @@ export function useOrganization(options: UseQueryOptions<any> = {}): {
   organization: (IMojitoProfileUserOrg & IMojitoProfileCustomOrgs) | null;
 } & ReturnType<typeof useMojito> {
   const result = useMojito({
-    query: EMojitoQueries.organization,
+    query: EMojitoKey.organization,
     options,
     onlyAuthenticated: true,
   });

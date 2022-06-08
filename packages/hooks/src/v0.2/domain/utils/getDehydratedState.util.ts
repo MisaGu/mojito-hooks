@@ -1,7 +1,6 @@
 import { dehydrate, DehydratedState } from 'react-query';
 import { config } from '../constants/general.constants';
-import { EContentfulQueries } from '../gql/contentful';
-import { EMojitoQueries } from '../gql/queries';
+import { EContentfulKey, EMojitoKey } from '../enums/state.enum';
 import { MojitoCollection } from '../interfaces';
 import { queryClient } from './gqlRequest.util';
 import { QueryKey } from './queryKeyFactory.util';
@@ -22,14 +21,14 @@ export async function getDehydratedState(
   if (auctionPageSlug == '500') return { dehydratedState: dehydrate(queryClient) };
 
   const marketplaceCollectionsSlugQueryKey = QueryKey.get(
-    EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug,
+    EMojitoKey.marketplaceCollectionsInfoWithItemsIdAndSlug,
     { id: config.MARKETPLACE_ID },
   );
 
   await Promise.all([
     queryClient.prefetchQuery(marketplaceCollectionsSlugQueryKey),
-    queryClient.prefetchQuery(QueryKey.get(EContentfulQueries.auctionsSlugList)),
-    queryClient.prefetchQuery(QueryKey.get(EContentfulQueries.organizations)),
+    queryClient.prefetchQuery(QueryKey.get(EContentfulKey.auctionsSlugList)),
+    queryClient.prefetchQuery(QueryKey.get(EContentfulKey.organizations)),
   ]);
 
   const collections = queryClient.getQueryState<any>(marketplaceCollectionsSlugQueryKey)?.data
@@ -49,7 +48,7 @@ export async function getDehydratedState(
       if (mojitoLotId) {
         pageSpecificRequests.push(
           queryClient.prefetchQuery(
-            QueryKey.get(EContentfulQueries.fullLot, { mojitoId: mojitoLotId }),
+            QueryKey.get(EContentfulKey.fullLot, { mojitoId: mojitoLotId }),
           ),
         );
       }
@@ -57,16 +56,16 @@ export async function getDehydratedState(
 
     await Promise.all([
       queryClient.prefetchQuery(
-        QueryKey.get(EContentfulQueries.auctionBySlug, { slug: auctionPageSlug }),
+        QueryKey.get(EContentfulKey.auctionBySlug, { slug: auctionPageSlug }),
       ),
       queryClient.prefetchQuery(
-        QueryKey.get(EContentfulQueries.shortLots, { mojitoIds: collectionItemsId }),
+        QueryKey.get(EContentfulKey.shortLots, { mojitoIds: collectionItemsId }),
       ),
       ...pageSpecificRequests,
     ]);
 
     await queryClient.prefetchQuery(
-      QueryKey.get(EMojitoQueries.collectionBySlug, {
+      QueryKey.get(EMojitoKey.collectionBySlug, {
         slug: auctionPageSlug,
         marketplaceID: config.MARKETPLACE_ID,
       }),

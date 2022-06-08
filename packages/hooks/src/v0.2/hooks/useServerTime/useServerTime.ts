@@ -1,4 +1,4 @@
-import { EMojitoQueries } from '../../domain/gql/queries';
+import { EMojitoKey } from '../../domain/enums/state.enum';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
@@ -11,7 +11,7 @@ export type UseServerTimeProps = BaseQueryHookProps<UseServerTimeData>;
 export function useServerTime({ options }: UseServerTimeProps = {}) {
   return useMojitoFactory({
     as: 'serverTime',
-    query: EMojitoQueries.serverTime,
+    query: EMojitoKey.serverTime,
     options,
   });
 }
@@ -23,7 +23,7 @@ export function useServerTime(): {
   serverTime: Date;
 } & ReturnType<typeof useMojito> {
   const result = useMojito({
-    query: EMojitoQueries.serverTime,
+    query: EMojitoKey.serverTime,
   });
 
   return {

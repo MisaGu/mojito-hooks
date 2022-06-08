@@ -1,5 +1,5 @@
 import { config } from '../../domain/constants/general.constants';
-import { EMojitoQueries } from '../../domain/gql/queries';
+import { EMojitoKey } from '../../domain/enums/state.enum';
 import { OrgUsernameAvailableResponse } from '../../domain/interfaces';
 import { BaseLazyQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
@@ -21,7 +21,7 @@ export interface UseCheckUsernameProps extends BaseLazyQueryHookProps<UseCheckUs
 export function useCheckUsername({ username, options }: UseCheckUsernameProps) {
   const { refetch: checkUsername, ...factory } = useMojitoFactory({
     as: 'usernameAvailable',
-    query: EMojitoQueries.checkUsername,
+    query: EMojitoKey.checkUsername,
     variables: {
       organizationID: config.ORGANIZATION_ID,
       username,

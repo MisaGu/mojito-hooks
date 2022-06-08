@@ -1,8 +1,7 @@
 import moment from 'moment';
 import { config } from '../constants/general.constants';
 import { SaleType } from '../enums';
-import { EContentfulQueries } from '../gql/contentful';
-import { EMojitoQueries } from '../gql/queries';
+import { EContentfulKey, EMojitoKey } from '../enums/state.enum';
 import {
   ICollectionItemByIdBidsList,
   ContentfulAuctionBySlugResponse,
@@ -28,7 +27,7 @@ const extendCollection = (
   collection: MojitoCollection & IIMojitoCollectionItemCurrentBidsItems,
 ) => {
   const contentfulData = queryClient.getQueryData<ContentfulAuctionBySlugResponse>(
-    QueryKey.get(EContentfulQueries.auctionBySlug, { slug: collection.slug }),
+    QueryKey.get(EContentfulKey.auctionBySlug, { slug: collection.slug }),
   )?.auctionCollection?.items?.[0];
 
   const auctionStartUnix = moment(collection.startDate ?? null).unix();
@@ -95,7 +94,7 @@ const extendCollectionSingleItem = (
 
   if (!_item?.details?.bids && !_item?.details?.currentBid) {
     const lot = queryClient.getQueryData<{ [key: string]: IContentfulLotData }>(
-      QueryKey.get(EContentfulQueries.fullLot, { mojitoId: item.id }),
+      QueryKey.get(EContentfulKey.fullLot, { mojitoId: item.id }),
     );
 
     (item as MojitoMarketplaceCollectionItem).contentfulData =
@@ -123,19 +122,19 @@ const extendCollectionItems = (
 ) => {
   const lots = queryClient.getQueryData<{
     [key: string]: IContentfulLotData;
-  }>(QueryKey.get(EContentfulQueries.shortLots, { slug }));
+  }>(QueryKey.get(EContentfulKey.shortLots, { slug }));
 
   return collectionItems.map((item) => extendCollectionSingleItem(item, slug, lots));
 };
 
 const extendItemDetails = (details: any, slug: string) => {
   const profile = queryClient.getQueryData<CurrentUserResponse>(
-    QueryKey.get(EMojitoQueries.profile),
+    QueryKey.get(EMojitoKey.profile),
   )?.me;
 
   const item = queryClient
     .getQueryData<{ items: IMojitoCollectionItemCurrentBids[] }>(
-      QueryKey.get(EMojitoQueries.collectionBySlugCurrentBids, {
+      QueryKey.get(EMojitoKey.collectionBySlugCurrentBids, {
         slug,
         marketplaceID: config.MARKETPLACE_ID,
       }),
@@ -328,7 +327,7 @@ export function mojitoNormalizer(
   if (response?.getMyInvoices) {
     const lots = queryClient.getQueryData<{
       [key: string]: IContentfulLotData;
-    }>(QueryKey.get(EContentfulQueries.shortLots, { slug: variables?.slug }));
+    }>(QueryKey.get(EContentfulKey.shortLots, { slug: variables?.slug }));
 
     // _data.getMyInvoices = _data?.getMyInvoices.map((invoice) => {
     //   const lot = lots?.[invoice.collectionItemId];

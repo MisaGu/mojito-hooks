@@ -2,7 +2,7 @@ import { Variables } from 'graphql-request/dist/types';
 import { useEffect } from 'react';
 import { useQuery, useQueryClient, UseQueryOptions } from 'react-query';
 import { useAuthContext } from '../../domain/context/auth.context';
-import { EMojitoQueries } from '../../domain/gql/queries';
+import { EMojitoKey } from '../../domain/enums/state.enum';
 import { normalizeQueryResult } from '../../domain/utils/gqlResult.utils';
 import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
@@ -14,7 +14,7 @@ export interface MojitoFactoryOptions<
   TError = Error,
 > {
   as: TDataPropertyName;
-  query: EMojitoQueries;
+  query: EMojitoKey;
   variables?: Variables;
   options?: UseQueryOptions<TReturn, TError>;
   preloadFn?: () => Promise<TReturn | undefined | void>;

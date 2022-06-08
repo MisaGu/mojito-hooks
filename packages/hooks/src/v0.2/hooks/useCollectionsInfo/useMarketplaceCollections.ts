@@ -1,5 +1,5 @@
 import { config } from '../../domain/constants/general.constants';
-import { EMojitoQueries } from '../../domain/gql/queries';
+import { EMojitoKey } from '../../domain/enums/state.enum';
 import { MarketplaceResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
@@ -19,7 +19,7 @@ export type UseMarketplaceCollectionsProps = BaseQueryHookProps<UseMarketplaceCo
 export function useMarketplaceCollections(props?: UseMarketplaceCollectionsProps) {
   return useMojitoFactory({
     as: 'collections',
-    query: EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug,
+    query: EMojitoKey.marketplaceCollectionsInfoWithItemsIdAndSlug,
     variables: {
       id: config.MARKETPLACE_ID,
     },

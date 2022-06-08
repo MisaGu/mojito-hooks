@@ -1,4 +1,4 @@
-import { EMojitoQueries } from '../../domain/gql/queries';
+import { EMojitoKey } from '../../domain/enums/state.enum';
 import { CollectionItemResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { checkCollectionItemId } from '../../domain/utils/state/marketplaceCollectionsInfoWithItemsIdAndSlug.util';
@@ -23,7 +23,7 @@ export function useCollectionItemById({ id, options }: UseCollectionItemByIdProp
 
   return useMojitoFactory({
     as: 'item',
-    query: EMojitoQueries.collectionItemById,
+    query: EMojitoKey.collectionItemById,
     variables: { id: _id },
     options: { ...options, enabled: !!_id },
     transformFn,

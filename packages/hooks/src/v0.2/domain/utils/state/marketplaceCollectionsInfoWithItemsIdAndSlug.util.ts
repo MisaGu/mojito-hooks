@@ -1,5 +1,5 @@
 import { config } from '../../constants/general.constants';
-import { EMojitoQueries } from '../../gql/queries';
+import { EMojitoKey } from '../../enums/state.enum';
 import {
   MojitoCollection,
   MojitoMarketplaceCollectionItem,
@@ -8,7 +8,7 @@ import { queryClient } from '../gqlRequest.util';
 import { QueryKey } from '../queryKeyFactory.util';
 
 const marketplaceCollectionsSlugQueryKey = QueryKey.get(
-  EMojitoQueries.marketplaceCollectionsInfoWithItemsIdAndSlug,
+  EMojitoKey.marketplaceCollectionsInfoWithItemsIdAndSlug,
   { id: config.MARKETPLACE_ID },
 );
 

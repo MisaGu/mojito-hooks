@@ -1,4 +1,4 @@
-import { EMojitoQueries } from '../../domain/gql/queries';
+import { EMojitoKey } from '../../domain/enums/state.enum';
 import { FavoriteResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
@@ -18,7 +18,7 @@ export type UseFavoriteItemsProps = BaseQueryHookProps<UseFavoriteItemsData>;
 export function useFavoriteItems({ options }: UseFavoriteItemsProps = {}) {
   return useMojitoFactory({
     as: 'favoriteItems',
-    query: EMojitoQueries.userFavorites,
+    query: EMojitoKey.userFavorites,
     options,
     transformFn,
     onlyAuthenticated: true,

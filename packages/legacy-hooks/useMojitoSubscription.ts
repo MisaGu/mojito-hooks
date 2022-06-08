@@ -1,7 +1,7 @@
 import { useAuth0 } from '@auth0/auth0-react';
 import { SubscriptionClient } from 'graphql-subscriptions-client';
 import { useEffect, useRef } from 'react';
-import { EMojitoQueries, EMojitoSubscriptions, mojitoSubscriptions } from '../data';
+import { EMojitoSubscriptions, mojitoSubscriptions } from '../data';
 import { config } from '../domain/general.constants';
 import {
   IMojitoCollection,
@@ -77,7 +77,7 @@ export function useMojitoOneLotSubscription(lotId: string, collectionSlug: strin
             if (newLotDetails) {
               queryClient.setQueryData<IMojitoCollection>(
                 [
-                  `Mojito ${EMojitoQueries[EMojitoQueries.collectionBySlugCurrentBids]}`,
+                  `Mojito ${EMojitoKey[EMojitoKey.collectionBySlugCurrentBids]}`,
                   {
                     marketplaceID: config.MARKETPLACE_ID,
                     slug: collectionSlug,
@@ -122,7 +122,7 @@ export function useCollectionItemBidsSubscription(
             if (newLotDetails) {
               queryClient.setQueryData<IMojitoCollectionItemDetailsBid[]>(
                 [
-                  `Mojito ${EMojitoQueries[EMojitoQueries.collectionItemByIdBidsList]}`,
+                  `Mojito ${EMojitoKey[EMojitoKey.collectionItemByIdBidsList]}`,
                   {
                     id: itemId,
                     slug: collectionSlug,
@@ -169,7 +169,7 @@ export function useMojitoCollectionSubscription(
             if (newLotDetails) {
               queryClient.setQueryData<IMojitoCollection>(
                 [
-                  `Mojito ${EMojitoQueries[EMojitoQueries.collectionBySlugCurrentBids]}`,
+                  `Mojito ${EMojitoKey[EMojitoKey.collectionBySlugCurrentBids]}`,
                   {
                     slug: collectionSlug,
                     marketplaceID: config.MARKETPLACE_ID,
