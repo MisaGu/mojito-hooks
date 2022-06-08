@@ -20,7 +20,7 @@ export function useOrganization({ force, options }: UseOrganizationProps = {}) {
     as: 'organization',
     query: EMojitoKey.organization,
     options,
-    transformFn,
+    selectFn: transformFn,
     force,
     onlyAuthenticated: true,
   });

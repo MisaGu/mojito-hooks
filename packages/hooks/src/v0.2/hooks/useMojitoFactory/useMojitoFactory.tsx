@@ -2,7 +2,7 @@ import { Variables } from 'graphql-request/dist/types';
 import { useEffect } from 'react';
 import { useQuery, useQueryClient, UseQueryOptions } from 'react-query';
 import { useAuthContext } from '../../domain/context/auth.context';
-import { EMojitoKey } from '../../domain/enums/state.enum';
+import { EMojitoKey, EOptionKey } from '../../domain/enums/state.enum';
 import { normalizeQueryResult } from '../../domain/utils/gqlResult.utils';
 import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
@@ -18,7 +18,7 @@ export interface MojitoFactoryOptions<
   variables?: Variables;
   options?: UseQueryOptions<TReturn, TError>;
   preloadFn?: () => Promise<TReturn | undefined | void>;
-  transformFn?: (data: TData | undefined) => TReturn | undefined;
+  selectFn?: (data: TData | undefined) => TReturn | undefined;
   force?: boolean;
   onlyAuthenticated?: boolean;
 }
@@ -34,17 +34,19 @@ export function useMojitoFactory<
   variables,
   options,
   preloadFn,
-  transformFn,
+  selectFn,
   force = false,
   onlyAuthenticated,
 }: MojitoFactoryOptions<TDataPropertyName, TData, TReturn, TError>) {
-  const { isAuthenticated } = useAuthContext();
   const queryClient = useQueryClient();
-  const queryKey = QueryKey.get(query, variables);
+  const isAuthenticated = queryClient.getQueryData<boolean>(
+    QueryKey.get(EOptionKey.isAuthenticated),
+  );
   const enabled = options?.enabled !== false && (!onlyAuthenticated || isAuthenticated);
+  const queryKey = QueryKey.get(query, variables);
 
   const queryFn =
-    preloadFn || transformFn
+    preloadFn || selectFn
       ? async () => {
           if (preloadFn) await preloadFn();
 
@@ -53,7 +55,7 @@ export function useMojitoFactory<
 
           const result = (await configuredQueryFn({ queryKey, meta: undefined })) as TData;
 
-          return transformFn ? transformFn(result) : (result as unknown as TReturn);
+          return selectFn ? selectFn(result) : (result as unknown as TReturn);
         }
       : options?.queryFn;
 

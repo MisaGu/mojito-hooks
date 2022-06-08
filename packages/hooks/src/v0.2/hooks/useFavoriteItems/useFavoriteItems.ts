@@ -20,7 +20,7 @@ export function useFavoriteItems({ options }: UseFavoriteItemsProps = {}) {
     as: 'favoriteItems',
     query: EMojitoKey.userFavorites,
     options,
-    transformFn,
+    selectFn: transformFn,
     onlyAuthenticated: true,
   });
 }

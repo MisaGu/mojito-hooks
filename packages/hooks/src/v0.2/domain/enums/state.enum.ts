@@ -1,5 +1,6 @@
 export enum EOptionKey {
   authToken = 'authToken',
+  isAuthenticated = 'isAuthenticated',
 }
 
 export enum EMojitoKey {

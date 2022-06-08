@@ -34,7 +34,6 @@
     "README.md"
   ],
   "dependencies": {
-    "@auth0/auth0-react": "^1.6.0",
     "@babel/runtime": "^7.17.9",
     "@sentry/react": "^6.15.0",
     "ahooks": "^3.3.10",

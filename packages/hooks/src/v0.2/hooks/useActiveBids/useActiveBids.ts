@@ -24,7 +24,7 @@ export function useActiveBids({ options }: UseActiveBidsProps = {}) {
       organizationID: config.ORGANIZATION_ID,
     },
     options,
-    transformFn,
+    selectFn: transformFn,
     onlyAuthenticated: true,
   });
 }

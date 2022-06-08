@@ -24,7 +24,7 @@ export function useMarketplaceCollections(props?: UseMarketplaceCollectionsProps
       id: config.MARKETPLACE_ID,
     },
     options: props?.options as any,
-    transformFn,
+    selectFn: transformFn,
   });
 }
 

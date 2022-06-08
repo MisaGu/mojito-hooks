@@ -27,7 +27,7 @@ export function useCollectionItemBidsList({
     query: EMojitoKey.collectionItemByIdBidsList,
     variables: { id: collectionItemID },
     options,
-    transformFn,
+    selectFn: transformFn,
   });
 }
 
