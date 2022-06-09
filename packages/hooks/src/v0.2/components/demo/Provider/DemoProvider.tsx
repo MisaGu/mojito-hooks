@@ -3,11 +3,7 @@ import React from 'react';
 import { config } from '../../../domain/constants/general.constants';
 import { AuthProvider } from '../../../domain/context/auth.context';
 
-interface DemoProviderProps {
-  children: React.ReactNode;
-}
-
-export const DemoProviders: React.FC<DemoProviderProps> = ({ children }) => {
+export const DemoProviders = ({ children }) => {
   /*
   useEffect(() => {
     console.log({
@@ -18,12 +14,11 @@ export const DemoProviders: React.FC<DemoProviderProps> = ({ children }) => {
     });
   }, []);
   */
-
   return (
     <Auth0Provider
-      domain={config.AUTH0_DOMAIN}
-      clientId={config.AUTH0_CLIENTID}
-      redirectUri={config.AUTH_REDIRECT_URI}
+      domain={'https://accounts.staging.sothelabs.com'}
+      clientId={'thTFyyXuq94Zr6nBIfEVnQ5iUwRlJsSg'}
+      redirectUri={'http://localhost:3000'}
     >
       <AuthProvider>{children}</AuthProvider>
     </Auth0Provider>

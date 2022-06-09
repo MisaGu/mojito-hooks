@@ -1,5 +1,3 @@
-import { IMojitoProfile } from '../../domain/interfaces';
-
 export function resolveGetUserActiveBids(req, res, ctx) {
   return res(
     ctx.data({
@@ -7,7 +5,7 @@ export function resolveGetUserActiveBids(req, res, ctx) {
       me: {
         id: 'mock-user-id',
         activeBids: [],
-      } as Pick<IMojitoProfile, 'id' | 'activeBids'>,
+      },
     }),
   );
 }

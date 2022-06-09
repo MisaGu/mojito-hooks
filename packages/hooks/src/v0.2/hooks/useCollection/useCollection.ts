@@ -5,7 +5,7 @@ import {
   MojitoMarketplaceCollection,
   MarketplaceResponse,
 } from '../../domain/interfaces';
-import { getCollectionSlugFromUrl } from '../../domain/utils/state/path.util';
+import { getCollectionSlugFromPathname } from '../../domain/utils/state/path.util';
 import { EMojitoKey } from '../../domain/enums/state.enum';
 import { EContentfulKey } from '../../domain/enums/state.enum';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
@@ -20,7 +20,7 @@ export type UseCollectionProps = BaseQueryHookPropsWithUrlAndSlug<UseCollectionD
 
 export function useCollection(props?: UseCollectionProps) {
   const queryClient = useQueryClient();
-  const collectionSlug = getCollectionSlugFromUrl(props);
+  const collectionSlug = getCollectionSlugFromPathname();
 
   async function preloadFn() {
     const [mojitoCollections, contentfulCollectionSlugsOnly] = await Promise.all([

@@ -1,5 +1,3 @@
-import { IMojitoWalletsRequest } from '../../domain/interfaces';
-
 export function resolveGetWallets(req, res, ctx) {
   return res(
     ctx.data({

@@ -13,3 +13,6 @@ export const config = {
 
 // For some reason, dumi seems to somehow cache this value. Doing this here forces it to always take the latest value:
 !!process.env.MOJITO_API_URL;
+!!process.env.AUTH0_DOMAIN;
+!!process.env.AUTH0_CLIENTID;
+!!process.env.AUTH_REDIRECT_URI;

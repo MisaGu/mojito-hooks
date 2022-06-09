@@ -20,6 +20,6 @@ export function resolveGetContentfulAuctionBySlug(req, res, ctx) {
           },
         ],
       },
-    } as ContentfulAuctionBySlugResponse),
+    }),
   );
 }

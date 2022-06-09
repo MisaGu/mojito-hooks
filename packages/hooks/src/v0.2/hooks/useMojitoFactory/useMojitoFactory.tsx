@@ -24,7 +24,7 @@ export interface MojitoFactoryOptions<
   variables?: Variables;
   options?: UseQueryOptions<TData, TError>;
   preloadFn?: () => Promise<TData | undefined | void>;
-  selectorFn?: (data: TData) => TSelectorResult;
+  selectorFn?: any; //(data: TData) => TSelectorResult;
   force?: boolean;
   onlyAuthenticated?: boolean;
 }

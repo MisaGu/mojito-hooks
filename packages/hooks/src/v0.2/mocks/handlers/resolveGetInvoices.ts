@@ -27,6 +27,6 @@ export function resolveGetInvoices(req, res, ctx) {
           ],
         },
       ],
-    } as MojitoGetMyInvoicesResponse),
+    }),
   );
 }

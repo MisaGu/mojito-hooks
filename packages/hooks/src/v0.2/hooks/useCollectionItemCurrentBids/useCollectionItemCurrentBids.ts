@@ -1,9 +1,9 @@
 import { useMemo } from 'react';
-import { IMojitoCollectionItemCurrentBids } from '../../domain/interfaces';
+import { MojitoMarketplaceAuctionBid } from '../../domain/interfaces';
 import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 import { useCollectionItemsCurrentBids } from '../useCollectionItemsCurrentBids/useCollectionItemsCurrentBids';
 
-export type UseCollectionItemCurrentBidsData = undefined | IMojitoCollectionItemCurrentBids;
+export type UseCollectionItemCurrentBidsData = undefined | MojitoMarketplaceAuctionBid;
 
 export type UseCollectionItemCurrentBidsReturn = ReturnType<typeof useCollectionItemCurrentBid>;
 
