@@ -1,17 +1,12 @@
 import { Variables } from 'graphql-request/dist/types';
+import isEqual from 'lodash.isequal';
 import { useEffect, useRef, useState } from 'react';
-import {
-  QueryObserver,
-  QueryObserverResult,
-  useQuery,
-  useQueryClient,
-  UseQueryOptions,
-} from 'react-query';
-import { EMojitoKey, EOptionKey } from '../../domain/enums/state.enum';
+import { QueryObserver, useQueryClient, UseQueryOptions } from 'react-query';
+import { useAuthContext } from '../../domain/context/auth.context';
+import { EMojitoKey } from '../../domain/enums/state.enum';
 import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
 import { normalizeQueryResult } from '../../domain/utils/gqlResult.utils';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
-import isEqual from 'lodash.isequal';
 
 export interface MojitoFactoryOptions<
   TDataPropertyName extends string,
@@ -45,31 +40,28 @@ export function useMojitoFactory<
   onlyAuthenticated,
 }: MojitoFactoryOptions<TDataPropertyName, TData, TSelectorResult, TError>) {
   const queryClient = useQueryClient();
-  const isAuthenticated = queryClient.getQueryData<boolean>(
-    QueryKey.get(EOptionKey.isAuthenticated),
-  );
-  const enabled = options?.enabled !== false && (!onlyAuthenticated || isAuthenticated);
-  const queryKey = QueryKey.get(query, variables);
-  const queryFn = async () => {
-    if (preloadFn) await preloadFn();
-
-    const configuredQueryFn =
-      options?.queryFn || queryClient.getDefaultOptions().queries?.queryFn || defaultQueryFn;
-
-    return (await configuredQueryFn({ queryKey, meta: undefined })) as TData;
-  };
-  const observer = useRef(
-    new QueryObserver<TData | undefined, TError>(queryClient, {
-      ...options,
-      queryKey,
-      queryFn,
-      meta: { ...options?.meta, authorization: isAuthenticated },
-      enabled,
-    }),
-  );
+  const { isAuthenticated } = useAuthContext(); // REPLACE ME
   const _unsubscribe = useRef<() => void>();
-  const _result = observer.current.getCurrentResult(); // QueryObserverResult<TData, TError>
-  const [data, setData] = useState<TData | TSelectorResult | undefined>(
+
+  const queryKey = QueryKey.get(query, variables);
+  const queryOptions = {
+    ...options,
+    queryKey,
+    queryFn: async () => {
+      if (preloadFn) await preloadFn();
+
+      const configuredQueryFn =
+        options?.queryFn || queryClient.getDefaultOptions().queries?.queryFn || defaultQueryFn;
+
+      return (await configuredQueryFn({ queryKey, meta: undefined })) as TData;
+    },
+    meta: { ...options?.meta, authorization: isAuthenticated },
+    enabled: options?.enabled !== false && (!onlyAuthenticated || isAuthenticated),
+  };
+
+  const observer = useRef(new QueryObserver<TData | undefined, TError>(queryClient, queryOptions));
+  const _result = observer.current.getCurrentResult();
+  const [data, setData] = useState<TData | undefined>(
     selectorFn ? (_result.data ? selectorFn(_result.data) : _result.data) : _result.data,
   );
 
@@ -79,33 +71,27 @@ export function useMojitoFactory<
     }
 
     _unsubscribe.current?.();
-    observer.current = new QueryObserver<TData | undefined, TError>(queryClient, {
-      queryKey,
-      queryFn,
-      ...options,
-    });
-  }, [queryKey]);
+    observer.current = new QueryObserver<TData | undefined, TError>(queryClient, queryOptions);
+
+    return () => observer.current?.destroy();
+  }, [JSON.stringify(queryKey), isAuthenticated, force]);
 
   useEffect(() => {
     _unsubscribe.current = observer.current.subscribe((result) => {
       if (selectorFn) {
         if (result.data) {
-          const _selector = selectorFn(result.data as unknown as TData);
-          if (!isEqual(_selector, data)) {
-            setData(result.data);
+          const _selectorResult = selectorFn(result.data as unknown as TData);
+          if (!isEqual(_selectorResult, data)) {
+            setData(_selectorResult);
           }
         }
-      } else setData(result.data);
+      } else {
+        setData(result.data);
+      }
     });
 
     return () => _unsubscribe.current?.();
   }, [observer.current]);
 
-  useEffect(() => {
-    if (isAuthenticated && onlyAuthenticated && enabled) {
-      _result.refetch();
-    }
-  }, [isAuthenticated]);
-
-  return normalizeQueryResult(as, _result);
+  return normalizeQueryResult(as, Object.assign(_result, data));
 }
