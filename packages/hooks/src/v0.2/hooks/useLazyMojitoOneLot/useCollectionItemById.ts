@@ -4,13 +4,13 @@ import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { checkCollectionItemId } from '../../domain/utils/state/marketplaceCollectionsInfoWithItemsIdAndSlug.util';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(response?: CollectionItemResponse) {
+function selectorFn(response?: CollectionItemResponse) {
   if (!response) return undefined;
 
   return response.collectionItemById;
 }
 
-export type UseCollectionItemByIdData = ReturnType<typeof transformFn>;
+export type UseCollectionItemByIdData = ReturnType<typeof selectorFn>;
 
 export type UseCollectionItemByIdReturn = ReturnType<typeof useCollectionItemById>;
 
@@ -26,7 +26,7 @@ export function useCollectionItemById({ id, options }: UseCollectionItemByIdProp
     query: EMojitoKey.collectionItemById,
     variables: { id: _id },
     options: { ...options, enabled: !!_id },
-    selectorFn: transformFn,
+    selectorFn,
   });
 }
 

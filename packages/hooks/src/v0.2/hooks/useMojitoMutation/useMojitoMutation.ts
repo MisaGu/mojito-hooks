@@ -19,7 +19,7 @@ export interface IUseMojitoFactoryOptions<
   query: EMojitoKey;
   variables: TVariables;
   options?: UseMutationOptions<TReturn, TError, TVariables, TContext>;
-  transformFn?: (data: TData | undefined) => TReturn;
+  selectorFn?: (data: TData | undefined) => TReturn;
   onlyAuthenticated?: boolean;
   auto?: boolean;
 }
@@ -36,7 +36,7 @@ export function useMojitoMutation<
   query,
   variables,
   options,
-  transformFn,
+  selectorFn,
   onlyAuthenticated,
   auto = true,
 }: IUseMojitoFactoryOptions<TDataPropertyName, TData, TReturn, TError, TVariables, TContext>) {
@@ -44,7 +44,7 @@ export function useMojitoMutation<
   const queryClient = useQueryClient();
   const mutationKey = QueryKey.get(query, variables);
 
-  const mutationFn = transformFn
+  const mutationFn = selectorFn
     ? async () => {
         const configuredQueryFn =
           (options as any)?.queryFn ||
@@ -60,7 +60,7 @@ export function useMojitoMutation<
           meta: undefined,
         })) as TData;
 
-        return transformFn ? transformFn(result) : (result as unknown as TReturn);
+        return selectorFn ? selectorFn(result) : (result as unknown as TReturn);
       }
     : (options as any)?.queryFn;
 

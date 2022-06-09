@@ -4,13 +4,13 @@ import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.
 import { getCollectionSlug } from '../../domain/utils/getSlug.util';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(collectionItemRequest?: CollectionItemRemainingCountResponse) {
+function selectorFn(collectionItemRequest?: CollectionItemRemainingCountResponse) {
   if (!collectionItemRequest) return undefined;
 
   return collectionItemRequest.collectionItemById.details.remainingCount;
 }
 
-export type UseCollectionItemRemainingCountData = ReturnType<typeof transformFn>;
+export type UseCollectionItemRemainingCountData = ReturnType<typeof selectorFn>;
 
 export type UseCollectionItemRemainingCountReturn = ReturnType<
   typeof useCollectionItemRemainingCount
@@ -33,7 +33,7 @@ export function useCollectionItemRemainingCount({
     query: EMojitoKey.collectionItemByIdRemainingCount,
     variables: { id: collectionItemID, slug },
     options: { ...options, enabled: !!slug },
-    selectorFn: transformFn,
+    selectorFn,
     onlyAuthenticated: true,
   });
 }

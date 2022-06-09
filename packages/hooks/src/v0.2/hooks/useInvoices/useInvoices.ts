@@ -3,13 +3,13 @@ import { MojitoGetMyInvoicesResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(response?: MojitoGetMyInvoicesResponse) {
+function selectorFn(response?: MojitoGetMyInvoicesResponse) {
   if (!response) return undefined;
 
   return response.getMyInvoices;
 }
 
-export type UseInvoicesData = ReturnType<typeof transformFn>;
+export type UseInvoicesData = ReturnType<typeof selectorFn>;
 
 export type UseInvoicesReturn = ReturnType<typeof useInvoices>;
 
@@ -20,7 +20,7 @@ export function useInvoices({ options }: UseInvoicesProps = {}) {
     as: 'invoices',
     query: EMojitoKey.invoices,
     options,
-    selectorFn: transformFn,
+    selectorFn,
     onlyAuthenticated: true,
   });
 }

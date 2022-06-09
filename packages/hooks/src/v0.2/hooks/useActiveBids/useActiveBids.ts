@@ -4,13 +4,13 @@ import { CurrentUserResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(response?: CurrentUserResponse) {
+function selectorFn(response?: CurrentUserResponse) {
   if (!response) return undefined;
 
   return response.me.activeBids;
 }
 
-export type UseActiveBidsData = ReturnType<typeof transformFn>;
+export type UseActiveBidsData = ReturnType<typeof selectorFn>;
 
 export type UseActiveBidsReturn = ReturnType<typeof useActiveBids>;
 
@@ -24,7 +24,7 @@ export function useActiveBids({ options }: UseActiveBidsProps = {}) {
       organizationID: config.ORGANIZATION_ID,
     },
     options,
-    selectorFn: transformFn,
+    selectorFn,
     onlyAuthenticated: true,
   });
 }

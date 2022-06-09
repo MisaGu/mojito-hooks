@@ -4,13 +4,13 @@ import { OrgUsernameAvailableResponse } from '../../domain/interfaces';
 import { BaseLazyQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(response?: OrgUsernameAvailableResponse) {
+function selectorFn(response?: OrgUsernameAvailableResponse) {
   if (!response) return undefined;
 
   return response.orgUsernameAvailable;
 }
 
-export type UseCheckUsername = ReturnType<typeof transformFn>;
+export type UseCheckUsername = ReturnType<typeof selectorFn>;
 
 export type UseCheckUsernameReturn = ReturnType<typeof useCheckUsername>;
 
@@ -27,7 +27,7 @@ export function useCheckUsername({ username, options }: UseCheckUsernameProps) {
       username,
     },
     options: { ...options, enabled: false },
-    selectorFn: transformFn,
+    selectorFn,
   });
 
   return { ...factory, checkUsername };

@@ -4,13 +4,13 @@ import { MarketplaceResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(response?: MarketplaceResponse) {
+function selectorFn(response?: MarketplaceResponse) {
   if (!response) return undefined;
 
   return response.marketplace.collections;
 }
 
-export type UseMarketplaceCollectionsData = ReturnType<typeof transformFn>;
+export type UseMarketplaceCollectionsData = ReturnType<typeof selectorFn>;
 
 export type UseMarketplaceCollectionsReturn = ReturnType<typeof useMarketplaceCollections>;
 
@@ -24,7 +24,7 @@ export function useMarketplaceCollections(props?: UseMarketplaceCollectionsProps
       id: config.MARKETPLACE_ID,
     },
     options: props?.options as any,
-    selectorFn: transformFn,
+    selectorFn,
   });
 }
 

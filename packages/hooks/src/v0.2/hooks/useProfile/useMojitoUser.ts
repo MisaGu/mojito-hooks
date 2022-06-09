@@ -3,13 +3,13 @@ import { ProfileResponse } from '../../domain/interfaces';
 import { BaseQueryHookPropsWithForce } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(response?: ProfileResponse) {
+function selectorFn(response?: ProfileResponse) {
   if (!response) return undefined;
 
   return response.me.user;
 }
 
-export type UseMojitoUserData = ReturnType<typeof transformFn>;
+export type UseMojitoUserData = ReturnType<typeof selectorFn>;
 
 export type UseMojitoUserReturn = ReturnType<typeof useMojitoUser>;
 
@@ -20,7 +20,7 @@ export function useMojitoUser({ force, options }: UseMojitoUserProps = {}) {
     as: 'user',
     query: EMojitoKey.profile,
     options,
-    selectorFn: transformFn,
+    selectorFn,
     force,
     onlyAuthenticated: true,
   });

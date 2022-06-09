@@ -5,13 +5,13 @@ import { MojitoCollectionItemCurrentBidsResponse } from '../../domain/interfaces
 import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 import { getCollectionSlug } from '../../domain/utils/getSlug.util';
 
-function transformFn(response?: MojitoCollectionItemCurrentBidsResponse) {
+function selectorFn(response?: MojitoCollectionItemCurrentBidsResponse) {
   if (!response) return undefined;
 
   return response.items || [];
 }
 
-export type UseCollectionItemsCurrentBidsData = ReturnType<typeof transformFn>;
+export type UseCollectionItemsCurrentBidsData = ReturnType<typeof selectorFn>;
 
 export type UseCollectionItemsCurrentBidsReturn = ReturnType<typeof useCollectionItemsCurrentBids>;
 
@@ -29,7 +29,7 @@ export function useCollectionItemsCurrentBids({
     query: EMojitoKey.collectionBySlugCurrentBids,
     variables: { slug, marketplaceID: config.MARKETPLACE_ID },
     options: { ...options, enabled: !!slug },
-    selectorFn: transformFn,
+    selectorFn,
   });
 }
 

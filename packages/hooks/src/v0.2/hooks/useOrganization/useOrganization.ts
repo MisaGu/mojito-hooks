@@ -3,13 +3,13 @@ import { UserOrganizationResponse } from '../../domain/interfaces';
 import { BaseQueryHookPropsWithForce } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(response?: UserOrganizationResponse) {
+function selectorFn(response?: UserOrganizationResponse) {
   if (!response) return undefined;
 
   return response.me.userOrgs[0];
 }
 
-export type UseOrganizationData = ReturnType<typeof transformFn>;
+export type UseOrganizationData = ReturnType<typeof selectorFn>;
 
 export type UseOrganizationReturn = ReturnType<typeof useOrganization>;
 
@@ -20,7 +20,7 @@ export function useOrganization({ force, options }: UseOrganizationProps = {}) {
     as: 'organization',
     query: EMojitoKey.organization,
     options,
-    selectorFn: transformFn,
+    selectorFn,
     force,
     onlyAuthenticated: true,
   });

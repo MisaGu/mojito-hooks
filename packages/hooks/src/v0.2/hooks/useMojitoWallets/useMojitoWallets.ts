@@ -3,13 +3,13 @@ import { WalletsResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(response?: WalletsResponse) {
+function selectorFn(response?: WalletsResponse) {
   if (!response) return undefined;
 
   return response.me.wallets;
 }
 
-export type UseMojitoWalletsData = ReturnType<typeof transformFn>;
+export type UseMojitoWalletsData = ReturnType<typeof selectorFn>;
 
 export type UseMojitoWalletsReturn = ReturnType<typeof useMojitoWallets>;
 
@@ -20,7 +20,7 @@ export function useMojitoWallets({ options }: UseMojitoWalletsProps = {}) {
     as: 'wallets',
     query: EMojitoKey.userWallets,
     options,
-    selectorFn: transformFn,
+    selectorFn,
     onlyAuthenticated: true,
   });
 }

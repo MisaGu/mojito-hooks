@@ -3,13 +3,13 @@ import { CollectionItemBidsListResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(response?: CollectionItemBidsListResponse) {
+function selectorFn(response?: CollectionItemBidsListResponse) {
   if (!response) return undefined;
 
   return response.collectionItemById.details.bids;
 }
 
-export type UseCollectionItemBidsListData = ReturnType<typeof transformFn>;
+export type UseCollectionItemBidsListData = ReturnType<typeof selectorFn>;
 
 export type UseCollectionItemBidsListReturn = ReturnType<typeof useCollectionItemBidsList>;
 
@@ -27,7 +27,7 @@ export function useCollectionItemBidsList({
     query: EMojitoKey.collectionItemByIdBidsList,
     variables: { id: collectionItemID },
     options,
-    selectorFn: transformFn,
+    selectorFn,
   });
 }
 

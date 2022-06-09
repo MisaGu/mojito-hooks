@@ -3,13 +3,13 @@ import { FavoriteResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function transformFn(response?: FavoriteResponse) {
+function selectorFn(response?: FavoriteResponse) {
   if (!response) return undefined;
 
   return response.me.favoriteItems;
 }
 
-export type UseFavoriteItemsData = ReturnType<typeof transformFn>;
+export type UseFavoriteItemsData = ReturnType<typeof selectorFn>;
 
 export type UseFavoriteItemsReturn = ReturnType<typeof useFavoriteItems>;
 
@@ -20,7 +20,7 @@ export function useFavoriteItems({ options }: UseFavoriteItemsProps = {}) {
     as: 'favoriteItems',
     query: EMojitoKey.userFavorites,
     options,
-    selectorFn: transformFn,
+    selectorFn,
     onlyAuthenticated: true,
   });
 }
