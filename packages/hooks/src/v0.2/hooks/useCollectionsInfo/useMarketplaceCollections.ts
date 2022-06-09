@@ -16,14 +16,14 @@ export type UseMarketplaceCollectionsReturn = ReturnType<typeof useMarketplaceCo
 
 export type UseMarketplaceCollectionsProps = BaseQueryHookProps<UseMarketplaceCollectionsData>;
 
-export function useMarketplaceCollections(props?: UseMarketplaceCollectionsProps) {
+export function useMarketplaceCollections({ options }: UseMarketplaceCollectionsProps = {}) {
   return useMojitoFactory({
     as: 'collections',
     query: EMojitoKey.marketplaceCollectionsInfoWithItemsIdAndSlug,
     variables: {
       id: config.MARKETPLACE_ID,
     },
-    options: props?.options as any,
+    options,
     selectorFn,
   });
 }

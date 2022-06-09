@@ -63,6 +63,7 @@ export function useMojitoFactory<
     new QueryObserver<TData | TSelectorResult | undefined, TError>(queryClient, queryOptions),
   );
   const _result = observer.current.getCurrentResult();
+  console.log(_result);
   const [data, setData] = useState(
     selectorFn ? (_result.data ? selectorFn(_result.data as any) : _result.data) : _result.data,
   );
@@ -84,13 +85,16 @@ export function useMojitoFactory<
   useEffect(() => {
     _unsubscribe.current = observer.current.subscribe((result) => {
       if (selectorFn) {
+        console.log(result);
         if (result.data) {
           const _selectorResult = selectorFn(result.data as any);
           if (!isEqual(_selectorResult, data)) {
             setData(_selectorResult);
+            console.log(2);
           }
         }
       } else {
+        console.log(1);
         setData(result.data);
       }
     });

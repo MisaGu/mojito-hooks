@@ -34,6 +34,8 @@ export function useCollection(props?: UseCollectionProps) {
       ),
     ]);
 
+    console.log(mojitoCollections);
+
     const mojitoCollection = mojitoCollections.marketplace.collections.find(
       (collection) => collection.slug == collectionSlug,
     );
