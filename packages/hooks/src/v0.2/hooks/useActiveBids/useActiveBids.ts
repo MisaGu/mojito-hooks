@@ -37,9 +37,9 @@ function selectorFn2(response?: CurrentUserResponse) {
   return response.me.id;
 }
 
-export type UseActiveBidsData2 = ReturnType<typeof selectorFn>;
+export type UseActiveBidsData2 = ReturnType<typeof selectorFn2>;
 
-export type UseActiveBidsReturn2 = ReturnType<typeof useActiveBids>;
+export type UseActiveBidsReturn2 = ReturnType<typeof useActiveBids2>;
 
 export type UseActiveBidsProps2 = BaseQueryHookProps<UseActiveBidsData2>;
 
@@ -62,9 +62,9 @@ function selectorFn3(response?: CurrentUserResponse) {
   return response.me.id;
 }
 
-export type UseActiveBidsData3 = ReturnType<typeof selectorFn>;
+export type UseActiveBidsData3 = ReturnType<typeof selectorFn3>;
 
-export type UseActiveBidsReturn3 = ReturnType<typeof useActiveBids>;
+export type UseActiveBidsReturn3 = ReturnType<typeof useActiveBids3>;
 
 export type UseActiveBidsProps3 = BaseQueryHookProps<UseActiveBidsData3>;
 

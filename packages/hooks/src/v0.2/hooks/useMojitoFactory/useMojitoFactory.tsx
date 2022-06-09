@@ -19,7 +19,7 @@ export interface MojitoFactoryOptions<
   variables?: Variables;
   options?: UseQueryOptions<TData, TError>;
   preloadFn?: () => Promise<TData | undefined | void>;
-  selectorFn?: any; //(data: TData) => TSelectorResult;
+  selectorFn?: (response: TSelectorResult) => TData;
   force?: boolean;
   onlyAuthenticated?: boolean;
 }
@@ -53,16 +53,18 @@ export function useMojitoFactory<
       const configuredQueryFn =
         options?.queryFn || queryClient.getDefaultOptions().queries?.queryFn || defaultQueryFn;
 
-      return (await configuredQueryFn({ queryKey, meta: undefined })) as TData;
+      return (await configuredQueryFn({ queryKey, meta: undefined })) as TSelectorResult;
     },
     meta: { ...options?.meta, authorization: isAuthenticated },
     enabled: options?.enabled !== false && (!onlyAuthenticated || isAuthenticated),
   };
 
-  const observer = useRef(new QueryObserver<TData | undefined, TError>(queryClient, queryOptions));
+  const observer = useRef(
+    new QueryObserver<TData | TSelectorResult | undefined, TError>(queryClient, queryOptions),
+  );
   const _result = observer.current.getCurrentResult();
-  const [data, setData] = useState<TData | undefined>(
-    selectorFn ? (_result.data ? selectorFn(_result.data) : _result.data) : _result.data,
+  const [data, setData] = useState(
+    selectorFn ? (_result.data ? selectorFn(_result.data as any) : _result.data) : _result.data,
   );
 
   useEffect(() => {
@@ -71,7 +73,10 @@ export function useMojitoFactory<
     }
 
     _unsubscribe.current?.();
-    observer.current = new QueryObserver<TData | undefined, TError>(queryClient, queryOptions);
+    observer.current = new QueryObserver<TData | TSelectorResult | undefined, TError>(
+      queryClient,
+      queryOptions,
+    );
 
     return () => observer.current?.destroy();
   }, [JSON.stringify(queryKey), isAuthenticated, force]);
@@ -80,7 +85,7 @@ export function useMojitoFactory<
     _unsubscribe.current = observer.current.subscribe((result) => {
       if (selectorFn) {
         if (result.data) {
-          const _selectorResult = selectorFn(result.data as unknown as TData);
+          const _selectorResult = selectorFn(result.data as any);
           if (!isEqual(_selectorResult, data)) {
             setData(_selectorResult);
           }
