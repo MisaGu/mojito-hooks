@@ -39,7 +39,7 @@ function selectorFn2(response?: CurrentUserResponse) {
 
 export type UseActiveBidsData2 = ReturnType<typeof selectorFn2>;
 
-export type UseActiveBidsReturn2 = ReturnType<typeof useActiveBids2>;
+export type UseActiveBidsReturn2 = ReturnType<typeof useActiveBids>;
 
 export type UseActiveBidsProps2 = BaseQueryHookProps<UseActiveBidsData2>;
 
