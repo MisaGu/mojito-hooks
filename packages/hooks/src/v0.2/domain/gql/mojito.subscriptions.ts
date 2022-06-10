@@ -1,8 +1,4 @@
-import {
-  COLLECTION_ITEM_AUCTION_LOT_BIDS_LIST_FIELD,
-  COLLECTION_ITEM_AUCTION_LOT_CURRENT_BID_FIELD,
-  COLLECTION_ITEM_AUCTION_LOT_MY_BID_FIELD,
-} from './fragments';
+import { COLLECTION_ITEM_AUCTION_LOT_BID_FIELD } from './fragments';
 
 export enum EMojitoSubscriptions {
   collectionItemBids,
@@ -12,7 +8,7 @@ export enum EMojitoSubscriptions {
 
 export const mojitoSubscriptions = {
   [EMojitoSubscriptions.collectionItemBids]: `
-  ${COLLECTION_ITEM_AUCTION_LOT_BIDS_LIST_FIELD}
+  ${COLLECTION_ITEM_AUCTION_LOT_BID_FIELD}
 
     subscription bidFeed($marketplaceAuctionLotId: UUID1!) {
       getMarketplaceAuctionLot(marketplaceAuctionLotId: $marketplaceAuctionLotId) {
@@ -20,14 +16,14 @@ export const mojitoSubscriptions = {
         endDate
         startDate
         bids {
-          ...CollectionItemAuctionLotBidsList
+          ...CollectionItemAuctionLotBid
         }
       }
     }
   `,
   [EMojitoSubscriptions.getMarketplaceAuctionLot]: `
-  ${COLLECTION_ITEM_AUCTION_LOT_CURRENT_BID_FIELD}
-  ${COLLECTION_ITEM_AUCTION_LOT_MY_BID_FIELD}
+  ${COLLECTION_ITEM_AUCTION_LOT_BID_FIELD}
+  ${COLLECTION_ITEM_AUCTION_LOT_BID_FIELD}
 
     subscription getMarketplaceAuctionLot($marketplaceAuctionLotId: UUID1!) {
       getMarketplaceAuctionLot(marketplaceAuctionLotId: $marketplaceAuctionLotId) {
@@ -35,17 +31,17 @@ export const mojitoSubscriptions = {
         endDate
         startDate
         currentBid {
-          ...CollectionItemAuctionLotCurrentBid
+          ...CollectionItemAuctionLotBid
         }
         myBid {
-         ...CollectionItemAuctionLotMyBid
+         ...CollectionItemAuctionLotBid
         }
       }
     }
   `,
   [EMojitoSubscriptions.marketplaceCollectionLotsUpdates]: `
-  ${COLLECTION_ITEM_AUCTION_LOT_CURRENT_BID_FIELD}
-  ${COLLECTION_ITEM_AUCTION_LOT_MY_BID_FIELD}
+  ${COLLECTION_ITEM_AUCTION_LOT_BID_FIELD}
+  ${COLLECTION_ITEM_AUCTION_LOT_BID_FIELD}
 
     subscription marketplaceCollectionLotsUpdates($collectionId: UUID1!) {
       marketplaceCollectionLotsUpdates(collectionId: $collectionId) {
@@ -53,10 +49,10 @@ export const mojitoSubscriptions = {
         endDate
         startDate
         currentBid {
-          ...CollectionItemAuctionLotCurrentBid
+          ...CollectionItemAuctionLotBid
         }
         myBid {
-          ...CollectionItemAuctionLotMyBid
+          ...CollectionItemAuctionLotBid
         }
       }
     }

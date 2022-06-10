@@ -15,5 +15,5 @@ export { useMojitoMutation } from './useMojitoMutation/useMojitoMutation';
 export { useMojitoWallets } from './useMojitoWallets/useMojitoWallets';
 export { useOrganization } from './useOrganization/useOrganization';
 export { usePlaceBidMutation } from './usePlaceBidMutation/usePlaceBidMutation';
-export { useMojitoUser as useProfile } from './useProfile/useMojitoUser';
+export { useUser as useProfile } from './useProfile/useUser';
 export { useServerTime } from './useServerTime/useServerTime';

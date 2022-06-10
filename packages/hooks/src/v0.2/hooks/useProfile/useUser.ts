@@ -11,11 +11,11 @@ function selectorFn(response?: ProfileResponse) {
 
 export type UseMojitoUserData = ReturnType<typeof selectorFn>;
 
-export type UseMojitoUserReturn = ReturnType<typeof useMojitoUser>;
+export type UseMojitoUserReturn = ReturnType<typeof useUser>;
 
 export type UseMojitoUserProps = BaseQueryHookPropsWithForce<UseMojitoUserData>;
 
-export function useMojitoUser({ force, options }: UseMojitoUserProps = {}) {
+export function useUser({ force, options }: UseMojitoUserProps = {}) {
   return useMojitoFactory({
     as: 'user',
     query: EMojitoKey.profile,
@@ -26,7 +26,7 @@ export function useMojitoUser({ force, options }: UseMojitoUserProps = {}) {
   });
 }
 
-export default useMojitoUser;
+export default useUser;
 
 // legacy function
 /*

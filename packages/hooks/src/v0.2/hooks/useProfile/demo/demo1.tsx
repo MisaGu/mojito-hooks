@@ -7,10 +7,10 @@ import React from 'react';
 import { DemoInterface } from '../../../components/demo/Interface/DemoInterface';
 import { Json } from '../../../components/demo/Json/Json';
 import { DemoProviders } from '../../../components/demo/Provider/DemoProvider';
-import useMojitoUser from '../useMojitoUser';
+import useUser from '../useUser';
 
 const DemoContent: React.FC = () => {
-  const result = useMojitoUser();
+  const result = useUser();
 
   return <Json result={result} />;
 };

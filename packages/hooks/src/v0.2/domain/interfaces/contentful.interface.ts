@@ -4,11 +4,9 @@ export interface ContentfulAuctionBySlugResponse {
   };
 }
 
-// --------------------------------------------- OLD -------------------------------- //
-
 export interface IContentfulLotsQuery {
   lotCollection: {
-    items: IContentfulLotData[];
+    items: IContentfulCollectionItem[];
   };
 }
 
@@ -28,6 +26,14 @@ export interface IContentfulAuthorsQuery {
   };
 }
 
+export interface IContentfulAuctionsSlugListQuery {
+  auctionCollection: {
+    items: { slug: string }[];
+  };
+}
+
+// --------------------------------------------- OLD -------------------------------- //
+
 export interface ContentfulAuction {
   name: string;
   title: string;
@@ -42,13 +48,7 @@ export interface ContentfulAuction {
   saleId: string;
 }
 
-export interface IContentfulAuctionsSlugListQuery {
-  auctionCollection: {
-    items: { slug: string }[];
-  };
-}
-
-export interface IContentfulLotData {
+export interface IContentfulCollectionItem {
   lotId: number;
   mojitoId: string;
   sys: {
@@ -154,7 +154,7 @@ export interface IContentfulAuthor {
 
 type _auctionData = { [key: string]: string | number | any[] | _auctionData };
 
-export interface IContentfulAuction {
+export interface IContentfulCollection {
   sys: {
     publishedAt: string;
   };
@@ -163,7 +163,7 @@ export interface IContentfulAuction {
   startDate: string;
   endDate: string;
   lotsCollection: {
-    items: IContentfulLotData[];
+    items: IContentfulCollectionItem[];
   };
   name: string;
   title: string;

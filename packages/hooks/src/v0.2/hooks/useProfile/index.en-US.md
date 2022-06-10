@@ -4,7 +4,7 @@ nav:
   group: Mojito
 ---
 
-# useProfile
+# useUser
 
 Returns the current user profile, including `id`, `username` and `email`, as well as the organization the user 
 belongs to that match the specified filter (similarly to `useOrganization(...)`).

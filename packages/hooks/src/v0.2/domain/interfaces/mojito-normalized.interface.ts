@@ -1,5 +1,5 @@
 import { EMojitoCollectionItemAuctionLotStatus } from '../enums';
-import { IContentfulAuction, IContentfulLotData } from './contentful.interface';
+import { IContentfulCollection, IContentfulCollectionItem } from './contentful.interface';
 import * as Schema from './mojito-schema.interface';
 import { Combine } from './_utils.interface';
 
@@ -21,12 +21,14 @@ type MojitoCurrentUserNormalizer = {
 export type MojitoCurrentUser = Combine<Schema.CurrentUser, MojitoCurrentUserNormalizer>;
 
 type MojitoOrganizationNormalizer = {
-  marketplaces: null;
   wallets: MojitoWallet[];
   assets: MojitoAsset[];
   nftContracts: MojitoNftContract[];
 };
-export type MojitoOrganization = Combine<Schema.Organization, MojitoOrganizationNormalizer>;
+export type MojitoOrganization = Combine<
+  Omit<Schema.Organization, 'marketplaces'>,
+  MojitoOrganizationNormalizer
+>;
 
 type MojitoUserOrganizationNormalizer = {
   settings: { hasCompletedOnboarding: boolean };
@@ -71,9 +73,9 @@ export type MojitoMarketplaceAuctionBid = Combine<
 >;
 
 type MarketplaceCollectionNormalizer = {
-  contentfulData: IContentfulAuction;
+  content: IContentfulCollection;
   items: MojitoMarketplaceCollectionItem[];
-  viewStatus: IMojitoCollectionView;
+  saleStatus: MojitoSaleStatus;
   hasMultipleLots: boolean;
 };
 export type MojitoMarketplaceCollection = Combine<
@@ -96,7 +98,7 @@ export type MojitoMarketplaceCollectionItem<T = Schema.MarketplaceSaleType> = Co
 >;
 
 type CollectionItemDetailsCommonNormalizer = {
-  saleView: IMojitoViewType;
+  saleView: MojitoSaleStatus;
 };
 type CollectionItemDetailsBuyNowOutputNormalizer = CollectionItemDetailsCommonNormalizer & {
   invoice: MojitoInvoiceDetails;
@@ -136,7 +138,7 @@ type InvoiceDetailsNormalizer = {
 export type MojitoInvoiceDetails = Combine<Schema.InvoiceDetails, InvoiceDetailsNormalizer>;
 
 type InvoiceDetailsItemNormalizer = {
-  content: IContentfulLotData;
+  content: IContentfulCollectionItem;
 };
 export type MojitoInvoiceDetailsItem = Combine<
   Schema.ItemInvoiceDetail,
@@ -219,6 +221,10 @@ export interface CollectionItemResponse {
   collectionItemById: MojitoMarketplaceCollectionItem;
 }
 
+export interface CollectionItemBySlugResponse {
+  collectionBySlug: MojitoMarketplaceCollectionItem;
+}
+
 export interface CollectionItemRemainingCountResponse {
   collectionItemById: MojitoCollectionItemRemainingCount;
 }
@@ -241,13 +247,13 @@ export interface MojitoCollectionItemCurrentBidsResponse {
   }[];
 }
 
-export type IMojitoViewType = {
+export type MojitoSaleStatus = {
   isDuringSale: boolean;
   isPostSale: boolean;
   isPreSale: boolean;
 };
 
-export type IMojitoCollectionView = IMojitoViewType & {
-  hasActiveBuyNowItems: boolean;
-  hasActiveAuctionItems: boolean;
-};
+// export type MojitoSaleStatus = IMojitoViewType & {
+//   hasActiveBuyNowItems: boolean;
+//   hasActiveAuctionItems: boolean;
+// };

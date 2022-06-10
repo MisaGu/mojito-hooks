@@ -4,6 +4,7 @@ import {
   IContentfulAuctionsSlugListQuery,
   MojitoMarketplaceCollection,
   MarketplaceResponse,
+  CollectionItemBySlugResponse,
 } from '../../domain/interfaces';
 import { getCollectionSlugFromPathname } from '../../domain/utils/state/path.util';
 import { EMojitoKey } from '../../domain/enums/state.enum';
@@ -12,7 +13,13 @@ import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 
-export type UseCollectionData = MojitoMarketplaceCollection | null | undefined;
+function selectorFn(response?: CollectionItemBySlugResponse) {
+  if (!response) return undefined;
+
+  return response.collectionBySlug;
+}
+
+export type UseCollectionData = ReturnType<typeof selectorFn>;
 
 export type UseCollectionReturn = ReturnType<typeof useCollection>;
 
@@ -69,6 +76,7 @@ export function useCollection(props?: UseCollectionProps) {
     },
     options: props?.options,
     preloadFn,
+    selectorFn,
   });
 }
 

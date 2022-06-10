@@ -4,7 +4,7 @@ import { EContentfulKey, EMojitoKey } from '../enums/state.enum';
 import {
   ContentfulAuctionBySlugResponse,
   CurrentUserResponse,
-  IContentfulLotData,
+  IContentfulCollectionItem,
   MojitoCurrentUser,
   MojitoMarketplaceCollection,
   MojitoMarketplaceCollectionItem,
@@ -17,64 +17,13 @@ import * as Schema from '../interfaces/mojito-schema.interface';
 import { Combine, DeepCompare } from '../interfaces/_utils.interface';
 import { queryClient } from './gqlRequest.util';
 import { QueryKey } from './queryKeyFactory.util';
-
-const extendCollection = (collection: MojitoMarketplaceCollection) => {
-  const contentfulData = queryClient.getQueryData<ContentfulAuctionBySlugResponse>(
-    QueryKey.get(EContentfulKey.auctionBySlug, { slug: collection.slug }),
-  )?.auctionCollection?.items?.[0];
-
-  const auctionStartUnix = moment(collection.startDate ?? null).unix();
-  const auctionEndUnix = moment(collection.endDate ?? null).unix();
-  const nowUnix = moment().unix();
-
-  const { items } = collection;
-  const totalItems = items.length;
-
-  let i = 0;
-  let hasBuyNowItems = false;
-  let hasAuctionItems = false;
-
-  while (i < totalItems && !(hasBuyNowItems && hasAuctionItems)) {
-    const { saleType } = items[i++];
-
-    if (saleType === Schema.MarketplaceSaleType.BuyNow) {
-      hasBuyNowItems = true;
-    }
-
-    if (saleType === Schema.MarketplaceSaleType.Auction) {
-      hasAuctionItems = true;
-    }
-  }
-
-  const isPreSale = nowUnix < auctionStartUnix;
-  const isDuringSale = nowUnix > auctionStartUnix && nowUnix < auctionEndUnix;
-  const isPostSale = nowUnix > auctionEndUnix;
-
-  Object.assign(collection, {
-    contentfulData,
-    isFake: !contentfulData,
-    viewStatus: {
-      isPreSale,
-      isDuringSale,
-      isPostSale,
-      hasActiveBuyNowItems: isDuringSale && hasBuyNowItems,
-      hasActiveAuctionItems: isDuringSale && hasAuctionItems,
-    },
-  });
-
-  if (collection?.items?.length) {
-    collection.items = extendCollectionItems(collection.items, collection.slug);
-    collection.hasMultipleLots = collection.items.length > 1;
-  }
-
-  return collection;
-};
+import omit from 'lodash.omit';
 
 const extendCollectionSingleItem = (
   item: any,
   slug: string,
   shortLots?: {
-    [key: string]: IContentfulLotData;
+    [key: string]: IContentfulCollectionItem;
   },
 ) => {
   const _item = item as MojitoMarketplaceCollectionItem<Schema.MarketplaceSaleType.Auction>;
@@ -86,7 +35,7 @@ const extendCollectionSingleItem = (
   }
 
   if (!_item?.details?.bids && !_item?.details?.currentBid) {
-    const lot = queryClient.getQueryData<{ [key: string]: IContentfulLotData }>(
+    const lot = queryClient.getQueryData<{ [key: string]: IContentfulCollectionItem }>(
       QueryKey.get(EContentfulKey.fullLot, { mojitoId: item.id }),
     );
 
@@ -99,7 +48,7 @@ const extendCollectionSingleItem = (
         subtitle: 'NA',
         mojitoId: 'NA',
         slug: 'NA',
-      } as IContentfulLotData);
+      } as IContentfulCollectionItem);
   }
 
   if (item?.details) {
@@ -114,7 +63,7 @@ const extendCollectionItems = (
   slug: string,
 ) => {
   const lots = queryClient.getQueryData<{
-    [key: string]: IContentfulLotData;
+    [key: string]: IContentfulCollectionItem;
   }>(QueryKey.get(EContentfulKey.shortLots, { slug }));
 
   return collectionItems.map((item) => extendCollectionSingleItem(item, slug, lots));
@@ -221,63 +170,66 @@ const extendItemDetails = (details: any, slug: string) => {
   return details;
 };
 
-export function mojitoNormalizer(
-  response: Schema.Query,
+export async function mojitoNormalizer(
+  raw_response: Schema.Query,
   variables?: { slug?: string },
   key?: any,
-): any {
-  if (!response) return null;
+) {
+  if (!raw_response) return null;
   const normalizedResponse = {};
 
-  if (response.serverTime) {
-    Object.assign(normalizedResponse, { serverTime: ServerTimeNormalizer(response.serverTime) });
+  if (raw_response.serverTime) {
+    Object.assign(normalizedResponse, {
+      serverTime: ServerTimeNormalizer(raw_response.serverTime),
+    });
   }
 
-  if (response.me) {
-    var user = CurrentUserNormalizer(response.me);
-    // user?.wallets?.[0]?.tokens?.[0]?.walletId;
-
-    Object.assign(normalizedResponse, { me: user });
+  if (raw_response.me) {
+    Object.assign(normalizedResponse, { me: CurrentUserNormalizer(raw_response.me) });
   }
 
-  if (response?.getMarketplaceAuctionLot) {
-    response.getMarketplaceAuctionLot = extendItemDetails(
-      response.getMarketplaceAuctionLot,
+  if (raw_response.collection) {
+    Object.assign(normalizedResponse, {
+      collection: MarketplaceCollectionNormalizer(raw_response.collection),
+    });
+  }
+
+  if (raw_response.collectionBySlug) {
+    Object.assign(normalizedResponse, {
+      collectionBySlug: MarketplaceCollectionNormalizer(raw_response.collectionBySlug),
+    });
+  }
+
+  if (raw_response.marketplace.collections) {
+    Object.assign(normalizedResponse, {
+      marketplace: {
+        collections: raw_response.marketplace.collections.map((collection) =>
+          MarketplaceCollectionNormalizer(collection),
+        ),
+      },
+    });
+  }
+
+  if (raw_response?.getMarketplaceAuctionLot) {
+    raw_response.getMarketplaceAuctionLot = extendItemDetails(
+      raw_response.getMarketplaceAuctionLot,
       variables?.slug as string,
     );
   }
 
-  if (response?.collection?.items) {
-    // @ts-ignore
-    response.collection = extendCollection(response.collection);
-  }
-
-  if (response?.collectionBySlug?.items) {
-    // @ts-ignore
-    Object.assign(response, extendCollection(response.collectionBySlug));
-    delete response.collectionBySlug;
-  }
-
-  if (response?.collectionItemById) {
+  if (raw_response?.collectionItemById) {
     if (variables?.slug) {
-      response.collectionItemById = extendCollectionSingleItem(
-        response.collectionItemById,
+      raw_response.collectionItemById = extendCollectionSingleItem(
+        raw_response.collectionItemById,
         variables.slug,
       );
     }
-    Object.assign(response, response.collectionItemById);
+    Object.assign(raw_response, raw_response.collectionItemById);
   }
 
-  if (response?.marketplace?.collections) {
-    // @ts-ignore
-    response.marketplace.collections = response?.marketplace?.collections.map((collection: any) =>
-      extendCollection(collection),
-    );
-  }
-
-  if (response?.getMyInvoices) {
+  if (raw_response?.getMyInvoices) {
     const lots = queryClient.getQueryData<{
-      [key: string]: IContentfulLotData;
+      [key: string]: IContentfulCollectionItem;
     }>(QueryKey.get(EContentfulKey.shortLots, { slug: variables?.slug }));
 
     // _data.getMyInvoices = _data?.getMyInvoices.map((invoice) => {
@@ -303,7 +255,7 @@ export function contentfulNormalizer(
   const _data = response;
 
   if (_data?.lotCollection?.items) {
-    const _items = _data?.lotCollection?.items as IContentfulLotData[];
+    const _items = _data?.lotCollection?.items as IContentfulCollectionItem[];
 
     return _items.reduce((acc, item) => Object.assign(acc, { [item.mojitoId]: item }), {});
   }
@@ -327,17 +279,17 @@ function ServerTimeNormalizer(details: Schema.Scalars['Time']) {
 function CurrentUserNormalizer(details: Schema.CurrentUser) {
   const me = {
     ...details,
-    wallets: details.wallets ? WalletNormalizer(details.wallets) : [],
+    wallets: details.wallets ? WalletsNormalizer(details.wallets) : [],
     wonBids: null, //TODO
     activeBids: null, //TODO
-    userOrgs: details.userOrgs ? CurrentUserOrganizationNormalizer(details.userOrgs) : [],
+    userOrgs: details.userOrgs ? UserOrganizationNormalizer(details.userOrgs) : [],
     favoriteItems: null, //TODO
   };
 
   return _merge<typeof details, typeof me, MojitoCurrentUser>(details, me);
 }
 
-function WalletNormalizer(details: Schema.Wallet[]) {
+function WalletsNormalizer(details: Schema.Wallet[]) {
   const wallets = details.map((wallet) => Object.assign(wallet, WalletItemNormalizer(wallet)));
 
   return _merge<typeof details, typeof wallets, MojitoWallet[]>(details, wallets);
@@ -354,7 +306,7 @@ function WalletItemNormalizer(details: Schema.Wallet) {
   return _merge<typeof details, typeof wallet, MojitoWallet>(details, wallet);
 }
 
-function CurrentUserOrganizationNormalizer(details: Schema.UserOrganization[]) {
+function UserOrganizationNormalizer(details: Schema.UserOrganization[]) {
   const userOrs = details.map((organization) => {
     const role = organization.role;
     const isBasic = role === 'Basic';
@@ -370,6 +322,7 @@ function CurrentUserOrganizationNormalizer(details: Schema.UserOrganization[]) {
     const contactUs = isNotAllowedToBid || isCoreUnavailable || isBidAuthUnavailable;
 
     return {
+      ...omit(organization, ['user', 'organization']),
       notifications: {
         isTransactionalWithID,
         completeYourProfile,
@@ -388,14 +341,78 @@ function CurrentUserOrganizationNormalizer(details: Schema.UserOrganization[]) {
 
 function OrganizationNormalizer(details: Schema.Organization) {
   const organization = {
-    ...details,
-    marketplaces: null,
-    wallets: details.wallets ? WalletNormalizer(details.wallets) : [],
+    ...omit(details, ['marketplaces']),
+    wallets: details.wallets ? WalletsNormalizer(details.wallets) : [],
     assets: [],
     nftContracts: [],
   };
 
   return _merge<typeof details, typeof organization, MojitoOrganization>(details, organization);
+}
+
+function MarketplaceCollectionNormalizer(details: Schema.MarketplaceCollection) {
+  const content = queryClient.getQueryData<ContentfulAuctionBySlugResponse>(
+    QueryKey.get(EContentfulKey.auctionBySlug, { slug: details.slug }),
+  )?.auctionCollection?.items?.[0];
+
+  const auctionStartUnix = moment(details.startDate ?? null).unix();
+  const auctionEndUnix = moment(details.endDate ?? null).unix();
+  const nowUnix = moment().unix();
+
+  const itemsFilterStatus = {
+    hasBuyNowItems: false,
+    hasAuctionItems: false,
+    hasClaimableItems: false,
+  };
+
+  if (details.items) {
+    for (let i = 0; i < details.items.length; i++) {
+      const { saleType } = details.items[i];
+
+      switch (saleType) {
+        case Schema.MarketplaceSaleType.BuyNow:
+          {
+            itemsFilterStatus.hasBuyNowItems = true;
+          }
+          break;
+
+        case Schema.MarketplaceSaleType.Auction:
+          {
+            itemsFilterStatus.hasAuctionItems = true;
+          }
+          break;
+
+        case Schema.MarketplaceSaleType.Claimable:
+          {
+            itemsFilterStatus.hasClaimableItems = true;
+          }
+          break;
+      }
+    }
+  }
+
+  const marketplaceCollection = {
+    ...details,
+    content,
+    items: details.items ? MarketplaceCollectionItemsNormalizer(details.items) : [],
+    ...itemsFilterStatus,
+    saleStatus: {
+      isPreSale: nowUnix < auctionStartUnix,
+      isDuringSale: nowUnix > auctionStartUnix && nowUnix < auctionEndUnix,
+      isPostSale: nowUnix > auctionEndUnix,
+    },
+  };
+
+  return _merge<typeof details, typeof marketplaceCollection, MojitoMarketplaceCollection>(
+    details,
+    marketplaceCollection,
+  );
+}
+
+function MarketplaceCollectionItemsNormalizer(details: Schema.MarketplaceCollectionItem[]) {
+  const items = details.map((item) => ({ ...omit(item, 'lot') }));
+
+  return _merge<typeof details, typeof items, MojitoMarketplaceCollectionItem[]>(details, items);
 }
 
 function _merge<Schema, Normalized, Result>(raw: Schema, normalized: Normalized) {

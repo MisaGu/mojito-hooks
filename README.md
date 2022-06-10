@@ -73,7 +73,7 @@ const YouApp: React.FC = () => {
 - memoise every fn in marketplaceCollectionsInfoWithItemsIdAndSlug.util
 - rename useCollectionsInfo folder to useCollectionsDetails
 - rename useLazyMojitoOneLot folder to useCollectionItemById
-- rename useProfile folder to useMojitoUser
+- rename useProfile folder to useUser
 - remove all contentful hooks 🤦‍♂️
 - normalize all contentful responses so they do not have any null values (strings or arrays only)
 
