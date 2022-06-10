@@ -8,7 +8,9 @@ import {
   MojitoCurrentUser,
   MojitoMarketplaceCollection,
   MojitoMarketplaceCollectionItem,
+  MojitoOrganization,
   MojitoQuery,
+  MojitoUserOrganization,
   MojitoWallet,
 } from '../interfaces';
 import * as Schema from '../interfaces/mojito-schema.interface';
@@ -238,48 +240,6 @@ export function mojitoNormalizer(
     Object.assign(normalizedResponse, { me: user });
   }
 
-  if (response?.me?.userOrgs?.[0]) {
-    const _organization = response.me.userOrgs[0];
-
-    const role = _organization.role;
-    const isBasic = role === 'Basic';
-    const isMissingInfo = role === 'MissingInformation';
-    const isEndUser = role === 'EndUser';
-    const isTransactionalNoID = role === 'TransactionalNoID';
-    const isTransactionalWithID = role === 'TransactionalWithID';
-    const isNotAllowedToBid = role === 'NotAllowedToBid';
-    const isCoreUnavailable = role === 'CoreUnavailable';
-    const isBidAuthUnavailable = role === 'BidAuthUnavailable';
-    const completeYourProfile = isBasic || isMissingInfo || isEndUser;
-    const uploadID = isTransactionalNoID;
-    const contactUs = isNotAllowedToBid || isCoreUnavailable || isBidAuthUnavailable;
-
-    Object.assign(_organization, {
-      notifications: {
-        completeYourProfile,
-        uploadID,
-        contactUs,
-      },
-      hasNotifications: !!(completeYourProfile || uploadID || contactUs),
-      settings: _organization.settings
-        ? JSON.parse(_organization.settings)
-        : {
-            hasCompletedOnboarding: false,
-            notifications: {
-              bidOnSold: false,
-              savedBidOn: false,
-              savedSold: false,
-            },
-            privacy: {
-              hideActivity: false,
-              showCollection: false,
-              showSaved: false,
-            },
-          },
-    });
-    response.me.userOrgs[0] = _organization;
-  }
-
   if (response?.getMarketplaceAuctionLot) {
     response.getMarketplaceAuctionLot = extendItemDetails(
       response.getMarketplaceAuctionLot,
@@ -367,17 +327,17 @@ function ServerTimeNormalizer(details: Schema.Scalars['Time']) {
 function CurrentUserNormalizer(details: Schema.CurrentUser) {
   const me = {
     ...details,
-    wallets: details.wallets ? CurrentUserWalletsNormalizer(details.wallets) : [],
+    wallets: details.wallets ? WalletNormalizer(details.wallets) : [],
     wonBids: null, //TODO
     activeBids: null, //TODO
-    userOrgs: null, //TODO
+    userOrgs: details.userOrgs ? CurrentUserOrganizationNormalizer(details.userOrgs) : [],
     favoriteItems: null, //TODO
   };
 
   return _merge<typeof details, typeof me, MojitoCurrentUser>(details, me);
 }
 
-function CurrentUserWalletsNormalizer(details: Schema.Wallet[]) {
+function WalletNormalizer(details: Schema.Wallet[]) {
   const wallets = details.map((wallet) => Object.assign(wallet, WalletItemNormalizer(wallet)));
 
   return _merge<typeof details, typeof wallets, MojitoWallet[]>(details, wallets);
@@ -392,6 +352,50 @@ function WalletItemNormalizer(details: Schema.Wallet) {
   };
 
   return _merge<typeof details, typeof wallet, MojitoWallet>(details, wallet);
+}
+
+function CurrentUserOrganizationNormalizer(details: Schema.UserOrganization[]) {
+  const userOrs = details.map((organization) => {
+    const role = organization.role;
+    const isBasic = role === 'Basic';
+    const isMissingInfo = role === 'MissingInformation';
+    const isEndUser = role === 'EndUser';
+    const isTransactionalNoID = role === 'TransactionalNoID';
+    const isTransactionalWithID = role === 'TransactionalWithID';
+    const isNotAllowedToBid = role === 'NotAllowedToBid';
+    const isCoreUnavailable = role === 'CoreUnavailable';
+    const isBidAuthUnavailable = role === 'BidAuthUnavailable';
+    const completeYourProfile = isBasic || isMissingInfo || isEndUser;
+    const uploadID = isTransactionalNoID;
+    const contactUs = isNotAllowedToBid || isCoreUnavailable || isBidAuthUnavailable;
+
+    return {
+      notifications: {
+        isTransactionalWithID,
+        completeYourProfile,
+        uploadID,
+        contactUs,
+      },
+      hasNotifications: !!(completeYourProfile || uploadID || contactUs),
+      settings: organization.settings
+        ? JSON.parse(organization.settings)
+        : { hasCompletedOnboarding: false },
+    };
+  });
+
+  return _merge<typeof details, typeof userOrs, MojitoUserOrganization[]>(details, userOrs);
+}
+
+function OrganizationNormalizer(details: Schema.Organization) {
+  const organization = {
+    ...details,
+    marketplaces: null,
+    wallets: details.wallets ? WalletNormalizer(details.wallets) : [],
+    assets: [],
+    nftContracts: [],
+  };
+
+  return _merge<typeof details, typeof organization, MojitoOrganization>(details, organization);
 }
 
 function _merge<Schema, Normalized, Result>(raw: Schema, normalized: Normalized) {

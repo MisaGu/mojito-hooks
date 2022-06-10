@@ -1,11 +1,8 @@
 import { gql } from 'graphql-request';
 import { EMojitoKey } from '../enums/state.enum';
 import {
-  COLLECTION_ITEM_AUCTION_LOT_BIDS_LIST_FIELD,
-  COLLECTION_ITEM_AUCTION_LOT_CURRENT_BID_FIELD,
-  COLLECTION_ITEM_AUCTION_LOT_MY_BID_FIELD,
+  COLLECTION_ITEM_AUCTION_LOT_BID_FIELD,
   COLLECTION_ITEM_FIELD,
-  FAVORITE_ITEMS_FIELD,
   ME_USER_ORGS_FIELD,
 } from './fragments';
 
@@ -20,21 +17,9 @@ export const mojitoQueries: Record<EMojitoKey, string> = {
         user {
           id
           username
+          name
           email
         }
-        userOrgs(filter: $filter) {
-          ...UserOrganizationSchema
-        }
-      }
-    }
-  `,
-  [EMojitoKey.organization]: gql`
-    ${ME_USER_ORGS_FIELD}
-
-    query GetOrganization($filter: UserOrgFilter) {
-      serverTime
-      me {
-        id
         userOrgs(filter: $filter) {
           ...UserOrganizationSchema
         }
@@ -133,13 +118,13 @@ export const mojitoQueries: Record<EMojitoKey, string> = {
     }
   `,
   [EMojitoKey.userFavorites]: gql`
-    ${FAVORITE_ITEMS_FIELD}
+    ${COLLECTION_ITEM_FIELD}
     query GetUserFavorites {
       serverTime
       me {
         id
         favoriteItems {
-          ...FavoriteItemsFields
+          ...CollectionItemFields
         }
       }
     }
@@ -166,8 +151,7 @@ export const mojitoQueries: Record<EMojitoKey, string> = {
     }
   `,
   [EMojitoKey.collectionBySlugCurrentBids]: gql`
-    ${COLLECTION_ITEM_AUCTION_LOT_CURRENT_BID_FIELD}
-    ${COLLECTION_ITEM_AUCTION_LOT_MY_BID_FIELD}
+    ${COLLECTION_ITEM_AUCTION_LOT_BID_FIELD}
 
     query GetCollectionBySlugCurrentBids($slug: String!, $marketplaceID: UUID1!) {
       collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {
@@ -175,10 +159,10 @@ export const mojitoQueries: Record<EMojitoKey, string> = {
           details {
             ... on MarketplaceAuctionLot {
               currentBid {
-                ...CollectionItemAuctionLotCurrentBid
+                ...CollectionItemAuctionLotBid
               }
               myBid {
-                ...CollectionItemAuctionLotMyBid
+                ...CollectionItemAuctionLotBid
               }
             }
           }
@@ -200,7 +184,7 @@ export const mojitoQueries: Record<EMojitoKey, string> = {
     }
   `,
   [EMojitoKey.collectionItemByIdBidsList]: gql`
-    ${COLLECTION_ITEM_AUCTION_LOT_BIDS_LIST_FIELD}
+    ${COLLECTION_ITEM_AUCTION_LOT_BID_FIELD}
 
     query GetCollectionItemByIdBidsList($id: UUID1!) {
       collectionItemById(id: $id) {
@@ -211,7 +195,7 @@ export const mojitoQueries: Record<EMojitoKey, string> = {
             endDate
             startDate
             bids {
-              ...CollectionItemAuctionLotBidsList
+              ...CollectionItemAuctionLotBid
             }
           }
         }

@@ -10,7 +10,6 @@ export enum EMojitoKey {
   userActiveBids = 'userActiveBids',
   userWallets = 'userWallets',
   profile = 'profile',
-  organization = 'organization',
   invoices = 'invoices',
   collectionBySlug = 'collectionBySlug',
   marketplaceCollectionsInfoWithItemsIdAndSlug = 'marketplaceCollectionsInfoWithItemsIdAndSlug',

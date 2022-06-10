@@ -4,7 +4,6 @@ export const ME_USER_ORGS_FIELD = gql`
   fragment UserOrganizationSchema on UserOrganization {
     id
     userId
-    user
     externalUserId
     organizationId
     kycStatus
@@ -16,23 +15,8 @@ export const ME_USER_ORGS_FIELD = gql`
   }
 `;
 
-export const COLLECTION_ITEM_AUCTION_LOT_BIDS_LIST_FIELD = gql`
-  fragment CollectionItemAuctionLotBidsList on MarketplaceAuctionBid {
-    id
-    amount
-    createdAt
-    maximumBid
-    marketplaceAuctionLotId
-    marketplaceUser {
-      id
-      username
-      avatar
-    }
-  }
-`;
-
-export const COLLECTION_ITEM_AUCTION_LOT_CURRENT_BID_FIELD = gql`
-  fragment CollectionItemAuctionLotCurrentBid on MarketplaceAuctionBid {
+export const COLLECTION_ITEM_AUCTION_LOT_BID_FIELD = gql`
+  fragment CollectionItemAuctionLotBid on MarketplaceAuctionBid {
     id
     amount
     createdAt
@@ -44,18 +28,6 @@ export const COLLECTION_ITEM_AUCTION_LOT_CURRENT_BID_FIELD = gql`
       username
       avatar
     }
-  }
-`;
-
-export const COLLECTION_ITEM_AUCTION_LOT_MY_BID_FIELD = gql`
-  fragment CollectionItemAuctionLotMyBid on MarketplaceAuctionBid {
-    id
-    amount
-    createdAt
-    currentBid
-    maximumBid
-    nextBidIncrement
-    marketplaceAuctionLotId
   }
 `;
 
@@ -113,26 +85,6 @@ export const COLLECTION_ITEM_FIELD = gql`
       }
       ... on MarketplaceAuctionLot {
         ...CollectionItemAuctionLotDetailsFields
-      }
-    }
-  }
-`;
-
-export const FAVORITE_ITEMS_FIELD = gql`
-  fragment FavoriteItemsFields on MarketplaceCollectionItem {
-    id
-    marketplaceTokenId
-    collectionId
-    saleType
-    name
-    slug
-    details {
-      __typename
-      ... on MarketplaceBuyNowOutput {
-        id
-      }
-      ... on MarketplaceAuctionLot {
-        id
       }
     }
   }

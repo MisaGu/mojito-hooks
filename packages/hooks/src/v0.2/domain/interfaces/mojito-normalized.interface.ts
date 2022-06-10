@@ -21,39 +21,25 @@ type MojitoCurrentUserNormalizer = {
 export type MojitoCurrentUser = Combine<Schema.CurrentUser, MojitoCurrentUserNormalizer>;
 
 type MojitoOrganizationNormalizer = {
+  marketplaces: null;
   wallets: MojitoWallet[];
   assets: MojitoAsset[];
   nftContracts: MojitoNftContract[];
 };
-export type MojitoOrganization = Combine<
-  Omit<Schema.Organization, 'marketplaces'>,
-  MojitoOrganizationNormalizer
->;
+export type MojitoOrganization = Combine<Schema.Organization, MojitoOrganizationNormalizer>;
 
 type MojitoUserOrganizationNormalizer = {
-  organization: MojitoOrganization;
-  settings: {
-    hasCompletedOnboarding: boolean;
-    notifications: {
-      bidOnSold: boolean;
-      savedBidOn: boolean;
-      savedSold: boolean;
-    };
-    privacy: {
-      hideActivity: boolean;
-      showCollection: boolean;
-      showSaved: boolean;
-    };
-  };
+  settings: { hasCompletedOnboarding: boolean };
   hasNotifications: boolean;
   notifications: {
+    isTransactionalWithID: boolean;
     completeYourProfile: boolean;
     uploadID: boolean;
     contactUs: boolean;
   };
 };
 export type MojitoUserOrganization = Combine<
-  Schema.UserOrganization,
+  Omit<Schema.UserOrganization, 'user' | 'organization'>,
   MojitoUserOrganizationNormalizer
 >;
 
