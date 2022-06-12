@@ -64,7 +64,9 @@ export function useMojitoFactory<
   );
   const _result = observer.current.getCurrentResult();
   const [data, setData] = useState(
-    selectorFn ? (_result.data ? selectorFn(_result.data) : _result.data) : _result.data,
+    (selectorFn ? (_result.data ? selectorFn(_result.data) : _result.data) : _result.data) as
+      | TSelectorData
+      | undefined,
   );
 
   useEffect(() => {
@@ -89,7 +91,7 @@ export function useMojitoFactory<
           }
         }
       } else {
-        setData(result.data);
+        setData(result.data as any);
       }
     });
 
