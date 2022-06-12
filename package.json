@@ -75,6 +75,7 @@
     "@types/react-query": "^1.2.9",
     "auth0-react": "^3.1.0",
     "graphql-request": "^4.3.0",
+    "lodash.omit": "^4.5.0",
     "moment": "^2.29.3",
     "react-query": "^3.39.1"
   }

@@ -10,24 +10,24 @@ import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 
 export interface MojitoFactoryOptions<
   TDataPropertyName extends string,
-  TData = any,
-  TSelectorResult = TData,
+  TSelectorData = any,
+  TResponse = TSelectorData,
   TError = Error,
 > {
   as: TDataPropertyName;
   query: EMojitoKey;
   variables?: Variables;
-  options?: UseQueryOptions<TData, TError>;
-  preloadFn?: () => Promise<TData | undefined | void>;
-  selectorFn?: (response: TSelectorResult) => TData;
+  options?: UseQueryOptions<TResponse, TError>;
+  preloadFn?: () => Promise<void>;
+  selectorFn?: (response: TResponse) => TSelectorData;
   force?: boolean;
   onlyAuthenticated?: boolean;
 }
 
 export function useMojitoFactory<
   TDataPropertyName extends string,
-  TData = any,
-  TSelectorResult = TData,
+  TSelectorData = any,
+  TResponse = TSelectorData,
   TError = Error,
 >({
   as,
@@ -38,7 +38,7 @@ export function useMojitoFactory<
   selectorFn,
   force = false,
   onlyAuthenticated,
-}: MojitoFactoryOptions<TDataPropertyName, TData, TSelectorResult, TError>) {
+}: MojitoFactoryOptions<TDataPropertyName, TSelectorData, TResponse, TError>) {
   const queryClient = useQueryClient();
   const { isAuthenticated } = useAuthContext(); // REPLACE ME
   const _unsubscribe = useRef<() => void>();
@@ -53,18 +53,18 @@ export function useMojitoFactory<
       const configuredQueryFn =
         options?.queryFn || queryClient.getDefaultOptions().queries?.queryFn || defaultQueryFn;
 
-      return (await configuredQueryFn({ queryKey, meta: undefined })) as TSelectorResult;
+      return (await configuredQueryFn({ queryKey, meta: undefined })) as TResponse;
     },
     meta: { ...options?.meta, authorization: isAuthenticated },
     enabled: options?.enabled !== false && (!onlyAuthenticated || isAuthenticated),
   };
 
   const observer = useRef(
-    new QueryObserver<TData | TSelectorResult | undefined, TError>(queryClient, queryOptions),
+    new QueryObserver<TResponse | undefined, TError>(queryClient, queryOptions),
   );
   const _result = observer.current.getCurrentResult();
   const [data, setData] = useState(
-    selectorFn ? (_result.data ? selectorFn(_result.data as any) : _result.data) : _result.data,
+    selectorFn ? (_result.data ? selectorFn(_result.data) : _result.data) : _result.data,
   );
 
   useEffect(() => {
@@ -73,10 +73,7 @@ export function useMojitoFactory<
     }
 
     _unsubscribe.current?.();
-    observer.current = new QueryObserver<TData | TSelectorResult | undefined, TError>(
-      queryClient,
-      queryOptions,
-    );
+    observer.current = new QueryObserver<TResponse | undefined, TError>(queryClient, queryOptions);
 
     return () => observer.current?.destroy();
   }, [JSON.stringify(queryKey), isAuthenticated, force]);
@@ -86,7 +83,7 @@ export function useMojitoFactory<
       if (selectorFn) {
         console.log(result);
         if (result.data) {
-          const _selectorResult = selectorFn(result.data as any);
+          const _selectorResult = selectorFn(result.data);
           if (!isEqual(_selectorResult, data)) {
             setData(_selectorResult);
           }
@@ -99,6 +96,7 @@ export function useMojitoFactory<
     return () => _unsubscribe.current?.();
   }, [observer.current]);
 
+  //@ts-ignore
   _result.data = data;
 
   return normalizeQueryResult(as, _result);

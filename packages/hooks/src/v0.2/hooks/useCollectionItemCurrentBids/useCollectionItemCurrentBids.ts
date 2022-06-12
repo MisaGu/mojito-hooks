@@ -16,18 +16,7 @@ export function useCollectionItemCurrentBid({
   collectionItemID,
   ...props
 }: UseCollectionItemCurrentBidsProps) {
-  const { currentBids: collectionItemsBids, ...result } = useCollectionItemsCurrentBids(
-    props as any,
-  );
-
-  const currentBids = useMemo(() => {
-    return collectionItemsBids?.find((item) => item.id === collectionItemID);
-  }, [collectionItemsBids, collectionItemID]);
-
-  return {
-    ...(result as any),
-    currentBids,
-  };
+  const { currentBids, ...result } = useCollectionItemsCurrentBids(props as any);
 }
 
 export default useCollectionItemCurrentBid;
