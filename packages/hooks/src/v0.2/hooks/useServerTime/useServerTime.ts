@@ -1,8 +1,15 @@
 import { EMojitoKey } from '../../domain/enums/state.enum';
+import { ServerTimeResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-export type UseServerTimeData = Date;
+function selectorFn(response?: ServerTimeResponse) {
+  if (!response) return undefined;
+
+  return new Date(response.serverTime);
+}
+
+export type UseServerTimeData = ReturnType<typeof selectorFn>;
 
 export type UseServerTimeReturn = ReturnType<typeof useServerTime>;
 
@@ -15,22 +22,3 @@ export function useServerTime({ options }: UseServerTimeProps = {}) {
     options,
   });
 }
-
-// legacy function
-/*
-
-export function useServerTime(): {
-  serverTime: Date;
-} & ReturnType<typeof useMojito> {
-  const result = useMojito({
-    query: EMojitoKey.serverTime,
-  });
-
-  return {
-    serverTime: result?.data?.serverTime,
-    ...result,
-  };
-}
-
-
-*/

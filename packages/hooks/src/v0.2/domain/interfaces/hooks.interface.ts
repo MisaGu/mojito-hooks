@@ -6,7 +6,7 @@ export interface BaseQueryHookProps<TData = any, TError = Error, TResult = any> 
 }
 
 export interface BaseLazyQueryHookProps<TData = any, TError = Error, TResult = any> {
-  options?: Omit<UseQueryOptions<TData, TError>, 'enabled'> & { enabled: false };
+  options?: Omit<UseQueryOptions<TResult, TError, TData>, 'enabled'> & { enabled: false };
 }
 
 export interface BaseQueryHookPropsWithUrlAndSlug<TData = any, TError = Error, TResult = any>

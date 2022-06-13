@@ -186,6 +186,10 @@ export type MojitoCollectionItemBidsList = Combine<
   CollectionItemBidsListNormalizer
 >;
 
+export interface ServerTimeResponse {
+  serverTime: string;
+}
+
 export interface CurrentUserResponse {
   me: MojitoCurrentUser;
 }

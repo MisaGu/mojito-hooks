@@ -59,14 +59,14 @@ export function useMojitoFactory<
     enabled: options?.enabled !== false && (!onlyAuthenticated || isAuthenticated),
   };
 
-  const observer = useRef(
-    new QueryObserver<TResponse | undefined, TError>(queryClient, queryOptions),
-  );
+  const observer = useRef(new QueryObserver<TResponse, TError>(queryClient, queryOptions));
   const _result = observer.current.getCurrentResult();
   const [data, setData] = useState(
-    (selectorFn ? (_result.data ? selectorFn(_result.data) : _result.data) : _result.data) as
-      | TSelectorData
-      | undefined,
+    (selectorFn
+      ? _result.data
+        ? selectorFn(_result.data)
+        : _result.data
+      : _result.data) as TSelectorData,
   );
 
   useEffect(() => {
@@ -75,7 +75,7 @@ export function useMojitoFactory<
     }
 
     _unsubscribe.current?.();
-    observer.current = new QueryObserver<TResponse | undefined, TError>(queryClient, queryOptions);
+    observer.current = new QueryObserver<TResponse, TError>(queryClient, queryOptions);
 
     return () => observer.current?.destroy();
   }, [JSON.stringify(queryKey), isAuthenticated, force]);
