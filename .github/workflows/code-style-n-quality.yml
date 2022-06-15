@@ -20,7 +20,7 @@ jobs:
       - run: yarn install --frozen-lockfile
         working-directory: ./packages/hooks
       - run: yarn install --frozen-lockfile
-      - run: yarn lint
+      # - run: yarn lint
   build:
     name: Build
     runs-on: ubuntu-latest
