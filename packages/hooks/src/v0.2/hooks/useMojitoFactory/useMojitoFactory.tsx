@@ -12,6 +12,8 @@ export interface MojitoFactoryOptions<
   TDataPropertyName extends string,
   TSelectorData = any,
   TResponse = TSelectorData,
+  // TResponse = any,
+  // TSelectorData = TResponse,
   TError = Error,
 > {
   as: TDataPropertyName;
