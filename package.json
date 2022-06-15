@@ -88,5 +88,8 @@
     "lodash.omit": "^4.5.0",
     "moment": "^2.29.3",
     "react-query": "^3.39.1"
-  }
+  },
+  "main": "packages/hooks/lib/index.js",
+  "module": "packages/hooks/es/index.js",
+  "types": "packages/hooks/es/index.d.ts"
 }
