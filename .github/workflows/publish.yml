@@ -21,6 +21,6 @@ jobs:
       - run: yarn build
       - run: test -e ./packages/hooks/es/index.js
       - run: test -e ./packages/hooks/lib/index.js
-      # - run: yarn publish --access public
-      #   env:
-      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+      - run: yarn publish --access public
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
