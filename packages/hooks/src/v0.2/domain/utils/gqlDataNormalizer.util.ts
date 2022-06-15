@@ -200,7 +200,7 @@ export async function mojitoNormalizer(
     });
   }
 
-  if (raw_response.marketplace.collections) {
+  if (raw_response.marketplace?.collections) {
     Object.assign(normalizedResponse, {
       marketplace: {
         collections: raw_response.marketplace.collections.map((collection) =>
