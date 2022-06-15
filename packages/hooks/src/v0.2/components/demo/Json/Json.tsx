@@ -25,10 +25,7 @@ function jsonReplacerSummary(key: string, value: any) {
   return jsonReplacerFunctions(key, value);
 }
 
-function getQueryResultLabel(
-  result: Omit<QueryResult<string>, 'refetch'>,
-  fromRefetch: boolean = false,
-) {
+function getQueryResultLabel(result: Omit<QueryResult<string>, 'refetch'>) {
   const {
     isLoading,
     error,
