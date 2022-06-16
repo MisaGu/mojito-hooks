@@ -94,11 +94,8 @@
     "webpack": "^4.43.0"
   },
   "dependencies": {
-    "@auth0/auth0-react": "^1.10.1",
     "@babel/runtime": "^7.17.9",
-    "@types/auth0": "^2.35.0",
     "@types/react-query": "^1.2.9",
-    "auth0-react": "^3.1.0",
     "graphql-request": "^4.3.0",
     "graphql-subscriptions-client": "^0.16.2",
     "graphql": "^16.4.0",

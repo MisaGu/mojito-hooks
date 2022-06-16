@@ -1,6 +1,4 @@
-import { useAuth0 } from '@auth0/auth0-react';
-import React, { useCallback } from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { EAuthActionTypes, useAuthContext } from '../../../domain/context/auth.context';
 import { MojitoHooksProvider } from '../../../domain/context/mojito.context';
 
