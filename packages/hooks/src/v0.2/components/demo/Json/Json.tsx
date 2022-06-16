@@ -25,7 +25,7 @@ function jsonReplacerSummary(key: string, value: any) {
   return jsonReplacerFunctions(key, value);
 }
 
-function getQueryResultLabel(result: QueryResult<string>) {
+function getQueryResultLabel(result: Omit<QueryResult<string>, 'refetch'>) {
   const {
     isLoading,
     error,
@@ -42,19 +42,31 @@ function getQueryResultLabel(result: QueryResult<string>) {
 const showQueryResultKey = 'showQueryResult';
 
 export interface JsonProps {
-  result: QueryResult<string>;
+  result: QueryResult<string> | Omit<QueryResult<string>, 'refetch'>;
   staleTime?: number;
 }
 
 export const Json: React.FC<JsonProps> = ({ result, staleTime = QUERY_CLIENT_STALE_TIME }) => {
-  const {
-    refetch,
-    queryResult: { dataUpdatedAt },
-  } = result;
+  const [refetchResult, setRefetchResult] = useState(null);
+  const dataUpdatedAt = result.queryResult.dataUpdatedAt;
+  const refetch =
+    result.refetch || Object.values(result).find((property) => typeof property === 'function');
 
-  const handleRefetch = useCallback(() => {
-    refetch();
-  }, []);
+  const handleRefetch = useCallback(async () => {
+    if (!refetch) {
+      console.log('No refetch() or any other function found in result.');
+
+      return;
+    }
+
+    try {
+      const refetchResponse = await refetch();
+
+      setRefetchResult(refetchResponse || null);
+    } catch (err) {
+      console.log('Error calling or resolving refetch():', err);
+    }
+  }, [refetch]);
 
   const [showQueryResult, setShowQueryResult] = useState(() => {
     return isBrowser ? localStorage.getItem(showQueryResultKey) === 'true' : false;
@@ -75,7 +87,7 @@ export const Json: React.FC<JsonProps> = ({ result, staleTime = QUERY_CLIENT_STA
       <div style={HEADER_STYLE}>
         <ProgressBar start={dataUpdatedAt} duration={QUERY_CLIENT_STALE_TIME} />
 
-        {getQueryResultLabel(result)}
+        {refetchResult ? 'Refetch' : getQueryResultLabel(result)}
 
         <button style={BUTTON_STYLE} onClick={handleRefetch}>
           🔄
@@ -84,7 +96,7 @@ export const Json: React.FC<JsonProps> = ({ result, staleTime = QUERY_CLIENT_STA
 
       <pre>
         {JSON.stringify(
-          result,
+          refetchResult || result,
           showQueryResult ? jsonReplacerFunctions : jsonReplacerSummary,
           '  ',
         )}
