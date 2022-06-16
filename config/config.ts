@@ -1,6 +1,9 @@
+/* eslint-disable */
+
+// @ts-ignore
 import { menus } from './hooks';
 
-const packages = require('../packages/hooks/package.json');
+const packages = require('../package.json');
 
 export default {
   // ssr: {},
@@ -25,7 +28,7 @@ export default {
     [
       'inline-dotenv',
       {
-        path: './packages/hooks/.env.local',
+        path: './.env.local',
       },
     ],
   ],
@@ -39,7 +42,7 @@ export default {
   manifest: {},
   hash: true,
   resolve: {
-    includes: ['docs', 'packages/hooks/src/v0.2/hooks'],
+    includes: ['docs', 'src/v0.2/hooks'],
   },
   links: [
     {
