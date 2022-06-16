@@ -18,8 +18,6 @@ jobs:
           node-version: '14.x'
           registry-url: 'https://registry.npmjs.org'
       - run: yarn install --frozen-lockfile
-        working-directory: ./packages/hooks
-      - run: yarn install --frozen-lockfile
       # - run: yarn lint
   build:
     name: Build
@@ -32,11 +30,11 @@ jobs:
           node-version: '14.x'
           registry-url: 'https://registry.npmjs.org'
       - run: yarn install --frozen-lockfile
-        working-directory: ./packages/hooks
-      - run: yarn install --frozen-lockfile
       - run: yarn build
-      - run: test -e ./packages/hooks/es/index.js
-      - run: test -e ./packages/hooks/lib/index.js
+      - run: test -e ./dist/cjs/index.js
+      - run: test -e ./dist/esm/index.js
+      - run: test -e ./dist/types/index.d.ts
+      - run: test -e ./dist/umd/mojitonft-hooks.js
 
   # test:
   #   name: Test
@@ -49,6 +47,4 @@ jobs:
   #         node-version: '14.x'
   #         registry-url: 'https://registry.npmjs.org'
   #     - run: yarn install --frozen-lockfile
-  #       working-directory: ./packages/hooks
   #     - run: yarn test
-  #       working-directory: ./packages/hooks

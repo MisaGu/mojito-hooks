@@ -53,13 +53,26 @@ module.exports = {
     '@typescript-eslint/ban-ts-ignore': 'off',
     '@typescript-eslint/no-object-literal-type-assertion': 'off',
     '@typescript-eslint/no-parameter-properties': 'off',
-    'consistent-return': 'off',
     'import/no-useless-path-segments': 'off',
+    'import/extensions': 'off',
     'no-unused-expressions': 'off',
     'react-hooks/rules-of-hooks': 'error',
     'react-hooks/exhaustive-deps': 'off',
     'no-await-in-loop': 'off',
     'no-constant-condition': ['warn', { checkLoops: false }],
+    'import/no-extraneous-dependencies': [
+      'error',
+      { devDependencies: ['**/*.d.ts', '**/*.test.ts', '**/*.test.tsx'] },
+    ],
+    'max-len': [
+      2,
+      {
+        code: 160,
+        ignorePattern: '^(import|export) .*',
+        ignoreRegExpLiterals: true,
+        ignoreStrings: true,
+      },
+    ],
 
     /*
 
@@ -88,7 +101,6 @@ module.exports = {
     "semi": 2,
     "template-curly-spacing": [2, "always"],
 
-
     // eslint-plugin-import:
 
     "import/extensions": 0,
@@ -96,7 +108,6 @@ module.exports = {
     "import/no-extraneous-dependencies": ["error", { devDependencies: ["**\/*.test.ts", "**\/*.test.tsx", "jest.setup.ts", "jest.config.js"] }],
     "import/no-unresolved": 2,
     "import/prefer-default-export": 0,
-
 
     // eslint-plugin-react:
 
@@ -124,16 +135,13 @@ module.exports = {
       extensions: [".tsx"],
     }],
 
-
     // eslint-plugin-react-hooks:
 
     "react-hooks/exhaustive-deps": 2,
 
-
     // eslint-plugin-jsx-a11y:
 
     "jsx-a11y/anchor-is-valid": 0,
-
 
     // typescript-eslint:
 
@@ -141,9 +149,7 @@ module.exports = {
     "@typescript-eslint/no-explicit-any": TEMPORARILY_DISABLED,
     "@typescript-eslint/no-shadow": 2,
 
-
     // next/recommended:
-
 
     // unused-imports:
 

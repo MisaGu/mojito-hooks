@@ -1,5 +1,6 @@
 {
   "compilerOptions": {
+    "rootDir": "./src",
     "target": "ES5",
     "moduleResolution": "node",
     "jsx": "react",
@@ -12,5 +13,6 @@
     "declaration": false,
     "strictNullChecks": true
   },
+  "include": ["./src/**/*.ts", "./src/**/*.tsx"],
   "exclude": ["node_modules", "lib", "es", "dist", "example", "**/jestSetupAfterEnv.ts"]
 }

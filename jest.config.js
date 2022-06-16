@@ -5,11 +5,12 @@ module.exports = {
   modulePathIgnorePatterns: ['<rootDir>/package.json'],
   resetMocks: false,
   setupFiles: ['<rootDir>/jestSetup.ts'],
-  setupFilesAfterEnv: ['<rootDir>/packages/hooks/jestSetupAfterEnv.ts'],
+  setupFilesAfterEnv: ['<rootDir>/jestSetupAfterEnv.ts'],
   testEnvironment: 'jsdom',
   globals: {
     'ts-jest': {
       tsconfig: 'tsconfig.json',
     },
   },
+  roots: ['./src'],
 };
