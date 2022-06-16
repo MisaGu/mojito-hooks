@@ -24,15 +24,15 @@ A high-quality & reliable React Hooks library.
 ## 📦 Install
 
 ```bash
-$ npm install --save @mojito-mixers/hooks
+$ npm install --save @mojitonft/hooks
 # or
-$ yarn add @mojito-mixers/hooks
+$ yarn add @mojitonft/hooks
 ```
 
 ## 🔨 Usage
 
 ```TSX
-import { MojitoHooksProvider, onErrorCallback, useRequest  } from '@mojito-mixers/hooks';
+import { MojitoHooksProvider, onErrorCallback, useRequest  } from '@mojitonft/hooks';
 
 onErrorCallback((e) => {
   // Log error to Sentry or anywhere you'd like:
