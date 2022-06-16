@@ -1,7 +1,6 @@
 export type Maybe<T> = T | null;
-export type Exact<T extends { [key: string]: unknown }> = {
-  [K in keyof T]: T[K];
-};
+export type InputMaybe<T> = Maybe<T>;
+export type Exact<T extends { [key: string]: unknown }> = { [K in keyof T]: T[K] };
 export type MakeOptional<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]?: Maybe<T[SubKey]> };
 export type MakeMaybe<T, K extends keyof T> = Omit<T, K> & { [SubKey in K]: Maybe<T[SubKey]> };
 /** All built-in and custom scalars, mapped to their actual values */
@@ -11,55 +10,55 @@ export type Scalars = {
   Boolean: boolean;
   Int: number;
   Float: number;
-  BigInt: number;
-  EthAddress: string;
-  Time: string;
+  BigInt: any;
+  EthAddress: any;
+  Time: any;
+  UUID: any;
+  UUID1: any;
   Upload: any;
-  UUID: string;
-  UUID1: string;
 };
 
 export type AchBankAddressOutput = {
   __typename?: 'ACHBankAddressOutput';
-  bankName: Scalars['String'];
   address1: Scalars['String'];
   address2: Scalars['String'];
+  bankName: Scalars['String'];
+  city: Scalars['String'];
   country: Scalars['String'];
   district: Scalars['String'];
-  city: Scalars['String'];
 };
 
 export type AchBillingDetails = {
+  address1?: InputMaybe<Scalars['String']>;
+  address2?: InputMaybe<Scalars['String']>;
+  city?: InputMaybe<Scalars['String']>;
+  country?: InputMaybe<Scalars['String']>;
+  district?: InputMaybe<Scalars['String']>;
   name: Scalars['String'];
-  city?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-  address1?: Maybe<Scalars['String']>;
-  address2?: Maybe<Scalars['String']>;
-  district?: Maybe<Scalars['String']>;
-  postalCode?: Maybe<Scalars['String']>;
+  postalCode?: InputMaybe<Scalars['String']>;
 };
 
 export type AchBillingDetailsOutput = {
   __typename?: 'ACHBillingDetailsOutput';
-  name: Scalars['String'];
   address1: Scalars['String'];
   address2: Scalars['String'];
+  city: Scalars['String'];
   country: Scalars['String'];
   district: Scalars['String'];
-  city: Scalars['String'];
+  name: Scalars['String'];
   postalCode: Scalars['String'];
 };
 
 export type AchData = {
-  publicToken: Scalars['String'];
   accountId: Scalars['String'];
-  metadata: AchMetadata;
   billingDetails: AchBillingDetails;
+  metadata: AchMetadata;
+  publicToken: Scalars['String'];
 };
 
 export type AchMetadata = {
   email: Scalars['String'];
-  phoneNumber?: Maybe<Scalars['String']>;
+  phoneNumber?: InputMaybe<Scalars['String']>;
 };
 
 export type AchMetadataOutput = {
@@ -70,13 +69,13 @@ export type AchMetadataOutput = {
 
 export type AchPaymentMethodOutput = {
   __typename?: 'ACHPaymentMethodOutput';
-  id: Scalars['UUID1'];
-  type: PaymentType;
-  status: Scalars['String'];
   accountNumber: Scalars['String'];
-  metadata?: Maybe<AchMetadataOutput>;
   bankAddress?: Maybe<AchBankAddressOutput>;
   billingDetails?: Maybe<AchBillingDetailsOutput>;
+  id: Scalars['UUID1'];
+  metadata?: Maybe<AchMetadataOutput>;
+  status: Scalars['String'];
+  type: PaymentType;
 };
 
 export type AchPaymentMethodPrepareStatementOutput = {
@@ -86,81 +85,111 @@ export type AchPaymentMethodPrepareStatementOutput = {
 
 export type Address = {
   __typename?: 'Address';
-  flatNumber?: Maybe<Scalars['String']>;
-  buildingNumber?: Maybe<Scalars['String']>;
   buildingName?: Maybe<Scalars['String']>;
+  buildingNumber?: Maybe<Scalars['String']>;
+  country?: Maybe<Scalars['String']>;
+  flatNumber?: Maybe<Scalars['String']>;
+  line1?: Maybe<Scalars['String']>;
+  line2?: Maybe<Scalars['String']>;
+  line3?: Maybe<Scalars['String']>;
+  postcode: Scalars['String'];
+  state?: Maybe<Scalars['String']>;
   street?: Maybe<Scalars['String']>;
   subStreet?: Maybe<Scalars['String']>;
   town?: Maybe<Scalars['String']>;
-  postcode: Scalars['String'];
-  country?: Maybe<Scalars['String']>;
-  line1?: Maybe<Scalars['String']>;
-  line2?: Maybe<Scalars['String']>;
-  line3?: Maybe<Scalars['String']>;
-  state?: Maybe<Scalars['String']>;
 };
 
 export type AddressInput = {
-  flatNumber?: Maybe<Scalars['String']>;
+  buildingName?: InputMaybe<Scalars['String']>;
   buildingNumber: Scalars['String'];
-  buildingName?: Maybe<Scalars['String']>;
-  street: Scalars['String'];
-  subStreet?: Maybe<Scalars['String']>;
-  town: Scalars['String'];
-  postcode: Scalars['String'];
   country: Scalars['String'];
-  line1?: Maybe<Scalars['String']>;
-  line2?: Maybe<Scalars['String']>;
-  line3?: Maybe<Scalars['String']>;
-  state?: Maybe<Scalars['String']>;
+  flatNumber?: InputMaybe<Scalars['String']>;
+  line1?: InputMaybe<Scalars['String']>;
+  line2?: InputMaybe<Scalars['String']>;
+  line3?: InputMaybe<Scalars['String']>;
+  postcode: Scalars['String'];
+  state?: InputMaybe<Scalars['String']>;
+  street: Scalars['String'];
+  subStreet?: InputMaybe<Scalars['String']>;
+  town: Scalars['String'];
+};
+
+export type AddressScreeningInput = {
+  address: Scalars['String'];
+  asset: Scalars['String'];
+  network: Scalars['String'];
+};
+
+export type AllowList = {
+  __typename?: 'AllowList';
+  elements: Array<AllowListElement>;
+  endTime: Scalars['Time'];
+  filteringType: FilteringType;
+  id: Scalars['UUID1'];
+  identifierType: IdentifierType;
+  startTime: Scalars['Time'];
+};
+
+export type AllowListElement = {
+  __typename?: 'AllowListElement';
+  id: Scalars['UUID1'];
+  identifierValue: Scalars['String'];
+};
+
+export type AllowListInput = {
+  elements: Array<Scalars['String']>;
+  endTime: Scalars['Time'];
+  filteringType: FilteringType;
+  identifierType: IdentifierType;
+  startTime: Scalars['Time'];
 };
 
 export type ApplicantRequest = {
+  address?: InputMaybe<AddressInput>;
+  dob?: InputMaybe<Scalars['String']>;
+  email?: InputMaybe<Scalars['String']>;
   firstName: Scalars['String'];
+  idNumbers?: InputMaybe<Array<InputMaybe<IdNumberInput>>>;
   lastName: Scalars['String'];
-  email?: Maybe<Scalars['String']>;
-  dob?: Maybe<Scalars['String']>;
-  idNumbers?: Maybe<Array<Maybe<IdNumberInput>>>;
-  address?: Maybe<AddressInput>;
 };
 
 export type ApplicantResponse = {
   __typename?: 'ApplicantResponse';
-  id: Scalars['String'];
-  firstName: Scalars['String'];
-  lastName: Scalars['String'];
-  email?: Maybe<Scalars['String']>;
-  dob?: Maybe<Scalars['String']>;
-  idNumbers?: Maybe<Array<Maybe<IdNumber>>>;
   address?: Maybe<Address>;
+  dob?: Maybe<Scalars['String']>;
+  email?: Maybe<Scalars['String']>;
+  firstName: Scalars['String'];
   href?: Maybe<Scalars['String']>;
+  id: Scalars['String'];
+  idNumbers?: Maybe<Array<Maybe<IdNumber>>>;
+  lastName: Scalars['String'];
 };
 
 export type Asset = {
   __typename?: 'Asset';
+  currentVersion?: Maybe<AssetVersion>;
   id: Scalars['UUID1'];
   versions?: Maybe<Array<AssetVersion>>;
-  currentVersion?: Maybe<AssetVersion>;
 };
 
 export type AssetFilter = {
-  organizationID?: Maybe<Scalars['UUID1']>;
+  organizationID?: InputMaybe<Scalars['UUID1']>;
 };
 
 export type AssetVersion = {
   __typename?: 'AssetVersion';
-  id: Scalars['UUID1'];
-  slug: Scalars['String'];
-  assetID: Scalars['UUID1'];
-  asset: Asset;
-  name: Scalars['String'];
-  description?: Maybe<Scalars['String']>;
-  isCurrent: Scalars['Boolean'];
-  cdnUrl?: Maybe<Scalars['String']>;
   arweaveTx?: Maybe<Scalars['String']>;
+  asset: Asset;
+  assetID: Scalars['UUID1'];
+  cdnUrl?: Maybe<Scalars['String']>;
+  description?: Maybe<Scalars['String']>;
+  id: Scalars['UUID1'];
+  isCurrent: Scalars['Boolean'];
+  name: Scalars['String'];
+  slug: Scalars['String'];
 };
 
-export type AttributeValue = AttributeValueString | AttributeValueInt | AttributeValueFloat;
+export type AttributeValue = AttributeValueFloat | AttributeValueInt | AttributeValueString;
 
 export type AttributeValueFloat = {
   __typename?: 'AttributeValueFloat';
@@ -178,32 +207,32 @@ export type AttributeValueString = {
 };
 
 export enum AuctionBidOrder {
-  Desc = 'DESC',
   Asc = 'ASC',
+  Desc = 'DESC',
 }
 
 export enum AuctionLotStatus {
-  Hidden = 'Hidden',
-  Preview = 'Preview',
   Active = 'Active',
   Completed = 'Completed',
+  Hidden = 'Hidden',
+  Preview = 'Preview',
 }
 
 export type BidFilterInput = {
-  marketplaceAuctionLotId?: Maybe<Scalars['UUID']>;
-  userId?: Maybe<Scalars['UUID']>;
-  order?: Maybe<AuctionBidOrder>;
-  returnDeleted?: Maybe<Scalars['Boolean']>;
+  marketplaceAuctionLotId?: InputMaybe<Scalars['UUID']>;
+  order?: InputMaybe<AuctionBidOrder>;
+  returnDeleted?: InputMaybe<Scalars['Boolean']>;
+  userId?: InputMaybe<Scalars['UUID']>;
 };
 
 export type BuyerDetailOutput = {
   __typename?: 'BuyerDetailOutput';
+  externalUserID: Scalars['String'];
+  timestamp: Scalars['Time'];
   totalPrice: Scalars['Float'];
   units: Scalars['Int'];
-  timestamp: Scalars['Time'];
-  userId: Scalars['UUID1'];
   user?: Maybe<User>;
-  externalUserID: Scalars['String'];
+  userId: Scalars['UUID1'];
   username?: Maybe<Scalars['String']>;
 };
 
@@ -224,79 +253,82 @@ export enum ContractType {
 }
 
 export type CreateMarketplaceBuyNowLotInput = {
-  marketplaceTokenId?: Maybe<Scalars['UUID1']>;
   collectionId: Scalars['UUID1'];
   collectionItemName: Scalars['String'];
-  unitPrice: Scalars['Float'];
-  totalUnits?: Maybe<Scalars['Int']>;
-  startDate: Scalars['Time'];
+  delivery?: InputMaybe<MarketplaceItemDeliveryInput>;
   endDate: Scalars['Time'];
+  marketplaceTokenId?: InputMaybe<Scalars['UUID1']>;
   sortNumber: Scalars['Int'];
-  delivery?: Maybe<MarketplaceItemDeliveryInput>;
+  startDate: Scalars['Time'];
+  totalUnits?: InputMaybe<Scalars['Int']>;
+  unitPrice: Scalars['Float'];
 };
 
 export type CreateMarketplaceClaimableSetInput = {
   collectionId: Scalars['UUID1'];
   collectionItemName: Scalars['String'];
-  totalUnits: Scalars['Int'];
-  totalAvailableUnits: Scalars['Int'];
-  startDate: Scalars['Time'];
+  delivery: MarketplaceItemDeliveryInput;
   endDate: Scalars['Time'];
+  perWalletLimit: Scalars['Int'];
+  promoCodeConfig?: InputMaybe<MarketplaceItemCodeConfigInput>;
+  startDate: Scalars['Time'];
+  totalUnits: Scalars['Int'];
 };
 
 export type CreatePaymentCreditCardMetadataInput = {
-  keyID: Scalars['String'];
   encryptedData: Scalars['String'];
+  keyID: Scalars['String'];
 };
 
 export type CreatePaymentCryptoMetadataInput = {
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  localPrice: LocalPrice;
-  billingDetails?: Maybe<CryptoBillingDetails>;
-  redirectURL?: Maybe<Scalars['String']>;
-  cancelURL?: Maybe<Scalars['String']>;
+  billingDetails?: InputMaybe<CryptoBillingDetails>;
+  cancelURL?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  localPrice?: InputMaybe<LocalPrice>;
+  name?: InputMaybe<Scalars['String']>;
+  redirectURL?: InputMaybe<Scalars['String']>;
 };
 
 export type CreatePaymentMetadataInput = {
-  creditCardData?: Maybe<CreatePaymentCreditCardMetadataInput>;
-  cryptoData?: Maybe<CreatePaymentCryptoMetadataInput>;
-  destinationAddress?: Maybe<Scalars['EthAddress']>;
+  creditCardData?: InputMaybe<CreatePaymentCreditCardMetadataInput>;
+  cryptoData?: InputMaybe<CreatePaymentCryptoMetadataInput>;
+  destinationAddress?: InputMaybe<Scalars['EthAddress']>;
+  discountCodeID?: InputMaybe<Scalars['UUID1']>;
 };
 
 export type CreditCardBillingDetails = {
-  name: Scalars['String'];
+  address1: Scalars['String'];
+  address2?: InputMaybe<Scalars['String']>;
   city: Scalars['String'];
   country: Scalars['String'];
-  address1: Scalars['String'];
-  address2?: Maybe<Scalars['String']>;
-  district?: Maybe<Scalars['String']>;
+  district?: InputMaybe<Scalars['String']>;
+  name: Scalars['String'];
   postalCode: Scalars['String'];
 };
 
 export type CreditCardBillingDetailsOutput = {
   __typename?: 'CreditCardBillingDetailsOutput';
-  name: Scalars['String'];
   address1: Scalars['String'];
   address2: Scalars['String'];
+  city: Scalars['String'];
   country: Scalars['String'];
   district: Scalars['String'];
-  city: Scalars['String'];
+  name: Scalars['String'];
   postalCode: Scalars['String'];
 };
 
 export type CreditCardData = {
-  keyID: Scalars['String'];
+  billingDetails?: InputMaybe<CreditCardBillingDetails>;
   encryptedData: Scalars['String'];
-  billingDetails?: Maybe<CreditCardBillingDetails>;
   expirationMonth: Scalars['Int'];
   expirationYear: Scalars['Int'];
-  metadata?: Maybe<CreditCardMetadata>;
+  keyID: Scalars['String'];
+  metadata?: InputMaybe<CreditCardMetadata>;
 };
 
 export type CreditCardMetadata = {
   email: Scalars['String'];
-  phoneNumber?: Maybe<Scalars['String']>;
+  phoneNumber?: InputMaybe<Scalars['String']>;
 };
 
 export type CreditCardMetadataOutput = {
@@ -307,23 +339,23 @@ export type CreditCardMetadataOutput = {
 
 export type CreditCardPaymentMethodOutput = {
   __typename?: 'CreditCardPaymentMethodOutput';
+  billingDetails?: Maybe<CreditCardBillingDetailsOutput>;
   id: Scalars['UUID1'];
-  type: PaymentType;
-  status: Scalars['String'];
-  network: Scalars['String'];
   last4Digit: Scalars['String'];
   metadata?: Maybe<CreditCardMetadataOutput>;
-  billingDetails?: Maybe<CreditCardBillingDetailsOutput>;
+  network: Scalars['String'];
+  status: Scalars['String'];
+  type: PaymentType;
 };
 
 export type CryptoBillingDetails = {
-  name?: Maybe<Scalars['String']>;
-  address1?: Maybe<Scalars['String']>;
-  address2?: Maybe<Scalars['String']>;
-  country?: Maybe<Scalars['String']>;
-  district?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
-  postalCode?: Maybe<Scalars['String']>;
+  address1?: InputMaybe<Scalars['String']>;
+  address2?: InputMaybe<Scalars['String']>;
+  city?: InputMaybe<Scalars['String']>;
+  country?: InputMaybe<Scalars['String']>;
+  district?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  postalCode?: InputMaybe<Scalars['String']>;
 };
 
 export type CryptoPaymentDetails = {
@@ -334,140 +366,171 @@ export type CryptoPaymentDetails = {
 export type CryptoPaymentMethodOutput = {
   __typename?: 'CryptoPaymentMethodOutput';
   id: Scalars['UUID1'];
-  type: PaymentType;
   status: Scalars['String'];
+  type: PaymentType;
 };
 
 export type CurrentUser = {
   __typename?: 'CurrentUser';
+  activeBids: Array<MarketplaceAuctionBid>;
+  apiKeys?: Maybe<Array<Maybe<UserApiKeyResponse>>>;
+  favoriteItems?: Maybe<Array<MarketplaceCollectionItem>>;
   id: Scalars['UUID'];
   user: User;
   userOrgs: Array<UserOrganization>;
-  apiKeys?: Maybe<Array<Maybe<UserApiKeyResponse>>>;
-  favoriteItems?: Maybe<Array<MarketplaceCollectionItem>>;
-  wonBids: Array<MarketplaceAuctionBid>;
-  activeBids: Array<MarketplaceAuctionBid>;
   wallets?: Maybe<Array<Wallet>>;
-};
-
-export type CurrentUserUserOrgsArgs = {
-  filter?: Maybe<UserOrgFilter>;
-};
-
-export type CurrentUserWonBidsArgs = {
-  orgId?: Maybe<Scalars['UUID']>;
+  wonBids: Array<MarketplaceAuctionBid>;
 };
 
 export type CurrentUserActiveBidsArgs = {
   orgId: Scalars['UUID'];
 };
 
+export type CurrentUserUserOrgsArgs = {
+  filter?: InputMaybe<UserOrgFilter>;
+};
+
+export type CurrentUserWonBidsArgs = {
+  orgId?: InputMaybe<Scalars['UUID']>;
+};
+
 export enum DeliveryMethod {
   Erc721Provenance = 'ERC721Provenance',
   Erc721Transfer = 'ERC721Transfer',
-  Erc1155Transfer = 'ERC1155Transfer',
+  Erc721TransferByRange = 'ERC721TransferByRange',
   Erc1155OpenEdition = 'ERC1155OpenEdition',
+  Erc1155Transfer = 'ERC1155Transfer',
   NoOp = 'NoOp',
 }
 
 export type DeployContractInput = {
   contractType: ContractType;
-  organizationId: Scalars['UUID1'];
-  walletId: Scalars['UUID1'];
   nftName: Scalars['String'];
   nftSymbol: Scalars['String'];
+  organizationId: Scalars['UUID1'];
+  walletId: Scalars['UUID1'];
+};
+
+export type DiscountCode = {
+  __typename?: 'DiscountCode';
+  description?: Maybe<Scalars['String']>;
+  discountCode: Scalars['String'];
+  discountType: Scalars['String'];
+  id: Scalars['UUID1'];
+  organizationID: Scalars['UUID1'];
+  value: Scalars['Float'];
+};
+
+export type DiscountedInvoiceItem = {
+  __typename?: 'DiscountedInvoiceItem';
+  discountCode: DiscountCode;
+  discountedAmount: Scalars['Float'];
+  invoiceItemID: Scalars['UUID1'];
+  totalPrice: Scalars['Float'];
+  totalPriceAfterDiscount: Scalars['Float'];
 };
 
 export type Erc721Metadata = {
   __typename?: 'ERC721Metadata';
-  name: Scalars['String'];
-  description: Scalars['String'];
-  image: Scalars['String'];
-  attributes?: Maybe<Array<MetadataAttributes>>;
-  externalURL?: Maybe<Scalars['String']>;
-  backgroundColor?: Maybe<Scalars['String']>;
   animationURL?: Maybe<Scalars['String']>;
-  timestamp?: Maybe<Scalars['Int']>;
+  attributes?: Maybe<Array<MetadataAttributes>>;
+  backgroundColor?: Maybe<Scalars['String']>;
+  description: Scalars['String'];
+  externalURL?: Maybe<Scalars['String']>;
+  image: Scalars['String'];
   language?: Maybe<Scalars['String']>;
+  name: Scalars['String'];
+  timestamp?: Maybe<Scalars['Int']>;
 };
 
 export enum ExtensionType {
   ProvenanceExtension = 'ProvenanceExtension',
+  RedeemableExtension = 'RedeemableExtension',
+}
+
+export enum FilteringType {
+  AllowList = 'AllowList',
 }
 
 export type IdNumber = {
   __typename?: 'IDNumber';
+  stateCode: Scalars['String'];
   type: Scalars['String'];
   value: Scalars['String'];
-  stateCode: Scalars['String'];
 };
 
 export type IdNumberInput = {
+  stateCode: Scalars['String'];
   type: Scalars['String'];
   value: Scalars['String'];
-  stateCode: Scalars['String'];
 };
+
+export enum IdentifierType {
+  ExternalUserId = 'ExternalUserID',
+  UserId = 'UserID',
+}
 
 export type InvoiceDetails = {
   __typename?: 'InvoiceDetails';
-  userName: Scalars['String'];
-  invoiceID: Scalars['UUID1'];
-  invoiceNumber: Scalars['Int'];
-  invoiceCreatedAt: Scalars['Time'];
+  OrganizationID: Scalars['UUID1'];
+  billingAddress?: Maybe<InvoiceDetailsBillingAddress>;
+  externalPaymentID: Scalars['String'];
   externalUserID: Scalars['String'];
   internalUserID: Scalars['String'];
+  invoiceCreatedAt: Scalars['Time'];
+  invoiceID: Scalars['UUID1'];
+  invoiceNumber: Scalars['Int'];
   items: Array<Maybe<ItemInvoiceDetail>>;
-  status: InvoiceStatus;
   paymentID: Scalars['UUID1'];
-  externalPaymentID: Scalars['String'];
-  billingAddress?: Maybe<InvoiceDetailsBillingAddress>;
-  OrganizationID: Scalars['UUID1'];
+  status: InvoiceStatus;
+  userName: Scalars['String'];
 };
 
 export type InvoiceDetailsBillingAddress = {
   __typename?: 'InvoiceDetailsBillingAddress';
-  street1: Scalars['String'];
   city: Scalars['String'];
-  state: Scalars['String'];
-  postalCode: Scalars['String'];
   country: Scalars['String'];
+  postalCode: Scalars['String'];
+  state: Scalars['String'];
+  street1: Scalars['String'];
 };
 
 export enum InvoiceStatus {
-  Draft = 'Draft',
   AwaitingUserPayment = 'AwaitingUserPayment',
-  Pending = 'Pending',
   Canceled = 'Canceled',
-  Expired = 'Expired',
-  Paid = 'Paid',
-  Failed = 'Failed',
   Delivered = 'Delivered',
+  Draft = 'Draft',
+  Expired = 'Expired',
+  Failed = 'Failed',
+  Paid = 'Paid',
+  Pending = 'Pending',
 }
 
 export type ItemInvoiceDetail = {
   __typename?: 'ItemInvoiceDetail';
-  collectionItemID: Scalars['UUID1'];
-  collectionTitle: Scalars['String'];
-  collectionItemTitle: Scalars['String'];
-  destinationAddress: Scalars['String'];
-  units: Scalars['Int'];
-  unitPrice: Scalars['Float'];
   buyersPremium: Scalars['Float'];
+  collectionItemID: Scalars['UUID1'];
+  collectionItemTitle: Scalars['String'];
+  collectionTitle: Scalars['String'];
+  destinationAddress: Scalars['String'];
+  invoiceItemID: Scalars['UUID1'];
   overheadPremium: Scalars['Float'];
-  totalPrice: Scalars['Float'];
   saleDate: Scalars['Time'];
-  taxes: Scalars['Float'];
   salesTaxRate: Scalars['Float'];
+  taxes: Scalars['Float'];
+  totalPrice: Scalars['Float'];
+  unitPrice: Scalars['Float'];
+  units: Scalars['Int'];
 };
 
 export enum KycStatus {
-  None = 'None',
-  Pending = 'Pending',
-  Level1 = 'Level1',
-  Level2 = 'Level2',
   Clear = 'Clear',
   Failed1 = 'Failed1',
   Failed2 = 'Failed2',
+  Level1 = 'Level1',
+  Level2 = 'Level2',
+  None = 'None',
+  Pending = 'Pending',
 }
 
 export type LocalPrice = {
@@ -477,54 +540,54 @@ export type LocalPrice = {
 
 export enum MarketCollectionStatus {
   Active = 'Active',
-  Inactive = 'Inactive',
   Archived = 'Archived',
+  Inactive = 'Inactive',
 }
 
 export type Marketplace = {
   __typename?: 'Marketplace';
+  collections?: Maybe<Array<MarketplaceCollection>>;
   id: Scalars['UUID'];
   name: Scalars['String'];
   organizationID: Scalars['String'];
   theme?: Maybe<Scalars['String']>;
-  collections?: Maybe<Array<MarketplaceCollection>>;
   tokens?: Maybe<Array<MarketplaceToken>>;
 };
 
 export type MarketplaceAuctionBid = {
   __typename?: 'MarketplaceAuctionBid';
-  id: Scalars['UUID'];
-  marketplaceAuctionLotId: Scalars['UUID1'];
-  marketplaceAuctionLot: MarketplaceAuctionLot;
-  currentBid: Scalars['Float'];
-  maximumBid?: Maybe<Scalars['Float']>;
-  userId: Scalars['UUID'];
   amount: Scalars['Float'];
-  userOrganization: UserOrganization;
-  isCurrent: Scalars['Boolean'];
-  nextBidIncrement: Scalars['Float'];
-  createdAt: Scalars['Time'];
-  deletedAt?: Maybe<Scalars['Time']>;
-  marketplaceUser?: Maybe<MarketplaceUser>;
-  isMine: Scalars['Boolean'];
   buyersPremium: Scalars['Float'];
-  overheadPremium: Scalars['Float'];
+  createdAt: Scalars['Time'];
+  currentBid: Scalars['Float'];
+  deletedAt?: Maybe<Scalars['Time']>;
   finalPrice: Scalars['Float'];
+  id: Scalars['UUID'];
+  isCurrent: Scalars['Boolean'];
+  isMine: Scalars['Boolean'];
+  marketplaceAuctionLot: MarketplaceAuctionLot;
+  marketplaceAuctionLotId: Scalars['UUID1'];
+  marketplaceUser?: Maybe<MarketplaceUser>;
+  maximumBid?: Maybe<Scalars['Float']>;
+  nextBidIncrement: Scalars['Float'];
+  overheadPremium: Scalars['Float'];
+  userId: Scalars['UUID'];
+  userOrganization: UserOrganization;
 };
 
 export type MarketplaceAuctionBidInput = {
-  marketplaceAuctionLotId: Scalars['UUID'];
   amount: Scalars['Float'];
+  marketplaceAuctionLotId: Scalars['UUID'];
 };
 
 export type MarketplaceAuctionDefaultConfig = {
   __typename?: 'MarketplaceAuctionDefaultConfig';
-  id: Scalars['UUID'];
   collectionId: Scalars['UUID'];
+  endDate: Scalars['Time'];
+  id: Scalars['UUID'];
+  minIncrement: Scalars['Float'];
   reservePrice?: Maybe<Scalars['Float']>;
   startDate: Scalars['Time'];
-  endDate: Scalars['Time'];
-  minIncrement: Scalars['Float'];
 };
 
 export type MarketplaceAuctionFeeStructure = {
@@ -536,32 +599,32 @@ export type MarketplaceAuctionFeeStructure = {
 export type MarketplaceAuctionFeeStructureItem = {
   __typename?: 'MarketplaceAuctionFeeStructureItem';
   from: Scalars['Float'];
-  to?: Maybe<Scalars['Float']>;
   rate: Scalars['Float'];
+  to?: Maybe<Scalars['Float']>;
 };
 
 export type MarketplaceAuctionLot = {
   __typename?: 'MarketplaceAuctionLot';
+  bids: Array<MarketplaceAuctionBid>;
+  currentBid?: Maybe<MarketplaceAuctionBid>;
+  defaultConfig: MarketplaceAuctionDefaultConfig;
+  endDate: Scalars['Time'];
+  feeStructure: MarketplaceAuctionFeeStructure;
   id: Scalars['UUID'];
   lotNumber?: Maybe<Scalars['Int']>;
   marketplaceCollectionItem?: Maybe<MarketplaceCollectionItem>;
   marketplaceCollectionItemId: Scalars['UUID1'];
-  startingBid?: Maybe<Scalars['Float']>;
-  reservePrice?: Maybe<Scalars['Float']>;
-  reserveMet: Scalars['Boolean'];
-  previewDate?: Maybe<Scalars['Time']>;
-  startDate: Scalars['Time'];
-  endDate: Scalars['Time'];
-  status: AuctionLotStatus;
-  currentBid?: Maybe<MarketplaceAuctionBid>;
   myBid?: Maybe<MarketplaceAuctionBid>;
-  bids: Array<MarketplaceAuctionBid>;
-  defaultConfig: MarketplaceAuctionDefaultConfig;
-  feeStructure: MarketplaceAuctionFeeStructure;
+  previewDate?: Maybe<Scalars['Time']>;
+  reserveMet: Scalars['Boolean'];
+  reservePrice?: Maybe<Scalars['Float']>;
+  startDate: Scalars['Time'];
+  startingBid?: Maybe<Scalars['Float']>;
+  status: AuctionLotStatus;
 };
 
 export type MarketplaceAuctionLotBidsArgs = {
-  filter?: Maybe<BidFilterInput>;
+  filter?: InputMaybe<BidFilterInput>;
 };
 
 export type MarketplaceAuctionLotDefaultConfigArgs = {
@@ -569,115 +632,128 @@ export type MarketplaceAuctionLotDefaultConfigArgs = {
 };
 
 export type MarketplaceAuctionLotInput = {
-  marketplaceTokenId?: Maybe<Scalars['UUID']>;
   collectionId: Scalars['UUID'];
-  saleType: MarketplaceSaleType;
-  startingBid?: Maybe<Scalars['Float']>;
-  reservePrice?: Maybe<Scalars['Float']>;
-  lotNumber?: Maybe<Scalars['Int']>;
-  startDate: Scalars['Time'];
-  endDate: Scalars['Time'];
   collectionItemName: Scalars['String'];
-  delivery?: Maybe<MarketplaceItemDeliveryInput>;
+  delivery?: InputMaybe<MarketplaceItemDeliveryInput>;
+  endDate: Scalars['Time'];
+  lotNumber?: InputMaybe<Scalars['Int']>;
+  marketplaceTokenId?: InputMaybe<Scalars['UUID']>;
+  reservePrice?: InputMaybe<Scalars['Float']>;
+  saleType: MarketplaceSaleType;
+  startDate: Scalars['Time'];
+  startingBid?: InputMaybe<Scalars['Float']>;
 };
 
 export type MarketplaceAuctionLotUpdateInput = {
-  startingBid?: Maybe<Scalars['Float']>;
-  reservePrice?: Maybe<Scalars['Float']>;
-  startDate?: Maybe<Scalars['Time']>;
-  endDate?: Maybe<Scalars['Time']>;
-  maxEndDate?: Maybe<Scalars['Time']>;
-  status?: Maybe<AuctionLotStatus>;
-  lotNumber?: Maybe<Scalars['Int']>;
-  delivery?: Maybe<MarketplaceItemDeliveryInput>;
+  delivery?: InputMaybe<MarketplaceItemDeliveryInput>;
+  endDate?: InputMaybe<Scalars['Time']>;
+  lotNumber?: InputMaybe<Scalars['Int']>;
+  maxEndDate?: InputMaybe<Scalars['Time']>;
+  reservePrice?: InputMaybe<Scalars['Float']>;
+  startDate?: InputMaybe<Scalars['Time']>;
+  startingBid?: InputMaybe<Scalars['Float']>;
+  status?: InputMaybe<AuctionLotStatus>;
 };
 
 export type MarketplaceBuyNowOutput = {
   __typename?: 'MarketplaceBuyNowOutput';
-  id: Scalars['UUID'];
-  marketplaceCollectionItem?: Maybe<MarketplaceCollectionItem>;
-  unitPrice: Scalars['Float'];
-  totalUnits: Scalars['Int'];
-  totalAvailableUnits: Scalars['Int'];
-  startDate: Scalars['Time'];
   endDate: Scalars['Time'];
-  sortNumber: Scalars['Int'];
+  id: Scalars['UUID'];
   invoice?: Maybe<InvoiceDetails>;
-  remainingCount: Scalars['Int'];
+  marketplaceCollectionItem?: Maybe<MarketplaceCollectionItem>;
   purchaseTimeoutInMinutes?: Maybe<Scalars['Int']>;
+  remainingCount: Scalars['Int'];
+  sortNumber: Scalars['Int'];
+  startDate: Scalars['Time'];
+  totalAvailableUnits: Scalars['Int'];
+  totalUnits: Scalars['Int'];
+  unitPrice: Scalars['Float'];
 };
 
 export type MarketplaceBuyNowUpdateInput = {
-  unitPrice?: Maybe<Scalars['Float']>;
-  totalUnits?: Maybe<Scalars['Int']>;
-  startDate?: Maybe<Scalars['Time']>;
-  endDate?: Maybe<Scalars['Time']>;
-  sortNumber?: Maybe<Scalars['Int']>;
+  delivery?: InputMaybe<MarketplaceItemDeliveryInput>;
+  endDate?: InputMaybe<Scalars['Time']>;
+  sortNumber?: InputMaybe<Scalars['Int']>;
+  startDate?: InputMaybe<Scalars['Time']>;
+  totalUnits?: InputMaybe<Scalars['Int']>;
+  unitPrice?: InputMaybe<Scalars['Float']>;
+};
+
+export type MarketplaceClaimableCodeOutput = {
+  __typename?: 'MarketplaceClaimableCodeOutput';
+  claimableSetID: Scalars['UUID1'];
+  code: Scalars['String'];
+  id: Scalars['UUID1'];
+  isASingleUseCode: Scalars['Boolean'];
+  redeemed: Scalars['Boolean'];
 };
 
 export type MarketplaceClaimableOutput = {
   __typename?: 'MarketplaceClaimableOutput';
+  claimingType?: Maybe<Scalars['String']>;
+  endDate: Scalars['Time'];
   id: Scalars['UUID'];
   marketplaceCollectionItem?: Maybe<MarketplaceCollectionItem>;
-  totalUnits: Scalars['Int'];
-  totalAvailableUnits: Scalars['Int'];
+  perWalletLimit: Scalars['Int'];
   startDate: Scalars['Time'];
-  endDate: Scalars['Time'];
+  totalAvailableUnits: Scalars['Int'];
+  totalUnits: Scalars['Int'];
 };
 
 export type MarketplaceCollection = {
   __typename?: 'MarketplaceCollection';
+  collectionType: CollectionType;
+  description: Scalars['String'];
+  endDate?: Maybe<Scalars['Time']>;
   id: Scalars['UUID1'];
+  items?: Maybe<Array<MarketplaceCollectionItem>>;
   marketplaceID: Scalars['UUID1'];
   name: Scalars['String'];
   slug: Scalars['String'];
-  description: Scalars['String'];
-  status: MarketCollectionStatus;
   startDate?: Maybe<Scalars['Time']>;
-  endDate?: Maybe<Scalars['Time']>;
-  collectionType: CollectionType;
-  items?: Maybe<Array<MarketplaceCollectionItem>>;
+  status: MarketCollectionStatus;
 };
 
 export type MarketplaceCollectionItemsArgs = {
-  offset?: Maybe<Scalars['Int']>;
-  limit?: Maybe<Scalars['Int']>;
-  statuses?: Maybe<Array<Maybe<MarketplaceCollectionItemStatus>>>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
+  statuses?: InputMaybe<Array<InputMaybe<MarketplaceCollectionItemStatus>>>;
 };
 
 export type MarketplaceCollectionCreateInput = {
-  name: Scalars['String'];
   description: Scalars['String'];
-  startDate?: Maybe<Scalars['Time']>;
-  endDate?: Maybe<Scalars['Time']>;
-  status?: Maybe<MarketCollectionStatus>;
+  endDate?: InputMaybe<Scalars['Time']>;
+  name: Scalars['String'];
+  startDate?: InputMaybe<Scalars['Time']>;
+  status?: InputMaybe<MarketCollectionStatus>;
 };
 
 export type MarketplaceCollectionItem = {
   __typename?: 'MarketplaceCollectionItem';
-  id: Scalars['UUID'];
-  marketplaceTokenId?: Maybe<Scalars['UUID']>;
   collectionId: Scalars['UUID'];
-  saleType: MarketplaceSaleType;
-  name: Scalars['String'];
-  slug: Scalars['String'];
-  status: MarketplaceCollectionItemStatus;
+  delivery?: Maybe<MarketplaceCollectionItemDelivery>;
+  details: MarketplaceCollectionItemDetails;
+  id: Scalars['UUID'];
   /** @deprecated Use `details` property instead */
   lot: MarketplaceAuctionLot;
-  details: MarketplaceCollectionItemDetails;
-  delivery?: Maybe<MarketplaceCollectionItemDelivery>;
+  marketplaceTokenId?: Maybe<Scalars['UUID']>;
+  name: Scalars['String'];
+  saleType: MarketplaceSaleType;
+  slug: Scalars['String'];
+  status: MarketplaceCollectionItemStatus;
 };
 
 export type MarketplaceCollectionItemDelivery =
   | MarketplaceItemDeliveryErc721Provenance
   | MarketplaceItemDeliveryErc721Transfer
-  | MarketplaceItemDeliveryErc1155Transfer
+  | MarketplaceItemDeliveryErc721TransferByRange
   | MarketplaceItemDeliveryErc1155OpenEdition
+  | MarketplaceItemDeliveryErc1155Transfer
   | MarketplaceItemDeliveryNoOp;
 
 export type MarketplaceCollectionItemDetails =
-  | MarketplaceBuyNowOutput
   | MarketplaceAuctionLot
+  | MarketplaceBuyNowOutput
   | MarketplaceClaimableOutput;
 
 export enum MarketplaceCollectionItemStatus {
@@ -688,72 +764,95 @@ export enum MarketplaceCollectionItemStatus {
 }
 
 export type MarketplaceCollectionUpdateInput = {
-  slug?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  startDate?: Maybe<Scalars['Time']>;
-  endDate?: Maybe<Scalars['Time']>;
-  status?: Maybe<MarketCollectionStatus>;
-  description?: Maybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  endDate?: InputMaybe<Scalars['Time']>;
+  name?: InputMaybe<Scalars['String']>;
+  slug?: InputMaybe<Scalars['String']>;
+  startDate?: InputMaybe<Scalars['Time']>;
+  status?: InputMaybe<MarketCollectionStatus>;
 };
 
-export type MarketplaceItemDeliveryErc1155OpenEdition = {
-  __typename?: 'MarketplaceItemDeliveryERC1155OpenEdition';
-  ownerWalletId: Scalars['UUID1'];
-  contractAddress: Scalars['String'];
-  onChainTokenId: Scalars['Int'];
-};
-
-export type MarketplaceItemDeliveryErc1155OpenEditionInput = {
-  ownerWalletId: Scalars['UUID1'];
-  contractAddress: Scalars['String'];
-  onChainTokenId: Scalars['Int'];
-};
-
-export type MarketplaceItemDeliveryErc1155Transfer = {
-  __typename?: 'MarketplaceItemDeliveryERC1155Transfer';
-  ownerWalletId: Scalars['UUID1'];
-  contractAddress: Scalars['String'];
-  onChainTokenId: Scalars['Int'];
-};
-
-export type MarketplaceItemDeliveryErc1155TransferInput = {
-  ownerWalletId: Scalars['UUID1'];
-  contractAddress: Scalars['String'];
-  onChainTokenId: Scalars['Int'];
-  amount: Scalars['Int'];
+export type MarketplaceItemCodeConfigInput = {
+  codeValue?: InputMaybe<Scalars['String']>;
+  isSingleCode: Scalars['Boolean'];
+  numberOfCodes?: InputMaybe<Scalars['Int']>;
+  prefix?: InputMaybe<Scalars['String']>;
 };
 
 export type MarketplaceItemDeliveryErc721Provenance = {
   __typename?: 'MarketplaceItemDeliveryERC721Provenance';
-  nftContractId: Scalars['UUID1'];
   extensionAddress: Scalars['String'];
+  nftContractId: Scalars['UUID1'];
 };
 
 export type MarketplaceItemDeliveryErc721ProvenanceInput = {
-  nftContractId: Scalars['UUID1'];
   extensionAddress: Scalars['String'];
+  nftContractId: Scalars['UUID1'];
 };
 
 export type MarketplaceItemDeliveryErc721Transfer = {
   __typename?: 'MarketplaceItemDeliveryERC721Transfer';
-  ownerWalletId: Scalars['UUID1'];
   contractAddress: Scalars['String'];
   onChainTokenId: Scalars['Int'];
+  ownerWalletId: Scalars['UUID1'];
+};
+
+export type MarketplaceItemDeliveryErc721TransferByRange = {
+  __typename?: 'MarketplaceItemDeliveryERC721TransferByRange';
+  contractAddress: Scalars['String'];
+  fromOnChainTokenId: Scalars['Int'];
+  ownerWalletId: Scalars['UUID1'];
+  toOnChainTokenId: Scalars['Int'];
+};
+
+export type MarketplaceItemDeliveryErc721TransferByRangeInput = {
+  contractAddress: Scalars['String'];
+  fromOnChainTokenId: Scalars['Int'];
+  ownerWalletId: Scalars['UUID1'];
+  toOnChainTokenId: Scalars['Int'];
 };
 
 export type MarketplaceItemDeliveryErc721TransferInput = {
-  ownerWalletId: Scalars['UUID1'];
   contractAddress: Scalars['String'];
   onChainTokenId: Scalars['Int'];
+  ownerWalletId: Scalars['UUID1'];
+};
+
+export type MarketplaceItemDeliveryErc1155OpenEdition = {
+  __typename?: 'MarketplaceItemDeliveryERC1155OpenEdition';
+  contractId: Scalars['UUID1'];
+  onChainTokenId: Scalars['Int'];
+  ownerWalletId: Scalars['UUID1'];
+};
+
+export type MarketplaceItemDeliveryErc1155OpenEditionInput = {
+  contractId: Scalars['UUID1'];
+  onChainTokenId: Scalars['Int'];
+  ownerWalletId: Scalars['UUID1'];
+};
+
+export type MarketplaceItemDeliveryErc1155Transfer = {
+  __typename?: 'MarketplaceItemDeliveryERC1155Transfer';
+  contractAddress: Scalars['String'];
+  onChainTokenId: Scalars['Int'];
+  ownerWalletId: Scalars['UUID1'];
+};
+
+export type MarketplaceItemDeliveryErc1155TransferInput = {
+  amount: Scalars['Int'];
+  contractAddress: Scalars['String'];
+  onChainTokenId: Scalars['Int'];
+  ownerWalletId: Scalars['UUID1'];
 };
 
 export type MarketplaceItemDeliveryInput = {
+  ERC721Provenance?: InputMaybe<MarketplaceItemDeliveryErc721ProvenanceInput>;
+  ERC721Transfer?: InputMaybe<MarketplaceItemDeliveryErc721TransferInput>;
+  ERC721TransferByRange?: InputMaybe<MarketplaceItemDeliveryErc721TransferByRangeInput>;
+  ERC1155OpenEdition?: InputMaybe<MarketplaceItemDeliveryErc1155OpenEditionInput>;
+  ERC1155Transfer?: InputMaybe<MarketplaceItemDeliveryErc1155TransferInput>;
+  NoOp?: InputMaybe<MarketplaceItemDeliveryNoOpInput>;
   deliveryMethod: DeliveryMethod;
-  ERC721Provenance?: Maybe<MarketplaceItemDeliveryErc721ProvenanceInput>;
-  ERC721Transfer?: Maybe<MarketplaceItemDeliveryErc721TransferInput>;
-  ERC1155Transfer?: Maybe<MarketplaceItemDeliveryErc1155TransferInput>;
-  ERC1155OpenEdition?: Maybe<MarketplaceItemDeliveryErc1155OpenEditionInput>;
-  NoOp?: Maybe<MarketplaceItemDeliveryNoOpInput>;
 };
 
 export type MarketplaceItemDeliveryNoOp = {
@@ -762,7 +861,7 @@ export type MarketplaceItemDeliveryNoOp = {
 };
 
 export type MarketplaceItemDeliveryNoOpInput = {
-  notes?: Maybe<Scalars['String']>;
+  notes?: InputMaybe<Scalars['String']>;
 };
 
 export enum MarketplaceSaleType {
@@ -774,196 +873,186 @@ export enum MarketplaceSaleType {
 export type MarketplaceToken = {
   __typename?: 'MarketplaceToken';
   id: Scalars['UUID'];
-  name?: Maybe<Scalars['String']>;
-  marketplaceID: Scalars['UUID'];
-  onChainTokenID: Scalars['Int'];
-  nftTokenID?: Maybe<Scalars['UUID']>;
-  nftContractAddress: Scalars['String'];
   isTransferDisabled: Scalars['Boolean'];
+  marketplaceID: Scalars['UUID'];
+  name?: Maybe<Scalars['String']>;
+  nftContractAddress: Scalars['String'];
+  nftTokenID?: Maybe<Scalars['UUID']>;
+  onChainTokenID: Scalars['Int'];
 };
 
 export type MarketplaceUser = {
   __typename?: 'MarketplaceUser';
-  id: Scalars['UUID'];
   avatar?: Maybe<Scalars['String']>;
+  id: Scalars['UUID'];
   username?: Maybe<Scalars['String']>;
 };
 
 export type MetadataAttributes = {
   __typename?: 'MetadataAttributes';
-  traitType: Scalars['String'];
-  value: AttributeValue;
   displayType?: Maybe<Scalars['String']>;
   maxValue?: Maybe<Scalars['Int']>;
+  traitType: Scalars['String'];
+  value: AttributeValue;
 };
 
 export type Mutation = {
   __typename?: 'Mutation';
-  ping: Scalars['String'];
-  uploadAsset: Scalars['String'];
-  uploadAssets: Scalars['Int'];
-  deleteAsset: Scalars['String'];
-  uploadArweaveAsset: Scalars['String'];
-  loginWithSignature: Organization;
-  addOrganization: Organization;
-  createApplicant: ApplicantResponse;
-  createCheck: CheckResponse;
-  updateApplicant: ApplicantResponse;
+  addAllowListToBuyNowLot: Scalars['Boolean'];
+  /**
+   * Add an existing lot to User favorite lots list.
+   *     If lot is already exists, then do nothing.
+   *     If provided lot is invalid or not exists, then error message will be returned.
+   */
   addCollectionItemToUserFavorites: Scalars['Boolean'];
-  deleteCollectionItemFromUserFavorites: Scalars['Boolean'];
-  createMarketplaceCollection: MarketplaceCollection;
-  updateMarketplaceCollection: MarketplaceCollection;
-  createMarketplaceAuctionLot: MarketplaceAuctionLot;
-  updateMarketplaceAuctionLot: MarketplaceAuctionLot;
-  createMarketplaceAuctionBid: MarketplaceAuctionBid;
-  createMarketplaceBuyNowLot: MarketplaceBuyNowOutput;
-  updateMarketplaceBuyNowLot: MarketplaceBuyNowOutput;
-  reserveMarketplaceBuyNowLot: MarketplaceBuyNowOutput;
-  createMarketplaceClaimableSet: MarketplaceClaimableOutput;
-  updateMarketplaceClaimableSet: MarketplaceClaimableOutput;
-  cancelMarketplaceAuctionBid: Scalars['Boolean'];
-  startInvoiceDelivery: Scalars['Boolean'];
-  createTokenDraft: Scalars['String'];
-  updateTokenDraft: Scalars['String'];
-  deleteToken: Scalars['String'];
-  nftDeployContract: NftContract;
-  nftContractAddAdmin: Scalars['String'];
-  nftContractSetTokenURI: Scalars['String'];
-  mintTokens: Scalars['String'];
-  uploadArweaveMetadata: Scalars['String'];
-  setRoyaltiesExtension: Scalars['String'];
-  burnToken: Scalars['String'];
-  nftContractExtensionPause: Scalars['String'];
-  nftContractExtensionUnpause: Scalars['String'];
-  nftContractExtensionSetBaseURI: Scalars['String'];
-  nftContractRegisterExtensionProvenance: NftContract;
-  nftContractExtensionSetProvenanceHash: Scalars['String'];
-  nftContractExtensionProvenanceMint: Scalars['String'];
-  createOrgByUser: UserOrganization;
-  orgCreateMarketplace: Marketplace;
-  marketplaceUpdateTheme: Marketplace;
-  addTokensToCollection: Scalars['String'];
   addExistingTokenToCollection: Scalars['String'];
+  addOrganization: Organization;
+  addTokensToCollection: Scalars['String'];
+  /** Screens wallet address takes input arguments address, asset, network provides risk rating */
+  addressScreening: RiskRating;
+  burnToken: Scalars['String'];
+  cancelMarketplaceAuctionBid: Scalars['Boolean'];
+  /** Cancels payment by ID, can be called by org admin */
+  cancelPayment: Scalars['Boolean'];
+  cancelTokenTransfer: Scalars['Boolean'];
+  /** Check Token Owner mutation takes the input arguments contractId, address, rangeStart, rangeEnd and then it check based on given contract ID and address matched within given range (start, end), If matched it returns the list of token Ids. */
+  checkTokenOwners: Array<Maybe<Scalars['Int']>>;
+  /** checkWalletTokens mutation checks what NFTs a user owns within a specific contract and token range */
+  checkWalletTokens: Array<Maybe<Scalars['Int']>>;
+  createAllowList?: Maybe<Scalars['UUID1']>;
+  /** Creates new Applicant based on input data. */
+  createApplicant: ApplicantResponse;
+  /** Creates invoice for given Lot, can be called by org admin */
+  createAuctionLotInvoice: InvoiceDetails;
+  /** Creates new Check based for provided applicant ID. */
+  createCheck: CheckResponse;
+  createMarketplaceAuctionBid: MarketplaceAuctionBid;
+  createMarketplaceAuctionLot: MarketplaceAuctionLot;
+  createMarketplaceBuyNowLot: MarketplaceBuyNowOutput;
+  createMarketplaceClaimableSet: MarketplaceClaimableOutput;
+  createMarketplaceCollection: MarketplaceCollection;
+  createOrgByUser: UserOrganization;
+  /** Creates a multisig with organization as parent type */
+  createOrgMultisig: Scalars['String'];
+  /** Creates payment for given Invoice */
+  createPayment: PaymentOutput;
+  /** Creates new Payment method based on input data. */
+  createPaymentMethod: PaymentMethodOutput;
+  createTokenDraft: Scalars['String'];
+  /** Create a new API key for given User and Organization. */
+  createUserAPIKey?: Maybe<UserApiKeyResponse>;
+  delayedTransferToken: Scalars['Boolean'];
+  deleteAsset: Scalars['String'];
+  /**
+   * Delete an existing lot from User favorite lots list.
+   *     If lot has been already deleted, then do nothing.
+   *     If provided lot is invalid or not exists, then error message will be returned.
+   */
+  deleteCollectionItemFromUserFavorites: Scalars['Boolean'];
+  deleteOrgUser: Scalars['Boolean'];
+  /** Deletes existing Payment method by Payment ID. */
+  deletePaymentMethod: Scalars['Boolean'];
+  deleteToken: Scalars['String'];
+  /** Delete an existing API key. */
+  deleteUserAPIKey: Scalars['Boolean'];
+  deleteUserInvitation: Scalars['Boolean'];
+  /** Deploy existing multisig wallet to a new network */
+  deployWalletToNetwork: Scalars['String'];
+  /** Generates promo codes for a marketplace item */
+  generatePromoCodes: Array<Maybe<Scalars['String']>>;
   importExternalTokenToCollection: Scalars['String'];
+  /** List Wallets With Token takes contract address as input along with start/end date range and network type. Returns a list of token owners. */
+  listWalletsWithToken: Array<Maybe<TokenOwner>>;
+  loginWithSignature: SignInResponse;
+  marketplaceUpdateTheme: Marketplace;
+  mintTokens: Scalars['String'];
+  nftContractAddAdmin: Scalars['String'];
+  nftContractExtensionMintBatch: Scalars['String'];
+  nftContractExtensionPause: Scalars['String'];
+  nftContractExtensionProvenanceMint: Scalars['String'];
+  nftContractExtensionRedeemableRedeemToken: Scalars['String'];
+  nftContractExtensionSetBaseURI: Scalars['String'];
+  nftContractExtensionSetProvenanceHash: Scalars['String'];
+  nftContractExtensionUnpause: Scalars['String'];
+  nftContractRegisterExtension: NftContract;
+  nftContractSetTokenURI: Scalars['String'];
+  nftDeployContract: NftContract;
+  orgCreateMarketplace: Marketplace;
+  ping: Scalars['String'];
+  /** Redeem a claimable */
+  redeemClaimable: Scalars['Boolean'];
+  /** Redeem a claimable code */
+  redeemClaimableCode: Scalars['Boolean'];
+  /** Redeem a claimable */
+  redeemClaimableItem: Scalars['Boolean'];
+  /** Redeem a promo code */
+  redeemPromoCode: Scalars['Boolean'];
+  /** Release reservations held by invoice ID */
+  releaseReservation: Scalars['Boolean'];
+  removeAllowListFromBuyNowLot: Scalars['Boolean'];
+  reserveMarketplaceBuyNowLot: MarketplaceBuyNowOutput;
+  sendUserInvitation: Scalars['Boolean'];
+  setContractRoyalties: Scalars['String'];
   setJwtIssuerDomain: Organization;
+  startInvoiceDelivery: Scalars['Boolean'];
+  /** Transfers a token in the provided wallet to the `transferTo` address */
+  transferToken: Scalars['String'];
+  updateAfterPaymentTransferSuspendTime: Scalars['Boolean'];
+  /** Updates existing  Applicant based on input data. */
+  updateApplicant: ApplicantResponse;
+  updateBuyNowInvoiceExpiryMins: Scalars['Boolean'];
+  updateMarketplaceAuctionLot: MarketplaceAuctionLot;
+  updateMarketplaceBuyNowLot: MarketplaceBuyNowOutput;
+  updateMarketplaceClaimableSet: MarketplaceClaimableOutput;
+  updateMarketplaceCollection: MarketplaceCollection;
+  /** Update name of multisig wallet */
+  updateMultisigName: Scalars['Boolean'];
+  /** Update existing Payment method based on input data. */
+  updatePaymentMethod: Scalars['Boolean'];
+  updateTokenDraft: Scalars['String'];
   updateUserOrgRole: UserOrganization;
   updateUserOrgSettings: UserOrganization;
-  sendUserInvitation: Scalars['Boolean'];
-  deleteUserInvitation: Scalars['Boolean'];
-  deleteOrgUser: Scalars['Boolean'];
-  createPaymentMethod: PaymentMethodOutput;
-  updatePaymentMethod: Scalars['Boolean'];
-  deletePaymentMethod: Scalars['Boolean'];
-  createAuctionLotInvoice: InvoiceDetails;
-  releaseReservation: Scalars['Boolean'];
-  createPayment: PaymentOutput;
-  cancelPayment: Scalars['Boolean'];
-  generatePromoCodes: Array<Maybe<Scalars['String']>>;
-  redeemPromoCode: Scalars['Boolean'];
-  redeemClaimable: Scalars['Boolean'];
-  createUserAPIKey?: Maybe<UserApiKeyResponse>;
-  deleteUserAPIKey: Scalars['Boolean'];
-  updateMultisigName: Scalars['Boolean'];
-  createOrgMultisig: Scalars['String'];
-  deployWalletToNetwork: Scalars['String'];
-  transferToken: Scalars['String'];
+  uploadArweaveAsset: Scalars['String'];
+  uploadArweaveMetadata: Scalars['String'];
+  uploadAsset: Scalars['String'];
+  uploadAssets: Scalars['Int'];
+  /** Verify Signature mutation takes the input arguments signature, message, address and then we need to check if signature+message indeed was signed by the address. */
   verifySignature: Scalars['Boolean'];
-  checkTokenOwners: Array<Maybe<Scalars['Int']>>;
 };
 
-export type MutationUploadAssetArgs = {
-  orgId: Scalars['UUID1'];
-  file: Scalars['Upload'];
-  name: Scalars['String'];
-};
-
-export type MutationUploadAssetsArgs = {
-  orgId: Scalars['UUID1'];
-  files: Array<Maybe<Scalars['Upload']>>;
-};
-
-export type MutationDeleteAssetArgs = {
-  assetId: Scalars['UUID1'];
-};
-
-export type MutationUploadArweaveAssetArgs = {
-  assetVersionId: Scalars['UUID1'];
-};
-
-export type MutationLoginWithSignatureArgs = {
-  request: SigninRequest;
-};
-
-export type MutationAddOrganizationArgs = {
-  name: Scalars['String'];
-  handle: Scalars['String'];
-};
-
-export type MutationCreateApplicantArgs = {
-  orgID: Scalars['UUID1'];
-  input: ApplicantRequest;
-};
-
-export type MutationCreateCheckArgs = {
-  applicantID: Scalars['String'];
-};
-
-export type MutationUpdateApplicantArgs = {
-  applicantID: Scalars['String'];
-  input: ApplicantRequest;
+export type MutationAddAllowListToBuyNowLotArgs = {
+  allowListID: Scalars['UUID1'];
+  buyNowLotID: Scalars['UUID1'];
 };
 
 export type MutationAddCollectionItemToUserFavoritesArgs = {
   collectionItemId: Scalars['UUID1'];
 };
 
-export type MutationDeleteCollectionItemFromUserFavoritesArgs = {
-  collectionItemId: Scalars['UUID1'];
+export type MutationAddExistingTokenToCollectionArgs = {
+  marketplaceId: Scalars['UUID1'];
+  tokenId: Scalars['UUID1'];
 };
 
-export type MutationCreateMarketplaceCollectionArgs = {
-  marketplaceID: Scalars['String'];
-  data: MarketplaceCollectionCreateInput;
+export type MutationAddOrganizationArgs = {
+  handle: Scalars['String'];
+  name: Scalars['String'];
 };
 
-export type MutationUpdateMarketplaceCollectionArgs = {
-  id: Scalars['UUID1'];
-  data: MarketplaceCollectionUpdateInput;
+export type MutationAddTokensToCollectionArgs = {
+  marketplaceId: Scalars['UUID1'];
+  tokenIds: Array<Scalars['UUID1']>;
 };
 
-export type MutationCreateMarketplaceAuctionLotArgs = {
-  marketplaceAuctionLot: MarketplaceAuctionLotInput;
+export type MutationAddressScreeningArgs = {
+  input: AddressScreeningInput;
+  orgID: Scalars['UUID1'];
 };
 
-export type MutationUpdateMarketplaceAuctionLotArgs = {
-  marketplaceAuctionLotId: Scalars['UUID'];
-  data: MarketplaceAuctionLotUpdateInput;
-};
-
-export type MutationCreateMarketplaceAuctionBidArgs = {
-  marketplaceAuctionBid: MarketplaceAuctionBidInput;
-};
-
-export type MutationCreateMarketplaceBuyNowLotArgs = {
-  input: CreateMarketplaceBuyNowLotInput;
-};
-
-export type MutationUpdateMarketplaceBuyNowLotArgs = {
-  marketplaceBuyNowLotID: Scalars['UUID'];
-  input: MarketplaceBuyNowUpdateInput;
-};
-
-export type MutationReserveMarketplaceBuyNowLotArgs = {
-  input: ReserveMarketplaceBuyNowLotInput;
-};
-
-export type MutationCreateMarketplaceClaimableSetArgs = {
-  input: CreateMarketplaceClaimableSetInput;
-};
-
-export type MutationUpdateMarketplaceClaimableSetArgs = {
-  marketplaceClaimableSetID: Scalars['UUID'];
-  input: UpdateMarketplaceClaimableSetInput;
+export type MutationBurnTokenArgs = {
+  contractId: Scalars['UUID1'];
+  tokenId: Scalars['Int'];
+  walletId: Scalars['UUID1'];
 };
 
 export type MutationCancelMarketplaceAuctionBidArgs = {
@@ -971,30 +1060,230 @@ export type MutationCancelMarketplaceAuctionBidArgs = {
   marketplaceID: Scalars['UUID1'];
 };
 
-export type MutationStartInvoiceDeliveryArgs = {
+export type MutationCancelPaymentArgs = {
+  orgID: Scalars['UUID1'];
+  paymentID: Scalars['UUID1'];
+};
+
+export type MutationCancelTokenTransferArgs = {
+  orgID: Scalars['UUID1'];
+  tokenTransferID: Scalars['UUID1'];
+};
+
+export type MutationCheckTokenOwnersArgs = {
+  contractId: Scalars['UUID1'];
+  rangeEnd: Scalars['Int'];
+  rangeStart: Scalars['Int'];
+  walletAddress: Scalars['String'];
+};
+
+export type MutationCheckWalletTokensArgs = {
+  chainId: Scalars['Int'];
+  contractAddress: Scalars['String'];
+  rangeEnd: Scalars['Int'];
+  rangeStart: Scalars['Int'];
+};
+
+export type MutationCreateAllowListArgs = {
+  allowListInput: AllowListInput;
+  orgID: Scalars['UUID1'];
+};
+
+export type MutationCreateApplicantArgs = {
+  input: ApplicantRequest;
+  orgID: Scalars['UUID1'];
+};
+
+export type MutationCreateAuctionLotInvoiceArgs = {
+  lotID: Scalars['UUID1'];
+  orgID: Scalars['UUID1'];
+};
+
+export type MutationCreateCheckArgs = {
+  applicantID: Scalars['String'];
+};
+
+export type MutationCreateMarketplaceAuctionBidArgs = {
+  marketplaceAuctionBid: MarketplaceAuctionBidInput;
+};
+
+export type MutationCreateMarketplaceAuctionLotArgs = {
+  marketplaceAuctionLot: MarketplaceAuctionLotInput;
+};
+
+export type MutationCreateMarketplaceBuyNowLotArgs = {
+  input: CreateMarketplaceBuyNowLotInput;
+};
+
+export type MutationCreateMarketplaceClaimableSetArgs = {
+  input: CreateMarketplaceClaimableSetInput;
+};
+
+export type MutationCreateMarketplaceCollectionArgs = {
+  data: MarketplaceCollectionCreateInput;
+  marketplaceID: Scalars['String'];
+};
+
+export type MutationCreateOrgByUserArgs = {
+  handle: Scalars['String'];
+  name: Scalars['String'];
+};
+
+export type MutationCreateOrgMultisigArgs = {
+  chainId: Scalars['Int'];
+  name: Scalars['String'];
+  orgId: Scalars['UUID1'];
+};
+
+export type MutationCreatePaymentArgs = {
   invoiceID: Scalars['UUID1'];
+  metadata?: InputMaybe<CreatePaymentMetadataInput>;
+  paymentMethodID: Scalars['UUID1'];
+};
+
+export type MutationCreatePaymentMethodArgs = {
+  input: PaymentMethodCreateInput;
+  orgID: Scalars['UUID1'];
 };
 
 export type MutationCreateTokenDraftArgs = {
-  tokens: Array<TokenDraft>;
   contractId: Scalars['UUID1'];
+  tokens: Array<TokenDraft>;
 };
 
-export type MutationUpdateTokenDraftArgs = {
-  token: TokenDraft;
+export type MutationCreateUserApiKeyArgs = {
+  orgId: Scalars['UUID1'];
+};
+
+export type MutationDelayedTransferTokenArgs = {
+  amount: Scalars['Int'];
+  contractAddress: Scalars['String'];
+  tokenOnChainId: Scalars['Int'];
+  tokenType: TokenType;
+  transferTo: Scalars['String'];
+  walletId: Scalars['UUID1'];
+};
+
+export type MutationDeleteAssetArgs = {
+  assetId: Scalars['UUID1'];
+};
+
+export type MutationDeleteCollectionItemFromUserFavoritesArgs = {
+  collectionItemId: Scalars['UUID1'];
+};
+
+export type MutationDeleteOrgUserArgs = {
+  organizationID: Scalars['UUID1'];
+  userID: Scalars['UUID1'];
+};
+
+export type MutationDeletePaymentMethodArgs = {
+  orgID: Scalars['UUID1'];
+  paymentMethodID: Scalars['UUID1'];
 };
 
 export type MutationDeleteTokenArgs = {
   tokenId: Scalars['UUID1'];
 };
 
-export type MutationNftDeployContractArgs = {
-  input: DeployContractInput;
+export type MutationDeleteUserApiKeyArgs = {
+  keyId: Scalars['UUID1'];
+};
+
+export type MutationDeleteUserInvitationArgs = {
+  email: Scalars['String'];
+  orgId: Scalars['UUID1'];
+};
+
+export type MutationDeployWalletToNetworkArgs = {
+  networkId: Scalars['UUID1'];
+  walletId: Scalars['UUID1'];
+};
+
+export type MutationGeneratePromoCodesArgs = {
+  marketplaceCollectionItemId: Scalars['UUID1'];
+  num: Scalars['Int'];
+};
+
+export type MutationImportExternalTokenToCollectionArgs = {
+  contractAddress: Scalars['String'];
+  marketplaceId: Scalars['UUID1'];
+  onChainId: Scalars['Int'];
+};
+
+export type MutationListWalletsWithTokenArgs = {
+  contractAddress: Scalars['String'];
+  endDate: Scalars['Time'];
+  networkId: Scalars['UUID1'];
+  startDate: Scalars['Time'];
+};
+
+export type MutationLoginWithSignatureArgs = {
+  orgID: Scalars['UUID1'];
+  request: SignInRequest;
+};
+
+export type MutationMarketplaceUpdateThemeArgs = {
+  id: Scalars['String'];
+  theme: Scalars['String'];
+};
+
+export type MutationMintTokensArgs = {
+  tokenIds: Array<Scalars['UUID1']>;
 };
 
 export type MutationNftContractAddAdminArgs = {
-  nftContractId: Scalars['UUID1'];
   address: Scalars['String'];
+  nftContractId: Scalars['UUID1'];
+};
+
+export type MutationNftContractExtensionMintBatchArgs = {
+  amountToMint: Scalars['Int'];
+  extensionAddress: Scalars['String'];
+  mintToAddress: Scalars['String'];
+  nftContractId: Scalars['UUID1'];
+};
+
+export type MutationNftContractExtensionPauseArgs = {
+  extensionAddress: Scalars['String'];
+  nftContractId: Scalars['UUID1'];
+};
+
+export type MutationNftContractExtensionProvenanceMintArgs = {
+  contractId: Scalars['UUID1'];
+  extensionAddress: Scalars['String'];
+  mintToAddress: Scalars['String'];
+  numberOfTokens: Scalars['Int'];
+  voucherId: Scalars['UUID1'];
+};
+
+export type MutationNftContractExtensionRedeemableRedeemTokenArgs = {
+  extensionAddress: Scalars['String'];
+  nftContractId: Scalars['UUID1'];
+  tokenId: Scalars['Int'];
+};
+
+export type MutationNftContractExtensionSetBaseUriArgs = {
+  baseURI: Scalars['String'];
+  extensionAddress: Scalars['String'];
+  nftContractId: Scalars['UUID1'];
+};
+
+export type MutationNftContractExtensionSetProvenanceHashArgs = {
+  extensionAddress: Scalars['String'];
+  nftContractId: Scalars['UUID1'];
+  provenanceHash: Scalars['String'];
+};
+
+export type MutationNftContractExtensionUnpauseArgs = {
+  extensionAddress: Scalars['String'];
+  nftContractId: Scalars['UUID1'];
+};
+
+export type MutationNftContractRegisterExtensionArgs = {
+  contractId: Scalars['UUID1'];
+  extensionType: ExtensionType;
+  maxTokenSupply: Scalars['Int'];
 };
 
 export type MutationNftContractSetTokenUriArgs = {
@@ -1003,250 +1292,179 @@ export type MutationNftContractSetTokenUriArgs = {
   uri: Scalars['String'];
 };
 
-export type MutationMintTokensArgs = {
-  tokenIds: Array<Scalars['UUID1']>;
-};
-
-export type MutationUploadArweaveMetadataArgs = {
-  tokenId: Scalars['UUID1'];
-};
-
-export type MutationSetRoyaltiesExtensionArgs = {
-  nftContractId: Scalars['UUID1'];
-  extensionAddress: Scalars['String'];
-  receivers: Array<Scalars['String']>;
-  percentages: Array<Scalars['Int']>;
-};
-
-export type MutationBurnTokenArgs = {
-  contractId: Scalars['UUID1'];
-  walletId: Scalars['UUID1'];
-  tokenId: Scalars['Int'];
-};
-
-export type MutationNftContractExtensionPauseArgs = {
-  nftContractId: Scalars['UUID1'];
-  extensionAddress: Scalars['String'];
-};
-
-export type MutationNftContractExtensionUnpauseArgs = {
-  nftContractId: Scalars['UUID1'];
-  extensionAddress: Scalars['String'];
-};
-
-export type MutationNftContractExtensionSetBaseUriArgs = {
-  nftContractId: Scalars['UUID1'];
-  extensionAddress: Scalars['String'];
-  baseURI: Scalars['String'];
-};
-
-export type MutationNftContractRegisterExtensionProvenanceArgs = {
-  contractId: Scalars['UUID1'];
-  maxTokenSupply: Scalars['Int'];
-};
-
-export type MutationNftContractExtensionSetProvenanceHashArgs = {
-  nftContractId: Scalars['UUID1'];
-  extensionAddress: Scalars['String'];
-  provenanceHash: Scalars['String'];
-};
-
-export type MutationNftContractExtensionProvenanceMintArgs = {
-  contractId: Scalars['UUID1'];
-  extensionAddress: Scalars['String'];
-  voucherId: Scalars['UUID1'];
-  mintToAddress: Scalars['String'];
-  numberOfTokens: Scalars['Int'];
-};
-
-export type MutationCreateOrgByUserArgs = {
-  name: Scalars['String'];
-  handle: Scalars['String'];
+export type MutationNftDeployContractArgs = {
+  input: DeployContractInput;
 };
 
 export type MutationOrgCreateMarketplaceArgs = {
   name: Scalars['String'];
-  orgId?: Maybe<Scalars['UUID1']>;
+  orgId?: InputMaybe<Scalars['UUID1']>;
 };
 
-export type MutationMarketplaceUpdateThemeArgs = {
-  id: Scalars['String'];
-  theme: Scalars['String'];
+export type MutationRedeemClaimableArgs = {
+  claimableId: Scalars['String'];
+  destAddr?: InputMaybe<Scalars['String']>;
 };
 
-export type MutationAddTokensToCollectionArgs = {
-  tokenIds: Array<Scalars['UUID1']>;
-  marketplaceId: Scalars['UUID1'];
+export type MutationRedeemClaimableCodeArgs = {
+  code: Scalars['String'];
+  destAddr?: InputMaybe<Scalars['String']>;
 };
 
-export type MutationAddExistingTokenToCollectionArgs = {
-  tokenId: Scalars['UUID1'];
-  marketplaceId: Scalars['UUID1'];
+export type MutationRedeemClaimableItemArgs = {
+  claimableItemId: Scalars['UUID1'];
+  destAddr?: InputMaybe<Scalars['String']>;
 };
 
-export type MutationImportExternalTokenToCollectionArgs = {
-  onChainId: Scalars['Int'];
-  contractAddress: Scalars['String'];
-  marketplaceId: Scalars['UUID1'];
+export type MutationRedeemPromoCodeArgs = {
+  code: Scalars['String'];
+  destAddr?: InputMaybe<Scalars['String']>;
+};
+
+export type MutationReleaseReservationArgs = {
+  invoiceID: Scalars['UUID1'];
+  orgID?: InputMaybe<Scalars['UUID1']>;
+};
+
+export type MutationRemoveAllowListFromBuyNowLotArgs = {
+  buyNowLotID: Scalars['UUID1'];
+};
+
+export type MutationReserveMarketplaceBuyNowLotArgs = {
+  input: ReserveMarketplaceBuyNowLotInput;
+};
+
+export type MutationSendUserInvitationArgs = {
+  email: Scalars['String'];
+  orgId: Scalars['UUID1'];
+};
+
+export type MutationSetContractRoyaltiesArgs = {
+  basisPoints: Array<Scalars['Int']>;
+  extensionAddress?: InputMaybe<Scalars['String']>;
+  nftContractId: Scalars['UUID1'];
+  receivers: Array<Scalars['String']>;
 };
 
 export type MutationSetJwtIssuerDomainArgs = {
-  orgId: Scalars['UUID'];
   domain: Scalars['String'];
+  orgId: Scalars['UUID'];
+};
+
+export type MutationStartInvoiceDeliveryArgs = {
+  invoiceID: Scalars['UUID1'];
+};
+
+export type MutationTransferTokenArgs = {
+  amount?: InputMaybe<Scalars['Int']>;
+  contractAddress: Scalars['String'];
+  tokenOnChainId: Scalars['Int'];
+  tokenType?: InputMaybe<TokenType>;
+  transferTo: Scalars['String'];
+  walletId: Scalars['UUID1'];
+};
+
+export type MutationUpdateAfterPaymentTransferSuspendTimeArgs = {
+  afterPaymentTransferSuspendTime: Scalars['Int'];
+  orgID: Scalars['UUID1'];
+};
+
+export type MutationUpdateApplicantArgs = {
+  applicantID: Scalars['String'];
+  input: ApplicantRequest;
+};
+
+export type MutationUpdateBuyNowInvoiceExpiryMinsArgs = {
+  buyNowInvoiceExpiryMins: Scalars['Int'];
+  orgID: Scalars['UUID1'];
+};
+
+export type MutationUpdateMarketplaceAuctionLotArgs = {
+  data: MarketplaceAuctionLotUpdateInput;
+  marketplaceAuctionLotId: Scalars['UUID'];
+};
+
+export type MutationUpdateMarketplaceBuyNowLotArgs = {
+  input: MarketplaceBuyNowUpdateInput;
+  marketplaceBuyNowLotID: Scalars['UUID'];
+};
+
+export type MutationUpdateMarketplaceClaimableSetArgs = {
+  input: UpdateMarketplaceClaimableSetInput;
+  marketplaceClaimableSetID: Scalars['UUID1'];
+};
+
+export type MutationUpdateMarketplaceCollectionArgs = {
+  data: MarketplaceCollectionUpdateInput;
+  id: Scalars['UUID1'];
+};
+
+export type MutationUpdateMultisigNameArgs = {
+  newName: Scalars['String'];
+  walletID: Scalars['UUID1'];
+};
+
+export type MutationUpdatePaymentMethodArgs = {
+  input: PaymentMethodUpdateInput;
+  orgID: Scalars['UUID1'];
+  paymentMethodID: Scalars['UUID1'];
+};
+
+export type MutationUpdateTokenDraftArgs = {
+  token: TokenDraft;
 };
 
 export type MutationUpdateUserOrgRoleArgs = {
-  userID: Scalars['UUID'];
   orgID: Scalars['UUID'];
   role: Scalars['String'];
+  userID: Scalars['UUID'];
 };
 
 export type MutationUpdateUserOrgSettingsArgs = {
   params: SettingsInput;
 };
 
-export type MutationSendUserInvitationArgs = {
-  orgId: Scalars['UUID1'];
-  email: Scalars['String'];
+export type MutationUploadArweaveAssetArgs = {
+  assetVersionId: Scalars['UUID1'];
 };
 
-export type MutationDeleteUserInvitationArgs = {
-  orgId: Scalars['UUID1'];
-  email: Scalars['String'];
+export type MutationUploadArweaveMetadataArgs = {
+  tokenId: Scalars['UUID1'];
 };
 
-export type MutationDeleteOrgUserArgs = {
-  userID: Scalars['UUID1'];
-  organizationID: Scalars['UUID1'];
-};
-
-export type MutationCreatePaymentMethodArgs = {
-  orgID: Scalars['UUID1'];
-  input: PaymentMethodCreateInput;
-};
-
-export type MutationUpdatePaymentMethodArgs = {
-  paymentMethodID: Scalars['UUID1'];
-  orgID: Scalars['UUID1'];
-  input: PaymentMethodUpdateInput;
-};
-
-export type MutationDeletePaymentMethodArgs = {
-  paymentMethodID: Scalars['UUID1'];
-  orgID: Scalars['UUID1'];
-};
-
-export type MutationCreateAuctionLotInvoiceArgs = {
-  orgID: Scalars['UUID1'];
-  lotID: Scalars['UUID1'];
-};
-
-export type MutationReleaseReservationArgs = {
-  invoiceID: Scalars['UUID1'];
-  orgID?: Maybe<Scalars['UUID1']>;
-};
-
-export type MutationCreatePaymentArgs = {
-  invoiceID: Scalars['UUID1'];
-  paymentMethodID: Scalars['UUID1'];
-  metadata?: Maybe<CreatePaymentMetadataInput>;
-};
-
-export type MutationCancelPaymentArgs = {
-  paymentID: Scalars['UUID1'];
-  orgID: Scalars['UUID1'];
-};
-
-export type MutationGeneratePromoCodesArgs = {
-  marketplaceCollectionItemId: Scalars['UUID1'];
-  num: Scalars['Int'];
-};
-
-export type MutationRedeemPromoCodeArgs = {
-  code: Scalars['String'];
-  destAddr?: Maybe<Scalars['String']>;
-};
-
-export type MutationRedeemClaimableArgs = {
-  claimableId: Scalars['String'];
-  destAddr?: Maybe<Scalars['String']>;
-};
-
-export type MutationCreateUserApiKeyArgs = {
-  orgId: Scalars['UUID1'];
-};
-
-export type MutationDeleteUserApiKeyArgs = {
-  keyId: Scalars['UUID1'];
-};
-
-export type MutationUpdateMultisigNameArgs = {
-  walletID: Scalars['UUID1'];
-  newName: Scalars['String'];
-};
-
-export type MutationCreateOrgMultisigArgs = {
-  orgId: Scalars['UUID1'];
-  chainId: Scalars['Int'];
+export type MutationUploadAssetArgs = {
+  file: Scalars['Upload'];
   name: Scalars['String'];
+  orgId: Scalars['UUID1'];
 };
 
-export type MutationDeployWalletToNetworkArgs = {
-  walletId: Scalars['UUID1'];
-  networkId: Scalars['UUID1'];
-};
-
-export type MutationTransferTokenArgs = {
-  walletId: Scalars['UUID1'];
-  contractAddress: Scalars['String'];
-  tokenType: TokenType;
-  tokenOnChainId: Scalars['Int'];
-  amount?: Maybe<Scalars['Int']>;
-  transferTo: Scalars['String'];
+export type MutationUploadAssetsArgs = {
+  files: Array<InputMaybe<Scalars['Upload']>>;
+  orgId: Scalars['UUID1'];
 };
 
 export type MutationVerifySignatureArgs = {
-  signature: Scalars['String'];
-  message: Scalars['String'];
   address: Scalars['String'];
-};
-
-export type MutationCheckTokenOwnersArgs = {
-  contractId: Scalars['UUID1'];
-  walletAddress: Scalars['String'];
-  rangeStart: Scalars['Int'];
-  rangeEnd: Scalars['Int'];
-};
-
-export type Network = {
-  __typename?: 'Network';
-  id: Scalars['UUID1'];
-  name: Scalars['String'];
-  chainID: Scalars['Int'];
-  rpcURL: Scalars['String'];
-  openSeaProxyAddress: Scalars['String'];
-  wethAddress: Scalars['String'];
-  safeMasterContractAddress: Scalars['String'];
-  safeFactoryAddress: Scalars['String'];
-  safeFallbackHandler: Scalars['String'];
+  message: Scalars['String'];
+  signature: Scalars['String'];
 };
 
 export type NftContract = {
   __typename?: 'NFTContract';
-  id: Scalars['UUID1'];
-  nftContractType: NftContractType;
-  name?: Maybe<Scalars['String']>;
-  symbol?: Maybe<Scalars['String']>;
-  wallet: Wallet;
-  contractAddress: Scalars['EthAddress'];
-  marketplaceAddress: Scalars['EthAddress'];
   activationTxHash: Scalars['String'];
-  deploymentTxHash?: Maybe<Scalars['String']>;
-  mediaTxHash?: Maybe<Scalars['String']>;
-  arweavePathManifest?: Maybe<Scalars['String']>;
-  nftTokens?: Maybe<Array<NftToken>>;
-  transferOwnershipHash?: Maybe<Scalars['String']>;
   admins: Array<Scalars['String']>;
+  arweavePathManifest?: Maybe<Scalars['String']>;
+  contractAddress: Scalars['EthAddress'];
+  deploymentTxHash?: Maybe<Scalars['String']>;
+  id: Scalars['UUID1'];
+  marketplaceAddress: Scalars['EthAddress'];
+  mediaTxHash?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
+  nftContractType: NftContractType;
+  nftTokens?: Maybe<Array<NftToken>>;
+  symbol?: Maybe<Scalars['String']>;
+  transferOwnershipHash?: Maybe<Scalars['String']>;
+  wallet: Wallet;
 };
 
 export type NftContractType = {
@@ -1257,101 +1475,122 @@ export type NftContractType = {
 
 export type NftMetadata = {
   __typename?: 'NFTMetadata';
-  name?: Maybe<Scalars['String']>;
-  image?: Maybe<Scalars['String']>;
+  copyright?: Maybe<Scalars['String']>;
   description?: Maybe<Scalars['String']>;
   externalUrl?: Maybe<Scalars['String']>;
-  copyright?: Maybe<Scalars['String']>;
+  image?: Maybe<Scalars['String']>;
+  name?: Maybe<Scalars['String']>;
 };
 
 export type NftToken = {
   __typename?: 'NFTToken';
+  asset?: Maybe<Asset>;
+  assetId?: Maybe<Scalars['UUID1']>;
+  deployed: Scalars['Boolean'];
+  editions?: Maybe<Scalars['Int']>;
+  ethereumTxId?: Maybe<Scalars['String']>;
   id: Scalars['UUID1'];
-  name?: Maybe<Scalars['String']>;
   metadataArweaveTxId?: Maybe<Scalars['String']>;
   metadataArweaveTxLink?: Maybe<Scalars['String']>;
-  onChainId?: Maybe<Scalars['Int']>;
-  ethereumTxId?: Maybe<Scalars['String']>;
-  editions?: Maybe<Scalars['Int']>;
-  deployed: Scalars['Boolean'];
-  royaltyBasisPoints?: Maybe<Scalars['Int']>;
-  assetId?: Maybe<Scalars['UUID1']>;
-  asset?: Maybe<Asset>;
   metadataJSON?: Maybe<Scalars['String']>;
-  nftContractID: Scalars['UUID1'];
+  name?: Maybe<Scalars['String']>;
   nftContract: NftContract;
+  nftContractID: Scalars['UUID1'];
+  onChainId?: Maybe<Scalars['Int']>;
+  royaltyBasisPoints?: Maybe<Scalars['Int']>;
+};
+
+export type Network = {
+  __typename?: 'Network';
+  chainID: Scalars['Int'];
+  id: Scalars['UUID1'];
+  name: Scalars['String'];
+  openSeaProxyAddress: Scalars['String'];
+  rpcURL: Scalars['String'];
+  safeFactoryAddress: Scalars['String'];
+  safeFallbackHandler: Scalars['String'];
+  safeMasterContractAddress: Scalars['String'];
+  wethAddress: Scalars['String'];
 };
 
 export type Organization = {
   __typename?: 'Organization';
-  id: Scalars['UUID1'];
-  handle: Scalars['String'];
-  name: Scalars['String'];
-  jwtIssuerDomain?: Maybe<Scalars['String']>;
-  members: Array<OrganizationMember>;
-  marketplaces: Array<Marketplace>;
+  afterPaymentTransferSuspendTime?: Maybe<Scalars['Int']>;
   assets?: Maybe<Array<Asset>>;
-  wallets?: Maybe<Array<Wallet>>;
+  buyNowInvoiceExpiryMins?: Maybe<Scalars['Int']>;
+  handle: Scalars['String'];
+  id: Scalars['UUID1'];
+  jwtIssuerDomain?: Maybe<Scalars['String']>;
+  marketplaces: Array<Marketplace>;
+  members: Array<OrganizationMember>;
+  name: Scalars['String'];
   nftContracts?: Maybe<Array<NftContract>>;
-};
-
-export type OrganizationMembersArgs = {
-  filter?: Maybe<OrganizationMemberFilter>;
-  limit?: Maybe<Scalars['Int']>;
-  offset?: Maybe<Scalars['Int']>;
+  wallets?: Maybe<Array<Wallet>>;
 };
 
 export type OrganizationAssetsArgs = {
-  filter?: Maybe<AssetFilter>;
+  filter?: InputMaybe<AssetFilter>;
+};
+
+export type OrganizationMembersArgs = {
+  filter?: InputMaybe<OrganizationMemberFilter>;
+  limit?: InputMaybe<Scalars['Int']>;
+  offset?: InputMaybe<Scalars['Int']>;
 };
 
 export type OrganizationMember = {
   __typename?: 'OrganizationMember';
-  id: Scalars['UUID1'];
-  userId: Scalars['UUID1'];
-  organizationId: Scalars['UUID1'];
-  username?: Maybe<Scalars['String']>;
-  name?: Maybe<Scalars['String']>;
-  externalId: Scalars['String'];
-  role?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
+  externalId: Scalars['String'];
+  id: Scalars['UUID1'];
+  name?: Maybe<Scalars['String']>;
+  organizationId: Scalars['UUID1'];
+  role?: Maybe<Scalars['String']>;
+  userId: Scalars['UUID1'];
+  username?: Maybe<Scalars['String']>;
 };
 
 export type OrganizationMemberFilter = {
-  externalUserId?: Maybe<Scalars['String']>;
+  externalUserId?: InputMaybe<Scalars['String']>;
+};
+
+export type PaginatedMarketplaceClaimableCodeOutput = {
+  __typename?: 'PaginatedMarketplaceClaimableCodeOutput';
+  count?: Maybe<Scalars['Int']>;
+  results: Array<MarketplaceClaimableCodeOutput>;
 };
 
 export type Payment = {
   __typename?: 'Payment';
-  id: Scalars['UUID1'];
-  userID: Scalars['UUID1'];
-  invoiceID: Scalars['UUID1'];
   circlePaymentID: Scalars['String'];
+  id: Scalars['UUID1'];
+  invoiceID: Scalars['UUID1'];
   paymentMethodID: Scalars['UUID1'];
   status: PaymentStatus;
+  userID: Scalars['UUID1'];
 };
 
 export type PaymentDetails = CryptoPaymentDetails;
 
 export type PaymentMethodCreateInput = {
+  achData?: InputMaybe<AchData>;
+  creditCardData?: InputMaybe<CreditCardData>;
   paymentType: PaymentType;
-  achData?: Maybe<AchData>;
-  wireData?: Maybe<WireData>;
-  creditCardData?: Maybe<CreditCardData>;
+  wireData?: InputMaybe<WireData>;
 };
 
 export type PaymentMethodOutput =
-  | CreditCardPaymentMethodOutput
   | AchPaymentMethodOutput
-  | WirePaymentMethodOutput
-  | CryptoPaymentMethodOutput;
+  | CreditCardPaymentMethodOutput
+  | CryptoPaymentMethodOutput
+  | WirePaymentMethodOutput;
 
 export type PaymentMethodPrepareStatementOutput = AchPaymentMethodPrepareStatementOutput;
 
 export type PaymentMethodUpdateInput = {
+  achData?: InputMaybe<AchData>;
+  creditCardData?: InputMaybe<CreditCardData>;
   paymentType: PaymentType;
-  achData?: Maybe<AchData>;
-  creditCardData?: Maybe<CreditCardData>;
 };
 
 export type PaymentNotification3DsMessage = {
@@ -1369,13 +1608,13 @@ export type PaymentNotificationOutput = {
 
 export type PaymentOutput = {
   __typename?: 'PaymentOutput';
-  id: Scalars['UUID1'];
-  userID: Scalars['UUID1'];
-  invoiceID: Scalars['UUID1'];
-  processorPaymentID: Scalars['String'];
-  paymentMethodID: Scalars['UUID1'];
-  status: PaymentStatus;
   details?: Maybe<PaymentDetails>;
+  id: Scalars['UUID1'];
+  invoiceID: Scalars['UUID1'];
+  paymentMethodID: Scalars['UUID1'];
+  processorPaymentID: Scalars['String'];
+  status: PaymentStatus;
+  userID: Scalars['UUID1'];
 };
 
 export type PaymentPublicKey = {
@@ -1385,88 +1624,112 @@ export type PaymentPublicKey = {
 };
 
 export enum PaymentStatus {
-  Pending = 'pending',
-  Confirmed = 'confirmed',
-  Paid = 'paid',
-  Failed = 'failed',
   ActionRequired = 'action_required',
+  Confirmed = 'confirmed',
+  Failed = 'failed',
+  Paid = 'paid',
+  Pending = 'pending',
 }
 
 export enum PaymentType {
   Ach = 'ACH',
-  Wire = 'Wire',
   CreditCard = 'CreditCard',
   Crypto = 'Crypto',
+  Wire = 'Wire',
 }
 
 export type Query = {
   __typename?: 'Query';
-  ping: Scalars['String'];
-  serverTime: Scalars['Time'];
-  me?: Maybe<CurrentUser>;
-  mailSalesReportByCollectionID: Scalars['Boolean'];
-  mailInvoiceLotDetailReportMailByCollectionID: Scalars['Boolean'];
-  validateIp: ValidateIpResponse;
-  getApplicant: ApplicantResponse;
-  getSDKToken: SdkTokenResponse;
-  getMarketplaceAuctionLot: MarketplaceAuctionLot;
+  /** Returns Invoice Item after applying the Discount */
+  applyDiscountCode: DiscountedInvoiceItem;
+  availableClaimables: Scalars['Int'];
+  /** Check if user can redeem claimable */
+  canRedeemClaimable: Scalars['Boolean'];
+  /** Check if user can redeem claimable item */
+  canRedeemClaimableItem: Scalars['Boolean'];
   collection?: Maybe<MarketplaceCollection>;
   collectionBySlug?: Maybe<MarketplaceCollection>;
-  getBuyNowBuyerInfo?: Maybe<Array<BuyerDetailOutput>>;
   collectionItemById?: Maybe<MarketplaceCollectionItem>;
+  getAllowLists?: Maybe<Array<AllowList>>;
+  /** Retrieves applicant details by organizationID */
+  getApplicant: ApplicantResponse;
+  /** Get Available Claimables */
+  getAvailableClaimables: Scalars['Int'];
+  getBuyNowBuyerInfo?: Maybe<Array<BuyerDetailOutput>>;
+  getClaimableCodesForSetId: PaginatedMarketplaceClaimableCodeOutput;
+  /** Retrieves Discount codes by Invoice Item ID */
+  getDiscountCodes: Array<Maybe<DiscountCode>>;
+  /** Retrieves invoice details by ID */
+  getInvoiceDetails: InvoiceDetails;
+  /** Retrieves invoice list for given user, can be called by org admin */
+  getInvoicesByUserID: Array<Maybe<InvoiceDetails>>;
+  getMarketplaceAuctionLot: MarketplaceAuctionLot;
+  /** Retrieves invoices user owns */
+  getMyInvoices: Array<Maybe<InvoiceDetails>>;
+  /** Retrieves payments user owns */
+  getMyPayments: Array<Maybe<Payment>>;
+  /** Returns requested Payment method */
+  getPaymentMethod: PaymentMethodOutput;
+  /** Returns Payment method list in scope of current Organization. */
+  getPaymentMethodList: Array<PaymentMethodOutput>;
+  /** Retrieves Payment notification */
+  getPaymentNotification: PaymentNotificationOutput;
+  /** Returns Public Key for further Payment data encryption. */
+  getPaymentPublicKey: PaymentPublicKey;
+  /** Retrieves payment list for given user, can be called by org admin */
+  getPaymentsByUserID: Array<Maybe<Payment>>;
+  /** Retrieves sdk token to inititate onfido web SDK */
+  getSDKToken: SdkTokenResponse;
+  /**  getSignatureMessage returns a message that should be used for in signing process */
+  getSignatureMessage: Scalars['String'];
+  /** Get Tax Quote */
+  getTaxQuote: TaxQuoteOutput;
+  getTokenTransfersHistory: Array<TokenTransfers>;
+  /** Get User by wallet address and orgID */
+  getUserByWalletAddress?: Maybe<User>;
+  /** Get UserInvitations by orgID */
+  getUserInvitations: Array<Maybe<UserInvitation>>;
+  getWalletDeliveryCount: Scalars['Int'];
+  internalUsers: Array<UserOrganization>;
+  isTokenRedeemed: Scalars['Boolean'];
+  isUserOnAllowList: Scalars['Boolean'];
+  /** create invoice/lot report by collectionID and mails  to provided email */
+  mailInvoiceLotDetailReportMailByCollectionID: Scalars['Boolean'];
+  /** create salesreport by collectionID and mails to provided email */
+  mailSalesReportByCollectionID: Scalars['Boolean'];
+  marketplace: Marketplace;
+  me?: Maybe<CurrentUser>;
+  network: Network;
   nftContract: NftContract;
   nftToken: NftToken;
+  orgUsernameAvailable: Scalars['Boolean'];
   organization: Organization;
   organizationByID: Organization;
-  orgUsernameAvailable: Scalars['Boolean'];
-  marketplace: Marketplace;
-  internalUsers: Array<UserOrganization>;
+  ping: Scalars['String'];
+  /** Prepare requested Payment method for further use */
   preparePaymentMethod?: Maybe<PaymentMethodPrepareStatementOutput>;
-  getPaymentMethod: PaymentMethodOutput;
-  getPaymentPublicKey: PaymentPublicKey;
-  getPaymentMethodList: Array<PaymentMethodOutput>;
-  getMyInvoices: Array<Maybe<InvoiceDetails>>;
-  getInvoicesByUserID: Array<Maybe<InvoiceDetails>>;
-  getInvoiceDetails: InvoiceDetails;
-  getMyPayments: Array<Maybe<Payment>>;
-  getPaymentsByUserID: Array<Maybe<Payment>>;
-  getPaymentNotification: PaymentNotificationOutput;
+  serverTime: Scalars['Time'];
+  validateIp: ValidateIpResponse;
+  /** Validate Payment limit */
   validatePaymentLimit: ValidatePaymentLimitOutput;
-  getTaxQuote: TaxQuoteOutput;
-  getAvailableClaimables: Scalars['Int'];
-  canRedeemClaimable: Scalars['Boolean'];
-  getUserByWalletAddress?: Maybe<User>;
   wallet: Wallet;
-  network: Network;
 };
 
-export type QueryMailSalesReportByCollectionIdArgs = {
-  collectionID: Scalars['UUID1'];
-  toEmail: Scalars['String'];
-  orgID: Scalars['UUID1'];
+export type QueryApplyDiscountCodeArgs = {
+  discountCode: Scalars['String'];
+  invoiceItemID: Scalars['UUID1'];
 };
 
-export type QueryMailInvoiceLotDetailReportMailByCollectionIdArgs = {
-  collectionID: Scalars['UUID1'];
-  toEmail: Scalars['String'];
+export type QueryAvailableClaimablesArgs = {
+  claimableSetID: Scalars['UUID1'];
 };
 
-export type QueryValidateIpArgs = {
-  ip: Scalars['String'];
-  organizationID: Scalars['UUID1'];
+export type QueryCanRedeemClaimableArgs = {
+  claimableID: Scalars['String'];
 };
 
-export type QueryGetApplicantArgs = {
-  organizationID: Scalars['UUID1'];
-};
-
-export type QueryGetSdkTokenArgs = {
-  applicantID: Scalars['String'];
-  referrer: Scalars['String'];
-};
-
-export type QueryGetMarketplaceAuctionLotArgs = {
-  marketplaceAuctionLotId: Scalars['UUID'];
+export type QueryCanRedeemClaimableItemArgs = {
+  claimableItemID: Scalars['UUID1'];
 };
 
 export type QueryCollectionArgs = {
@@ -1478,11 +1741,127 @@ export type QueryCollectionBySlugArgs = {
   slug: Scalars['String'];
 };
 
+export type QueryCollectionItemByIdArgs = {
+  id: Scalars['UUID1'];
+};
+
+export type QueryGetAllowListsArgs = {
+  orgID: Scalars['UUID1'];
+};
+
+export type QueryGetApplicantArgs = {
+  organizationID: Scalars['UUID1'];
+};
+
+export type QueryGetAvailableClaimablesArgs = {
+  claimableId: Scalars['String'];
+};
+
 export type QueryGetBuyNowBuyerInfoArgs = {
   itemId: Scalars['UUID1'];
 };
 
-export type QueryCollectionItemByIdArgs = {
+export type QueryGetClaimableCodesForSetIdArgs = {
+  claimableSetID: Scalars['UUID1'];
+  limit: Scalars['Int'];
+  offset: Scalars['Int'];
+};
+
+export type QueryGetDiscountCodesArgs = {
+  invoiceItemID: Scalars['UUID1'];
+};
+
+export type QueryGetInvoiceDetailsArgs = {
+  invoiceID: Scalars['UUID1'];
+};
+
+export type QueryGetInvoicesByUserIdArgs = {
+  orgID: Scalars['UUID1'];
+  userID: Scalars['UUID1'];
+};
+
+export type QueryGetMarketplaceAuctionLotArgs = {
+  marketplaceAuctionLotId: Scalars['UUID'];
+};
+
+export type QueryGetPaymentMethodArgs = {
+  paymentMethodID: Scalars['UUID1'];
+};
+
+export type QueryGetPaymentMethodListArgs = {
+  orgID: Scalars['UUID1'];
+};
+
+export type QueryGetPaymentPublicKeyArgs = {
+  orgID: Scalars['UUID1'];
+};
+
+export type QueryGetPaymentsByUserIdArgs = {
+  orgID: Scalars['UUID1'];
+  userID: Scalars['UUID1'];
+};
+
+export type QueryGetSdkTokenArgs = {
+  applicantID: Scalars['String'];
+  referrer: Scalars['String'];
+};
+
+export type QueryGetSignatureMessageArgs = {
+  orgID: Scalars['UUID1'];
+};
+
+export type QueryGetTaxQuoteArgs = {
+  input: TaxQuoteInput;
+};
+
+export type QueryGetTokenTransfersHistoryArgs = {
+  orgId: Scalars['UUID1'];
+};
+
+export type QueryGetUserByWalletAddressArgs = {
+  address: Scalars['String'];
+  orgId: Scalars['UUID1'];
+};
+
+export type QueryGetUserInvitationsArgs = {
+  orgId: Scalars['UUID1'];
+};
+
+export type QueryGetWalletDeliveryCountArgs = {
+  internalWallets: Scalars['Boolean'];
+  marketplaceCollectionId: Scalars['UUID1'];
+};
+
+export type QueryInternalUsersArgs = {
+  organizationID: Scalars['UUID1'];
+};
+
+export type QueryIsTokenRedeemedArgs = {
+  extensionAddress: Scalars['String'];
+  nftContractId: Scalars['UUID1'];
+  tokenId: Scalars['Int'];
+};
+
+export type QueryIsUserOnAllowListArgs = {
+  lotID: Scalars['UUID1'];
+};
+
+export type QueryMailInvoiceLotDetailReportMailByCollectionIdArgs = {
+  collectionID: Scalars['UUID1'];
+  toEmail: Scalars['String'];
+};
+
+export type QueryMailSalesReportByCollectionIdArgs = {
+  collectionID: Scalars['UUID1'];
+  orgID: Scalars['UUID1'];
+  toEmail: Scalars['String'];
+};
+
+export type QueryMarketplaceArgs = {
+  id: Scalars['UUID'];
+};
+
+export type QueryNetworkArgs = {
   id: Scalars['UUID1'];
 };
 
@@ -1494,56 +1873,27 @@ export type QueryNftTokenArgs = {
   id: Scalars['UUID1'];
 };
 
-export type QueryOrganizationArgs = {
-  handle: Scalars['String'];
-};
-
-export type QueryOrganizationByIdArgs = {
-  id?: Maybe<Scalars['UUID1']>;
-};
-
 export type QueryOrgUsernameAvailableArgs = {
   organizationID: Scalars['UUID1'];
   username: Scalars['String'];
 };
 
-export type QueryMarketplaceArgs = {
-  id: Scalars['UUID'];
+export type QueryOrganizationArgs = {
+  handle: Scalars['String'];
 };
 
-export type QueryInternalUsersArgs = {
-  organizationID: Scalars['UUID1'];
+export type QueryOrganizationByIdArgs = {
+  id?: InputMaybe<Scalars['UUID1']>;
 };
 
 export type QueryPreparePaymentMethodArgs = {
-  orgID?: Maybe<Scalars['UUID1']>;
+  orgID?: InputMaybe<Scalars['UUID1']>;
   paymentMethodType: PaymentType;
 };
 
-export type QueryGetPaymentMethodArgs = {
-  paymentMethodID: Scalars['UUID1'];
-};
-
-export type QueryGetPaymentPublicKeyArgs = {
-  orgID: Scalars['UUID1'];
-};
-
-export type QueryGetPaymentMethodListArgs = {
-  orgID?: Maybe<Scalars['UUID1']>;
-};
-
-export type QueryGetInvoicesByUserIdArgs = {
-  orgID: Scalars['UUID1'];
-  userID: Scalars['UUID1'];
-};
-
-export type QueryGetInvoiceDetailsArgs = {
-  invoiceID: Scalars['UUID1'];
-};
-
-export type QueryGetPaymentsByUserIdArgs = {
-  orgID: Scalars['UUID1'];
-  userID: Scalars['UUID1'];
+export type QueryValidateIpArgs = {
+  ip: Scalars['String'];
+  organizationID: Scalars['UUID1'];
 };
 
 export type QueryValidatePaymentLimitArgs = {
@@ -1551,39 +1901,23 @@ export type QueryValidatePaymentLimitArgs = {
   itemsCount: Scalars['Int'];
 };
 
-export type QueryGetTaxQuoteArgs = {
-  input: TaxQuoteInput;
-};
-
-export type QueryGetAvailableClaimablesArgs = {
-  claimableId: Scalars['String'];
-};
-
-export type QueryCanRedeemClaimableArgs = {
-  claimableID: Scalars['String'];
-};
-
-export type QueryGetUserByWalletAddressArgs = {
-  address: Scalars['String'];
-  orgId: Scalars['UUID1'];
-};
-
 export type QueryWalletArgs = {
   id: Scalars['UUID1'];
 };
 
-export type QueryNetworkArgs = {
-  id: Scalars['UUID1'];
+export type ReserveMarketplaceBuyNowLotInput = {
+  itemCount: Scalars['Int'];
+  marketplaceBuyNowLotID: Scalars['UUID1'];
 };
 
-export type ReserveMarketplaceBuyNowLotInput = {
-  marketplaceBuyNowLotID: Scalars['UUID1'];
-  itemCount: Scalars['Int'];
-};
+export enum RiskRating {
+  High = 'High',
+  Low = 'Low',
+}
 
 export enum Role {
-  User = 'user',
   Admin = 'admin',
+  User = 'user',
 }
 
 export type SdkTokenResponse = {
@@ -1592,30 +1926,33 @@ export type SdkTokenResponse = {
 };
 
 export type SettingsInput = {
+  avatar?: InputMaybe<Scalars['String']>;
+  settingsJson?: InputMaybe<Scalars['String']>;
   userOrgId: Scalars['String'];
-  avatar?: Maybe<Scalars['String']>;
-  username?: Maybe<Scalars['String']>;
-  settingsJson?: Maybe<Scalars['String']>;
+  username?: InputMaybe<Scalars['String']>;
 };
 
-export type SigninRequest = {
+export type SignInRequest = {
+  chainID: Scalars['Int'];
   challenge: Scalars['String'];
   signature: Scalars['String'];
   signer: Scalars['String'];
 };
 
-export type SigninResponse = {
-  __typename?: 'SigninResponse';
-  token: Scalars['String'];
-  refreshToken: Scalars['String'];
+export type SignInResponse = {
+  __typename?: 'SignInResponse';
   me: CurrentUser;
+  refreshToken: Scalars['String'];
+  token: Scalars['String'];
 };
 
 export type Subscription = {
   __typename?: 'Subscription';
   auctionLotUpdated: MarketplaceAuctionLot;
   bidFeed: MarketplaceAuctionBid;
+  /** Returns a MarketplaceAuctionLot on subscribe and whenever a new bid is placed */
   getMarketplaceAuctionLot: MarketplaceAuctionLot;
+  /** Subscribes to lots and bids updates within given marketplace collection */
   marketplaceCollectionLotsUpdates: MarketplaceAuctionLot;
 };
 
@@ -1636,25 +1973,26 @@ export type SubscriptionMarketplaceCollectionLotsUpdatesArgs = {
 };
 
 export enum TaxProvider {
-  Vertex = 'Vertex',
+  NoOp = 'NoOp',
   TaxJar = 'TaxJar',
+  Vertex = 'Vertex',
 }
 
 export type TaxQuoteBillingAddressInput = {
-  street1: Scalars['String'];
   city: Scalars['String'];
-  state: Scalars['String'];
-  postalCode: Scalars['String'];
   country: Scalars['String'];
+  postalCode: Scalars['String'];
+  state: Scalars['String'];
+  street1: Scalars['String'];
 };
 
 export type TaxQuoteBillingAddressOutput = {
   __typename?: 'TaxQuoteBillingAddressOutput';
-  street1: Scalars['String'];
   city: Scalars['String'];
-  state: Scalars['String'];
-  postalCode: Scalars['String'];
   country: Scalars['String'];
+  postalCode: Scalars['String'];
+  state: Scalars['String'];
+  street1: Scalars['String'];
 };
 
 export type TaxQuoteInput = {
@@ -1665,22 +2003,49 @@ export type TaxQuoteInput = {
 
 export type TaxQuoteOutput = {
   __typename?: 'TaxQuoteOutput';
-  verifiedAddress: TaxQuoteBillingAddressOutput;
   taxablePrice: Scalars['Float'];
   totalTaxAmount: Scalars['Float'];
   totalTaxedPrice: Scalars['Float'];
+  verifiedAddress: TaxQuoteBillingAddressOutput;
 };
 
 export type TokenDraft = {
-  tokenId?: Maybe<Scalars['UUID1']>;
-  name?: Maybe<Scalars['String']>;
-  description?: Maybe<Scalars['String']>;
-  assetId?: Maybe<Scalars['UUID1']>;
-  royaltyBasisPoints?: Maybe<Scalars['Int']>;
-  copyright?: Maybe<Scalars['String']>;
-  metadataJSON?: Maybe<Scalars['String']>;
-  editions?: Maybe<Scalars['Int']>;
-  invoiceItemId?: Maybe<Scalars['UUID1']>;
+  assetId?: InputMaybe<Scalars['UUID1']>;
+  copyright?: InputMaybe<Scalars['String']>;
+  description?: InputMaybe<Scalars['String']>;
+  editions?: InputMaybe<Scalars['Int']>;
+  invoiceItemId?: InputMaybe<Scalars['UUID1']>;
+  metadataJSON?: InputMaybe<Scalars['String']>;
+  name?: InputMaybe<Scalars['String']>;
+  royaltyBasisPoints?: InputMaybe<Scalars['Int']>;
+  tokenId?: InputMaybe<Scalars['UUID1']>;
+};
+
+export type TokenOwner = {
+  __typename?: 'TokenOwner';
+  tokenId: Scalars['Int'];
+  walletAddress: Scalars['String'];
+};
+
+export type TokenTransfers = {
+  __typename?: 'TokenTransfers';
+  amount?: Maybe<Scalars['Int']>;
+  callerUserId?: Maybe<Scalars['UUID1']>;
+  contractAddress?: Maybe<Scalars['String']>;
+  createdAt: Scalars['Time'];
+  id: Scalars['UUID1'];
+  jobId?: Maybe<Scalars['UUID1']>;
+  organizationId?: Maybe<Scalars['UUID1']>;
+  resolvedTransferTo?: Maybe<Scalars['String']>;
+  status: TransferStatus;
+  tokenOnChainId?: Maybe<Scalars['Int']>;
+  tokenType?: Maybe<TokenType>;
+  transactionHash?: Maybe<Scalars['String']>;
+  transferTo?: Maybe<Scalars['String']>;
+  updatedAt: Scalars['Time'];
+  userId?: Maybe<Scalars['UUID1']>;
+  wallet?: Maybe<Wallet>;
+  walletId?: Maybe<Scalars['UUID1']>;
 };
 
 export enum TokenType {
@@ -1689,9 +2054,9 @@ export enum TokenType {
 }
 
 export enum TransactionStatus {
-  Pending = 'Pending',
   Completed = 'Completed',
   Failed = 'Failed',
+  Pending = 'Pending',
 }
 
 export enum TransactionType {
@@ -1699,80 +2064,95 @@ export enum TransactionType {
   TransferToken = 'TransferToken',
 }
 
+export enum TransferStatus {
+  Canceled = 'Canceled',
+  Failed = 'Failed',
+  InProgress = 'InProgress',
+  Queued = 'Queued',
+  Success = 'Success',
+}
+
 export type UpdateMarketplaceClaimableSetInput = {
-  totalUnits?: Maybe<Scalars['Int']>;
-  totalAvailableUnits?: Maybe<Scalars['Int']>;
-  startDate?: Maybe<Scalars['Time']>;
-  endDate?: Maybe<Scalars['Time']>;
+  endDate?: InputMaybe<Scalars['Time']>;
+  startDate?: InputMaybe<Scalars['Time']>;
+  totalAvailableUnits?: InputMaybe<Scalars['Int']>;
+  totalUnits?: InputMaybe<Scalars['Int']>;
 };
 
 export type User = {
   __typename?: 'User';
-  id: Scalars['UUID'];
-  username: Scalars['String'];
-  name?: Maybe<Scalars['String']>;
   email?: Maybe<Scalars['String']>;
+  id: Scalars['UUID'];
+  name?: Maybe<Scalars['String']>;
+  username: Scalars['String'];
 };
 
 export type UserApiKeyResponse = {
   __typename?: 'UserAPIKeyResponse';
+  createdAt?: Maybe<Scalars['Time']>;
   id?: Maybe<Scalars['UUID1']>;
   key?: Maybe<Scalars['String']>;
   updatedAt?: Maybe<Scalars['Time']>;
-  createdAt?: Maybe<Scalars['Time']>;
+};
+
+export type UserInvitation = {
+  __typename?: 'UserInvitation';
+  email: Scalars['String'];
+  id: Scalars['UUID'];
+  status: Scalars['String'];
+};
+
+export type UserOrgFilter = {
+  orgId?: InputMaybe<Scalars['UUID']>;
 };
 
 export type UserOrganization = {
   __typename?: 'UserOrganization';
-  id: Scalars['UUID'];
-  userId: Scalars['UUID'];
-  user: User;
-  externalUserId: Scalars['String'];
-  organizationId: Scalars['UUID'];
-  organization: Organization;
-  kycStatus: KycStatus;
-  role: Scalars['String'];
-  bidAllowed: Scalars['Boolean'];
-  username?: Maybe<Scalars['String']>;
   avatar?: Maybe<Scalars['String']>;
+  bidAllowed: Scalars['Boolean'];
+  externalUserId: Scalars['String'];
+  id: Scalars['UUID'];
+  kycStatus: KycStatus;
+  organization: Organization;
+  organizationId: Scalars['UUID'];
+  role: Scalars['String'];
   settings?: Maybe<Scalars['String']>;
-};
-
-export type UserOrgFilter = {
-  orgId?: Maybe<Scalars['UUID']>;
+  user: User;
+  userId: Scalars['UUID'];
+  username?: Maybe<Scalars['String']>;
 };
 
 export type ValidateIpResponse = {
   __typename?: 'ValidateIPResponse';
-  ipScreeningId: Scalars['UUID1'];
   Success: Scalars['Boolean'];
+  ipScreeningId: Scalars['UUID1'];
 };
 
 export type ValidatePaymentLimitData = {
   __typename?: 'ValidatePaymentLimitData';
-  remainingTotal: Scalars['Int'];
   isLimitExceeded: Scalars['Boolean'];
+  remainingTotal: Scalars['Int'];
   remainingTransaction: Scalars['Int'];
 };
 
 export type ValidatePaymentLimitOutput = {
   __typename?: 'ValidatePaymentLimitOutput';
   ach: ValidatePaymentLimitData;
-  wire: ValidatePaymentLimitData;
   creditCard: ValidatePaymentLimitData;
+  wire: ValidatePaymentLimitData;
 };
 
 export type Wallet = {
   __typename?: 'Wallet';
-  id: Scalars['UUID1'];
-  name: Scalars['String'];
   address?: Maybe<Scalars['EthAddress']>;
-  parentType: Scalars['String'];
-  parentID: Scalars['UUID1'];
-  network: Network;
-  networkId: Scalars['UUID1'];
   deploymentTxHash?: Maybe<Scalars['String']>;
   gnosisSafeURL?: Maybe<Scalars['String']>;
+  id: Scalars['UUID1'];
+  name: Scalars['String'];
+  network: Network;
+  networkId: Scalars['UUID1'];
+  parentID: Scalars['UUID1'];
+  parentType: Scalars['String'];
   tokens?: Maybe<Array<WalletToken>>;
 };
 
@@ -1783,102 +2163,103 @@ export enum WalletParentType {
 
 export type WalletToken = {
   __typename?: 'WalletToken';
-  contractAddress: Scalars['String'];
-  id: Scalars['Int'];
-  tokenType?: Maybe<Scalars['String']>;
   balance?: Maybe<Scalars['String']>;
-  title?: Maybe<Scalars['String']>;
+  contractAddress: Scalars['String'];
   description?: Maybe<Scalars['String']>;
-  tokenURI?: Maybe<Scalars['String']>;
+  /** Token ID in smart contract */
+  id: Scalars['BigInt'];
   metadata?: Maybe<Erc721Metadata>;
   timeLastUpdated?: Maybe<Scalars['String']>;
+  title?: Maybe<Scalars['String']>;
+  tokenType?: Maybe<Scalars['String']>;
+  tokenURI?: Maybe<Scalars['String']>;
 };
 
 export enum WalletTxType {
-  Multisig = 'Multisig',
   MojitoHotWallet = 'MojitoHotWallet',
+  Multisig = 'Multisig',
 }
 
 export type WireBankAddress = {
-  bankName?: Maybe<Scalars['String']>;
-  city?: Maybe<Scalars['String']>;
+  address1?: InputMaybe<Scalars['String']>;
+  address2?: InputMaybe<Scalars['String']>;
+  bankName?: InputMaybe<Scalars['String']>;
+  city?: InputMaybe<Scalars['String']>;
   country: Scalars['String'];
-  address1?: Maybe<Scalars['String']>;
-  address2?: Maybe<Scalars['String']>;
-  district?: Maybe<Scalars['String']>;
+  district?: InputMaybe<Scalars['String']>;
 };
 
 export type WireBankAddressOutput = {
   __typename?: 'WireBankAddressOutput';
-  bankName: Scalars['String'];
   address1: Scalars['String'];
   address2: Scalars['String'];
+  bankName: Scalars['String'];
+  city: Scalars['String'];
   country: Scalars['String'];
   district: Scalars['String'];
-  city: Scalars['String'];
 };
 
 export type WireBeneficiary = {
   __typename?: 'WireBeneficiary';
-  name: Scalars['String'];
   address1: Scalars['String'];
   address2: Scalars['String'];
+  name: Scalars['String'];
 };
 
 export type WireBeneficiaryBank = {
   __typename?: 'WireBeneficiaryBank';
-  name: Scalars['String'];
-  swiftCode: Scalars['String'];
-  routingNumber: Scalars['String'];
   accountNumber: Scalars['String'];
   address: Scalars['String'];
   city: Scalars['String'];
-  postalCode: Scalars['String'];
   country: Scalars['String'];
+  name: Scalars['String'];
+  postalCode: Scalars['String'];
+  routingNumber: Scalars['String'];
+  swiftCode: Scalars['String'];
 };
 
 export type WireBillingDetails = {
-  name: Scalars['String'];
+  address1: Scalars['String'];
+  address2?: InputMaybe<Scalars['String']>;
   city: Scalars['String'];
   country: Scalars['String'];
-  address1: Scalars['String'];
-  address2?: Maybe<Scalars['String']>;
-  district?: Maybe<Scalars['String']>;
+  district?: InputMaybe<Scalars['String']>;
+  name: Scalars['String'];
   postalCode: Scalars['String'];
 };
 
 export type WireBillingDetailsOutput = {
   __typename?: 'WireBillingDetailsOutput';
-  name: Scalars['String'];
   address1: Scalars['String'];
   address2: Scalars['String'];
+  city: Scalars['String'];
   country: Scalars['String'];
   district: Scalars['String'];
-  city: Scalars['String'];
+  name: Scalars['String'];
   postalCode: Scalars['String'];
 };
 
 export type WireData = {
   accountNumber: Scalars['String'];
-  routingNumber: Scalars['String'];
   bankAddress: WireBankAddress;
   billingDetails: WireBillingDetails;
+  routingNumber: Scalars['String'];
 };
 
 export type WireInstructions = {
   __typename?: 'WireInstructions';
-  trackingRef: Scalars['String'];
   beneficiary: WireBeneficiary;
   beneficiaryBank: WireBeneficiaryBank;
+  trackingRef: Scalars['String'];
 };
 
 export type WirePaymentMethodOutput = {
   __typename?: 'WirePaymentMethodOutput';
-  id: Scalars['UUID1'];
-  type: PaymentType;
-  status: Scalars['String'];
-  description: Scalars['String'];
-  instructions?: Maybe<WireInstructions>;
   bankAddress?: Maybe<WireBankAddressOutput>;
   billingDetails?: Maybe<WireBillingDetailsOutput>;
+  description: Scalars['String'];
+  id: Scalars['UUID1'];
+  instructions?: Maybe<WireInstructions>;
+  status: Scalars['String'];
+  type: PaymentType;
 };

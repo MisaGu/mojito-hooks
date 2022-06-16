@@ -77,7 +77,7 @@ export const mojitoQueries: Record<EMojitoKey, string> = {
         invoiceCreatedAt
         status
         items {
-          collectionItemID: collectionItemId
+          collectionItemID
           collectionTitle
           destinationAddress
           collectionItemTitle

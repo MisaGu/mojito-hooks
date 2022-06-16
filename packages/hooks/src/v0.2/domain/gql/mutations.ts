@@ -54,7 +54,7 @@ export const mojitoMutations = {
       $tokenId: Int!
       $contractAddress: String!
       $transferTo: String!
-      $tokenType: String!
+      $tokenType: TokenType!
     ) {
       transferToken(
         walletId: $walletId

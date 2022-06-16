@@ -233,7 +233,7 @@ export async function mojitoNormalizer(
     }>(QueryKey.get(EContentfulKey.shortLots, { slug: variables?.slug }));
 
     // _data.getMyInvoices = _data?.getMyInvoices.map((invoice) => {
-    //   const lot = lots?.[invoice.collectionItemId];
+    //   const lot = lots?.[invoice.collectionItemID];
 
     //   if (lot) {
     //     invoice.contentfulData = lot;

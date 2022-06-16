@@ -6,9 +6,9 @@
     "url": "git+https://github.com/mojitoinc/mixers.git"
   },
   "scripts": {
-    "init": "yarn global add gulp webpack-cli && yarn install && yarn run clean && yarn run bootstrap && yarn run build",
-    "start": "yarn run dev",
-    "dev": "yarn --cwd app build && dumi dev",
+    "init": "yarn global add gulp webpack-cli && yarn generate && yarn install && yarn run clean && yarn run bootstrap && yarn run build",
+    "start": "yarn run dev", 
+    "dev": "yarn --cwd app build && yarn generate && dumi dev",
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean --yes",
     "build": "lerna run build",
@@ -18,7 +18,8 @@
     "build:doc": "dumi build",
     "pub:doc": "yarn run build:doc",
     "pub": "yarn run build && lerna publish",
-    "pub:beta": "yarn run build && lerna publish --dist-tag beta"
+    "pub:beta": "yarn run build && lerna publish --dist-tag beta",
+    "generate": "graphql-codegen"
   },
   "husky": {
     "hooks": {
@@ -26,6 +27,9 @@
     }
   },
   "devDependencies": {
+    "@graphql-codegen/cli": "^2.6.2",
+    "@graphql-codegen/typescript": "^2.5.1",
+    "graphql": "^16.5.0",
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.18.0",
     "@babel/preset-env": "^7.18.0",
@@ -71,6 +75,7 @@
   },
   "dependencies": {
     "@auth0/auth0-react": "^1.10.1",
+    
     "@types/auth0": "^2.35.0",
     "@types/react-query": "^1.2.9",
     "auth0-react": "^3.1.0",
