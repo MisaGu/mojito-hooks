@@ -19,6 +19,8 @@ export const COLLECTION_ITEM_AUCTION_LOT_BID_FIELD = gql`
   fragment CollectionItemAuctionLotBid on MarketplaceAuctionBid {
     id
     amount
+    isMine
+    isCurrent
     createdAt
     maximumBid
     nextBidIncrement

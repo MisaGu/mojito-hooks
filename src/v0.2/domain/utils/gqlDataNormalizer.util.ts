@@ -6,6 +6,7 @@ import {
   CurrentUserResponse,
   IContentfulCollectionItem,
   MojitoCurrentUser,
+  MojitoMarketplaceAuctionBid,
   MojitoMarketplaceCollection,
   MojitoMarketplaceCollectionItem,
   MojitoOrganization,
@@ -224,7 +225,8 @@ export async function mojitoNormalizer(
         variables.slug,
       );
     }
-    Object.assign(raw_response, raw_response.collectionItemById);
+
+    Object.assign(normalizedResponse, { collectionItemById: raw_response.collectionItemById });
   }
 
   if (raw_response?.getMyInvoices) {
@@ -280,8 +282,10 @@ function CurrentUserNormalizer(details: Schema.CurrentUser) {
   const me = {
     ...details,
     wallets: details.wallets ? WalletsNormalizer(details.wallets) : [],
-    wonBids: null, //TODO
-    activeBids: null, //TODO
+    wonBids: details.wonBids ? MojitoMarketplaceAuctionBidsNormalizer(details.wonBids) : [],
+    activeBids: details.activeBids
+      ? MojitoMarketplaceAuctionBidsNormalizer(details.activeBids)
+      : [],
     userOrgs: details.userOrgs ? UserOrganizationNormalizer(details.userOrgs) : [],
     favoriteItems: null, //TODO
   };
@@ -410,9 +414,34 @@ function MarketplaceCollectionNormalizer(details: Schema.MarketplaceCollection) 
 }
 
 function MarketplaceCollectionItemsNormalizer(details: Schema.MarketplaceCollectionItem[]) {
-  const items = details.map((item) => ({ ...omit(item, 'lot') }));
+  const items = details.map((item) => MarketplaceCollectionItemNormalizer(item));
 
   return _merge<typeof details, typeof items, MojitoMarketplaceCollectionItem[]>(details, items);
+}
+
+function MarketplaceCollectionItemNormalizer(details: Schema.MarketplaceCollectionItem) {
+  const item = { ...omit(details, 'lot') };
+
+  return _merge<typeof details, typeof item, MojitoMarketplaceCollectionItem>(details, item);
+}
+
+function MojitoMarketplaceAuctionBidsNormalizer(details: Schema.MarketplaceAuctionBid[]) {
+  const bids = details
+    .sort((a, b) => (a.amount > b.amount ? -1 : 1))
+    .map((item) => MojitoMarketplaceAuctionBidNormalizer(item));
+
+  return _merge<typeof details, typeof bids, MojitoMarketplaceAuctionBid[]>(details, bids);
+}
+
+function MojitoMarketplaceAuctionBidNormalizer(details: Schema.MarketplaceAuctionBid) {
+  const bid = {
+    ...omit(details, ['marketplaceAuctionLot']),
+    userOrganization: details.userOrganization
+      ? UserOrganizationNormalizer([details.userOrganization])
+      : [],
+  };
+
+  return _merge<typeof details, typeof bid, MojitoMarketplaceAuctionBid>(details, bid);
 }
 
 function _merge<Schema, Normalized, Result>(raw: Schema, normalized: Normalized) {

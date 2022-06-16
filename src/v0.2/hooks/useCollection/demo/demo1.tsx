@@ -4,7 +4,6 @@
  */
 
 import React from 'react';
-import { DEMO_SLUG } from '../../../components/demo/constants/demo.constants';
 import { DemoInterface } from '../../../components/demo/Interface/DemoInterface';
 import { Json } from '../../../components/demo/Json/Json';
 import { DemoProviders } from '../../../components/demo/Provider/DemoProvider';

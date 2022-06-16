@@ -63,7 +63,7 @@ const YouApp: React.FC = () => {
 - Check refetch function return for `useCollectionItemCurrentBids()`.
 - Can we type-check queries and variables (check they match) in QueryKey.get and return type in prefetchQuery?
 
-**Not assigned / TODO:**
+**TODO:**
 
 - useCollectionItemCurrentBids - add select functionality on original request
 - useCollectionItemBidsList - item id should be automatically taken from url;
@@ -88,46 +88,3 @@ const YouApp: React.FC = () => {
 **Note:**
 
 - legacy useProfile was sending tags in Sentry, but as it client project specific it was not implemented
-
----
-
-**Hooks Progress:**
-
-Progress:
-
-- ❌ Not done.
-- 🔨 In progress.
-- 👁️ Needs review.
-- ✔️ Done.
-
-| Hook                            | Code | Docs |
-| ------------------------------- | ---- | ---- |
-| useActiveBids                   | ✔️   | 👁️   |
-| useCheckUsername                | ✔️   | 👁️   |
-| useCollection                   | ✔️   | 👁️   |
-| useCollectionItemById           | 👁️   | 👁️   |
-| useCollectionItemBidsList       | ✔️   | 👁️   |
-| useCollectionItemCurrentBids    | ✔️   | 👁️   |
-| useCollectionItemRemainingCount | ✔️   | 👁️   |
-| useCollectionItemsCurrentBids   | ✔️   | 👁️   |
-| useCollectionSlug               | ✔️   | 👁️   |
-| useFavoriteItems                | ✔️   | 👁️   |
-| useInvoiceDownload              | ❌   | 👁️   |
-| useInvoices                     | ✔️   | 👁️   |
-| useMojitoFactory                | ✔️   | 👁️   |
-| useMojitoMutation               | ✔️   | 👁️   |
-| useMojitoWallets                | ✔️   | 👁️   |
-| useOrganization                 | ✔️   | 👁️   |
-| usePlaceBidMutation             | ❌   | 👁️   |
-| useProfile                      | 👁️   | 👁️   |
-| useServerTime                   | ✔️   | 👁️   |
-
-| Utils                   | Code | Test |
-| ----------------------- | ---- | ---- |
-| getDehydratedState.util | 👁️   | ❌   |
-| gql.util                | ✔️   | ✔️   |
-| gqlDataNormalizer.util  | 🔨   | ❌   |
-| gqlRequest.util         | 👁️   | ❌   |
-| isBrowser.util.ts       | ✔️   | ✔️   |
-| path.util.ts            | ✔️   | ✔️   |
-| queryKeyFactory.util.ts | ✔️   | ✔️   |

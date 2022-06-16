@@ -1,22 +1,40 @@
-import { useMemo } from 'react';
-import { MojitoMarketplaceAuctionBid } from '../../domain/interfaces';
+import { config } from '../../domain/constants/general.constants';
+import { EMojitoKey } from '../../domain/enums/state.enum';
+import { MojitoCollectionItemCurrentBidsResponse } from '../../domain/interfaces';
 import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
-import { useCollectionItemsCurrentBids } from '../useCollectionItemsCurrentBids/useCollectionItemsCurrentBids';
+import { getCollectionSlug } from '../../domain/utils/getSlug.util';
+import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-export type UseCollectionItemCurrentBidsData = undefined | MojitoMarketplaceAuctionBid;
+function selectorFn(response?: MojitoCollectionItemCurrentBidsResponse) {
+  if (!response) return undefined;
 
-export type UseCollectionItemCurrentBidsReturn = ReturnType<typeof useCollectionItemCurrentBid>;
-
-export interface UseCollectionItemCurrentBidsProps
-  extends BaseQueryHookPropsWithUrlAndSlug<UseCollectionItemCurrentBidsData> {
-  collectionItemID: string;
+  return response.items || [];
 }
+
+export type UseCollectionItemCurrentBidData = ReturnType<typeof selectorFn>;
+
+export type UseCollectionItemCurrentBidReturn = ReturnType<typeof useCollectionItemCurrentBid>;
+
+export type UseCollectionItemCurrentBidProps =
+  BaseQueryHookPropsWithUrlAndSlug<UseCollectionItemCurrentBidData> & {
+    collectionItemID: string;
+  };
 
 export function useCollectionItemCurrentBid({
   collectionItemID,
+
+  options,
   ...props
-}: UseCollectionItemCurrentBidsProps) {
-  const { currentBids, ...result } = useCollectionItemsCurrentBids(props as any);
+}: UseCollectionItemCurrentBidProps) {
+  const slug = getCollectionSlug(props.slug);
+
+  return useMojitoFactory({
+    as: 'currentBids',
+    query: EMojitoKey.collectionBySlugCurrentBids,
+    variables: { slug, marketplaceID: config.MARKETPLACE_ID },
+    options: { ...options, enabled: !!slug },
+    selectorFn,
+  });
 }
 
 export default useCollectionItemCurrentBid;

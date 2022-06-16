@@ -1,6 +1,6 @@
 {
   "name": "@mojitonft/hooks",
-  "version": "1.0.1-alpha.1",
+  "version": "1.0.1-alpha.3",
   "description": "react hooks library",
   "private": false,
   "sideEffects": false,
@@ -18,9 +18,9 @@
   },
   "homepage": "https://github.com/mojitoinc/mojito-hooks",
   "scripts": {
-    "init": "yarn global add gulp webpack-cli && yarn install && yarn run clean && yarn run build",
+    "init": "yarn global add gulp webpack-cli && yarn generate && yarn install && yarn run clean && yarn run build",
     "start": "yarn run dev",
-    "dev": "yarn run build && dumi dev",
+    "dev": "yarn run build && yarn generate && dumi dev",
     "clean": "rm -rf ./dist",
     "build": "gulp && webpack --config webpack.config.js",
     "test": "jest",

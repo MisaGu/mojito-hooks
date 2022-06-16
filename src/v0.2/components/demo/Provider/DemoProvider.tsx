@@ -2,6 +2,7 @@ import { Auth0Provider } from '@auth0/auth0-react';
 import React from 'react';
 import { config } from '../../../domain/constants/general.constants';
 import { AuthProvider } from '../../../domain/context/auth.context';
+import { mojitoGqlClient } from '../../../domain/utils/gqlRequest.util';
 
 export const DemoProviders = ({ children }) => {
   /*
@@ -14,13 +15,14 @@ export const DemoProviders = ({ children }) => {
     });
   }, []);
   */
+
   return (
-    <Auth0Provider
-      domain={'https://accounts.staging.sothelabs.com'}
-      clientId={'thTFyyXuq94Zr6nBIfEVnQ5iUwRlJsSg'}
-      redirectUri={'http://localhost:3000'}
-    >
-      <AuthProvider>{children}</AuthProvider>
-    </Auth0Provider>
+    // <Auth0Provider
+    //   domain={'https://accounts.staging.sothelabs.com'}
+    //   clientId={'thTFyyXuq94Zr6nBIfEVnQ5iUwRlJsSg'}
+    //   redirectUri={'http://localhost:3000'}
+    // >
+    <AuthProvider>{children}</AuthProvider>
+    // </Auth0Provider>
   );
 };
