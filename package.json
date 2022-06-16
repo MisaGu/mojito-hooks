@@ -14,9 +14,9 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mojitoinc/mojito-hooks.git"
+    "url": "git+https://github.com/mojitoinc/hooks.git"
   },
-  "homepage": "https://github.com/mojitoinc/mojito-hooks",
+  "homepage": "https://github.com/mojitoinc/hooks",
   "scripts": {
     "init": "yarn global add gulp webpack-cli && yarn generate && yarn install && yarn run clean && yarn run build",
     "start": "yarn run dev",
