@@ -1,6 +1,6 @@
 {
   "name": "@mojitonft/mojito-hooks",
-  "version": "1.0.1-alpha.2",
+  "version": "1.0.1-alpha.3",
   "description": "react hooks library",
   "private": false,
   "sideEffects": false,
