@@ -16,11 +16,11 @@ jobs:
           node-version: '14.x'
           registry-url: 'https://registry.npmjs.org'
       - run: yarn install --frozen-lockfile
-        working-directory: ./packages/hooks
-      - run: yarn install --frozen-lockfile
       - run: yarn build
-      - run: test -e ./packages/hooks/es/index.js
-      - run: test -e ./packages/hooks/lib/index.js
+      - run: test -e ./dist/cjs/index.js
+      - run: test -e ./dist/esm/index.js
+      - run: test -e ./dist/types/index.js
+      - run: test -e ./dist/umd/mojitonft-hooks.js
       - run: yarn publish --access public
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

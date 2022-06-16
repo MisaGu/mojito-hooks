@@ -1,25 +1,33 @@
 {
-  "name": "mojitonft",
-  "private": true,
+  "name": "hooks",
+  "version": "1.0.0",
+  "description": "react hooks library",
+  "private": false,
+  "sideEffects": false,
+  "keywords": [
+    "mojito",
+    "mixers",
+    "mojito mixers",
+    "mojito hooks",
+    "mixers hooks",
+    "react hooks"
+  ],
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/mojitoinc/mixers.git"
+    "url": "git+https://github.com/mojitoinc/mojito-hooks.git"
   },
+  "homepage": "https://github.com/mojitoinc/mojito-hooks",
   "scripts": {
-    "init": "yarn global add gulp webpack-cli && yarn generate && yarn install && yarn run clean && yarn run bootstrap && yarn run build",
-    "start": "yarn run dev", 
-    "dev": "yarn --cwd app build && yarn generate && dumi dev",
-    "bootstrap": "lerna bootstrap",
-    "clean": "lerna clean --yes",
-    "build": "lerna run build",
+    "init": "yarn global add gulp webpack-cli && yarn install && yarn run clean && yarn run build",
+    "start": "yarn run dev",
+    "dev": "yarn run build && dumi dev",
+    "clean": "rm -rf ./dist",
+    "build": "gulp && webpack --config webpack.config.js",
     "test": "jest",
     "test:watch": "jest --watch",
-    "lint": "eslint --ignore-pattern **/__tests__/* --ignore-pattern **/demo/* \"packages/*/src/**/*.{ts,tsx}\"",
-    "lint:fix": "eslint --ignore-pattern **/__tests__/* --ignore-pattern **/demo/* \"packages/*/src/**/*.{ts,tsx}\" --fix",
+    "lint": "eslint --ignore-pattern **/__tests__/* --ignore-pattern **/demo/* \"/src/**/*.{ts,tsx}\"",
+    "lint:fix": "eslint --ignore-pattern **/__tests__/* --ignore-pattern **/demo/* \"/src/**/*.{ts,tsx}\" --fix",
     "build:doc": "dumi build",
-    "pub:doc": "yarn run build:doc",
-    "pub": "yarn run build && lerna publish",
-    "pub:beta": "yarn run build && lerna publish --dist-tag beta",
     "generate": "graphql-codegen"
   },
   "husky": {
@@ -28,15 +36,16 @@
     }
   },
   "devDependencies": {
-    "@graphql-codegen/cli": "^2.6.2",
-    "@graphql-codegen/typescript": "^2.5.1",
-    "graphql": "^16.5.0",
     "@babel/cli": "^7.10.1",
     "@babel/core": "^7.18.0",
+    "@babel/plugin-transform-runtime": "^7.17.0",
     "@babel/preset-env": "^7.18.0",
     "@babel/preset-react": "^7.16.7",
+    "@graphql-codegen/cli": "^2.6.2",
+    "@graphql-codegen/typescript": "^2.5.1",
     "@testing-library/react-hooks": "^8.0.0",
     "@testing-library/react": "^13.2.0",
+    "@types/enzyme": "^3.10.5",
     "@types/jest": "^27.5.1",
     "@typescript-eslint/eslint-plugin": "^5.26.0",
     "@typescript-eslint/parser": "^5.26.0",
@@ -46,6 +55,7 @@
     "babel-plugin-transform-async-to-promises": "^0.8.15",
     "del": "^5.1.0",
     "dumi": "^1.1.7",
+    "enzyme-adapter-react-16": "^1.15.4",
     "enzyme": "^3.10.0",
     "eslint-config-airbnb": "19.0.4",
     "eslint-config-next": "^12.1.6",
@@ -67,8 +77,9 @@
     "jest-extended": "^2.0.0",
     "jest-fetch-mock": "^3.0.3",
     "jest-localstorage-mock": "^2.4.18",
+    "jest-websocket-mock": "^2.1.0",
     "jest": "^28.1.0",
-    "lerna": "4.x",
+    "mock-socket": "^9.0.3",
     "mockdate": "^3.0.2",
     "mockjs": "^1.1.0",
     "msw": "^0.41.0",
@@ -80,21 +91,30 @@
     "ts-jest": "^28.0.2",
     "typescript": "^4.1.0",
     "webpack-cli": "^3.3.10",
-    "webpack-merge": "^4.2.2",
     "webpack": "^4.43.0"
   },
   "dependencies": {
     "@auth0/auth0-react": "^1.10.1",
-    
+    "@babel/runtime": "^7.17.9",
     "@types/auth0": "^2.35.0",
     "@types/react-query": "^1.2.9",
     "auth0-react": "^3.1.0",
     "graphql-request": "^4.3.0",
+    "graphql-subscriptions-client": "^0.16.2",
+    "graphql": "^16.4.0",
+    "lodash.isequal": "^4.5.0",
     "lodash.omit": "^4.5.0",
     "moment": "^2.29.3",
     "react-query": "^3.39.1"
   },
-  "main": "packages/hooks/lib/index.js",
-  "module": "packages/hooks/es/index.js",
-  "types": "packages/hooks/es/index.d.ts"
+  "main": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
+  "unpkg": "dist/umd/mojitonft-hooks.js",
+  "types": "dist/types/index.d.ts",
+  "files": [
+    "dist",
+    "metadata.json",
+    "package.json",
+    "README.md"
+  ]
 }
