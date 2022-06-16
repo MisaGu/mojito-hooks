@@ -6,16 +6,16 @@
     "url": "git+https://github.com/mojitoinc/mixers.git"
   },
   "scripts": {
-    "init": "yarn global add gulp webpack-cli && yarn install && yarn run clean && yarn run bootstrap && yarn run build",
-    "start": "yarn run dev",
-    "dev": "yarn --cwd app build && dumi dev",
+    "init": "yarn global add gulp webpack-cli --port=3000 && yarn install && yarn run clean && yarn run bootstrap && yarn run build",
+    "start": "yarn run dev --port=3000",
+    "dev": "yarn --cwd app build && dumi dev --port=3000",
     "bootstrap": "lerna bootstrap",
     "clean": "lerna clean --yes",
     "build": "lerna run build",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint --ignore-pattern **/__tests__/* --ignore-pattern **/demo/* \"packages/*/src/**/*.{ts,tsx}\"",
-    "build:doc": "dumi build",
+    "build:doc": "dumi build --port=3000",
     "pub:doc": "yarn run build:doc",
     "pub": "yarn run build && lerna publish",
     "pub:beta": "yarn run build && lerna publish --dist-tag beta"

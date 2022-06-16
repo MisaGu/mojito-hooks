@@ -6,7 +6,7 @@ import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
 function selectorFn(response?: CurrentUserResponse) {
   if (!response) return undefined;
-
+  console.log(response.me);
   return response.me.activeBids;
 }
 

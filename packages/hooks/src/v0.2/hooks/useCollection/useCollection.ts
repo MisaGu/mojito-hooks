@@ -27,7 +27,7 @@ export type UseCollectionProps = BaseQueryHookPropsWithUrlAndSlug<UseCollectionD
 
 export function useCollection(props?: UseCollectionProps) {
   const queryClient = useQueryClient();
-  const collectionSlug = getCollectionSlugFromPathname();
+  const collectionSlug = props?.slug || getCollectionSlugFromPathname();
 
   async function preloadFn() {
     const [mojitoCollections, contentfulCollectionSlugsOnly] = await Promise.all([
@@ -40,8 +40,6 @@ export function useCollection(props?: UseCollectionProps) {
         QueryKey.get(EContentfulKey.auctionsSlugList),
       ),
     ]);
-
-    console.log(mojitoCollections);
 
     const mojitoCollection = mojitoCollections.marketplace.collections.find(
       (collection) => collection.slug == collectionSlug,
