@@ -1,6 +1,6 @@
 /* eslint-disable */
 
-import { server } from './src/v0.2/mocks/server';
+import { server } from './src/mocks/server';
 
 // Reset any request handlers that we may add during the tests, so they don't affect other tests:
 afterEach(() => server.resetHandlers());

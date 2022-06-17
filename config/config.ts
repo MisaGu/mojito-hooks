@@ -42,7 +42,7 @@ export default {
   manifest: {},
   hash: true,
   resolve: {
-    includes: ['docs', 'src/v0.2/hooks'],
+    includes: ['docs', 'src/hooks'],
   },
   links: [
     {

@@ -84,16 +84,16 @@ async function genMetaData() {
   const functions = [];
 
   const hooks = fg
-    .sync('src/v0.2/hooks/use*', {
+    .sync('src/hooks/use*', {
       onlyDirectories: true,
     })
-    .map((hook) => hook.replace('src/v0.2/hooks/', ''))
+    .map((hook) => hook.replace('src/hooks/', ''))
     .sort();
 
   await Promise.allSettled(
     hooks.map(async (hook) => {
       const { path, group, description } = await readDocsMetadata(
-        `src/v0.2/hooks/${hook}/index.en-US.md`,
+        `src/hooks/${hook}/index.en-US.md`,
       );
 
       // FIXME: GITHUB_PAGE url

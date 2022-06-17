@@ -4,7 +4,7 @@
 // export * from './domain/interfaces';
 // export * from './hooks';
 // export * from './utils';
-export * from './v0.2/hooks';
+export * from './hooks';
 
-export { MojitoHooksProvider } from './v0.2/domain/context/mojito.context';
-export { setOnErrorCallback } from './v0.2/domain/utils/gqlRequest.util';
+export { MojitoHooksProvider } from './domain/context/mojito.context';
+export { setOnErrorCallback } from './domain/utils/gqlRequest.util';
