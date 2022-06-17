@@ -4,7 +4,7 @@ import { EContentfulKey, EMojitoKey } from '../enums/state.enum';
 import {
   ContentfulAuctionBySlugResponse,
   CurrentUserResponse,
-  IContentfulCollectionItem,
+  ContentfulCollectionItem,
   MojitoCurrentUser,
   MojitoMarketplaceAuctionBid,
   MojitoMarketplaceCollection,
@@ -24,7 +24,7 @@ const extendCollectionSingleItem = (
   item: any,
   slug: string,
   shortLots?: {
-    [key: string]: IContentfulCollectionItem;
+    [key: string]: ContentfulCollectionItem;
   },
 ) => {
   const _item = item as MojitoMarketplaceCollectionItem<Schema.MarketplaceSaleType.Auction>;
@@ -36,7 +36,7 @@ const extendCollectionSingleItem = (
   }
 
   if (!_item?.details?.bids && !_item?.details?.currentBid) {
-    const lot = queryClient.getQueryData<{ [key: string]: IContentfulCollectionItem }>(
+    const lot = queryClient.getQueryData<{ [key: string]: ContentfulCollectionItem }>(
       QueryKey.get(EContentfulKey.fullLot, { mojitoId: item.id }),
     );
 
@@ -49,7 +49,7 @@ const extendCollectionSingleItem = (
         subtitle: 'NA',
         mojitoId: 'NA',
         slug: 'NA',
-      } as IContentfulCollectionItem);
+      } as ContentfulCollectionItem);
   }
 
   if (item?.details) {
@@ -64,7 +64,7 @@ const extendCollectionItems = (
   slug: string,
 ) => {
   const lots = queryClient.getQueryData<{
-    [key: string]: IContentfulCollectionItem;
+    [key: string]: ContentfulCollectionItem;
   }>(QueryKey.get(EContentfulKey.shortLots, { slug }));
 
   return collectionItems.map((item) => extendCollectionSingleItem(item, slug, lots));
@@ -87,8 +87,8 @@ const extendItemDetails = (details: any, slug: string) => {
   const oldDetails = item?.details;
 
   if (details.startDate && details.endDate) {
-    const auctionStartUnix = moment(details.startDate ?? null).unix();
-    const auctionEndUnix = moment(details.endDate ?? null).unix();
+    const auctionStartUnix = moment(details.startDate).unix();
+    const auctionEndUnix = moment(details.endDate).unix();
     const nowUnix = moment().unix();
 
     Object.assign(details, {
@@ -231,7 +231,7 @@ export async function mojitoNormalizer(
 
   if (raw_response?.getMyInvoices) {
     const lots = queryClient.getQueryData<{
-      [key: string]: IContentfulCollectionItem;
+      [key: string]: ContentfulCollectionItem;
     }>(QueryKey.get(EContentfulKey.shortLots, { slug: variables?.slug }));
 
     // _data.getMyInvoices = _data?.getMyInvoices.map((invoice) => {
@@ -257,7 +257,7 @@ export function contentfulNormalizer(
   const _data = response;
 
   if (_data?.lotCollection?.items) {
-    const _items = _data?.lotCollection?.items as IContentfulCollectionItem[];
+    const _items = _data?.lotCollection?.items as ContentfulCollectionItem[];
 
     return _items.reduce((acc, item) => Object.assign(acc, { [item.mojitoId]: item }), {});
   }

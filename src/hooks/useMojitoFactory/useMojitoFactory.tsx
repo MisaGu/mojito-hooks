@@ -2,8 +2,7 @@ import { Variables } from 'graphql-request/dist/types';
 import isEqual from 'lodash.isequal';
 import { useEffect, useRef, useState } from 'react';
 import { QueryObserver, useQueryClient, UseQueryOptions } from 'react-query';
-import { useAuthContext } from '../../domain/context/auth.context';
-import { EMojitoKey } from '../../domain/enums/state.enum';
+import { EMojitoKey, EOptionKey } from '../../domain/enums/state.enum';
 import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
 import { normalizeQueryResult } from '../../domain/utils/gqlResult.utils';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
@@ -40,8 +39,9 @@ export function useMojitoFactory<
   onlyAuthenticated,
 }: MojitoFactoryOptions<TDataPropertyName, TSelectorData, TResponse, TError>) {
   const queryClient = useQueryClient();
-  const { isAuthenticated } = useAuthContext(); // REPLACE ME
   const _unsubscribe = useRef<() => void>();
+  const _authUnsubscribe = useRef<() => void>();
+  const [isAuthorized, setIsAuthorized] = useState(false);
 
   const queryKey = QueryKey.get(query, variables);
   const queryOptions = {
@@ -55,11 +55,16 @@ export function useMojitoFactory<
 
       return (await configuredQueryFn({ queryKey, meta: undefined })) as TResponse;
     },
-    meta: { ...options?.meta, authorization: isAuthenticated },
-    enabled: options?.enabled !== false && (!onlyAuthenticated || isAuthenticated),
+    meta: { ...options?.meta, authorization: isAuthorized },
+    enabled: options?.enabled !== false && (!onlyAuthenticated || isAuthorized),
   };
 
   const observer = useRef(new QueryObserver<TResponse, TError>(queryClient, queryOptions));
+  const authObserver = useRef(
+    new QueryObserver<TResponse, TError>(queryClient, {
+      queryKey: QueryKey.get(EOptionKey.isAuthorized),
+    }),
+  );
   const _result = observer.current.getCurrentResult();
   const [data, setData] = useState(
     (selectorFn
@@ -78,12 +83,12 @@ export function useMojitoFactory<
     observer.current = new QueryObserver<TResponse, TError>(queryClient, queryOptions);
 
     return () => observer.current?.destroy();
-  }, [JSON.stringify(queryKey), isAuthenticated, force]);
+  }, [JSON.stringify(queryKey), isAuthorized, force]);
 
   useEffect(() => {
     _unsubscribe.current = observer.current.subscribe((result) => {
       if (selectorFn) {
-        console.log(result);
+        // console.log(result);
         if (result.data) {
           const _selectorResult = selectorFn(result.data);
           if (!isEqual(_selectorResult, data)) {
@@ -98,8 +103,22 @@ export function useMojitoFactory<
     return () => _unsubscribe.current?.();
   }, [observer.current]);
 
+  useEffect(() => {
+    _authUnsubscribe.current = authObserver.current.subscribe((result) => {
+      setIsAuthorized(!!result.data);
+    });
+
+    return () => {
+      _authUnsubscribe.current?.();
+      authObserver.current?.destroy();
+    };
+  }, [authObserver.current]);
+
   //@ts-ignore
   _result.data = data;
+  // _result.refetch = () => {
+  //   const _result = queryOptions.queryFn
+  // }
 
   return normalizeQueryResult(as, _result);
 }

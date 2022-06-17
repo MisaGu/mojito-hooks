@@ -1,5 +1,5 @@
 import { EMojitoCollectionItemAuctionLotStatus } from '../enums';
-import { IContentfulCollection, IContentfulCollectionItem } from './contentful.interface';
+import { ContentfulCollection, ContentfulCollectionItem } from './contentful.interface';
 import * as Schema from './mojito-schema.interface';
 import { Combine } from './_utils.interface';
 
@@ -73,7 +73,7 @@ export type MojitoMarketplaceAuctionBid = Combine<
 >;
 
 type MarketplaceCollectionNormalizer = {
-  content: IContentfulCollection;
+  content: ContentfulCollection;
   items: MojitoMarketplaceCollectionItem[];
   saleStatus: MojitoSaleStatus;
   hasMultipleLots: boolean;
@@ -138,7 +138,7 @@ type InvoiceDetailsNormalizer = {
 export type MojitoInvoiceDetails = Combine<Schema.InvoiceDetails, InvoiceDetailsNormalizer>;
 
 type InvoiceDetailsItemNormalizer = {
-  content: IContentfulCollectionItem;
+  content: ContentfulCollectionItem;
 };
 export type MojitoInvoiceDetailsItem = Combine<
   Schema.ItemInvoiceDetail,

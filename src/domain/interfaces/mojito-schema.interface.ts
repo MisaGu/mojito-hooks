@@ -703,6 +703,7 @@ export type MarketplaceClaimableOutput = {
 export type MarketplaceCollection = {
   __typename?: 'MarketplaceCollection';
   collectionType: CollectionType;
+  configuration?: Maybe<MarketplaceCollectionConfiguration>;
   description: Scalars['String'];
   endDate?: Maybe<Scalars['Time']>;
   id: Scalars['UUID1'];
@@ -718,6 +719,13 @@ export type MarketplaceCollectionItemsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
   statuses?: InputMaybe<Array<InputMaybe<MarketplaceCollectionItemStatus>>>;
+};
+
+export type MarketplaceCollectionConfiguration = {
+  __typename?: 'MarketplaceCollectionConfiguration';
+  purchaseLimit?: Maybe<Scalars['Int']>;
+  taxInvoiceSapType?: Maybe<Scalars['String']>;
+  taxInvoiceSku?: Maybe<Scalars['String']>;
 };
 
 export type MarketplaceCollectionCreateInput = {
@@ -941,7 +949,7 @@ export type Mutation = {
   createTokenDraft: Scalars['String'];
   /** Create a new API key for given User and Organization. */
   createUserAPIKey?: Maybe<UserApiKeyResponse>;
-  delayedTransferToken: Scalars['Boolean'];
+  delayedTransferToken: TokenTransfers;
   deleteAsset: Scalars['String'];
   /**
    * Delete an existing lot from User favorite lots list.
@@ -979,6 +987,7 @@ export type Mutation = {
   nftDeployContract: NftContract;
   orgCreateMarketplace: Marketplace;
   ping: Scalars['String'];
+  processTokenTranfer: TokenTransfers;
   /** Redeem a claimable */
   redeemClaimable: Scalars['Boolean'];
   /** Redeem a claimable code */
@@ -1299,6 +1308,11 @@ export type MutationNftDeployContractArgs = {
 export type MutationOrgCreateMarketplaceArgs = {
   name: Scalars['String'];
   orgId?: InputMaybe<Scalars['UUID1']>;
+};
+
+export type MutationProcessTokenTranferArgs = {
+  orgID: Scalars['UUID1'];
+  tokenTransferID: Scalars['UUID1'];
 };
 
 export type MutationRedeemClaimableArgs = {
@@ -1730,6 +1744,7 @@ export type QueryCanRedeemClaimableArgs = {
 
 export type QueryCanRedeemClaimableItemArgs = {
   claimableItemID: Scalars['UUID1'];
+  destAddr?: InputMaybe<Scalars['String']>;
 };
 
 export type QueryCollectionArgs = {

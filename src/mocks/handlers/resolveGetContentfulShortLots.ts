@@ -1,4 +1,4 @@
-import { IContentfulLotsQuery } from '../../domain/interfaces';
+import { ContentfulLotsQuery } from '../../domain/interfaces';
 
 // TODO: These data/type is wrong (short lots should have less data):
 
@@ -75,6 +75,6 @@ export function resolveGetContentfulShortLots(req, res, ctx) {
           },
         ],
       },
-    } as IContentfulLotsQuery),
+    } as ContentfulLotsQuery),
   );
 }

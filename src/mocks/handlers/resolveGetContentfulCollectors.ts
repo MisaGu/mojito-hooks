@@ -1,4 +1,4 @@
-import { IContentfulCollectorsQuery } from '../../domain/interfaces';
+import { ContentfulCollectorsQuery } from '../../domain/interfaces';
 
 export function resolveGetContentfulCollectors(req, res, ctx) {
   return res(
@@ -79,6 +79,6 @@ export function resolveGetContentfulCollectors(req, res, ctx) {
           },
         ],
       },
-    } as IContentfulCollectorsQuery),
+    } as ContentfulCollectorsQuery),
   );
 }

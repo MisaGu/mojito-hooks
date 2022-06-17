@@ -1,40 +1,40 @@
-export interface ContentfulAuctionBySlugResponse {
+export type ContentfulAuctionBySlugResponse = {
   auctionCollection: {
     items: ContentfulAuction[];
   };
-}
+};
 
-export interface IContentfulLotsQuery {
+export type ContentfulLotsQuery = {
   lotCollection: {
-    items: IContentfulCollectionItem[];
+    items: ContentfulCollectionItem[];
   };
-}
+};
 
-export interface IContentfulLotByIDQuery {
+export type ContentfulLotByIDQuery = {
   data: any;
-}
+};
 
-export interface IContentfulCollectorsQuery {
+export type ContentfulCollectorsQuery = {
   collectorCollection: {
-    items: IContentfulCollector[];
+    items: ContentfulCollector[];
   };
-}
+};
 
-export interface IContentfulAuthorsQuery {
+export type ContentfulAuthorsQuery = {
   authorCollection: {
-    items: IContentfulAuthor[];
+    items: ContentfulAuthor[];
   };
-}
+};
 
-export interface IContentfulAuctionsSlugListQuery {
+export type ContentfulAuctionsSlugListQuery = {
   auctionCollection: {
     items: { slug: string }[];
   };
-}
+};
 
 // --------------------------------------------- OLD -------------------------------- //
 
-export interface ContentfulAuction {
+export type ContentfulAuction = {
   name: string;
   title: string;
   subtitle: string;
@@ -46,9 +46,9 @@ export interface ContentfulAuction {
   videoId: string;
   slug: string;
   saleId: string;
-}
+};
 
-export interface IContentfulCollectionItem {
+export type ContentfulCollectionItem = {
   lotId: number;
   mojitoId: string;
   sys: {
@@ -57,7 +57,7 @@ export interface IContentfulCollectionItem {
   title: string;
   subtitle: string | null;
   imagesCollection: {
-    items: IContentfulImageItem[];
+    items: ContentfulImageItem[];
   };
   author: {
     name: string;
@@ -105,8 +105,8 @@ export interface IContentfulCollectionItem {
     url: string;
     title: string;
   } | null;
-}
-export interface IContentfulCollector {
+};
+export type ContentfulCollector = {
   sys: {
     publishedAt: string;
   };
@@ -129,8 +129,9 @@ export interface IContentfulCollector {
   videoId: string | null;
   twitterLink: string;
   slug: string;
-}
-export interface IContentfulAuthor {
+};
+
+export type ContentfulAuthor = {
   sys: {
     publishedAt: string;
   };
@@ -150,11 +151,11 @@ export interface IContentfulAuthor {
     };
   };
   slug: string;
-}
+};
 
 type _auctionData = { [key: string]: string | number | any[] | _auctionData };
 
-export interface IContentfulCollection {
+export type ContentfulCollection = {
   sys: {
     publishedAt: string;
   };
@@ -163,7 +164,7 @@ export interface IContentfulCollection {
   startDate: string;
   endDate: string;
   lotsCollection: {
-    items: IContentfulCollectionItem[];
+    items: ContentfulCollectionItem[];
   };
   name: string;
   title: string;
@@ -172,23 +173,23 @@ export interface IContentfulCollection {
   slug: string;
   saleId: string;
   data: _auctionData;
-}
+};
 
-export interface IContentfulImageItem {
+export type ContentfulImageItem = {
   url: string;
   title: string;
   contentType: string;
-}
+};
 
-export interface IContentfulOrganization {
+export type ContentfulOrganization = {
   homepageRedirect: {
     name: string;
     slug: string;
   };
-}
+};
 
-export interface IContentfulOrganizationQuery {
+export type ContentfulOrganizationQuery = {
   organizationCollection: {
-    items: IContentfulOrganization[];
+    items: ContentfulOrganization[];
   };
-}
+};

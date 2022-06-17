@@ -1,8 +1,7 @@
 import { Variables } from 'graphql-request';
 import { useCallback, useEffect } from 'react';
 import { useMutation, useQueryClient, UseMutationOptions } from 'react-query';
-import { useAuthContext } from '../../domain/context/auth.context';
-import { EMojitoKey } from '../../domain/enums/state.enum';
+import { EMojitoKey, EOptionKey } from '../../domain/enums/state.enum';
 import { normalizeMutationResult } from '../../domain/utils/gqlResult.utils';
 import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
@@ -40,8 +39,8 @@ export function useMojitoMutation<
   onlyAuthenticated,
   auto = true,
 }: IUseMojitoFactoryOptions<TDataPropertyName, TData, TReturn, TError, TVariables, TContext>) {
-  const { isAuthenticated } = useAuthContext();
   const queryClient = useQueryClient();
+  const isAuthorized = false; //queryClient.getQueryData<boolean>(QueryKey.get(EOptionKey.isAuthorized));
   const mutationKey = QueryKey.get(query, variables);
 
   const mutationFn = selectorFn
@@ -67,7 +66,7 @@ export function useMojitoMutation<
   const mojitoFactoryUseMutationOptions = {
     ...options,
     mutationFn,
-    meta: { ...options?.meta, authorization: isAuthenticated },
+    meta: { ...options?.meta, authorization: isAuthorized },
   };
 
   if (!mutationFn) delete mojitoFactoryUseMutationOptions.mutationFn;
@@ -78,29 +77,29 @@ export function useMojitoMutation<
   );
 
   useEffect(() => {
-    if (!auto || (onlyAuthenticated && !isAuthenticated)) return;
+    if (!auto || (onlyAuthenticated && !isAuthorized)) return;
 
     result.mutate(variables);
-  }, [isAuthenticated, variables]);
+  }, [isAuthorized, variables]);
 
   const normalizedResult = normalizeMutationResult(as, result);
 
   const mutate = useCallback(
     (variablesProp: TVariables, context: TContext) => {
-      if (onlyAuthenticated && !isAuthenticated) Promise.resolve();
+      if (onlyAuthenticated && !isAuthorized) Promise.resolve();
 
       return result.mutate(variablesProp || variables, context);
     },
-    [isAuthenticated, result.mutate, variables],
+    [isAuthorized, result.mutate, variables],
   );
 
   const mutateAsync = useCallback(
     (variablesProp: TVariables, context: TContext) => {
-      if (onlyAuthenticated && !isAuthenticated) Promise.resolve();
+      if (onlyAuthenticated && !isAuthorized) Promise.resolve();
 
       return result.mutateAsync(variablesProp || variables, context);
     },
-    [isAuthenticated, result.mutateAsync, variables],
+    [isAuthorized, result.mutateAsync, variables],
   );
 
   return {

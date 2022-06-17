@@ -1,9 +1,9 @@
 overwrite: true
-schema: 'https://api-dev.mojito.xyz/query'
+schema: 'https://api.mojito.xyz/query'
 documents:
-  - 'packages/hooks/src/domain/gql/*.ts'
-  - '!packages/hooks/src/domain/gql/contentful.ts'
+  - 'src/domain/gql/*.ts'
+  - '!src/domain/gql/contentful.ts'
 generates:
-  packages\hooks\src\domain\interfaces\mojito-schema.interface.ts:
+  src\domain\interfaces\mojito-schema.interface.ts:
     plugins:
       - 'typescript'

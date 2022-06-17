@@ -1,4 +1,4 @@
-import { IContentfulOrganizationQuery } from '../../domain/interfaces';
+import { ContentfulOrganizationQuery } from '../../domain/interfaces';
 
 export function resolveGetContentfulOrganizations(req, res, ctx) {
   return res(
@@ -13,6 +13,6 @@ export function resolveGetContentfulOrganizations(req, res, ctx) {
           },
         ],
       },
-    } as IContentfulOrganizationQuery),
+    } as ContentfulOrganizationQuery),
   );
 }

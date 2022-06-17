@@ -1,6 +1,8 @@
 export enum EOptionKey {
-  authToken = 'authToken',
-  isAuthenticated = 'isAuthenticated',
+  authorization = 'authorization',
+  isAuthorized = 'isAuthorized',
+  urlPatterns = 'urlPatterns',
+  onErrorCallback = 'onErrorCallback',
 }
 
 export enum EMojitoKey {
@@ -17,6 +19,7 @@ export enum EMojitoKey {
   collectionItemById = 'collectionItemById',
   collectionItemByIdBidsList = 'collectionItemByIdBidsList',
   collectionItemByIdRemainingCount = 'collectionItemByIdRemainingCount',
+  checkAuthentication = 'checkAuthentication',
 }
 
 export enum EContentfulKey {

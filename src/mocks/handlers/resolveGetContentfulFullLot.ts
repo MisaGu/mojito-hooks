@@ -1,4 +1,4 @@
-import { IContentfulLotsQuery } from '../../domain/interfaces';
+import { ContentfulLotsQuery } from '../../domain/interfaces';
 
 export function resolveGetContentfulFullLot(req, res, ctx) {
   return res(
@@ -80,6 +80,6 @@ export function resolveGetContentfulFullLot(req, res, ctx) {
           },
         ],
       },
-    } as IContentfulLotsQuery),
+    } as ContentfulLotsQuery),
   );
 }

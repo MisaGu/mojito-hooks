@@ -1,7 +1,7 @@
 import { useQueryClient } from 'react-query';
 import { config } from '../../domain/constants/general.constants';
 import {
-  IContentfulAuctionsSlugListQuery,
+  ContentfulAuctionsSlugListQuery,
   MojitoMarketplaceCollection,
   MarketplaceResponse,
   CollectionItemBySlugResponse,
@@ -36,7 +36,7 @@ export function useCollection(props?: UseCollectionProps) {
           id: config.MARKETPLACE_ID,
         }),
       ),
-      queryClient.fetchQuery<IContentfulAuctionsSlugListQuery>(
+      queryClient.fetchQuery<ContentfulAuctionsSlugListQuery>(
         QueryKey.get(EContentfulKey.auctionsSlugList),
       ),
     ]);

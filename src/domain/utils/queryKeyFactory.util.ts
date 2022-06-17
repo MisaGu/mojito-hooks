@@ -7,13 +7,13 @@ import { mojitoQueries } from '../gql/queries';
 export type IQueryKey = [string] | [string, Variables];
 
 const QUERY_KEY_PREFIX = 'MOJITO-HOOKS::';
-const QUERY_KEY_INFIX_OPT = `${QUERY_KEY_PREFIX}OPT::`;
+const QUERY_KEY_INFIX_OPTION = `${QUERY_KEY_PREFIX}OPTION::`;
 const QUERY_KEY_INFIX_MOJITO = `${QUERY_KEY_PREFIX}API::`;
 const QUERY_KEY_INFIX_CONTENTFUL = `${QUERY_KEY_PREFIX}CONTENTFUL::`;
 
 export class QueryKey {
   private static _removeQueryKeyPrefix<T>(queryKey: string) {
-    return queryKey.replace(/^MOJITO-HOOKS::(API|CONTENTFUL)::/, '') as unknown as T;
+    return queryKey.replace(/^MOJITO-HOOKS::(API|CONTENTFUL|OPTIONS)::/, '') as unknown as T;
   }
 
   static get = (
@@ -24,6 +24,7 @@ export class QueryKey {
 
     if (EMojitoKey[query]) prefix = QUERY_KEY_INFIX_MOJITO;
     else if (EContentfulKey[query]) prefix = QUERY_KEY_INFIX_CONTENTFUL;
+    else if (EOptionKey[query]) prefix = QUERY_KEY_INFIX_OPTION;
 
     const queryKey = `${prefix}${query}`;
 
@@ -40,8 +41,8 @@ export class QueryKey {
     return contentfulQueries[contentfulQueryKey];
   };
 
-  static isOpt = (queryKey: string) => {
-    return queryKey.startsWith(QUERY_KEY_INFIX_OPT);
+  static isOptions = (queryKey: string) => {
+    return queryKey.startsWith(QUERY_KEY_INFIX_OPTION);
   };
 
   static isMojito = (queryKey: string) => {

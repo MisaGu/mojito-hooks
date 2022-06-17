@@ -7,6 +7,13 @@ import {
 } from './fragments';
 
 export const mojitoQueries: Record<EMojitoKey, string> = {
+  [EMojitoKey.checkAuthentication]: gql`
+    query checkAuthentication() {
+      me {
+        id
+      }
+    }
+  `,
   [EMojitoKey.profile]: gql`
     ${ME_USER_ORGS_FIELD}
 

@@ -1,4 +1,4 @@
-import { IContentfulAuthorsQuery } from '../../domain/interfaces';
+import { ContentfulAuthorsQuery } from '../../domain/interfaces';
 
 export function resolveGetContentfulAuthors(req, res, ctx) {
   return res(
@@ -58,6 +58,6 @@ export function resolveGetContentfulAuthors(req, res, ctx) {
           },
         ],
       },
-    } as IContentfulAuthorsQuery),
+    } as ContentfulAuthorsQuery),
   );
 }

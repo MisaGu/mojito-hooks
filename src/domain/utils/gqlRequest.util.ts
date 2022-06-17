@@ -4,37 +4,25 @@ import { config } from '../constants/general.constants';
 import { isBrowser } from './isBrowser.util';
 import { contentfulNormalizer, mojitoNormalizer } from './gqlDataNormalizer.util';
 import { QueryKey, IQueryKey } from './queryKeyFactory.util';
+import { EOptionKey } from '../enums/state.enum';
 
 export type MojitoHookQueryError = Error & {
+  queryKey: string | string[];
   response?: Response & { error?: any; errors?: any[] };
 };
 
 export type MojitoHookQueryErrorFn = (e: MojitoHookQueryError) => void;
 
-// TODO: Provide an example on how to use this to connect Sentry.
-
-let onErrorCallback: MojitoHookQueryErrorFn = (e) => {
-  console.log(e);
-};
-
-export function setOnErrorCallback(customOnErrorCallback: MojitoHookQueryErrorFn) {
-  onErrorCallback = customOnErrorCallback;
-}
-
 function handleQueryError(e: MojitoHookQueryError) {
+  const _onErrorCallback = queryClient.getQueryData<(e: MojitoHookQueryError) => void>(
+    QueryKey.get(EOptionKey.onErrorCallback),
+  );
+  if (_onErrorCallback) _onErrorCallback(e);
+
   const status = e.response?.status || 0;
-
-  onErrorCallback(e);
-
   if (isBrowser && status >= 500 && window.location.pathname !== '/500') {
     window.location.href = '/500';
   } else {
-    if (e.response?.error) {
-      console.log(e.response.error);
-    }
-
-    // throw e.response.errors[0];
-
     throw e;
   }
 }
@@ -54,14 +42,22 @@ export const mojitoQueryFn = async <T = unknown>({
 }: QueryFunctionContext<IQueryKey>): Promise<T> => {
   const [query, variables] = queryKey;
   const mojitoQuery = QueryKey.getMojitoQuery(query);
+  const isAuthorized = queryClient.getQueryData<boolean>(QueryKey.get(EOptionKey.isAuthorized));
+  const authorization = queryClient.getQueryData<string[]>(QueryKey.get(EOptionKey.authorization));
 
   // console.log(`${mojitoQuery ? '🍸' : '❌'} MOJITO QUERY = ${query} => ${mojitoQuery}...`);
 
-  // TODO: Add token with requestHeaders from request-client / mojitoGqlClient.setHeader("", token)
-
   return (await mojitoGqlClient
-    .request(mojitoQuery, variables)
-    .catch(handleQueryError)
+    .request(
+      mojitoQuery,
+      variables,
+      isAuthorized && authorization
+        ? {
+            [authorization[0]]: authorization[1],
+          }
+        : {},
+    )
+    .catch((e) => handleQueryError(Object.assign(e, { queryKey })))
     .then((data) => mojitoNormalizer(data, variables))) as T;
 };
 
@@ -77,7 +73,7 @@ export const contentfulQueryFn = async <T = unknown>({
 
   return (await contentfulGqlClient
     .request(contentfulQuery, variables)
-    .catch(handleQueryError)
+    .catch((e) => handleQueryError(Object.assign(e, { queryKey })))
     .then((data) => contentfulNormalizer(data, variables))) as T;
 };
 
@@ -100,7 +96,11 @@ export const defaultQueryFn = <T = unknown>(
       return null;
     }
 
-    return QueryKey.isContentful(query) ? contentfulQueryFn<T>(context) : mojitoQueryFn<T>(context);
+    return QueryKey.isContentful(query)
+      ? contentfulQueryFn<T>(context)
+      : QueryKey.isMojito(query)
+      ? mojitoQueryFn<T>(context)
+      : null;
   }
 
   // TODO: Add a fallback query function:
@@ -116,6 +116,8 @@ export const queryClient = new QueryClient({
       staleTime: isBrowser ? QUERY_CLIENT_STALE_TIME : 0,
       cacheTime: Infinity, // disable garbage collection
       queryFn: defaultQueryFn,
+      retry: 3,
+      retryDelay: (attemptIndex) => Math.min(1500 * 2 ** attemptIndex, 30000),
     },
   },
 });
