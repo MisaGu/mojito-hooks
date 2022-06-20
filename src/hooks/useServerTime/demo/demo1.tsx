@@ -12,6 +12,8 @@ import { useServerTime } from '../useServerTime';
 const DemoContent: React.FC = () => {
   const result = useServerTime();
 
+  console.log(1);
+
   return <Json result={result} />;
 };
 

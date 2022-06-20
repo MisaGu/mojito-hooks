@@ -1,48 +1,49 @@
-/* eslint quote-props: [2, "consistent-as-needed"] */
-
-const TEMPORARILY_DISABLED = 0;
-
 module.exports = {
-  root: true,
+  // root: true,
 
-  extends: [
-    'airbnb',
-    'airbnb/hooks',
+  // extends: [
+  //   'airbnb',
+  //   'airbnb/hooks',
 
-    // Airbnb includes:
-    // - eslint
-    // - eslint-plugin-import
-    // - eslint-plugin-react
-    // - eslint-plugin-react-hooks
-    // - eslint-plugin-jsx-a11y
+  //   // Airbnb includes:
+  //   // - eslint
+  //   // - eslint-plugin-import
+  //   // - eslint-plugin-react
+  //   // - eslint-plugin-react-hooks
+  //   // - eslint-plugin-jsx-a11y
 
-    'plugin:import/typescript',
-    'plugin:@typescript-eslint/recommended',
-    'plugin:@next/next/recommended',
+  //   'plugin:import/typescript',
+  //   'plugin:@typescript-eslint/recommended',
+  //   'plugin:@next/next/recommended',
 
-    // Use the plugin above instead.
-    // See https://nextjs.org/docs/basic-features/eslint#recommended-plugin-ruleset
-    // "next/core-web-vitals",
-  ],
+  //   // Use the plugin above instead.
+  //   // See https://nextjs.org/docs/basic-features/eslint#recommended-plugin-ruleset
+  //   // "next/core-web-vitals",
+  // ],
 
-  plugins: ['unused-imports'],
+  // plugins: ['unused-imports'],
 
-  settings: {
-    'import/parsers': { '@typescript-eslint/parser': ['.ts', '.tsx'] },
+  // settings: {
+  //   'import/parsers': { '@typescript-eslint/parser': ['.ts', '.tsx'] },
 
-    'import/resolver': {
-      typescript: {
-        // Always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`:
-        alwaysTryTypes: true,
-      },
-    },
-  },
+  //   'import/resolver': {
+  //     typescript: {
+  //       // Always try to resolve types under `<root>@types` directory even it doesn't contain any source code, like `@types/unist`:
+  //       alwaysTryTypes: true,
+  //     },
+  //   },
+  // },
 
   // To fix individual rules, see Nubble (doesn't seem to work properly right now, thought):
   // https://github.com/IanVS/eslint-nibble
 
   // Otherwise, you can do it with this command by writing the rule and params inline:
   // ./node_modules/.bin/eslint --no-eslintrc --fix --rule 'semi: [2]'
+
+  plugins: ['react-hooks'],
+  parserOptions: {
+    project: './packages/**/tsconfig.json',
+  },
 
   rules: {
     'no-restricted-syntax': 'off',
@@ -56,7 +57,7 @@ module.exports = {
     'import/no-useless-path-segments': 'off',
     'import/extensions': 'off',
     'no-unused-expressions': 'off',
-    'react-hooks/rules-of-hooks': 'error',
+    'react-hooks/rules-of-hooks': 'off',
     'react-hooks/exhaustive-deps': 'off',
     'no-await-in-loop': 'off',
     'no-constant-condition': ['warn', { checkLoops: false }],

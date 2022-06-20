@@ -11,7 +11,7 @@ import useUser from '../useUser';
 
 const DemoContent: React.FC = () => {
   const result = useUser();
-
+  console.log(result);
   return <Json result={result} />;
 };
 

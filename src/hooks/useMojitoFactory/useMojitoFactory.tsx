@@ -6,6 +6,7 @@ import { EMojitoKey, EOptionKey } from '../../domain/enums/state.enum';
 import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
 import { normalizeQueryResult } from '../../domain/utils/gqlResult.utils';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
+import { useCallback } from 'react';
 
 export interface MojitoFactoryOptions<
   TDataPropertyName extends string,
@@ -39,34 +40,19 @@ export function useMojitoFactory<
   onlyAuthenticated,
 }: MojitoFactoryOptions<TDataPropertyName, TSelectorData, TResponse, TError>) {
   const queryClient = useQueryClient();
-  const _unsubscribe = useRef<() => void>();
-  const _authUnsubscribe = useRef<() => void>();
-  const [isAuthorized, setIsAuthorized] = useState(false);
 
   const queryKey = QueryKey.get(query, variables);
-  const queryOptions = {
-    ...options,
-    queryKey,
-    queryFn: async () => {
-      if (preloadFn) await preloadFn();
+  const authQueryKey = QueryKey.get(EOptionKey.isAuthorized);
 
-      const configuredQueryFn =
-        options?.queryFn || queryClient.getDefaultOptions().queries?.queryFn || defaultQueryFn;
+  const observer = useRef(new QueryObserver<TResponse, TError>(queryClient, getQueryOptions()));
+  const _unsubscribe = useRef<() => void>();
 
-      return (await configuredQueryFn({ queryKey, meta: undefined })) as TResponse;
-    },
-    meta: { ...options?.meta, authorization: isAuthorized },
-    enabled: options?.enabled !== false && (!onlyAuthenticated || isAuthorized),
-  };
+  const authObserver = useRef<QueryObserver>();
+  const _authUnsubscribe = useRef<() => void>();
 
-  const observer = useRef(new QueryObserver<TResponse, TError>(queryClient, queryOptions));
-  const authObserver = useRef(
-    new QueryObserver<TResponse, TError>(queryClient, {
-      queryKey: QueryKey.get(EOptionKey.isAuthorized),
-    }),
-  );
   const _query = observer.current.getCurrentQuery();
   const _result = observer.current.getCurrentResult();
+
   const [data, setData] = useState(
     (selectorFn
       ? _query.state.data
@@ -76,49 +62,88 @@ export function useMojitoFactory<
   );
 
   useEffect(() => {
-    if (force) {
-      queryClient.removeQueries(queryKey);
+    if (onlyAuthenticated) {
+      generateAuthObserver();
+    } else {
+      generateObserver();
     }
 
-    _unsubscribe.current?.();
-    observer.current = new QueryObserver<TResponse, TError>(queryClient, queryOptions);
+    return () => {
+      _unsubscribe.current?.();
+      observer.current?.destroy();
 
-    return () => observer.current?.destroy();
-  }, [JSON.stringify(queryKey), isAuthorized, force]);
+      _authUnsubscribe.current?.();
+      authObserver.current?.destroy();
+    };
+  }, []);
 
   useEffect(() => {
+    if (force) _query.destroy();
+
+    // @ts-ignore
+    if (_query.queryKey.asString !== queryKey.asString) {
+      generateObserver();
+    }
+  }, [queryKey.asString, force]);
+
+  function getQueryOptions() {
+    const _isAuthorized = !!queryClient.getQueryData<boolean>(authQueryKey);
+
+    return {
+      ...options,
+      queryKey,
+      queryFn: async () => {
+        if (preloadFn) await preloadFn();
+
+        const configuredQueryFn =
+          options?.queryFn || queryClient.getDefaultOptions().queries?.queryFn || defaultQueryFn;
+
+        return (await configuredQueryFn({ queryKey, meta: undefined })) as TResponse;
+      },
+      meta: { ...options?.meta, authorization: queryClient.getQueryData(authQueryKey) },
+      enabled: options?.enabled !== false && (!onlyAuthenticated || _isAuthorized),
+    };
+  }
+
+  function generateObserver() {
+    observer.current = new QueryObserver<TResponse, TError>(queryClient, getQueryOptions());
+
+    _unsubscribe.current?.();
     _unsubscribe.current = observer.current.subscribe((result) => {
       if (selectorFn) {
         if (result.data) {
           const _selectorResult = selectorFn(result.data);
           if (!isEqual(_selectorResult, data)) {
+            console.log(1);
             setData(_selectorResult);
           }
         }
       } else {
+        console.log(2);
         setData(result.data as any);
       }
     });
 
-    return () => _unsubscribe.current?.();
-  }, [observer.current]);
+    return;
+  }
 
-  useEffect(() => {
-    _authUnsubscribe.current = authObserver.current.subscribe((result) => {
-      setIsAuthorized(!!result.data);
+  function generateAuthObserver() {
+    const _isAuthorized = !!_query?.meta?.authorization;
+
+    authObserver.current = new QueryObserver<TResponse, TError>(queryClient, {
+      queryKey: authQueryKey,
     });
 
-    return () => {
-      _authUnsubscribe.current?.();
-      authObserver.current?.destroy();
-    };
-  }, [authObserver.current]);
+    _authUnsubscribe.current?.();
+    _authUnsubscribe.current = authObserver.current.subscribe((result) => {
+      if (onlyAuthenticated && _isAuthorized != !!result.data) {
+        generateObserver();
+      }
+    });
+  }
 
   //@ts-ignore
   _result.data = data;
-  // _result.refetch = () => {
-  //   const _result = queryOptions.queryFn
-  // }
 
   return normalizeQueryResult(as, _result);
 }

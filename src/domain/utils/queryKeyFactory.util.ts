@@ -4,7 +4,7 @@ import { EContentfulKey, EMojitoKey, EOptionKey } from '../enums/state.enum';
 import { contentfulQueries } from '../gql/contentful';
 import { mojitoQueries } from '../gql/queries';
 
-export type IQueryKey = [string] | [string, Variables];
+export type IQueryKey = (string | Variables)[] & { asString: string };
 
 const QUERY_KEY_PREFIX = 'MOJITO-HOOKS::';
 const QUERY_KEY_INFIX_OPTION = `${QUERY_KEY_PREFIX}OPTION::`;
@@ -27,8 +27,9 @@ export class QueryKey {
     else if (EOptionKey[query]) prefix = QUERY_KEY_INFIX_OPTION;
 
     const queryKey = `${prefix}${query}`;
+    const result = variables ? [queryKey, variables] : [queryKey];
 
-    return variables ? [queryKey, variables] : [queryKey];
+    return Object.assign(result, { asString: JSON.stringify(result) });
   };
 
   static getMojitoQuery = (queryKey: string) => {
