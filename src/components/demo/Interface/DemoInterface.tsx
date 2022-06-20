@@ -1,20 +1,53 @@
-import React from 'react';
+import { Auth0Provider, useAuth0 } from '@auth0/auth0-react';
+import React, { useEffect, useState } from 'react';
 import { MojitoHooksProvider } from '../../../index';
 
 interface DemoInterfaceProps {
   demoComponent: React.ComponentType;
 }
 
-export const DemoInterface: React.FC<DemoInterfaceProps> = ({ demoComponent: DemoComponent }) => {
-  return (
+const Authorize = ({ demoComponent: DemoComponent }) => {
+  const { getIdTokenClaims, isAuthenticated, isLoading, loginWithPopup } = useAuth0();
+  const [token, setToken] = useState('');
+
+  useEffect(() => {
+    console.log(isAuthenticated);
+    if (!isAuthenticated) loginWithPopup();
+  }, []);
+
+  useEffect(() => {
+    if (isLoading) return;
+
+    (async () => {
+      const nextRawToken = await getIdTokenClaims();
+
+      // eslint-disable-next-line no-underscore-dangle
+      setToken(nextRawToken?.__raw || '');
+    })();
+  }, [isLoading, isAuthenticated]);
+
+  return token ? (
     <MojitoHooksProvider
       authorization={{
-        authorization:
-          'Bearer eyJhbGciOiJSUzI1NiIsInR5cCI6IkpXVCIsImtpZCI6Ik5ETkdNakZEUmpRelJFRTJNalpFUWpVeU56TTRNalExUWprM05ESkNOemcwTXpkRE1VSXpOQSJ9.eyJodHRwOi8vc2NoZW1hcy5zb3RoZWJ5cy5jb20vYXBwTWV0YWRhdGEiOnsiYSI6MCwiY29uc2VudCI6eyJjb25zZW50T25TaWdudXAiOnRydWUsImxhdGVzdENvbnNlbnQiOiIyMDIwLTA3LTA5VDA5OjA4OjU5KzAwOjAwIn0sImN1c3RvbWVyRGF0YSI6eyJwYXJ0eUlkIjowLCJwcmVmZXJyZWQiOmZhbHNlfSwid2ViVXNlcklkIjo0OTI5NjQ5fSwiaHR0cDovL3NjaGVtYXMuc290aGVieXMuY29tL3VzZXJNZXRhZGF0YSI6eyJmaXJzdE5hbWUiOiJBbmdlbGEiLCJsYXN0TmFtZSI6Ik1vcmdhbiIsIm5hbWUiOiJBbmdlbGEgTW9yZ2FuIiwibmV3VXNlciI6ZmFsc2UsIm5vRW1haWxzIjpmYWxzZSwib3B0ZWRPdXQiOmZhbHNlLCJ0aXRsZSI6Ik1zIn0sImdpdmVuX25hbWUiOiJBbmdlbGEiLCJmYW1pbHlfbmFtZSI6Ik1vcmdhbiIsIm5pY2tuYW1lIjoiZGVtb2JpZGRlcjIiLCJuYW1lIjoiQW5nZWxhIE1vcmdhbiIsInBpY3R1cmUiOiJodHRwczovL3MuZ3JhdmF0YXIuY29tL2F2YXRhci8xMTc4ZWIyNzNhMTliYjRiMTA4ZjFlODU1YWJkMThkNT9zPTQ4MCZyPXBnJmQ9aHR0cHMlM0ElMkYlMkZjZG4uYXV0aDAuY29tJTJGYXZhdGFycyUyRmFtLnBuZyIsInVwZGF0ZWRfYXQiOiIyMDIyLTA2LTE3VDExOjI4OjQ1Ljg2OVoiLCJlbWFpbCI6ImRlbW9iaWRkZXIyQHNvdGhlYnlzcWEuY29tIiwiZW1haWxfdmVyaWZpZWQiOmZhbHNlLCJpc3MiOiJodHRwczovL2FjY291bnRzLnNvdGhlYnlzLmNvbS8iLCJzdWIiOiJhdXRoMHw1ZjA2ZGVhYjEyNmFkYTAwMTk0NjE4YWEiLCJhdWQiOiJYNXVwcE5wOE5yOXNVRVNWZ2dKUXNaNWowU0NlcnBpRSIsImlhdCI6MTY1NTQ2OTA4NywiZXhwIjoxNjU1NTA1MDg3LCJub25jZSI6IlpETmpSRll5U1RNMVptRmtZbFJ0TlZBMlJFNVpUek5RZGtGNVZqZHRaRkJGU2tKR1ZYZE9jVkJSTVE9PSJ9.l-OVV_kD-oHF5zitK3O6OvJ9ovW7J17RprHaAhLcAbd6woz3E-zMXdA8kIkp2XFISKdvbdabQrg8UxL6Et0P1sa3Soj4BNggpjAvVUAJpnQ2wPUGjeA1kAZxzP5mOQZg13ZgROQ1f5kzpR7KdVtIT65I8Uc6CiARNvnw53tbPEN0PLOMkqpBShP1L1fe0zkK7JGkWI0vOCaogmeO-faQW7G2sC3vxtHbEbOO9iPBY08rW2EjzPhSI7QIqhf67N3SKqL902T_iG8nDZ4WmGS_K79ocu9_t93V-ibD5Ua2Kz-vZSbTQsrL6vSkjLMlmBfVjVHmnDWjSLZ-fg3GuWHLnA',
+        authorization: `Bearer ${token}`,
       }}
       onError={(e) => console.error(e.queryKey, e)}
     >
       <DemoComponent />
     </MojitoHooksProvider>
+  ) : (
+    <div>Authentication</div>
+  );
+};
+
+export const DemoInterface: React.FC<DemoInterfaceProps> = ({ demoComponent: DemoComponent }) => {
+  return (
+    <Auth0Provider
+      domain="mojito-nft.us.auth0.com"
+      clientId="CB4YDesBiCxOtO0tTGWFCvu92qobalfI"
+      redirectUri={window.location.origin}
+    >
+      <Authorize demoComponent={DemoComponent} />
+    </Auth0Provider>
   );
 };
