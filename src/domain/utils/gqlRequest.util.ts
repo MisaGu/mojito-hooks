@@ -108,7 +108,7 @@ export const defaultQueryFn = <T = unknown>(
 };
 
 // TODO: Make this configurable by users:
-export const QUERY_CLIENT_STALE_TIME = 180000; // 3 MIN
+export const QUERY_CLIENT_STALE_TIME = 1800; // 3 MIN
 
 export const queryClient = new QueryClient({
   defaultOptions: {

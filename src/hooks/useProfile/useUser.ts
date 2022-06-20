@@ -6,7 +6,12 @@ import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 function selectorFn(response?: ProfileResponse) {
   if (!response) return undefined;
 
-  return response.me.user;
+  try {
+    return response.me.user;
+  } catch (e) {
+    console.log(response);
+    return undefined;
+  }
 }
 
 export type UseMojitoUserData = ReturnType<typeof selectorFn>;

@@ -3,6 +3,7 @@ import { QueryClientProvider } from 'react-query';
 import { EMojitoKey, EOptionKey } from './domain/enums/state.enum';
 import { mojitoGqlClient, MojitoHookQueryError, queryClient } from './domain/utils/gqlRequest.util';
 import { QueryKey } from './domain/utils/queryKeyFactory.util';
+import { ReactQueryDevtools } from 'react-query/devtools';
 
 export enum UrlParams {
   collectionSlug,
@@ -31,6 +32,7 @@ export interface MojitoHooksProviderProps {
   onError?: (e: MojitoHookQueryError) => void;
   //   onRouterChange?: () => void;
 }
+//asd
 
 const HooksOptions: React.FC<MojitoHooksProviderProps> = (props) => {
   queryClient.prefetchQuery(QueryKey.get(EMojitoKey.serverTime));
@@ -86,6 +88,7 @@ const HooksOptions: React.FC<MojitoHooksProviderProps> = (props) => {
 export const MojitoHooksProvider: React.FC<MojitoHooksProviderProps> = (props) => {
   return (
     <QueryClientProvider client={queryClient}>
+      <ReactQueryDevtools initialIsOpen={false} />
       <HooksOptions
         children={props.children}
         authorization={props.authorization}

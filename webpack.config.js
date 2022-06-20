@@ -15,19 +15,12 @@ module.exports = {
   resolve: {
     extensions: ['.json', '.js'],
   },
-  // module: {
-  //   rules: [
-  //     {
-  //       test: /\.jsx?$/,
-  //       use: {
-  //         loader: 'babel-loader',
-  //       },
-  //     }
-  //   ],
-  // },
   externals: [
     {
       react: 'React',
     },
   ],
+  devServer: {
+    port: 3000,
+  },
 };

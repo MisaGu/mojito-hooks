@@ -20,9 +20,9 @@
   "scripts": {
     "init": "yarn global add gulp webpack-cli && yarn generate && yarn install && yarn run clean && yarn run build",
     "start": "yarn run dev",
-    "dev": "yarn run build && yarn generate && dumi dev",
+    "dev": "yarn run build && yarn generate && dumi dev --port=3000",
     "clean": "rm -rf ./dist",
-    "build": "gulp && webpack --config webpack.config.js",
+    "build": "gulp && webpack --config webpack.config.js --port=3000",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint --ignore-pattern **/__tests__/* --ignore-pattern **/demo/* \"/src/**/*.{ts,tsx}\"",

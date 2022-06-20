@@ -12,7 +12,7 @@ export interface BaseLazyQueryHookProps<TData = any, TError = Error, TResult = a
 export interface BaseQueryHookPropsWithUrlAndSlug<TData = any, TError = Error, TResult = any>
   extends BaseQueryHookProps<TResult, TError, TData> {
   pathname?: string;
-  slug?: string;
+  slug: string;
 }
 
 export interface BaseQueryHookPropsWithForce<TData = any, TError = Error, TResult = any>

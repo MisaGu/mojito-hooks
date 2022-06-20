@@ -65,13 +65,14 @@ export function useMojitoFactory<
       queryKey: QueryKey.get(EOptionKey.isAuthorized),
     }),
   );
+  const _query = observer.current.getCurrentQuery();
   const _result = observer.current.getCurrentResult();
   const [data, setData] = useState(
     (selectorFn
-      ? _result.data
-        ? selectorFn(_result.data)
-        : _result.data
-      : _result.data) as TSelectorData,
+      ? _query.state.data
+        ? selectorFn(_query.state.data)
+        : _query.state.data
+      : _query.state.data) as TSelectorData,
   );
 
   useEffect(() => {
@@ -88,7 +89,6 @@ export function useMojitoFactory<
   useEffect(() => {
     _unsubscribe.current = observer.current.subscribe((result) => {
       if (selectorFn) {
-        // console.log(result);
         if (result.data) {
           const _selectorResult = selectorFn(result.data);
           if (!isEqual(_selectorResult, data)) {
