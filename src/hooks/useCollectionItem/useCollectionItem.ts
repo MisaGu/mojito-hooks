@@ -1,8 +1,8 @@
 import { config } from '../../domain/constants/general.constants';
 import { EMojitoKey } from '../../domain/enums/state.enum';
-import { collectionPreloadFn } from '../../domain/utils/service/collectionPreloadFn';
 import { CollectionBySlugResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
+import { collectionPreloadFn } from '../../domain/utils/service/collectionPreloadFn';
 import {
   getCollectionItemSlugFromPathname,
   getCollectionSlugFromPathname,

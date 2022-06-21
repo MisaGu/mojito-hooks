@@ -6,7 +6,6 @@ import { EMojitoKey, EOptionKey } from '../../domain/enums/state.enum';
 import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
 import { normalizeQueryResult } from '../../domain/utils/gqlResult.utils';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
-import { useCallback } from 'react';
 
 export interface MojitoFactoryOptions<
   TDataPropertyName extends string,
@@ -142,6 +141,6 @@ export function useMojitoFactory<
 
   //@ts-ignore
   _result.data = data;
-
-  return normalizeQueryResult(as, _result);
+  //@ts-ignore
+  return normalizeQueryResult<TDataPropertyName, TSelectorData>(as, _result);
 }
