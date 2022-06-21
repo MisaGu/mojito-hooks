@@ -1,6 +1,7 @@
 export { useActiveBids } from './useActiveBids/useActiveBids';
 export { useCheckUsername } from './useCheckUsername/useCheckUsername';
 export { useCollection } from './useCollection/useCollection';
+export { useCollectionItem } from './useCollectionItem/useCollectionItem';
 export { useCollectionItemBidsList } from './useCollectionItemBidsList/useCollectionItemBidsList';
 export { useCollectionItemCurrentBid } from './useCollectionItemCurrentBids/useCollectionItemCurrentBids';
 export { useCollectionItemRemainingCount } from './useCollectionItemRemainingCount/useCollectionItemRemainingCount';

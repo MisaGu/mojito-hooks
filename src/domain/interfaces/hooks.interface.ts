@@ -3,6 +3,7 @@ import { UseMutationOptions, UseQueryOptions } from 'react-query';
 
 export interface BaseQueryHookProps<TData = any, TError = Error, TResult = any> {
   options?: UseQueryOptions<TResult, TError, TData>;
+  selectorFn?: (response: any) => any;
 }
 
 export interface BaseLazyQueryHookProps<TData = any, TError = Error, TResult = any> {

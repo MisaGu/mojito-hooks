@@ -4,7 +4,7 @@ import {
   ContentfulAuctionsSlugListQuery,
   MojitoMarketplaceCollection,
   MarketplaceResponse,
-  CollectionItemBySlugResponse,
+  CollectionBySlugResponse,
 } from '../../domain/interfaces';
 import { getCollectionSlugFromPathname } from '../../domain/utils/state/path.util';
 import { EMojitoKey } from '../../domain/enums/state.enum';
@@ -13,7 +13,7 @@ import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 
-function selectorFn(response?: CollectionItemBySlugResponse) {
+function selectorFn(response?: CollectionBySlugResponse) {
   if (!response) return undefined;
 
   return response.collectionBySlug;
@@ -25,9 +25,9 @@ export type UseCollectionReturn = ReturnType<typeof useCollection>;
 
 export type UseCollectionProps = BaseQueryHookPropsWithUrlAndSlug<UseCollectionData>;
 
-export function useCollection(props?: UseCollectionProps) {
+export function useCollection(props: UseCollectionProps) {
   const queryClient = useQueryClient();
-  const collectionSlug = props?.slug || getCollectionSlugFromPathname();
+  const collectionSlug = props.slug || getCollectionSlugFromPathname();
 
   async function preloadFn() {
     const [mojitoCollections, contentfulCollectionSlugsOnly] = await Promise.all([
@@ -72,9 +72,9 @@ export function useCollection(props?: UseCollectionProps) {
       slug: collectionSlug,
       marketplaceID: config.MARKETPLACE_ID,
     },
-    options: props?.options,
+    options: props.options,
     preloadFn,
-    selectorFn,
+    selectorFn: props.selectorFn ?? selectorFn,
   });
 }
 

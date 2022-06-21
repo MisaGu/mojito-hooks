@@ -225,8 +225,8 @@ export interface CollectionItemResponse {
   collectionItemById: MojitoMarketplaceCollectionItem;
 }
 
-export interface CollectionItemBySlugResponse {
-  collectionBySlug: MojitoMarketplaceCollectionItem;
+export interface CollectionBySlugResponse {
+  collectionBySlug: MojitoMarketplaceCollection;
 }
 
 export interface CollectionItemRemainingCountResponse {

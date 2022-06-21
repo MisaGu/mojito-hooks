@@ -28,11 +28,11 @@ const Authorize = ({ demoComponent: DemoComponent }) => {
     })();
   }, [isLoading, isAuthenticated]);
 
-  return token ? (
+  return true ? (
     <MojitoHooksProvider
-      authorization={{
-        authorization: `Bearer ${token}`,
-      }}
+      // authorization={{
+      //   authorization: `Bearer ${token}`,
+      // }}
       onError={(e) => console.error(e.queryKey, e)}
     >
       <DemoComponent />

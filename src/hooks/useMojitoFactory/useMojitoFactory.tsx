@@ -81,10 +81,10 @@ export function useMojitoFactory<
     if (force) _query.destroy();
 
     // @ts-ignore
-    if (_query.queryKey.asString !== queryKey.asString) {
+    if (!isEqual(_query.queryKey, queryKey)) {
       generateObserver();
     }
-  }, [queryKey.asString, force]);
+  }, [JSON.stringify(queryKey), force]);
 
   function getQueryOptions() {
     const _isAuthorized = !!queryClient.getQueryData<boolean>(authQueryKey);
@@ -114,12 +114,10 @@ export function useMojitoFactory<
         if (result.data) {
           const _selectorResult = selectorFn(result.data);
           if (!isEqual(_selectorResult, data)) {
-            console.log(1);
             setData(_selectorResult);
           }
         }
       } else {
-        console.log(2);
         setData(result.data as any);
       }
     });
