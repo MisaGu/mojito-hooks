@@ -103,7 +103,8 @@
     "lodash.isequal": "^4.5.0",
     "lodash.omit": "^4.5.0",
     "moment": "^2.29.3",
-    "react-query": "^3.39.1"
+    "react-query": "^3.39.1",
+    "url-pattern": "^1.0.3"
   },
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",

@@ -1,12 +1,19 @@
+import { config } from '../../domain/constants/general.constants';
+import { EMojitoKey } from '../../domain/enums/state.enum';
+import { collectionPreloadFn } from '../../domain/utils/service/collectionPreloadFn';
 import { CollectionBySlugResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
-import { useCollection } from '../useCollection/useCollection';
+import {
+  getCollectionItemSlugFromPathname,
+  getCollectionSlugFromPathname,
+} from '../../domain/utils/state/path.util';
+import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
-function selectorFn(id: string) {
+function selectorFn(id?: string, slug?: string) {
   return (response?: CollectionBySlugResponse) => {
     if (!response) return undefined;
 
-    return response.collectionBySlug.items.find((item) => item.id === id);
+    return response.collectionBySlug.items.find((item) => item.id === id || item.slug === slug);
   };
 }
 
@@ -15,16 +22,26 @@ export type UseCollectionData = ReturnType<typeof selectorFn>;
 export type UseCollectionReturn = ReturnType<typeof useCollectionItem>;
 
 export type UseCollectionProps = BaseQueryHookProps<UseCollectionData> & {
-  collectionSlug: string;
-  id: string;
+  collectionSlug?: string;
+  id?: string;
+  slug?: string;
 };
 
 export function useCollectionItem(props: UseCollectionProps) {
-  const { collection: collectionItem, ...result } = useCollection({
-    slug: props.collectionSlug,
-    selectorFn: props.id ? selectorFn(props.id) : () => undefined,
+  const _collectionSlug = props.collectionSlug || getCollectionSlugFromPathname();
+  const _slug = props.slug || getCollectionItemSlugFromPathname();
+
+  return useMojitoFactory({
+    as: 'collectionItem',
+    query: EMojitoKey.collectionBySlug,
+    variables: {
+      slug: _collectionSlug,
+      marketplaceID: config.MARKETPLACE_ID,
+    },
+    options: props.options,
+    preloadFn: () => collectionPreloadFn(_collectionSlug),
+    selectorFn: selectorFn(props.id, _slug),
   });
-  return { collectionItem, ...result };
 }
 
 export default useCollectionItem;

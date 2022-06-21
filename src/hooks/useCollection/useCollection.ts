@@ -1,17 +1,10 @@
-import { useQueryClient } from 'react-query';
 import { config } from '../../domain/constants/general.constants';
-import {
-  ContentfulAuctionsSlugListQuery,
-  MojitoMarketplaceCollection,
-  MarketplaceResponse,
-  CollectionBySlugResponse,
-} from '../../domain/interfaces';
-import { getCollectionSlugFromPathname } from '../../domain/utils/state/path.util';
 import { EMojitoKey } from '../../domain/enums/state.enum';
-import { EContentfulKey } from '../../domain/enums/state.enum';
-import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
-import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
+import { CollectionBySlugResponse } from '../../domain/interfaces';
 import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
+import { collectionPreloadFn } from '../../domain/utils/service/collectionPreloadFn';
+import { getCollectionSlugFromPathname } from '../../domain/utils/state/path.util';
+import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
 function selectorFn(response?: CollectionBySlugResponse) {
   if (!response) return undefined;
@@ -26,44 +19,7 @@ export type UseCollectionReturn = ReturnType<typeof useCollection>;
 export type UseCollectionProps = BaseQueryHookPropsWithUrlAndSlug<UseCollectionData>;
 
 export function useCollection(props: UseCollectionProps) {
-  const queryClient = useQueryClient();
   const collectionSlug = props.slug || getCollectionSlugFromPathname();
-
-  async function preloadFn() {
-    const [mojitoCollections, contentfulCollectionSlugsOnly] = await Promise.all([
-      queryClient.fetchQuery<MarketplaceResponse>(
-        QueryKey.get(EMojitoKey.marketplaceCollectionsInfoWithItemsIdAndSlug, {
-          id: config.MARKETPLACE_ID,
-        }),
-      ),
-      queryClient.fetchQuery<ContentfulAuctionsSlugListQuery>(
-        QueryKey.get(EContentfulKey.auctionsSlugList),
-      ),
-    ]);
-
-    const mojitoCollection = mojitoCollections.marketplace.collections.find(
-      (collection) => collection.slug == collectionSlug,
-    );
-
-    const contentfulCollection = contentfulCollectionSlugsOnly.auctionCollection.items.find(
-      (collection) => collection.slug == collectionSlug,
-    );
-
-    if (!mojitoCollection) return;
-
-    if (contentfulCollection) {
-      const collectionItems = mojitoCollection.items.map((item) => item.id);
-
-      await Promise.all([
-        queryClient.prefetchQuery(
-          QueryKey.get(EContentfulKey.auctionBySlug, { slug: collectionSlug }),
-        ),
-        queryClient.prefetchQuery(
-          QueryKey.get(EContentfulKey.shortLots, { mojitoIds: collectionItems }),
-        ),
-      ]);
-    }
-  }
 
   return useMojitoFactory({
     as: 'collection',
@@ -73,7 +29,7 @@ export function useCollection(props: UseCollectionProps) {
       marketplaceID: config.MARKETPLACE_ID,
     },
     options: props.options,
-    preloadFn,
+    preloadFn: () => collectionPreloadFn(collectionSlug),
     selectorFn: props.selectorFn ?? selectorFn,
   });
 }

@@ -4,6 +4,7 @@ import { EMojitoKey, EOptionKey } from './domain/enums/state.enum';
 import { mojitoGqlClient, MojitoHookQueryError, queryClient } from './domain/utils/gqlRequest.util';
 import { QueryKey } from './domain/utils/queryKeyFactory.util';
 import { ReactQueryDevtools } from 'react-query/devtools';
+import UrlPattern from 'url-pattern';
 
 export enum UrlParams {
   collectionSlug,
@@ -24,6 +25,9 @@ export enum UrlParams {
  *   'Authorization': YOUR_AUTH_TOKEN);
  * }
  * ```
+ *
+ * urlPatters - the url patterns that match your app routes to collection page and collection item page
+ * EVERY url pattern must contain `:collectionSlug` OR `:collectionItemSlug` named segment
  */
 export interface MojitoHooksProviderProps {
   children: React.ReactElement | null;
@@ -73,12 +77,28 @@ const HooksOptions: React.FC<MojitoHooksProviderProps> = (props) => {
   }, [props.authorization]);
 
   useEffect(() => {
-    if (
-      props.urlPatterns?.every(
-        (pattern) => pattern.search(/[collectionSlug|collectionItemSlug]/) != -1,
-      )
-    ) {
-      queryClient.setQueryData(QueryKey.get(EOptionKey.urlPatterns), props.urlPatterns);
+    if (props.urlPatterns) {
+      if (
+        props.urlPatterns?.every(
+          (pattern) => pattern.search(/[:collectionSlug|:collectionItemSlug]/) != -1,
+        )
+      ) {
+        queryClient.setQueryData(
+          QueryKey.get(EOptionKey.urlPatterns),
+          props.urlPatterns.map((i) => new UrlPattern(i)),
+        );
+      } else {
+        throw new Error(
+          `MojitoHooksProvider::urlPatterns: must contain collectionSlug OR collectionItemSlug in EVERY url pattern in the array`,
+        );
+      }
+    } else {
+      queryClient.setQueryData(
+        QueryKey.get(EOptionKey.urlPatterns),
+        ['/:collectionSlug', '/hooks/*', '/hooks/:collectionItemSlug'].map(
+          (i) => new UrlPattern(i),
+        ),
+      );
     }
   }, [props.urlPatterns]);
 
