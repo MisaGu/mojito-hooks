@@ -171,6 +171,12 @@ const extendItemDetails = (details: any, slug: string) => {
   return details;
 };
 
+let normalizer_glob_options: {
+  raw_response?: Schema.Query;
+  variables?: { slug?: string };
+  key?: any;
+} = {};
+
 export async function mojitoNormalizer(
   raw_response: Schema.Query,
   variables?: { slug?: string },
@@ -178,6 +184,8 @@ export async function mojitoNormalizer(
 ) {
   if (!raw_response) return null;
   const normalizedResponse = {};
+
+  normalizer_glob_options = { raw_response, variables, key };
 
   if (raw_response.serverTime) {
     Object.assign(normalizedResponse, {
@@ -420,7 +428,26 @@ function MarketplaceCollectionItemsNormalizer(details: Schema.MarketplaceCollect
 }
 
 function MarketplaceCollectionItemNormalizer(details: Schema.MarketplaceCollectionItem) {
-  const item = { ...omit(details, 'lot') };
+  const shortLots = queryClient.getQueryData<{
+    [key: string]: ContentfulCollectionItem;
+  }>(QueryKey.get(EContentfulKey.shortLots, { slug: normalizer_glob_options.variables?.slug }));
+
+  const lot = queryClient.getQueryData<{ [key: string]: ContentfulCollectionItem }>(
+    QueryKey.get(EContentfulKey.fullLot, { mojitoId: details.id }),
+  );
+
+  const content =
+    lot?.[details.id] ??
+    shortLots?.[details.id] ??
+    ({
+      lotId: -1,
+      title: 'NA',
+      subtitle: 'NA',
+      mojitoId: 'NA',
+      slug: 'NA',
+    } as ContentfulCollectionItem);
+
+  const item = { ...omit(details, 'lot'), content };
 
   return _merge<typeof details, typeof item, MojitoMarketplaceCollectionItem>(details, item);
 }
