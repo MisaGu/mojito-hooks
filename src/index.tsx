@@ -50,7 +50,7 @@ const HooksOptions: React.FC<MojitoHooksProviderProps> = (props) => {
     if (props.authorization) {
       let _authorization;
       if (typeof props.authorization === 'string') {
-        _authorization = ['Authorization', props.authorization];
+        _authorization = ['authorization', `Bearer ${props.authorization}`];
       } else {
         const _k = Object.keys(props.authorization);
 
