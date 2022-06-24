@@ -7,10 +7,10 @@ export type UseServerTimeData = ServerTimeResponse;
 
 export type UseServerTimeReturn = ReturnType<typeof useServerTime>;
 
-export type UseServerTimeProps = BaseQueryHookProps<ServerTimeResponse>;
+export type UseServerTimeProps = BaseQueryHookProps<UseServerTimeData>;
 
 export function useServerTime({ options }: UseServerTimeProps = {}) {
-  return useMojitoFactory<'serverTime', UseServerTimeData>({
+  return useMojitoFactory({
     as: 'serverTime',
     query: EMojitoKey.serverTime,
     options,

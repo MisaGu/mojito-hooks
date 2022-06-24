@@ -1,22 +1,21 @@
 import { Variables } from 'graphql-request';
 import { UseMutationOptions, UseQueryOptions } from 'react-query';
 
-export interface BaseQueryHookProps<TData = any, TError = Error, TResult = any> {
+export interface BaseQueryHookProps<TData = any, TError = Error, TResult = TData> {
   options?: UseQueryOptions<TResult, TError, TData>;
-  selectorFn?: (response: any) => any;
 }
 
-export interface BaseLazyQueryHookProps<TData = any, TError = Error, TResult = any> {
+export interface BaseLazyQueryHookProps<TData = any, TError = Error, TResult = TData> {
   options?: Omit<UseQueryOptions<TResult, TError, TData>, 'enabled'> & { enabled: false };
 }
 
-export interface BaseQueryHookPropsWithUrlAndSlug<TData = any, TError = Error, TResult = any>
+export interface BaseQueryHookPropsWithUrlAndSlug<TData = any, TError = Error, TResult = TData>
   extends BaseQueryHookProps<TResult, TError, TData> {
   pathname?: string;
   slug: string;
 }
 
-export interface BaseQueryHookPropsWithForce<TData = any, TError = Error, TResult = any>
+export interface BaseQueryHookPropsWithForce<TData = any, TError = Error, TResult = TData>
   extends BaseQueryHookProps<TResult, TError, TData> {
   force?: boolean;
 }

@@ -89,7 +89,7 @@ type MojitoMarketplaceNormalizer = {
 export type MojitoMojitoMarketplace = Combine<Schema.Marketplace, MojitoMarketplaceNormalizer>;
 
 type MojitoMarketplaceCollectionItemNormalizer<T> = {
-  content: any; // TODO: contentful data type
+  content: ContentfulCollectionItem;
   details: MojitoCollectionItemDetails<T>;
 };
 export type MojitoMarketplaceCollectionItem<T = Schema.MarketplaceSaleType> = Combine<

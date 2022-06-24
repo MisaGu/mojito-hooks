@@ -9,14 +9,14 @@ import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 
 export interface MojitoFactoryOptions<
   TDataPropertyName extends string,
+  TResponse = any,
   TSelectorData = any,
-  TResponse = TSelectorData,
   TError = Error,
 > {
   as: TDataPropertyName;
   query: EMojitoKey;
   variables?: Variables;
-  options?: UseQueryOptions<TResponse, TError>;
+  options?: UseQueryOptions<TSelectorData, TError>;
   preloadFn?: () => Promise<void>;
   selectorFn?: (response: TResponse) => TSelectorData;
   force?: boolean;
@@ -25,8 +25,8 @@ export interface MojitoFactoryOptions<
 
 export function useMojitoFactory<
   TDataPropertyName extends string,
+  TResponse = any,
   TSelectorData = any,
-  TResponse = TSelectorData,
   TError = Error,
 >({
   as,
@@ -53,11 +53,11 @@ export function useMojitoFactory<
   const _result = observer.current.getCurrentResult();
 
   const [data, setData] = useState(
-    (selectorFn
+    selectorFn
       ? _query.state.data
-        ? selectorFn(_query.state.data)
+        ? selectorFn(_query.state.data as unknown as TSelectorData)
         : _query.state.data
-      : _query.state.data) as TSelectorData,
+      : _query.state.data,
   );
 
   useEffect(() => {
@@ -111,7 +111,7 @@ export function useMojitoFactory<
     _unsubscribe.current = observer.current.subscribe((result) => {
       if (selectorFn) {
         if (result.data) {
-          const _selectorResult = selectorFn(result.data);
+          const _selectorResult = selectorFn(result.data as unknown as TSelectorData);
           if (!isEqual(_selectorResult, data)) {
             setData(_selectorResult);
           }
@@ -142,5 +142,5 @@ export function useMojitoFactory<
   //@ts-ignore
   _result.data = data;
   //@ts-ignore
-  return normalizeQueryResult<TDataPropertyName, TSelectorData>(as, _result);
+  return normalizeQueryResult(as, _result);
 }

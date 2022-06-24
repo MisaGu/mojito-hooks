@@ -30,7 +30,7 @@ export function useCollection(props: UseCollectionProps) {
     },
     options: props.options,
     preloadFn: () => collectionPreloadFn(collectionSlug),
-    selectorFn: props.selectorFn ?? selectorFn,
+    selectorFn: selectorFn,
   });
 }
 
