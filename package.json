@@ -1,6 +1,6 @@
 {
   "name": "@mojitonft/hooks",
-  "version": "1.0.3-alpha.10",
+  "version": "1.0.3-alpha.11",
   "description": "react hooks library",
   "private": false,
   "sideEffects": false,
