@@ -7,6 +7,7 @@ export const menus = [
       'useActiveBids',
       'useCheckUsername',
       'useCollection',
+      'useCollectionItem',
       'useCollectionItemBidsList',
       'useCollectionItemCurrentBids',
       'useCollectionItemRemainingCount',

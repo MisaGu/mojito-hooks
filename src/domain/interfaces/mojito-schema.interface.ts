@@ -686,6 +686,14 @@ export type MarketplaceClaimableCodeOutput = {
   id: Scalars['UUID1'];
   isASingleUseCode: Scalars['Boolean'];
   redeemed: Scalars['Boolean'];
+  redemptions: Array<MarketplaceClaimableCodeRedemptionOutput>;
+};
+
+export type MarketplaceClaimableCodeRedemptionOutput = {
+  __typename?: 'MarketplaceClaimableCodeRedemptionOutput';
+  code: Scalars['String'];
+  dateClaimed?: Maybe<Scalars['Time']>;
+  walletAddress?: Maybe<Scalars['String']>;
 };
 
 export type MarketplaceClaimableOutput = {
@@ -907,6 +915,7 @@ export type MetadataAttributes = {
 export type Mutation = {
   __typename?: 'Mutation';
   addAllowListToBuyNowLot: Scalars['Boolean'];
+  addAllowListToClaimableSet: Scalars['Boolean'];
   /**
    * Add an existing lot to User favorite lots list.
    *     If lot is already exists, then do nothing.
@@ -914,6 +923,8 @@ export type Mutation = {
    */
   addCollectionItemToUserFavorites: Scalars['Boolean'];
   addExistingTokenToCollection: Scalars['String'];
+  /** addMultisigOwner mutation adds new owner for the existing multisig wallet */
+  addMultisigOwner: Wallet;
   addOrganization: Organization;
   addTokensToCollection: Scalars['String'];
   /** Screens wallet address takes input arguments address, asset, network provides risk rating */
@@ -999,6 +1010,7 @@ export type Mutation = {
   /** Release reservations held by invoice ID */
   releaseReservation: Scalars['Boolean'];
   removeAllowListFromBuyNowLot: Scalars['Boolean'];
+  removeAllowListFromClaimableSet: Scalars['Boolean'];
   reserveMarketplaceBuyNowLot: MarketplaceBuyNowOutput;
   sendUserInvitation: Scalars['Boolean'];
   setContractRoyalties: Scalars['String'];
@@ -1007,6 +1019,7 @@ export type Mutation = {
   /** Transfers a token in the provided wallet to the `transferTo` address */
   transferToken: Scalars['String'];
   updateAfterPaymentTransferSuspendTime: Scalars['Boolean'];
+  updateAllowList: Scalars['Boolean'];
   /** Updates existing  Applicant based on input data. */
   updateApplicant: ApplicantResponse;
   updateBuyNowInvoiceExpiryMins: Scalars['Boolean'];
@@ -1034,6 +1047,11 @@ export type MutationAddAllowListToBuyNowLotArgs = {
   buyNowLotID: Scalars['UUID1'];
 };
 
+export type MutationAddAllowListToClaimableSetArgs = {
+  allowListID: Scalars['UUID1'];
+  claimableSetID: Scalars['UUID1'];
+};
+
 export type MutationAddCollectionItemToUserFavoritesArgs = {
   collectionItemId: Scalars['UUID1'];
 };
@@ -1041,6 +1059,11 @@ export type MutationAddCollectionItemToUserFavoritesArgs = {
 export type MutationAddExistingTokenToCollectionArgs = {
   marketplaceId: Scalars['UUID1'];
   tokenId: Scalars['UUID1'];
+};
+
+export type MutationAddMultisigOwnerArgs = {
+  newAddress: Scalars['String'];
+  walletID: Scalars['UUID1'];
 };
 
 export type MutationAddOrganizationArgs = {
@@ -1344,6 +1367,10 @@ export type MutationRemoveAllowListFromBuyNowLotArgs = {
   buyNowLotID: Scalars['UUID1'];
 };
 
+export type MutationRemoveAllowListFromClaimableSetArgs = {
+  claimableSetID: Scalars['UUID1'];
+};
+
 export type MutationReserveMarketplaceBuyNowLotArgs = {
   input: ReserveMarketplaceBuyNowLotInput;
 };
@@ -1381,6 +1408,15 @@ export type MutationTransferTokenArgs = {
 export type MutationUpdateAfterPaymentTransferSuspendTimeArgs = {
   afterPaymentTransferSuspendTime: Scalars['Int'];
   orgID: Scalars['UUID1'];
+};
+
+export type MutationUpdateAllowListArgs = {
+  allowListID: Scalars['UUID1'];
+  elementsToAdd?: InputMaybe<Array<Scalars['String']>>;
+  elementsToRemove?: InputMaybe<Array<Scalars['String']>>;
+  endTime?: InputMaybe<Scalars['Time']>;
+  orgID: Scalars['UUID1'];
+  startTime?: InputMaybe<Scalars['Time']>;
 };
 
 export type MutationUpdateApplicantArgs = {
@@ -1664,6 +1700,7 @@ export type Query = {
   collection?: Maybe<MarketplaceCollection>;
   collectionBySlug?: Maybe<MarketplaceCollection>;
   collectionItemById?: Maybe<MarketplaceCollectionItem>;
+  getAllowList: AllowList;
   getAllowLists?: Maybe<Array<AllowList>>;
   /** Retrieves applicant details by organizationID */
   getApplicant: ApplicantResponse;
@@ -1694,7 +1731,7 @@ export type Query = {
   getPaymentsByUserID: Array<Maybe<Payment>>;
   /** Retrieves sdk token to inititate onfido web SDK */
   getSDKToken: SdkTokenResponse;
-  /**  getSignatureMessage returns a message that should be used for in signing process */
+  /** getSignatureMessage returns a message that should be used for in signing process */
   getSignatureMessage: Scalars['String'];
   /** Get Tax Quote */
   getTaxQuote: TaxQuoteOutput;
@@ -1726,6 +1763,7 @@ export type Query = {
   validateIp: ValidateIpResponse;
   /** Validate Payment limit */
   validatePaymentLimit: ValidatePaymentLimitOutput;
+  validateTokenTransfer: Scalars['Boolean'];
   wallet: Wallet;
 };
 
@@ -1758,6 +1796,11 @@ export type QueryCollectionBySlugArgs = {
 
 export type QueryCollectionItemByIdArgs = {
   id: Scalars['UUID1'];
+};
+
+export type QueryGetAllowListArgs = {
+  allowListID: Scalars['UUID1'];
+  orgID: Scalars['UUID1'];
 };
 
 export type QueryGetAllowListsArgs = {
@@ -1808,7 +1851,7 @@ export type QueryGetPaymentMethodListArgs = {
 };
 
 export type QueryGetPaymentPublicKeyArgs = {
-  orgID: Scalars['UUID1'];
+  orgID?: InputMaybe<Scalars['UUID1']>;
 };
 
 export type QueryGetPaymentsByUserIdArgs = {
@@ -1914,6 +1957,12 @@ export type QueryValidateIpArgs = {
 export type QueryValidatePaymentLimitArgs = {
   collectionID: Scalars['UUID1'];
   itemsCount: Scalars['Int'];
+};
+
+export type QueryValidateTokenTransferArgs = {
+  contractAddress: Scalars['String'];
+  onChainTokenId: Scalars['Int'];
+  walletId: Scalars['UUID1'];
 };
 
 export type QueryWalletArgs = {
