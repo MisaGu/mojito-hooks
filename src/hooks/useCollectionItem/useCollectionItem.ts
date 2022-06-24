@@ -17,7 +17,7 @@ function selectorFn(id?: string, slug?: string) {
   };
 }
 
-export type UseCollectionData = ReturnType<typeof selectorFn>;
+export type UseCollectionData = ReturnType<ReturnType<typeof selectorFn>>;
 
 export type UseCollectionReturn = ReturnType<typeof useCollectionItem>;
 
