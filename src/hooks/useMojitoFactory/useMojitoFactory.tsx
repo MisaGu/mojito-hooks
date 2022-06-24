@@ -77,6 +77,10 @@ export function useMojitoFactory<
   }, []);
 
   useEffect(() => {
+    generateObserver();
+  }, [selectorFn]);
+
+  useEffect(() => {
     if (force) _query.destroy();
 
     // @ts-ignore
