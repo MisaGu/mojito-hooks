@@ -8,9 +8,9 @@ import {
 } from './state/path.util';
 
 export function getCollectionSlug(slug?: string) {
-  return checkCollectionSlug(slug ?? getCollectionSlugFromPathname());
+  return checkCollectionSlug(slug || getCollectionSlugFromPathname());
 }
 
 export function getCollectionItemSlug(slug?: string) {
-  return checkCollectionItemSlug(slug ?? getCollectionItemSlugFromPathname());
+  return checkCollectionItemSlug(slug || getCollectionItemSlugFromPathname());
 }
