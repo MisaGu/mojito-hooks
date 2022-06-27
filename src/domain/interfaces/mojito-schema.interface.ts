@@ -1175,7 +1175,7 @@ export type MutationCreatePaymentArgs = {
 
 export type MutationCreatePaymentMethodArgs = {
   input: PaymentMethodCreateInput;
-  orgID?: InputMaybe<Scalars['UUID1']>;
+  orgID: Scalars['UUID1'];
 };
 
 export type MutationCreateTokenDraftArgs = {
@@ -1852,7 +1852,7 @@ export type QueryGetPaymentMethodListArgs = {
 };
 
 export type QueryGetPaymentPublicKeyArgs = {
-  orgID?: InputMaybe<Scalars['UUID1']>;
+  orgID: Scalars['UUID1'];
 };
 
 export type QueryGetPaymentsByUserIdArgs = {

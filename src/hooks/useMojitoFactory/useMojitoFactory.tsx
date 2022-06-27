@@ -1,5 +1,5 @@
 import isEqual from 'lodash.isequal';
-import { useEffect, useRef, useState } from 'react';
+import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { QueryObserver, useQueryClient, UseQueryOptions } from 'react-query';
 import { EMojitoKey, EOptionKey } from '../../domain/enums/state.enum';
 import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
@@ -30,14 +30,16 @@ export function useMojitoFactory<
 >({
   as,
   queryKey: queryKey,
-  deps,
   options,
   preloadFn,
   selectorFn,
+  deps = [],
   force = false,
   onlyAuthenticated,
 }: MojitoFactoryOptions<TDataPropertyName, TSelectorData, TResponse, TError>) {
   const queryClient = useQueryClient();
+  const [, updateState] = useState<any>();
+  const forceUpdate = useCallback(() => updateState({}), []);
 
   const authQueryKey = QueryKey.get(EOptionKey.isAuthorized);
 
@@ -50,13 +52,13 @@ export function useMojitoFactory<
   const _query = observer.current.getCurrentQuery();
   const _result = observer.current.getCurrentResult();
 
-  const [data, setData] = useState(
-    selectorFn
+  let data = useMemo(() => {
+    return selectorFn
       ? _query.state.data
         ? selectorFn(_query.state.data as unknown as TSelectorData)
         : _query.state.data
-      : _query.state.data,
-  );
+      : _query.state.data;
+  }, [deps, _query.state.dataUpdatedAt]);
 
   useEffect(() => {
     if (onlyAuthenticated) {
@@ -73,14 +75,6 @@ export function useMojitoFactory<
       authObserver.current?.destroy();
     };
   }, []);
-
-  useEffect(() => {
-    generateObserver();
-
-    if (selectorFn && _query.state.data) {
-      setData(selectorFn(_query.state.data as unknown as TSelectorData));
-    }
-  }, deps);
 
   useEffect(() => {
     if (force) {
@@ -117,11 +111,13 @@ export function useMojitoFactory<
         if (result.data) {
           const _selectorResult = selectorFn(result.data as unknown as TSelectorData);
           if (!isEqual(_selectorResult, data)) {
-            setData(_selectorResult);
+            data = _selectorResult;
+            forceUpdate();
           }
         }
       } else {
-        setData(result.data as any);
+        data = result.data as any;
+        forceUpdate();
       }
     });
 
@@ -147,10 +143,12 @@ export function useMojitoFactory<
   _result.data = data;
   //@ts-ignore
   _result.refetch = () => {
+    _unsubscribe.current?.();
     _query.reset();
+
+    data = undefined;
     generateObserver();
-    // TODO : deps not working after refetch()
-    return normalizeQueryResult(as, _result);
   };
+
   return normalizeQueryResult(as, _result);
 }
