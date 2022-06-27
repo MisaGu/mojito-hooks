@@ -1,3 +1,4 @@
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { EMojitoKey } from '../../domain/enums/state.enum';
 import { UserOrganizationResponse } from '../../domain/interfaces';
 import { BaseQueryHookPropsWithForce } from '../../domain/interfaces/hooks.interface';
@@ -18,7 +19,7 @@ export type UseOrganizationProps = BaseQueryHookPropsWithForce<UseOrganizationDa
 export function useOrganization({ force, options }: UseOrganizationProps = {}) {
   return useMojitoFactory({
     as: 'organization',
-    query: EMojitoKey.profile,
+    queryKey: QueryKey.get(EMojitoKey.profile),
     options,
     selectorFn,
     force,

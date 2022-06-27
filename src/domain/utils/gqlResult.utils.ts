@@ -16,7 +16,6 @@ export function normalizeQueryResult<TDataPropertyName extends string, TData = a
     TData,
     TError
   >;
-
   return {
     isLoading,
     error,

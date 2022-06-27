@@ -1,3 +1,4 @@
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { config } from '../../domain/constants/general.constants';
 import { EMojitoKey } from '../../domain/enums/state.enum';
 import { CollectionBySlugResponse } from '../../domain/interfaces';
@@ -23,11 +24,10 @@ export function useCollection(props: UseCollectionProps) {
 
   return useMojitoFactory({
     as: 'collection',
-    query: EMojitoKey.collectionBySlug,
-    variables: {
+    queryKey: QueryKey.get(EMojitoKey.collectionBySlug, {
       slug: collectionSlug,
       marketplaceID: config.MARKETPLACE_ID,
-    },
+    }),
     options: props.options,
     preloadFn: () => collectionPreloadFn(collectionSlug),
     selectorFn: selectorFn,

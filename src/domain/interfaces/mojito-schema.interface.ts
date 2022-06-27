@@ -1175,7 +1175,7 @@ export type MutationCreatePaymentArgs = {
 
 export type MutationCreatePaymentMethodArgs = {
   input: PaymentMethodCreateInput;
-  orgID: Scalars['UUID1'];
+  orgID?: InputMaybe<Scalars['UUID1']>;
 };
 
 export type MutationCreateTokenDraftArgs = {
@@ -1744,6 +1744,7 @@ export type Query = {
   internalUsers: Array<UserOrganization>;
   isTokenRedeemed: Scalars['Boolean'];
   isUserOnAllowList: Scalars['Boolean'];
+  isUserOnClaimableSetsAllowList: Scalars['Boolean'];
   /** create invoice/lot report by collectionID and mails  to provided email */
   mailInvoiceLotDetailReportMailByCollectionID: Scalars['Boolean'];
   /** create salesreport by collectionID and mails to provided email */
@@ -1902,6 +1903,10 @@ export type QueryIsTokenRedeemedArgs = {
 
 export type QueryIsUserOnAllowListArgs = {
   lotID: Scalars['UUID1'];
+};
+
+export type QueryIsUserOnClaimableSetsAllowListArgs = {
+  claimableSetID: Scalars['UUID1'];
 };
 
 export type QueryMailInvoiceLotDetailReportMailByCollectionIdArgs = {

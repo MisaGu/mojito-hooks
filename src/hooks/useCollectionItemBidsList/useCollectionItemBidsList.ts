@@ -1,3 +1,4 @@
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { EMojitoKey } from '../../domain/enums/state.enum';
 import { CollectionItemBidsListResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
@@ -24,8 +25,7 @@ export function useCollectionItemBidsList({
 }: UseCollectionItemBidsListProps) {
   return useMojitoFactory({
     as: 'bids',
-    query: EMojitoKey.collectionItemByIdBidsList,
-    variables: { id: collectionItemID },
+    queryKey: QueryKey.get(EMojitoKey.collectionItemByIdBidsList, { id: collectionItemID }),
     options,
     selectorFn,
   });

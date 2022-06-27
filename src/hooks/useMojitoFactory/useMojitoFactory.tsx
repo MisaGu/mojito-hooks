@@ -1,11 +1,10 @@
-import { Variables } from 'graphql-request/dist/types';
 import isEqual from 'lodash.isequal';
 import { useEffect, useRef, useState } from 'react';
 import { QueryObserver, useQueryClient, UseQueryOptions } from 'react-query';
 import { EMojitoKey, EOptionKey } from '../../domain/enums/state.enum';
 import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
 import { normalizeQueryResult } from '../../domain/utils/gqlResult.utils';
-import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
+import { IQueryKey, QueryKey } from '../../domain/utils/queryKeyFactory.util';
 
 export interface MojitoFactoryOptions<
   TDataPropertyName extends string,
@@ -14,8 +13,8 @@ export interface MojitoFactoryOptions<
   TError = Error,
 > {
   as: TDataPropertyName;
-  query: EMojitoKey;
-  variables?: Variables;
+  queryKey: IQueryKey;
+  deps?: ReadonlyArray<unknown>;
   options?: UseQueryOptions<TSelectorData, TError>;
   preloadFn?: () => Promise<void>;
   selectorFn?: (response: TResponse) => TSelectorData;
@@ -30,8 +29,8 @@ export function useMojitoFactory<
   TError = Error,
 >({
   as,
-  query,
-  variables,
+  queryKey: queryKey,
+  deps,
   options,
   preloadFn,
   selectorFn,
@@ -40,7 +39,6 @@ export function useMojitoFactory<
 }: MojitoFactoryOptions<TDataPropertyName, TSelectorData, TResponse, TError>) {
   const queryClient = useQueryClient();
 
-  const queryKey = QueryKey.get(query, variables);
   const authQueryKey = QueryKey.get(EOptionKey.isAuthorized);
 
   const observer = useRef(new QueryObserver<TResponse, TError>(queryClient, getQueryOptions()));
@@ -78,16 +76,18 @@ export function useMojitoFactory<
 
   useEffect(() => {
     generateObserver();
-  }, [selectorFn]);
+
+    if (selectorFn && _query.state.data) {
+      setData(selectorFn(_query.state.data as unknown as TSelectorData));
+    }
+  }, deps);
 
   useEffect(() => {
-    if (force) _query.destroy();
-
-    // @ts-ignore
-    if (!isEqual(_query.queryKey, queryKey)) {
+    if (force) {
+      _query.reset();
       generateObserver();
     }
-  }, [JSON.stringify(queryKey), force]);
+  }, [force]);
 
   function getQueryOptions() {
     const _isAuthorized = !!queryClient.getQueryData<boolean>(authQueryKey);
@@ -146,5 +146,11 @@ export function useMojitoFactory<
   //@ts-ignore
   _result.data = data;
   //@ts-ignore
+  _result.refetch = () => {
+    _query.reset();
+    generateObserver();
+    // TODO : deps not working after refetch()
+    return normalizeQueryResult(as, _result);
+  };
   return normalizeQueryResult(as, _result);
 }

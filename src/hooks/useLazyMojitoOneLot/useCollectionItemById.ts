@@ -1,3 +1,4 @@
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { EMojitoKey } from '../../domain/enums/state.enum';
 import { CollectionItemResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
@@ -23,8 +24,7 @@ export function useCollectionItemById({ id, options }: UseCollectionItemByIdProp
 
   return useMojitoFactory({
     as: 'item',
-    query: EMojitoKey.collectionItemById,
-    variables: { id: _id },
+    queryKey: QueryKey.get(EMojitoKey.collectionItemById, { id: _id }),
     options: { ...options, enabled: !!_id },
     selectorFn,
   });

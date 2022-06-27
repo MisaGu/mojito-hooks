@@ -1,3 +1,4 @@
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { config } from '../../domain/constants/general.constants';
 import { EMojitoKey } from '../../domain/enums/state.enum';
 import { CurrentUserResponse } from '../../domain/interfaces';
@@ -19,10 +20,9 @@ export type UseActiveBidsProps = BaseQueryHookProps<UseActiveBidsData>;
 export function useActiveBids({ options }: UseActiveBidsProps = {}) {
   return useMojitoFactory({
     as: 'activeBids',
-    query: EMojitoKey.userActiveBids,
-    variables: {
+    queryKey: QueryKey.get(EMojitoKey.userActiveBids, {
       organizationID: config.ORGANIZATION_ID,
-    },
+    }),
     options,
     selectorFn,
     onlyAuthenticated: true,

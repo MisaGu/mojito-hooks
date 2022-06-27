@@ -1,3 +1,4 @@
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { EMojitoKey } from '../../domain/enums/state.enum';
 import { MojitoGetMyInvoicesResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
@@ -18,7 +19,7 @@ export type UseInvoicesProps = BaseQueryHookProps<UseInvoicesData>;
 export function useInvoices({ options }: UseInvoicesProps = {}) {
   return useMojitoFactory({
     as: 'invoices',
-    query: EMojitoKey.invoices,
+    queryKey: QueryKey.get(EMojitoKey.invoices),
     options,
     selectorFn,
     onlyAuthenticated: true,

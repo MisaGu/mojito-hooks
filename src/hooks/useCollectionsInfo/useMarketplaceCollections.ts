@@ -1,3 +1,4 @@
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { config } from '../../domain/constants/general.constants';
 import { EMojitoKey } from '../../domain/enums/state.enum';
 import { MarketplaceResponse } from '../../domain/interfaces';
@@ -19,10 +20,9 @@ export type UseMarketplaceCollectionsProps = BaseQueryHookProps<UseMarketplaceCo
 export function useMarketplaceCollections({ options }: UseMarketplaceCollectionsProps = {}) {
   return useMojitoFactory({
     as: 'collections',
-    query: EMojitoKey.marketplaceCollectionsInfoWithItemsIdAndSlug,
-    variables: {
+    queryKey: QueryKey.get(EMojitoKey.marketplaceCollectionsInfoWithItemsIdAndSlug, {
       id: config.MARKETPLACE_ID,
-    },
+    }),
     options,
     selectorFn,
   });

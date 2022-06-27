@@ -1,3 +1,4 @@
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { EMojitoKey } from '../../domain/enums/state.enum';
 import { ProfileResponse } from '../../domain/interfaces';
 import { BaseQueryHookPropsWithForce } from '../../domain/interfaces/hooks.interface';
@@ -23,7 +24,7 @@ export type UseMojitoUserProps = BaseQueryHookPropsWithForce<UseMojitoUserData>;
 export function useUser({ force, options }: UseMojitoUserProps = {}) {
   return useMojitoFactory({
     as: 'user',
-    query: EMojitoKey.profile,
+    queryKey: QueryKey.get(EMojitoKey.profile),
     options,
     selectorFn,
     force,

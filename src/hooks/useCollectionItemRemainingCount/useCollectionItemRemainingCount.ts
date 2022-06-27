@@ -1,3 +1,4 @@
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { EMojitoKey } from '../../domain/enums/state.enum';
 import { CollectionItemRemainingCountResponse } from '../../domain/interfaces';
 import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
@@ -30,8 +31,10 @@ export function useCollectionItemRemainingCount({
 
   return useMojitoFactory({
     as: 'remainingCount',
-    query: EMojitoKey.collectionItemByIdRemainingCount,
-    variables: { id: collectionItemID, slug },
+    queryKey: QueryKey.get(EMojitoKey.collectionItemByIdRemainingCount, {
+      id: collectionItemID,
+      slug,
+    }),
     options: { ...options, enabled: !!slug },
     selectorFn,
     onlyAuthenticated: true,

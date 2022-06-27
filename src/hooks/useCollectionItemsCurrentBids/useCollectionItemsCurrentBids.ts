@@ -1,9 +1,10 @@
-import { EMojitoKey } from '../../domain/enums/state.enum';
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { config } from '../../domain/constants/general.constants';
-import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
+import { EMojitoKey } from '../../domain/enums/state.enum';
 import { MojitoCollectionItemCurrentBidsResponse } from '../../domain/interfaces';
 import { BaseQueryHookPropsWithUrlAndSlug } from '../../domain/interfaces/hooks.interface';
 import { getCollectionSlug } from '../../domain/utils/getSlug.util';
+import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
 
 function selectorFn(response?: MojitoCollectionItemCurrentBidsResponse) {
   if (!response) return undefined;
@@ -26,8 +27,10 @@ export function useCollectionItemsCurrentBids({
 
   return useMojitoFactory({
     as: 'currentBids',
-    query: EMojitoKey.collectionBySlugCurrentBids,
-    variables: { slug, marketplaceID: config.MARKETPLACE_ID },
+    queryKey: QueryKey.get(EMojitoKey.collectionBySlugCurrentBids, {
+      slug,
+      marketplaceID: config.MARKETPLACE_ID,
+    }),
     options: { ...options, enabled: !!slug },
     selectorFn,
   });

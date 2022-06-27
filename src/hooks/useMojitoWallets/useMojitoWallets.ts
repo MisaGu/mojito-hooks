@@ -1,3 +1,4 @@
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { EMojitoKey } from '../../domain/enums/state.enum';
 import { WalletsResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
@@ -18,7 +19,7 @@ export type UseMojitoWalletsProps = BaseQueryHookProps<UseMojitoWalletsData>;
 export function useMojitoWallets({ options }: UseMojitoWalletsProps = {}) {
   return useMojitoFactory({
     as: 'wallets',
-    query: EMojitoKey.userWallets,
+    queryKey: QueryKey.get(EMojitoKey.userWallets),
     options,
     selectorFn,
     onlyAuthenticated: true,

@@ -14,6 +14,8 @@ const DemoContent: React.FC = () => {
     slug: 'new-reference-app-demo',
   });
 
+  // console.log(result.collection?.items.map((i)=>i.id));
+
   return <Json result={result} />;
 };
 

@@ -1,3 +1,4 @@
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { EMojitoKey } from '../../domain/enums/state.enum';
 import { FavoriteResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
@@ -18,7 +19,7 @@ export type UseFavoriteItemsProps = BaseQueryHookProps<UseFavoriteItemsData>;
 export function useFavoriteItems({ options }: UseFavoriteItemsProps = {}) {
   return useMojitoFactory({
     as: 'favoriteItems',
-    query: EMojitoKey.userFavorites,
+    queryKey: QueryKey.get(EMojitoKey.userFavorites),
     options,
     selectorFn,
     onlyAuthenticated: true,

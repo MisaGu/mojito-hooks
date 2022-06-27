@@ -1,3 +1,4 @@
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { config } from '../../domain/constants/general.constants';
 import { EMojitoKey } from '../../domain/enums/state.enum';
 import { OrgUsernameAvailableResponse } from '../../domain/interfaces';
@@ -21,11 +22,10 @@ export interface UseCheckUsernameProps extends BaseLazyQueryHookProps<UseCheckUs
 export function useCheckUsername({ username, options }: UseCheckUsernameProps) {
   const { refetch: checkUsername, ...factory } = useMojitoFactory({
     as: 'usernameAvailable',
-    query: EMojitoKey.checkUsername,
-    variables: {
+    queryKey: QueryKey.get(EMojitoKey.checkUsername, {
       organizationID: config.ORGANIZATION_ID,
       username,
-    },
+    }),
     options: { ...options, enabled: false },
     selectorFn,
   });
