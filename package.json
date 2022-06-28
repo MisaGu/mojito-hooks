@@ -96,6 +96,7 @@
   },
   "dependencies": {
     "@babel/runtime": "^7.17.9",
+    "@mojitonft/hooks": "^1.0.5-alpha.0",
     "@types/react-query": "^1.2.9",
     "graphql": "^16.4.0",
     "graphql-request": "^4.3.0",
