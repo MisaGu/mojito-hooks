@@ -12,8 +12,6 @@ jobs:
     steps:
       - run: echo $secrets.GH_PERSONAL_ACCESS_TOKEN
       - uses: actions/checkout@v2
-        with:
-          token: ${{ secrets.GH_PERSONAL_ACCESS_TOKEN }}
       - run: git config --global user.name 'Mojito Inc. GitHub Action'
       - run: git config --global user.email 'dev-support@mojito.xyz'
       - run: npm version prerelease --preid=alpha -m "[RELEASE] %s"
