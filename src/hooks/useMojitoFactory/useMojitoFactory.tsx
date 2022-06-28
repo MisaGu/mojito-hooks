@@ -78,7 +78,7 @@ export function useMojitoFactory<
 
   useEffect(() => {
     if (force) {
-      _query.reset();
+      data = undefined;
       generateObserver();
     }
   }, [force]);

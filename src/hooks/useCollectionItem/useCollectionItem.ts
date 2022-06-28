@@ -4,6 +4,7 @@ import { EMojitoKey } from '../../domain/enums/state.enum';
 import { CollectionBySlugResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
 import { collectionPreloadFn } from '../../domain/utils/service/collectionPreloadFn';
+import { collectionItemPreloadFn } from '../../domain/utils/service/collectionItemPreloadFn';
 import {
   getCollectionItemSlugFromPathname,
   getCollectionSlugFromPathname,
@@ -40,8 +41,10 @@ export function useCollectionItem(props: UseCollectionProps) {
     }),
     deps: [props.id, _slug],
     options: props.options,
-    preloadFn: () => collectionPreloadFn(_collectionSlug),
+    preloadFn: () =>
+      collectionItemPreloadFn({ collectionSlug: _collectionSlug, id: props.id, slug: _slug }),
     selectorFn: selectorFn(props.id, _slug),
+    force: true,
   });
 }
 
