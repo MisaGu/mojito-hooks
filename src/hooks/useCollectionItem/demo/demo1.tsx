@@ -12,15 +12,15 @@ import { useCollectionItem } from '../useCollectionItem';
 const DemoContent: React.FC = () => {
   const [idx, setIdx] = useState(0);
   const ids = [
-    'fbe91f8d-f1a8-4ee4-9e1e-16a60bff8c0a',
-    '2e14a4a1-8f7e-404e-800f-bc43a84d94d0',
-    '70a68534-d9a5-4458-9a72-4ecb49ef30f8',
-    '91644e3f-2a25-4c31-a6e1-7685a17574f8',
-    'c0c6d7e8-92f2-4e68-b964-905f48fd9b88',
+    '35c7e832-d816-4e11-88fb-f9fc979acfc3',
+    'f449d832-8f7d-4968-933c-63809d49bff2',
+    'c537586f-693d-4448-ba69-2605164b3780',
+    '0973365b-c6c1-4338-820b-60bd05abbcf1',
+    'ca574c04-3f6f-4a42-9b41-70ad63efea9b',
   ];
 
   const result = useCollectionItem({
-    collectionSlug: 'new-reference-app-demo',
+    collectionSlug: 'pace-demo',
     id: ids[idx],
   });
 
