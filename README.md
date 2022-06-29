@@ -14,7 +14,7 @@ A high-quality and reliable React Hooks library.
 
 ## ✨ Features
 
-- Easy to learn and use
+- Easy to learn & use
 - Contains a large number of advanced Hooks that are refined from business scenarios
 - Written in TypeScript with predictable static types
 
