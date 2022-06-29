@@ -11,7 +11,7 @@ import { useCollection } from '../useCollection';
 
 const DemoContent: React.FC = () => {
   const result = useCollection({
-    slug: 'pace-demo',
+    slug: 'pace-gallery',
   });
 
   // console.log(result.collection?.items.map((i)=>i.id));

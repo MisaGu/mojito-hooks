@@ -20,7 +20,7 @@ const DemoContent: React.FC = () => {
   ];
 
   const result = useCollectionItem({
-    collectionSlug: 'pace-demo',
+    collectionSlug: 'pace-gallery',
     id: ids[idx],
   });
 
