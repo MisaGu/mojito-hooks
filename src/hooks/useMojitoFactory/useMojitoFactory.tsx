@@ -1,7 +1,7 @@
 import isEqual from 'lodash.isequal';
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { QueryObserver, useQueryClient, UseQueryOptions } from 'react-query';
-import { EMojitoKey, EOptionKey } from '../../domain/enums/state.enum';
+import { EOptionKey } from '../../domain/enums/state.enum';
 import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
 import { normalizeQueryResult } from '../../domain/utils/gqlResult.utils';
 import { IQueryKey, QueryKey } from '../../domain/utils/queryKeyFactory.util';
@@ -78,10 +78,11 @@ export function useMojitoFactory<
 
   useEffect(() => {
     if (force) {
+      _query.reset();
       data = undefined;
       generateObserver();
     }
-  }, [force]);
+  }, [force, ...deps]);
 
   function getQueryOptions() {
     const _isAuthorized = !!queryClient.getQueryData<boolean>(authQueryKey);
