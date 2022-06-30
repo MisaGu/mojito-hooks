@@ -1,6 +1,6 @@
 import { config } from '../../../domain/constants/general.constants';
-import { EMojitoKey, EContentfulKey } from '../../../domain/enums/state.enum';
-import { MarketplaceResponse, ContentfulAuctionsSlugListQuery } from '../../../domain/interfaces';
+import { EContentfulKey, EMojitoKey } from '../../../domain/enums/state.enum';
+import { ContentfulAuctionsSlugListQuery, MarketplaceResponse } from '../../../domain/interfaces';
 import { queryClient } from '../gqlRequest.util';
 import { QueryKey } from '../queryKeyFactory.util';
 
