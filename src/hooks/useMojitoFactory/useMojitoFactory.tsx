@@ -8,16 +8,17 @@ import { IQueryKey, QueryKey } from '../../domain/utils/queryKeyFactory.util';
 
 export interface MojitoFactoryOptions<
   TDataPropertyName extends string,
-  TResponse = any,
   TSelectorData = any,
+  TResponse = any,
   TError = Error,
 > {
   as: TDataPropertyName;
   queryKey: IQueryKey;
   deps?: ReadonlyArray<unknown>;
-  options?: UseQueryOptions<TSelectorData, TError>;
-  preloadFn?: () => Promise<void>;
-  selectorFn?: (response: TResponse) => TSelectorData;
+  options?: UseQueryOptions<TResponse, TError>;
+  onQueryBegin?: () => Promise<void>;
+  onQueryEnd?: (response?: TResponse) => Promise<void>;
+  selectorFn?: (response: TSelectorData) => TResponse;
   force?: boolean;
   onlyAuthenticated?: boolean;
 }
@@ -31,7 +32,8 @@ export function useMojitoFactory<
   as,
   queryKey: queryKey,
   options,
-  preloadFn,
+  onQueryBegin,
+  onQueryEnd,
   selectorFn,
   deps = [],
   force = false,
@@ -91,7 +93,7 @@ export function useMojitoFactory<
       ...options,
       queryKey,
       queryFn: async () => {
-        if (preloadFn) await preloadFn();
+        if (onQueryBegin) await onQueryBegin();
 
         const configuredQueryFn =
           options?.queryFn || queryClient.getDefaultOptions().queries?.queryFn || defaultQueryFn;
@@ -107,7 +109,7 @@ export function useMojitoFactory<
     observer.current = new QueryObserver<TResponse, TError>(queryClient, getQueryOptions());
 
     _unsubscribe.current?.();
-    _unsubscribe.current = observer.current.subscribe((result) => {
+    _unsubscribe.current = observer.current.subscribe(async (result) => {
       if (selectorFn) {
         if (result.data) {
           const _selectorResult = selectorFn(result.data as unknown as TSelectorData);
@@ -120,6 +122,8 @@ export function useMojitoFactory<
         data = result.data as any;
         forceUpdate();
       }
+
+      if (onQueryEnd) await onQueryEnd(data);
     });
 
     return;
