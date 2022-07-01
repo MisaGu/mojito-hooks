@@ -1,5 +1,5 @@
 import { UseMutationResult, UseQueryResult } from 'react-query';
-import { normalizeQueryResult, normalizeMutationResult, QueryResult } from '../gqlResult.utils';
+import { normalizeMutationResult, normalizeQueryResult } from '../gqlResult.utils';
 
 describe('normalizeQueryResult()', () => {
   const mockedUseQueryResult: UseQueryResult<string> = {

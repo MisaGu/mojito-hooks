@@ -1,9 +1,8 @@
-import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { config } from '../../domain/constants/general.constants';
 import { EMojitoKey } from '../../domain/enums/state.enum';
 import { CollectionBySlugResponse } from '../../domain/interfaces';
 import { BaseQueryHookProps } from '../../domain/interfaces/hooks.interface';
-import { collectionPreloadFn } from '../../domain/utils/service/collectionPreloadFn';
+import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 import { collectionItemPreloadFn } from '../../domain/utils/service/collectionItemPreloadFn';
 import {
   getCollectionItemSlugFromPathname,

@@ -1,4 +1,4 @@
-import { EMojitoKey, EContentfulKey } from '../../enums/state.enum';
+import { EContentfulKey, EMojitoKey } from '../../enums/state.enum';
 import { QueryKey } from '../queryKeyFactory.util';
 
 describe('QueryKey', () => {

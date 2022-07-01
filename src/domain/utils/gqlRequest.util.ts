@@ -1,10 +1,10 @@
 import { GraphQLClient } from 'graphql-request';
 import { QueryClient, QueryFunctionContext } from 'react-query';
 import { config } from '../constants/general.constants';
-import { isBrowser } from './isBrowser.util';
-import { contentfulNormalizer, mojitoNormalizer } from './gqlDataNormalizer.util';
-import { QueryKey, IQueryKey } from './queryKeyFactory.util';
 import { EOptionKey } from '../enums/state.enum';
+import { contentfulNormalizer, mojitoNormalizer } from './gqlDataNormalizer.util';
+import { isBrowser } from './isBrowser.util';
+import { IQueryKey, QueryKey } from './queryKeyFactory.util';
 
 export type MojitoHookQueryError = Error & {
   queryKey: string | string[];

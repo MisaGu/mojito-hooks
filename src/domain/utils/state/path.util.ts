@@ -1,8 +1,8 @@
-import { EOptionKey } from '../../../domain/enums/state.enum';
-import { queryClient } from '../gqlRequest.util';
-import { isBrowser } from '../isBrowser.util';
-import { QueryKey } from '../queryKeyFactory.util';
-import UrlPattern from 'url-pattern';
+import UrlPattern from "url-pattern";
+import { EOptionKey } from "../../../domain/enums/state.enum";
+import { queryClient } from "../gqlRequest.util";
+import { isBrowser } from "../isBrowser.util";
+import { QueryKey } from "../queryKeyFactory.util";
 
 // TODO: the path should be taken from the react-query state that is updated by the MHP onRouterChange function
 const urlPatternsQueryKey = QueryKey.get(EOptionKey.urlPatterns);

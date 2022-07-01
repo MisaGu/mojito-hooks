@@ -12,27 +12,29 @@ import { useCollectionItem } from '../useCollectionItem';
 const DemoContent: React.FC = () => {
   const [idx, setIdx] = useState(0);
   const ids = [
-    '35c7e832-d816-4e11-88fb-f9fc979acfc3',
-    'f449d832-8f7d-4968-933c-63809d49bff2',
-    'c537586f-693d-4448-ba69-2605164b3780',
-    '0973365b-c6c1-4338-820b-60bd05abbcf1',
-    'ca574c04-3f6f-4a42-9b41-70ad63efea9b',
+    '030a69d0-db6f-43ce-8b26-5b6c5445329b',
+    '0288972f-db8e-4ca4-ad02-82ae03f2211b',
+    'ec1155d8-e102-492e-8608-80e19bcb0e10',
+    '87f9fe25-d189-4a3e-87bf-3bdd435b92d0',
+    'c8fc18eb-fea0-4d57-a8c3-d500da58e40b',
+    '225c7cd6-10c2-40fa-9df1-a1fa2523b7c5',
   ];
 
   const result = useCollectionItem({
-    collectionSlug: 'pace-demo',
+    collectionSlug: 'pace-gallery',
     id: ids[idx],
   });
 
   return (
     <>
-      <div
+      <button
         onClick={() => {
-          setIdx((i) => (i + 1) % 5);
+          setIdx((i) => (i + 1) % ids.length);
         }}
       >
         Change Id
-      </div>
+      </button>
+      <br />
       <br />
       <br />
       <Json result={result} />

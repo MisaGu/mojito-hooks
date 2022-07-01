@@ -1,7 +1,7 @@
 import { EMojitoCollectionItemAuctionLotStatus } from '../enums';
+import { Combine } from './_utils.interface';
 import { ContentfulCollection, ContentfulCollectionItem } from './contentful.interface';
 import * as Schema from './mojito-schema.interface';
-import { Combine } from './_utils.interface';
 
 export type MojitoServerTime = Date;
 

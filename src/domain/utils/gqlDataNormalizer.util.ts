@@ -1,10 +1,11 @@
+import omit from 'lodash.omit';
 import moment from 'moment';
 import { config } from '../constants/general.constants';
 import { EContentfulKey, EMojitoKey } from '../enums/state.enum';
 import {
   ContentfulAuctionBySlugResponse,
-  CurrentUserResponse,
   ContentfulCollectionItem,
+  CurrentUserResponse,
   MojitoCurrentUser,
   MojitoMarketplaceAuctionBid,
   MojitoMarketplaceCollection,
@@ -14,11 +15,10 @@ import {
   MojitoUserOrganization,
   MojitoWallet,
 } from '../interfaces';
-import * as Schema from '../interfaces/mojito-schema.interface';
 import { Combine, DeepCompare } from '../interfaces/_utils.interface';
+import * as Schema from '../interfaces/mojito-schema.interface';
 import { queryClient } from './gqlRequest.util';
 import { QueryKey } from './queryKeyFactory.util';
-import omit from 'lodash.omit';
 
 const extendCollectionSingleItem = (
   item: any,
