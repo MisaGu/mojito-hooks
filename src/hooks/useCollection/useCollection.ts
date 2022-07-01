@@ -29,7 +29,7 @@ export function useCollection(props: UseCollectionProps) {
       marketplaceID: config.MARKETPLACE_ID,
     }),
     options: props.options,
-    preloadFn: () => collectionPreloadFn(collectionSlug),
+    onQueryBegin: () => collectionPreloadFn(collectionSlug),
     selectorFn: selectorFn,
   });
 }

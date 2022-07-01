@@ -41,9 +41,9 @@ export function useCollectionItem(props: UseCollectionProps) {
     }),
     deps: [props.id, _slug],
     options: props.options,
-    preloadFn: () =>
-      collectionItemPreloadFn({ collectionSlug: _collectionSlug, id: props.id, slug: _slug }),
     selectorFn: selectorFn(props.id, _slug),
+    onQueryBegin: () =>
+      collectionItemPreloadFn({ collectionSlug: _collectionSlug, id: props.id, slug: _slug }),
     force: true,
   });
 }
