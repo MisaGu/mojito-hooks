@@ -14,9 +14,8 @@ export interface MojitoFactoryOptions<
 > {
   as: TDataPropertyName;
   queryKey: IQueryKey;
-  deps?: ReadonlyArray<unknown>;
   options?: UseQueryOptions<TResponse, TError>;
-  onQueryBegin?: () => Promise<void>;
+  onQueryStart?: () => Promise<void>;
   onQueryEnd?: (response?: TResponse) => Promise<void>;
   selectorFn?: (response: TSelectorData) => TResponse;
   force?: boolean;
@@ -28,17 +27,19 @@ export function useMojitoFactory<
   TResponse = any,
   TSelectorData = any,
   TError = Error,
->({
-  as,
-  queryKey: queryKey,
-  options,
-  onQueryBegin,
-  onQueryEnd,
-  selectorFn,
-  deps = [],
-  force = false,
-  onlyAuthenticated,
-}: MojitoFactoryOptions<TDataPropertyName, TSelectorData, TResponse, TError>) {
+>(
+  {
+    as,
+    queryKey: queryKey,
+    options,
+    onQueryStart,
+    onQueryEnd,
+    selectorFn,
+    onlyAuthenticated,
+    force = false,
+  }: MojitoFactoryOptions<TDataPropertyName, TSelectorData, TResponse, TError>,
+  deps: ReadonlyArray<unknown> = [],
+) {
   const queryClient = useQueryClient();
   const [, updateState] = useState<any>();
   const forceUpdate = useCallback(() => updateState({}), []);
@@ -84,7 +85,7 @@ export function useMojitoFactory<
       data = undefined;
       generateObserver();
     }
-  }, [force, ...deps]);
+  }, deps);
 
   function getQueryOptions() {
     const _isAuthorized = !!queryClient.getQueryData<boolean>(authQueryKey);
@@ -93,7 +94,7 @@ export function useMojitoFactory<
       ...options,
       queryKey,
       queryFn: async () => {
-        if (onQueryBegin) await onQueryBegin();
+        if (onQueryStart) await onQueryStart();
 
         const configuredQueryFn =
           options?.queryFn || queryClient.getDefaultOptions().queries?.queryFn || defaultQueryFn;
@@ -125,8 +126,6 @@ export function useMojitoFactory<
 
       if (onQueryEnd) await onQueryEnd(data);
     });
-
-    return;
   }
 
   function generateAuthObserver() {
