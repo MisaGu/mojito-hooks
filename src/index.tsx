@@ -30,8 +30,17 @@ export enum UrlParams {
  * EVERY url pattern must contain `:collectionSlug` OR `:collectionItemSlug` named segment
  */
 export interface MojitoHooksProviderProps {
+  config: {
+    CONTENTFUL_URL: string;
+    CONTENTFUL_AUTH_TOKEN: string;
+    MOJITO_API_URL: string;
+    INVOICE_URL: string;
+    MARKETPLACE_ID: string;
+    ORGANIZATION_ID: string;
+    AUTH_TOKEN: string;
+    AUTH_HEADER?: Record<string, string>;
+  };
   children: React.ReactElement | null;
-  authorization?: string | Record<string, string>;
   urlPatterns?: string[];
   onError?: (e: MojitoHookQueryError) => void;
   //   onRouterChange?: () => void;
@@ -47,15 +56,18 @@ const HooksOptions: React.FC<MojitoHooksProviderProps> = (props) => {
   }, [props.onError]);
 
   useEffect(() => {
-    if (props.authorization) {
+    if (props.config.AUTH_TOKEN || props.config.AUTH_HEADER) {
       let _authorization;
-      if (typeof props.authorization === 'string') {
-        _authorization = ['authorization', `Bearer ${props.authorization}`];
-      } else {
-        const _k = Object.keys(props.authorization);
+
+      if (props.config.AUTH_TOKEN) {
+        _authorization = ['authorization', `Bearer ${props.config.AUTH_TOKEN}`];
+      }
+
+      if (props.config.AUTH_HEADER) {
+        const _k = Object.keys(props.config.AUTH_HEADER);
 
         if (_k.length === 1) {
-          _authorization = [_k[0], props.authorization[_k[0]]];
+          _authorization = [_k[0], props.config.AUTH_HEADER[_k[0]]];
         }
       }
 
@@ -74,7 +86,7 @@ const HooksOptions: React.FC<MojitoHooksProviderProps> = (props) => {
     } else {
       console.log('No authorization value provided');
     }
-  }, [props.authorization]);
+  }, [props.config.AUTH_TOKEN, props.config.AUTH_HEADER]);
 
   useEffect(() => {
     if (props.urlPatterns) {
@@ -110,8 +122,8 @@ export const MojitoHooksProvider: React.FC<MojitoHooksProviderProps> = (props) =
     <QueryClientProvider client={queryClient}>
       <ReactQueryDevtools initialIsOpen={false} />
       <HooksOptions
+        config={props.config}
         children={props.children}
-        authorization={props.authorization}
         urlPatterns={props.urlPatterns}
         onError={props.onError}
       />

@@ -1123,7 +1123,7 @@ export type MutationCreateAllowListArgs = {
 
 export type MutationCreateApplicantArgs = {
   input: ApplicantRequest;
-  orgID: Scalars['UUID1'];
+  orgID?: InputMaybe<Scalars['UUID1']>;
 };
 
 export type MutationCreateAuctionLotInvoiceArgs = {
@@ -1761,6 +1761,8 @@ export type Query = {
   /** Prepare requested Payment method for further use */
   preparePaymentMethod?: Maybe<PaymentMethodPrepareStatementOutput>;
   serverTime: Scalars['Time'];
+  /**  tokenOwners returns the list of token owners */
+  tokenOwners: Array<Maybe<TokenOwnersResponse>>;
   validateIp: ValidateIpResponse;
   /** Validate Payment limit */
   validatePaymentLimit: ValidatePaymentLimitOutput;
@@ -1954,6 +1956,12 @@ export type QueryPreparePaymentMethodArgs = {
   paymentMethodType: PaymentType;
 };
 
+export type QueryTokenOwnersArgs = {
+  chainId: Scalars['Int'];
+  contractAddress: Scalars['String'];
+  tokenIds: Array<Scalars['Int']>;
+};
+
 export type QueryValidateIpArgs = {
   ip: Scalars['String'];
   organizationID: Scalars['UUID1'];
@@ -2094,6 +2102,12 @@ export type TokenOwner = {
   __typename?: 'TokenOwner';
   tokenId: Scalars['Int'];
   walletAddress: Scalars['String'];
+};
+
+export type TokenOwnersResponse = {
+  __typename?: 'TokenOwnersResponse';
+  owners: Array<Maybe<Scalars['String']>>;
+  tokenId: Scalars['Int'];
 };
 
 export type TokenTransfers = {

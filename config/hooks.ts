@@ -18,7 +18,6 @@ export const menus = [
       'useLazyMojitoOneLot',
       'useMojitoWallets',
       'useOrganization',
-      'useProfile',
       'useServerTime',
     ],
   },
