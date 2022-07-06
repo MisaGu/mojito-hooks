@@ -32,19 +32,20 @@ export function useCollectionItem(props: UseCollectionProps) {
   const _collectionSlug = props.collectionSlug || getCollectionSlugFromPathname();
   const _slug = props.slug || getCollectionItemSlugFromPathname();
 
-  return useMojitoFactory({
-    as: 'collectionItem',
-    queryKey: QueryKey.get(EMojitoKey.collectionBySlug, {
-      slug: _collectionSlug,
-      marketplaceID: config.MARKETPLACE_ID,
-    }),
-    deps: [props.id, _slug],
-    options: props.options,
-    selectorFn: selectorFn(props.id, _slug),
-    onQueryBegin: () =>
-      collectionItemPreloadFn({ collectionSlug: _collectionSlug, id: props.id, slug: _slug }),
-    force: true,
-  });
+  return useMojitoFactory(
+    {
+      as: 'collectionItem',
+      queryKey: QueryKey.get(EMojitoKey.collectionBySlug, {
+        slug: _collectionSlug,
+        marketplaceID: config.MARKETPLACE_ID,
+      }),
+      options: props.options,
+      selectorFn: selectorFn(props.id, _slug),
+      onQueryStart: () =>
+        collectionItemPreloadFn({ collectionSlug: _collectionSlug, id: props.id, slug: _slug }),
+    },
+    [props.id, _slug],
+  );
 }
 
 export default useCollectionItem;
