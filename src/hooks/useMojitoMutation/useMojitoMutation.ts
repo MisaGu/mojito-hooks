@@ -1,9 +1,9 @@
 import { Variables } from 'graphql-request';
 import { useCallback, useEffect } from 'react';
-import { useMutation, useQueryClient, UseMutationOptions } from 'react-query';
-import { EMojitoKey, EOptionKey } from '../../domain/enums/state.enum';
-import { normalizeMutationResult } from '../../domain/utils/gqlResult.utils';
+import { useMutation, UseMutationOptions, useQueryClient } from 'react-query';
+import { EMojitoKey } from '../../domain/enums/state.enum';
 import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
+import { normalizeMutationResult } from '../../domain/utils/gqlResult.utils';
 import { QueryKey } from '../../domain/utils/queryKeyFactory.util';
 
 export interface IUseMojitoFactoryOptions<
