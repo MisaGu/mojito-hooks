@@ -14,7 +14,6 @@ export enum EMojitoKey {
   profile = 'profile',
   invoices = 'invoices',
   collectionBySlug = 'collectionBySlug',
-  collectionBySlugPage = 'collectionBySlugPage',
   marketplaceCollectionsInfoWithItemsIdAndSlug = 'marketplaceCollectionsInfoWithItemsIdAndSlug',
   collectionBySlugCurrentBids = 'collectionBySlugCurrentBids',
   collectionItemById = 'collectionItemById',

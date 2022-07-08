@@ -9,6 +9,7 @@ import {
 import { collectionPreloadFn } from '../../domain/utils/service/collectionPreloadFn';
 import { getCollectionSlugFromPathname } from '../../domain/utils/state/path.util';
 import { useMojitoFactory } from '../useMojitoFactory/useMojitoFactory';
+import { getPaginationArgs } from '../../domain/utils/paginationUtils';
 
 function selectorFn(response?: CollectionBySlugResponse) {
   if (!response) return undefined;
@@ -20,7 +21,9 @@ export type UseCollectionData = ReturnType<typeof selectorFn>;
 
 export type UseCollectionReturn = ReturnType<typeof useCollection>;
 
-export interface UseCollectionProps extends BaseQueryHookPropsWithUrlAndSlug<UseCollectionData> {
+export interface UseCollectionProps
+  extends BaseQueryHookPropsWithUrlAndSlug<UseCollectionData>,
+    PaginatedQueryProps {
   marketplaceID: string;
 }
 
@@ -28,16 +31,23 @@ export function useCollection(props: UseCollectionProps) {
   const collectionSlug = props.slug || getCollectionSlugFromPathname();
   const marketplaceID = props.marketplaceID ?? config.MARKETPLACE_ID;
 
-  return useMojitoFactory({
-    as: 'collection',
-    queryKey: QueryKey.get(EMojitoKey.collectionBySlug, {
-      slug: collectionSlug,
-      marketplaceID,
-    }),
-    options: props.options,
-    onQueryStart: () => collectionPreloadFn(collectionSlug),
-    selectorFn: selectorFn,
-  });
+  const paginationArgs = getPaginationArgs(props);
+
+  return useMojitoFactory(
+    {
+      as: 'collection',
+      queryKey: QueryKey.get(EMojitoKey.collectionBySlug, {
+        slug: collectionSlug,
+        marketplaceID,
+        ...paginationArgs,
+      }),
+      options: props.options,
+      onQueryStart: () => collectionPreloadFn(collectionSlug),
+      selectorFn: selectorFn,
+      force: true,
+    },
+    [collectionSlug, marketplaceID, paginationArgs?.offset, paginationArgs?.limit],
+  );
 }
 
 export default useCollection;

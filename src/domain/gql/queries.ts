@@ -143,7 +143,7 @@ export const mojitoQueries: Record<EMojitoKey, string> = {
   `,
   [EMojitoKey.collectionBySlug]: gql`
     ${COLLECTION_ITEM_FIELD}
-    query GetCollectionBySlug($slug: String!, $marketplaceID: UUID1!) {
+    query GetCollectionBySlug($slug: String!, $marketplaceID: UUID1!, $offset: Int, $limit: Int) {
       collectionBySlug(slug: $slug, marketplaceID: $marketplaceID) {
         id
         slug
@@ -151,41 +151,9 @@ export const mojitoQueries: Record<EMojitoKey, string> = {
         description
         startDate
         endDate
-        items(statuses: [Active]) {
+        itemsCount(statuses: [Active])
+        items(offset: $offset, limit: $limit, statuses: [Active]) {
           ...CollectionItemFields
-        }
-      }
-    }
-  `,
-  [EMojitoKey.collectionBySlugPage]: gql`
-    ${COLLECTION_ITEM_FIELD}
-    query GetCollectionBySlugPage(
-      $slug: String!
-      $marketplaceID: UUID1!
-      $page: Int!
-      $pageSize: Int!
-    ) {
-      collectionBySlugPage(
-        slug: $slug
-        marketplaceID: $marketplaceID
-        page: $page
-        pageSize: $pageSize
-      ) {
-        id
-        slug
-        name
-        description
-        startDate
-        endDate
-        items(statuses: [Active]) {
-          data {
-            ...CollectionItemFields
-          }
-          pageInfo {
-            page
-            totalPages
-            totalItems
-          }
         }
       }
     }
