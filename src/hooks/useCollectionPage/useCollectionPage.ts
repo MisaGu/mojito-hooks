@@ -16,28 +16,36 @@ function selectorFn(response?: CollectionBySlugResponse) {
   return response.collectionBySlug;
 }
 
-export type UseCollectionData = ReturnType<typeof selectorFn>;
+export type UseCollectionPageData = ReturnType<typeof selectorFn>;
 
-export type UseCollectionReturn = ReturnType<typeof useCollection>;
+export type UseCollectionPageReturn = ReturnType<typeof useCollectionPage>;
 
-export interface UseCollectionProps extends BaseQueryHookPropsWithUrlAndSlug<UseCollectionData> {
+export interface UseCollectionPageProps
+  extends BaseQueryHookPropsWithUrlAndSlug<UseCollectionPageData>,
+    PaginatedQueryProps {
   marketplaceID: string;
 }
 
-export function useCollection(props: UseCollectionProps) {
+export function useCollectionPage(props: UseCollectionPageProps) {
   const collectionSlug = props.slug || getCollectionSlugFromPathname();
   const marketplaceID = props.marketplaceID ?? config.MARKETPLACE_ID;
 
-  return useMojitoFactory({
-    as: 'collection',
-    queryKey: QueryKey.get(EMojitoKey.collectionBySlug, {
-      slug: collectionSlug,
-      marketplaceID,
-    }),
-    options: props.options,
-    onQueryStart: () => collectionPreloadFn(collectionSlug),
-    selectorFn: selectorFn,
-  });
+  return useMojitoFactory(
+    {
+      as: 'collectionPage',
+      queryKey: QueryKey.get(EMojitoKey.collectionBySlugPage, {
+        slug: collectionSlug,
+        marketplaceID,
+        page: props.page,
+        pageSize: props.pageSize,
+      }),
+      options: props.options,
+      onQueryStart: () => collectionPreloadFn(collectionSlug),
+      selectorFn: selectorFn,
+      force: true,
+    },
+    [collectionSlug, marketplaceID, props.page, props.pageSize],
+  );
 }
 
-export default useCollection;
+export default useCollectionPage;

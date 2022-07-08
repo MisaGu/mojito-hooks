@@ -157,6 +157,39 @@ export const mojitoQueries: Record<EMojitoKey, string> = {
       }
     }
   `,
+  [EMojitoKey.collectionBySlugPage]: gql`
+    ${COLLECTION_ITEM_FIELD}
+    query GetCollectionBySlugPage(
+      $slug: String!
+      $marketplaceID: UUID1!
+      $page: Int!
+      $pageSize: Int!
+    ) {
+      collectionBySlugPage(
+        slug: $slug
+        marketplaceID: $marketplaceID
+        page: $page
+        pageSize: $pageSize
+      ) {
+        id
+        slug
+        name
+        description
+        startDate
+        endDate
+        items(statuses: [Active]) {
+          data {
+            ...CollectionItemFields
+          }
+          pageInfo {
+            page
+            totalPages
+            totalItems
+          }
+        }
+      }
+    }
+  `,
   [EMojitoKey.collectionBySlugCurrentBids]: gql`
     ${COLLECTION_ITEM_AUCTION_LOT_BID_FIELD}
 
