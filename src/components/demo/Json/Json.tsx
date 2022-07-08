@@ -4,12 +4,14 @@ import { QUERY_CLIENT_STALE_TIME } from '../../../domain/utils/gqlRequest.util';
 import { isBrowser } from '../../../domain/utils/isBrowser.util';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import {
-  ROOT_STYLE,
   ACTIONS_STYLE,
   BUTTON_STYLE,
+  CHECKBOX_STYLE,
   HEADER_STYLE,
   LABEL_STYLE,
-  CHECKBOX_STYLE,
+  PROPS_CONTROLS_STYLE,
+  PROPS_WRAPPER_STYLE,
+  ROOT_STYLE,
 } from './Json.constants';
 
 function jsonReplacerFunctions(key: string, value: any) {
@@ -42,11 +44,18 @@ function getQueryResultLabel(result: Omit<QueryResult<string>, 'refetch'>) {
 const showQueryResultKey = 'showQueryResult';
 
 export interface JsonProps {
+  props?: Record<string, any>;
   result: QueryResult<string> | Omit<QueryResult<string>, 'refetch'>;
   staleTime?: number;
+  controls?: React.ReactNode;
 }
 
-export const Json: React.FC<JsonProps> = ({ result, staleTime = QUERY_CLIENT_STALE_TIME }) => {
+export const Json: React.FC<JsonProps> = ({
+  props,
+  result,
+  staleTime = QUERY_CLIENT_STALE_TIME,
+  controls,
+}) => {
   const [refetchResult, setRefetchResult] = useState(null);
   const dataUpdatedAt = result.queryResult.dataUpdatedAt;
   const refetch =
@@ -84,6 +93,14 @@ export const Json: React.FC<JsonProps> = ({ result, staleTime = QUERY_CLIENT_STA
 
   return (
     <div style={ROOT_STYLE}>
+      {(props || controls) && (
+        <div style={PROPS_WRAPPER_STYLE}>
+          {controls && <div style={PROPS_CONTROLS_STYLE}>{controls}</div>}
+
+          {props && <pre>{JSON.stringify(props, null, '  ')}</pre>}
+        </div>
+      )}
+
       <div style={HEADER_STYLE}>
         <ProgressBar start={dataUpdatedAt} duration={QUERY_CLIENT_STALE_TIME} />
 

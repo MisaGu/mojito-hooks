@@ -2,14 +2,28 @@ import { CSSProperties } from 'react';
 
 export const ROOT_STYLE: CSSProperties = {
   position: 'relative',
+  marginTop: '-24px',
 };
 
 export const HEADER_STYLE: CSSProperties = {
   position: 'relative',
   borderBottom: '1px solid #ebedf1',
-  margin: '-24px -24px 0',
+  margin: ' 0 -24px',
   padding: '24px 48px 24px 24px',
   overflow: 'hidden',
+};
+
+export const PROPS_WRAPPER_STYLE: CSSProperties = {
+  position: 'relative',
+  margin: '0 -24px',
+  padding: '0 24px',
+};
+
+export const PROPS_CONTROLS_STYLE: CSSProperties = {
+  position: 'relative',
+  margin: '0 -24px',
+  padding: '24px',
+  borderBottom: '1px solid #ebedf1',
 };
 
 export const BUTTON_STYLE: CSSProperties = {

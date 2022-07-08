@@ -30,7 +30,7 @@ export function useMojitoFactory<
 >(
   {
     as,
-    queryKey: queryKey,
+    queryKey,
     options,
     onQueryStart,
     onQueryEnd,
@@ -89,6 +89,7 @@ export function useMojitoFactory<
 
   function getQueryOptions() {
     const _isAuthorized = !!queryClient.getQueryData<boolean>(authQueryKey);
+    const variables = queryKey[1];
 
     return {
       ...options,
@@ -103,6 +104,7 @@ export function useMojitoFactory<
       },
       meta: { ...options?.meta, authorization: queryClient.getQueryData(authQueryKey) },
       enabled: options?.enabled !== false && (!onlyAuthenticated || _isAuthorized),
+      keepPreviousData: options?.keepPreviousData ?? variables?.page !== undefined,
     };
   }
 

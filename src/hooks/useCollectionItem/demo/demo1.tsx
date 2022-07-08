@@ -7,7 +7,7 @@ import React, { useState } from 'react';
 import { DemoInterface } from '../../../components/demo/Interface/DemoInterface';
 import { Json } from '../../../components/demo/Json/Json';
 import { DemoProviders } from '../../../components/demo/Provider/DemoProvider';
-import { useCollectionItem } from '../useCollectionItem';
+import { useCollectionItem, UseCollectionProps } from '../useCollectionItem';
 
 const DemoContent: React.FC = () => {
   const [idx, setIdx] = useState(0);
@@ -20,25 +20,27 @@ const DemoContent: React.FC = () => {
     '225c7cd6-10c2-40fa-9df1-a1fa2523b7c5',
   ];
 
-  const result = useCollectionItem({
+  const props: UseCollectionProps = {
     collectionSlug: 'pace-gallery',
     id: ids[idx],
-  });
+  };
+
+  const result = useCollectionItem(props);
 
   return (
-    <>
-      <button
-        onClick={() => {
-          setIdx((i) => (i + 1) % ids.length);
-        }}
-      >
-        Change Id
-      </button>
-      <br />
-      <br />
-      <br />
-      <Json result={result} />
-    </>
+    <Json
+      props={props}
+      result={result}
+      controls={
+        <button
+          onClick={() => {
+            setIdx((i) => (i + 1) % ids.length);
+          }}
+        >
+          Change Id
+        </button>
+      }
+    />
   );
 };
 
