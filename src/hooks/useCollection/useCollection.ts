@@ -46,7 +46,7 @@ export function useCollection(props: UseCollectionProps) {
       selectorFn: selectorFn,
       force: !!paginationArgs,
     },
-    paginationArgs ? [paginationArgs?.offset, paginationArgs?.limit] : undefined,
+    [paginationArgs?.offset, paginationArgs?.limit],
   );
 }
 

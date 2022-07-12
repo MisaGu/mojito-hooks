@@ -27,6 +27,9 @@ const DemoContent: React.FC = () => {
 
   useEffect(() => {
     const itemCount = result?.collection?.itemsCount;
+
+    // This should be Math.floor instad of Math.ceil, but using Math.ceil here on purpose just to be able to
+    // query for one page without items and see the result:
     const nextLastPage = itemCount ? Math.ceil(itemCount / PAGE_SIZE) : 0;
 
     setLastPage((prevLastPage) => nextLastPage || prevLastPage);
