@@ -25,16 +25,12 @@ const DemoContent: React.FC = () => {
 
   const result = useCollection(props);
 
-  // TODO: result.queryResult.isPreviousData should be true, but it is not... :\
-
   useEffect(() => {
     const itemCount = result?.collection?.itemsCount;
     const nextLastPage = itemCount ? Math.ceil(itemCount / PAGE_SIZE) : 0;
 
     setLastPage((prevLastPage) => nextLastPage || prevLastPage);
   }, [result]);
-
-  // console.log(result.collection?.items.map((i)=>i.id));
 
   return <Json props={props} result={result} paginationProps={{ page, lastPage, setPage }} />;
 };
