@@ -1864,7 +1864,7 @@ export type QueryGetPaymentsByUserIdArgs = {
 
 export type QueryGetSdkTokenArgs = {
   applicantID: Scalars['String'];
-  referrer?: InputMaybe<Scalars['String']>;
+  referrer: Scalars['String'];
 };
 
 export type QueryGetSignatureMessageArgs = {

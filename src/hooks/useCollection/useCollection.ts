@@ -21,7 +21,8 @@ export type UseCollectionData = ReturnType<typeof selectorFn>;
 
 export type UseCollectionReturn = ReturnType<typeof useCollection>;
 
-export type UseCollectionProps = BaseQueryHookPropsWithUrlAndSlug<UseCollectionData> & PaginatedQueryProps;
+export type UseCollectionProps = BaseQueryHookPropsWithUrlAndSlug<UseCollectionData> &
+  PaginatedQueryProps;
 
 export function useCollection(props: UseCollectionProps) {
   const collectionSlug = props.slug || getCollectionSlugFromPathname();
@@ -39,7 +40,9 @@ export function useCollection(props: UseCollectionProps) {
       options: props.options,
       onQueryStart: () => collectionPreloadFn(collectionSlug),
       selectorFn: selectorFn,
+      force: !!paginationArgs,
     },
+    [paginationArgs?.offset, paginationArgs?.limit],
   );
 }
 

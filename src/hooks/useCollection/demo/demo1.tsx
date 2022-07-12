@@ -7,7 +7,6 @@ import React, { useEffect, useState } from 'react';
 import { DemoInterface } from '../../../components/demo/Interface/DemoInterface';
 import { Json } from '../../../components/demo/Json/Json';
 import { DemoProviders } from '../../../components/demo/Provider/DemoProvider';
-import { config } from '../../../domain/constants/general.constants';
 import { useCollection, UseCollectionProps } from '../useCollection';
 import * as DevSchema from '../../../domain/interfaces/mojito-schema-dev.interface';
 
