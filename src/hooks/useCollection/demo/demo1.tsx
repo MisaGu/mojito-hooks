@@ -19,7 +19,6 @@ const DemoContent: React.FC = () => {
 
   const props: UseCollectionProps = {
     slug: 'pace-gallery',
-    marketplaceID: config.MARKETPLACE_ID,
     page,
     itemsPerPage: page === undefined ? undefined : PAGE_SIZE,
   };

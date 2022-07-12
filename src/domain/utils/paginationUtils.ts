@@ -5,11 +5,11 @@ export interface PaginationArgs {
   limit?: number;
 }
 
-export function getPaginationArgs({page = 1, pageSize}: PaginatedQueryProps): PaginationArgs | undefined {
-  if (page < 1) return undefined;
-
-  const page = props.page;
-  const itemsPerPage = props.itemsPerPage ?? 16;
+export function getPaginationArgs({
+  page,
+  itemsPerPage = 16,
+}: PaginatedQueryProps): PaginationArgs | undefined {
+  if (page === undefined) return undefined;
 
   return {
     offset: page * itemsPerPage,
