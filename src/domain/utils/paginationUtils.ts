@@ -5,8 +5,8 @@ export interface PaginationArgs {
   limit?: number;
 }
 
-export function getPaginationArgs(props: Partial<PaginatedQueryProps>): PaginationArgs | undefined {
-  if (props.page === undefined) return undefined;
+export function getPaginationArgs({page = 1, pageSize}: PaginatedQueryProps): PaginationArgs | undefined {
+  if (page < 1) return undefined;
 
   const page = props.page;
   const itemsPerPage = props.itemsPerPage ?? 16;
