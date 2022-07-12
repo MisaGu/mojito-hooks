@@ -33,7 +33,7 @@ export function useCollection(props: UseCollectionProps) {
       as: 'collection',
       queryKey: QueryKey.get(EMojitoKey.collectionBySlug, {
         slug: collectionSlug,
-        marketplaceID,
+        marketplaceID: config.MARKETPLACE_ID,
         ...paginationArgs,
       }),
       options: props.options,
