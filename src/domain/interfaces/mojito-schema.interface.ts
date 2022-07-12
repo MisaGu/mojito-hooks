@@ -715,6 +715,7 @@ export type MarketplaceCollection = {
   description: Scalars['String'];
   endDate?: Maybe<Scalars['Time']>;
   id: Scalars['UUID1'];
+  itemsCount: Scalars['Int'];
   items?: Maybe<Array<MarketplaceCollectionItem>>;
   marketplaceID: Scalars['UUID1'];
   name: Scalars['String'];
