@@ -21,11 +21,7 @@ export type UseCollectionData = ReturnType<typeof selectorFn>;
 
 export type UseCollectionReturn = ReturnType<typeof useCollection>;
 
-export interface UseCollectionProps
-  extends BaseQueryHookPropsWithUrlAndSlug<UseCollectionData>,
-    PaginatedQueryProps {
-  marketplaceID: string;
-}
+export type UseCollectionProps = BaseQueryHookPropsWithUrlAndSlug<UseCollectionData> & PaginatedQueryProps;
 
 export function useCollection(props: UseCollectionProps) {
   const collectionSlug = props.slug || getCollectionSlugFromPathname();
