@@ -25,7 +25,6 @@ export type UseCollectionProps = BaseQueryHookPropsWithUrlAndSlug<UseCollectionD
 
 export function useCollection(props: UseCollectionProps) {
   const collectionSlug = props.slug || getCollectionSlugFromPathname();
-  const marketplaceID = props.marketplaceID ?? config.MARKETPLACE_ID;
 
   const paginationArgs = getPaginationArgs(props);
 
