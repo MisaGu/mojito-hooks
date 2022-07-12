@@ -44,9 +44,9 @@ export function useCollection(props: UseCollectionProps) {
       options: props.options,
       onQueryStart: () => collectionPreloadFn(collectionSlug),
       selectorFn: selectorFn,
-      force: true,
+      force: !!paginationArgs,
     },
-    [collectionSlug, marketplaceID, paginationArgs?.offset, paginationArgs?.limit],
+    paginationArgs ? [paginationArgs?.offset, paginationArgs?.limit] : undefined,
   );
 }
 
