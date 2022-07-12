@@ -252,6 +252,13 @@ export enum ContractType {
   Erc1155Creator = 'ERC1155Creator',
 }
 
+export type CreateEmailTemplateInput = {
+  eventType: EventType;
+  orgID: Scalars['UUID1'];
+  subject: Scalars['String'];
+  templateContent: Scalars['String'];
+};
+
 export type CreateMarketplaceBuyNowLotInput = {
   collectionId: Scalars['UUID1'];
   collectionItemName: Scalars['String'];
@@ -391,7 +398,7 @@ export type CurrentUserUserOrgsArgs = {
 };
 
 export type CurrentUserWonBidsArgs = {
-  orgId?: InputMaybe<Scalars['UUID']>;
+  orgId: Scalars['UUID'];
 };
 
 export enum DeliveryMethod {
@@ -443,6 +450,31 @@ export type Erc721Metadata = {
   timestamp?: Maybe<Scalars['Int']>;
 };
 
+export type EmailTemplate = {
+  __typename?: 'EmailTemplate';
+  active: Scalars['Boolean'];
+  eventType: EventType;
+  id: Scalars['UUID1'];
+  organization: Organization;
+  organizationID: Scalars['UUID1'];
+  subject: Scalars['String'];
+  templateContent: Scalars['String'];
+};
+
+export enum EventType {
+  BidCanceled = 'BidCanceled',
+  BidOutBid = 'BidOutBid',
+  BidWon = 'BidWon',
+  LeadingBid = 'LeadingBid',
+  OrderCompletion = 'OrderCompletion',
+  ResetPassowrd = 'ResetPassowrd',
+  TokenClaimed = 'TokenClaimed',
+  TokenTransferComplete = 'TokenTransferComplete',
+  UserInvitation = 'UserInvitation',
+  UserSignUp = 'UserSignUp',
+  VerifyAccount = 'VerifyAccount',
+}
+
 export enum ExtensionType {
   ProvenanceExtension = 'ProvenanceExtension',
   RedeemableExtension = 'RedeemableExtension',
@@ -468,6 +500,7 @@ export type IdNumberInput = {
 export enum IdentifierType {
   ExternalUserId = 'ExternalUserID',
   UserId = 'UserID',
+  WalletAddress = 'WalletAddress',
 }
 
 export type InvoiceDetails = {
@@ -716,6 +749,7 @@ export type MarketplaceCollection = {
   endDate?: Maybe<Scalars['Time']>;
   id: Scalars['UUID1'];
   items?: Maybe<Array<MarketplaceCollectionItem>>;
+  itemsCount: Scalars['Int'];
   marketplaceID: Scalars['UUID1'];
   name: Scalars['String'];
   slug: Scalars['String'];
@@ -726,6 +760,10 @@ export type MarketplaceCollection = {
 export type MarketplaceCollectionItemsArgs = {
   limit?: InputMaybe<Scalars['Int']>;
   offset?: InputMaybe<Scalars['Int']>;
+  statuses?: InputMaybe<Array<InputMaybe<MarketplaceCollectionItemStatus>>>;
+};
+
+export type MarketplaceCollectionItemsCountArgs = {
   statuses?: InputMaybe<Array<InputMaybe<MarketplaceCollectionItemStatus>>>;
 };
 
@@ -893,6 +931,7 @@ export type MarketplaceToken = {
   marketplaceID: Scalars['UUID'];
   name?: Maybe<Scalars['String']>;
   nftContractAddress: Scalars['String'];
+  nftToken: NftToken;
   nftTokenID?: Maybe<Scalars['UUID']>;
   onChainTokenID: Scalars['Int'];
 };
@@ -945,6 +984,8 @@ export type Mutation = {
   createAuctionLotInvoice: InvoiceDetails;
   /** Creates new Check based for provided applicant ID. */
   createCheck: CheckResponse;
+  /** Creates email template record for given orgID and EventType */
+  createEmailTemplate: EmailTemplate;
   createMarketplaceAuctionBid: MarketplaceAuctionBid;
   createMarketplaceAuctionLot: MarketplaceAuctionLot;
   createMarketplaceBuyNowLot: MarketplaceBuyNowOutput;
@@ -1023,6 +1064,8 @@ export type Mutation = {
   /** Updates existing  Applicant based on input data. */
   updateApplicant: ApplicantResponse;
   updateBuyNowInvoiceExpiryMins: Scalars['Boolean'];
+  /** Updates email_template for given id */
+  updateEmailTemplate: Scalars['Boolean'];
   updateMarketplaceAuctionLot: MarketplaceAuctionLot;
   updateMarketplaceBuyNowLot: MarketplaceBuyNowOutput;
   updateMarketplaceClaimableSet: MarketplaceClaimableOutput;
@@ -1133,6 +1176,10 @@ export type MutationCreateAuctionLotInvoiceArgs = {
 
 export type MutationCreateCheckArgs = {
   applicantID: Scalars['String'];
+};
+
+export type MutationCreateEmailTemplateArgs = {
+  input: CreateEmailTemplateInput;
 };
 
 export type MutationCreateMarketplaceAuctionBidArgs = {
@@ -1429,6 +1476,11 @@ export type MutationUpdateBuyNowInvoiceExpiryMinsArgs = {
   orgID: Scalars['UUID1'];
 };
 
+export type MutationUpdateEmailTemplateArgs = {
+  id: Scalars['UUID1'];
+  input: CreateEmailTemplateInput;
+};
+
 export type MutationUpdateMarketplaceAuctionLotArgs = {
   data: MarketplaceAuctionLotUpdateInput;
   marketplaceAuctionLotId: Scalars['UUID'];
@@ -1710,6 +1762,8 @@ export type Query = {
   getClaimableCodesForSetId: PaginatedMarketplaceClaimableCodeOutput;
   /** Retrieves Discount codes by Invoice Item ID */
   getDiscountCodes: Array<Maybe<DiscountCode>>;
+  /** Retrieves email templates for organizationID and filters by eventType if provided  */
+  getEmailTemplateByOrgIDAndEventType: Array<Maybe<EmailTemplate>>;
   /** Retrieves invoice details by ID */
   getInvoiceDetails: InvoiceDetails;
   /** Retrieves invoice list for given user, can be called by org admin */
@@ -1832,6 +1886,11 @@ export type QueryGetDiscountCodesArgs = {
   invoiceItemID: Scalars['UUID1'];
 };
 
+export type QueryGetEmailTemplateByOrgIdAndEventTypeArgs = {
+  eventType?: InputMaybe<EventType>;
+  orgID: Scalars['UUID1'];
+};
+
 export type QueryGetInvoiceDetailsArgs = {
   invoiceID: Scalars['UUID1'];
 };
@@ -1843,6 +1902,10 @@ export type QueryGetInvoicesByUserIdArgs = {
 
 export type QueryGetMarketplaceAuctionLotArgs = {
   marketplaceAuctionLotId: Scalars['UUID'];
+};
+
+export type QueryGetMyInvoicesArgs = {
+  returnAllStatuses?: InputMaybe<Scalars['Boolean']>;
 };
 
 export type QueryGetPaymentMethodArgs = {
@@ -1864,7 +1927,7 @@ export type QueryGetPaymentsByUserIdArgs = {
 
 export type QueryGetSdkTokenArgs = {
   applicantID: Scalars['String'];
-  referrer?: InputMaybe<Scalars['String']>;
+  referrer: Scalars['String'];
 };
 
 export type QueryGetSignatureMessageArgs = {
@@ -1948,7 +2011,7 @@ export type QueryOrganizationArgs = {
 };
 
 export type QueryOrganizationByIdArgs = {
-  id?: InputMaybe<Scalars['UUID1']>;
+  id: Scalars['UUID1'];
 };
 
 export type QueryPreparePaymentMethodArgs = {
@@ -2121,13 +2184,13 @@ export type TokenTransfers = {
   organizationId?: Maybe<Scalars['UUID1']>;
   resolvedTransferTo?: Maybe<Scalars['String']>;
   status: TransferStatus;
+  token: MarketplaceToken;
   tokenOnChainId?: Maybe<Scalars['Int']>;
   tokenType?: Maybe<TokenType>;
   transactionHash?: Maybe<Scalars['String']>;
   transferTo?: Maybe<Scalars['String']>;
   updatedAt: Scalars['Time'];
   userId?: Maybe<Scalars['UUID1']>;
-  wallet?: Maybe<Wallet>;
   walletId?: Maybe<Scalars['UUID1']>;
 };
 
@@ -2186,7 +2249,7 @@ export type UserInvitation = {
 };
 
 export type UserOrgFilter = {
-  orgId?: InputMaybe<Scalars['UUID']>;
+  orgId: Scalars['UUID'];
 };
 
 export type UserOrganization = {

@@ -9,6 +9,7 @@ import { Json } from '../../../components/demo/Json/Json';
 import { DemoProviders } from '../../../components/demo/Provider/DemoProvider';
 import { config } from '../../../domain/constants/general.constants';
 import { useCollection, UseCollectionProps } from '../useCollection';
+import * as DevSchema from '../../../domain/interfaces/mojito-schema-dev.interface';
 
 const PAGE_SIZE = 4;
 
@@ -26,7 +27,8 @@ const DemoContent: React.FC = () => {
   const result = useCollection(props);
 
   useEffect(() => {
-    const itemCount = result?.collection?.itemsCount;
+    const itemCount = (result?.collection as unknown as DevSchema.MarketplaceCollection)
+      ?.itemsCount;
 
     // This should be Math.floor instad of Math.ceil, but using Math.ceil here on purpose just to be able to
     // query for one page without items and see the result:
