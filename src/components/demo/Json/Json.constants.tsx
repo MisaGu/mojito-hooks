@@ -20,6 +20,8 @@ export const PROPS_WRAPPER_STYLE: CSSProperties = {
 };
 
 export const PROPS_CONTROLS_STYLE: CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
   position: 'relative',
   margin: '0 -24px',
   padding: '24px',

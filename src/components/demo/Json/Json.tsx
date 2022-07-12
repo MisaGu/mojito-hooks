@@ -13,6 +13,7 @@ import {
   PROPS_WRAPPER_STYLE,
   ROOT_STYLE,
 } from './Json.constants';
+import { Pagination, PaginationProps } from '../Pagination/Pagination';
 
 function jsonReplacerFunctions(key: string, value: any) {
   if (key === 'refetch' || typeof value === 'function') return '() => { ... }';
@@ -44,17 +45,19 @@ function getQueryResultLabel(result: Omit<QueryResult<string>, 'refetch'>) {
 const showQueryResultKey = 'showQueryResult';
 
 export interface JsonProps {
+  paginationProps: PaginationProps;
+  controls?: React.ReactNode;
   props?: Record<string, any>;
   result: QueryResult<string> | Omit<QueryResult<string>, 'refetch'>;
   staleTime?: number;
-  controls?: React.ReactNode;
 }
 
 export const Json: React.FC<JsonProps> = ({
+  paginationProps,
+  controls,
   props,
   result,
   staleTime = QUERY_CLIENT_STALE_TIME,
-  controls,
 }) => {
   const [refetchResult, setRefetchResult] = useState(null);
   const dataUpdatedAt = result.queryResult.dataUpdatedAt;
@@ -93,16 +96,21 @@ export const Json: React.FC<JsonProps> = ({
 
   return (
     <div style={ROOT_STYLE}>
-      {(props || controls) && (
+      {(paginationProps || controls || props) && (
         <div style={PROPS_WRAPPER_STYLE}>
-          {controls && <div style={PROPS_CONTROLS_STYLE}>{controls}</div>}
+          {(paginationProps || controls) && (
+            <div style={PROPS_CONTROLS_STYLE}>
+              {paginationProps && <Pagination {...paginationProps} />}
+              {controls}
+            </div>
+          )}
 
           {props && <pre>{JSON.stringify(props, null, '  ')}</pre>}
         </div>
       )}
 
       <div style={HEADER_STYLE}>
-        <ProgressBar start={dataUpdatedAt} duration={QUERY_CLIENT_STALE_TIME} />
+        <ProgressBar start={dataUpdatedAt} duration={staleTime} />
 
         {refetchResult ? 'Refetch' : getQueryResultLabel(result)}
 
