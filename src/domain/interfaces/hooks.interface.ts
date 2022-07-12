@@ -3,7 +3,7 @@ import { UseMutationOptions, UseQueryOptions } from 'react-query';
 
 export interface PaginatedQueryProps {
   page?: number;
-  pageSize?: number;
+  itemsPerPage?: number;
 }
 
 export interface BaseQueryHookProps<TData = any, TError = Error, TResult = TData> {

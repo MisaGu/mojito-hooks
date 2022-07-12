@@ -9,10 +9,10 @@ export function getPaginationArgs(props: Partial<PaginatedQueryProps>): Paginati
   if (props.page === undefined) return undefined;
 
   const page = props.page;
-  const pageSize = props.pageSize ?? 16;
+  const itemsPerPage = props.itemsPerPage ?? 16;
 
   return {
-    offset: page * pageSize,
-    limit: pageSize,
+    offset: page * itemsPerPage,
+    limit: itemsPerPage,
   };
 }

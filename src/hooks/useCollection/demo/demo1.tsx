@@ -20,7 +20,7 @@ const DemoContent: React.FC = () => {
     slug: 'pace-gallery',
     marketplaceID: config.MARKETPLACE_ID,
     page,
-    pageSize: page === undefined ? undefined : PAGE_SIZE,
+    itemsPerPage: page === undefined ? undefined : PAGE_SIZE,
   };
 
   const result = useCollection(props);
