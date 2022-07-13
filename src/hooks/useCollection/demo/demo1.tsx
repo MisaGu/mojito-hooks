@@ -35,8 +35,6 @@ const DemoContent: React.FC = () => {
     setLastPage((prevLastPage) => nextLastPage || prevLastPage);
   }, [result]);
 
-  console.log({ page, lastPage });
-
   return <Json props={props} result={result} paginationProps={{ page, lastPage, setPage }} />;
 };
 
