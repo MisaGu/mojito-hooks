@@ -28,8 +28,6 @@ const DemoContent: React.FC = () => {
     const itemCount = (result?.collection as unknown as DevSchema.MarketplaceCollection)
       ?.itemsCount;
 
-    // This should be Math.floor instad of Math.ceil, but using Math.ceil here on purpose just to be able to
-    // query for one page without items and see the result:
     const nextLastPage = itemCount ? Math.ceil(itemCount / PAGE_SIZE) : undefined;
 
     setLastPage((prevLastPage) => nextLastPage || prevLastPage);
