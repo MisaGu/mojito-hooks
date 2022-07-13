@@ -61,11 +61,45 @@ export function useMojitoFactory<
         ? selectorFn(_query.state.data as unknown as TSelectorData)
         : _query.state.data
       : _query.state.data;
-  }, [deps, _query.state.dataUpdatedAt]);
+  }, [deps, _query.state.dataUpdatedAt, queryKey]);
+
+  //@ts-ignore
+  _result.data = data;
+
+  //@ts-ignore
+  _result.refetch = () => {
+    _query.reset();
+    data = undefined;
+    generateObserver();
+  };
+
+  useEffect(() => {
+    if (onlyAuthenticated) {
+      generateAuthObserver();
+    } else {
+      generateObserver();
+    }
+
+    return () => {
+      _unsubscribe.current?.();
+      observer.current?.destroy();
+
+      _authUnsubscribe.current?.();
+      authObserver.current?.destroy();
+    };
+  }, []);
+
+  useEffect(() => {
+    generateObserver();
+  }, queryKey);
+
+  useEffect(() => {
+    if (force) _result.refetch();
+    else generateObserver();
+  }, deps);
 
   function getQueryOptions(): QueryObserverOptions<TResponse, TError> {
     const _isAuthorized = !!queryClient.getQueryData<boolean>(authQueryKey);
-    const variables = queryKey[1];
 
     return {
       ...options,
@@ -80,7 +114,6 @@ export function useMojitoFactory<
       },
       meta: { ...options?.meta, authorization: queryClient.getQueryData(authQueryKey) },
       enabled: options?.enabled !== false && (!onlyAuthenticated || _isAuthorized),
-      keepPreviousData: options?.keepPreviousData ?? variables?.page !== undefined,
     };
   }
 
@@ -123,43 +156,6 @@ export function useMojitoFactory<
       }
     });
   }
-
-  useEffect(() => {
-    if (onlyAuthenticated) {
-      generateAuthObserver();
-    } else {
-      generateObserver();
-    }
-
-    return () => {
-      _unsubscribe.current?.();
-      observer.current?.destroy();
-
-      _authUnsubscribe.current?.();
-      authObserver.current?.destroy();
-    };
-  }, []);
-
-  //@ts-ignore
-  _result.data = data;
-
-  //@ts-ignore
-  _result.refetch = () => {
-    _query.reset();
-    data = undefined;
-    generateObserver();
-  };
-
-  useEffect(() => {
-    // TODO: Probably no need for `force`, only deps.length:
-    if (force) _result.refetch();
-  }, deps);
-
-  /*
-  useEffect(() => {
-    _result.refetch();
-  }, queryKey);
-  */
 
   return normalizeQueryResult(as, _result);
 }

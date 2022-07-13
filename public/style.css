@@ -32,15 +32,13 @@ input[type='number'] {
   padding: 24px !important;
 }
 
-.__dumi-default-previewer-demo pre {
+/* .__dumi-default-previewer-demo pre {
   margin: 0;
   margin: 0 -24px;
   padding: 24px;
-  border-bottom: 1px solid #ebedf1;
   max-height: 50vh;
-  background: #f9fafb;
   overflow: scroll;
-}
+} */
 
 .__dumi-default-previewer-demo pre:first-child {
   margin-top: -24px;

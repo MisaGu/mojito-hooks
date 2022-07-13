@@ -29,21 +29,17 @@ export function useCollection(props: UseCollectionProps) {
 
   const paginationArgs = getPaginationArgs(props);
 
-  return useMojitoFactory(
-    {
-      as: 'collection',
-      queryKey: QueryKey.get(EMojitoKey.collectionBySlug, {
-        slug: collectionSlug,
-        marketplaceID: config.MARKETPLACE_ID,
-        ...paginationArgs,
-      }),
-      options: props.options,
-      onQueryStart: () => collectionPreloadFn(collectionSlug),
-      selectorFn: selectorFn,
-      force: !!paginationArgs,
-    },
-    [paginationArgs?.offset, paginationArgs?.limit],
-  );
+  return useMojitoFactory({
+    as: 'collection',
+    queryKey: QueryKey.get(EMojitoKey.collectionBySlug, {
+      slug: collectionSlug,
+      marketplaceID: config.MARKETPLACE_ID,
+      ...paginationArgs,
+    }),
+    options: props.options,
+    onQueryStart: () => collectionPreloadFn(collectionSlug),
+    selectorFn: selectorFn,
+  });
 }
 
 export default useCollection;
