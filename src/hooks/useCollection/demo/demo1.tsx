@@ -14,12 +14,12 @@ const PAGE_SIZE = 4;
 
 const DemoContent: React.FC = () => {
   const [page, setPage] = useState<undefined | number>();
-  const [lastPage, setLastPage] = useState(0);
+  const [lastPage, setLastPage] = useState(1);
 
   const props: UseCollectionProps = {
     slug: 'pace-gallery',
     page,
-    itemsPerPage: page === undefined ? undefined : PAGE_SIZE,
+    itemsPerPage: page ? PAGE_SIZE : undefined,
   };
 
   const result = useCollection(props);
@@ -30,10 +30,12 @@ const DemoContent: React.FC = () => {
 
     // This should be Math.floor instad of Math.ceil, but using Math.ceil here on purpose just to be able to
     // query for one page without items and see the result:
-    const nextLastPage = itemCount ? Math.ceil(itemCount / PAGE_SIZE) : 0;
+    const nextLastPage = itemCount ? Math.ceil(itemCount / PAGE_SIZE) : undefined;
 
     setLastPage((prevLastPage) => nextLastPage || prevLastPage);
   }, [result]);
+
+  console.log({ page, lastPage });
 
   return <Json props={props} result={result} paginationProps={{ page, lastPage, setPage }} />;
 };

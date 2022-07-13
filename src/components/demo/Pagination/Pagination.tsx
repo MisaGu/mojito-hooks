@@ -13,25 +13,25 @@ export interface PaginationProps {
   setPage: React.Dispatch<React.SetStateAction<number | undefined>>;
 }
 
-export const Pagination: React.FC<PaginationProps> = ({ page, lastPage = 0, setPage }) => {
+export const Pagination: React.FC<PaginationProps> = ({ page, lastPage = 1, setPage }) => {
   return (
     <div style={ROOT_STYLE}>
       <label style={CHECKBOX_LABEL_STYLE}>
         <input
           type="checkbox"
           checked={page !== undefined}
-          onChange={() => setPage((p) => (p === undefined ? 0 : undefined))}
+          onChange={() => setPage((p) => (p === undefined ? 1 : undefined))}
           style={CHECKBOX_STYLE}
         />
         📑
       </label>
 
-      <button onClick={() => setPage(0)} disabled={!page} style={BUTTON_STYLE}>
+      <button onClick={() => setPage(1)} disabled={!page} style={BUTTON_STYLE}>
         ⏮️
       </button>
 
       <button
-        onClick={() => setPage((p) => Math.max(0, (p ?? 0) - 1))}
+        onClick={() => setPage((p) => Math.max(1, (p ?? 1) - 1))}
         disabled={!page}
         style={BUTTON_STYLE}
       >
@@ -39,11 +39,11 @@ export const Pagination: React.FC<PaginationProps> = ({ page, lastPage = 0, setP
       </button>
 
       <span style={CURREN_PAGE_LABEL_STYLE}>
-        {page || 0}/{lastPage}
+        {page || 1}/{lastPage}
       </span>
 
       <button
-        onClick={() => setPage((p) => Math.min(lastPage, (p ?? 0) + 1))}
+        onClick={() => setPage((p) => Math.min(lastPage, (p ?? 1) + 1))}
         disabled={page === undefined || page === lastPage}
         style={BUTTON_STYLE}
       >

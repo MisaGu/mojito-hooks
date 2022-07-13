@@ -9,10 +9,12 @@ export function getPaginationArgs({
   page,
   itemsPerPage = 16,
 }: PaginatedQueryProps): PaginationArgs | undefined {
-  if (page === undefined) return undefined;
+  console.log('getPaginationArgs', page);
+
+  if (!page) return undefined;
 
   return {
-    offset: page * itemsPerPage,
+    offset: (page - 1) * itemsPerPage,
     limit: itemsPerPage,
   };
 }

@@ -2011,7 +2011,7 @@ export type QueryOrganizationArgs = {
 };
 
 export type QueryOrganizationByIdArgs = {
-  id: Scalars['UUID1'];
+  id?: InputMaybe<Scalars['UUID1']>;
 };
 
 export type QueryPreparePaymentMethodArgs = {
