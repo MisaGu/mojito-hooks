@@ -1,6 +1,11 @@
 import { Variables } from 'graphql-request';
 import { UseMutationOptions, UseQueryOptions } from 'react-query';
 
+export interface PaginatedQueryProps {
+  page?: number;
+  itemsPerPage?: number;
+}
+
 export interface BaseQueryHookProps<TData = any, TError = Error, TResult = TData> {
   options?: UseQueryOptions<TResult, TError, TData>;
 }

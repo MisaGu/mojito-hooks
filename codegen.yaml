@@ -1,9 +1,13 @@
 overwrite: true
-schema: 'https://api.mojito.xyz/query'
 documents:
   - 'src/domain/gql/*.ts'
   - '!src/domain/gql/contentful.ts'
 generates:
-  src\domain\interfaces\mojito-schema.interface.ts:
+  src/domain/interfaces/mojito-schema.interface.ts:
+    schema: https://api.mojito.xyz/query
     plugins:
-      - 'typescript'
+      - typescript
+  src/domain/interfaces/mojito-schema-dev.interface.ts:
+    schema: https://api-dev.mojito.xyz/query
+    plugins:
+      - typescript

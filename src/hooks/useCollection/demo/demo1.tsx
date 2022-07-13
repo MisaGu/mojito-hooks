@@ -3,20 +3,37 @@
  * desc: This hook takes an optional slug or pathname param (defaults to location.pathname).
  */
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { DemoInterface } from '../../../components/demo/Interface/DemoInterface';
 import { Json } from '../../../components/demo/Json/Json';
 import { DemoProviders } from '../../../components/demo/Provider/DemoProvider';
-import { useCollection } from '../useCollection';
+import { useCollection, UseCollectionProps } from '../useCollection';
+import * as DevSchema from '../../../domain/interfaces/mojito-schema-dev.interface';
+
+const PAGE_SIZE = 4;
 
 const DemoContent: React.FC = () => {
-  const result = useCollection({
+  const [page, setPage] = useState<undefined | number>();
+  const [lastPage, setLastPage] = useState(1);
+
+  const props: UseCollectionProps = {
     slug: 'pace-gallery',
-  });
+    page,
+    itemsPerPage: page ? PAGE_SIZE : undefined,
+  };
 
-  // console.log(result.collection?.items.map((i)=>i.id));
+  const result = useCollection(props);
 
-  return <Json result={result} />;
+  useEffect(() => {
+    const itemCount = (result?.collection as unknown as DevSchema.MarketplaceCollection)
+      ?.itemsCount;
+
+    const nextLastPage = itemCount ? Math.ceil(itemCount / PAGE_SIZE) : undefined;
+
+    setLastPage((prevLastPage) => nextLastPage || prevLastPage);
+  }, [result]);
+
+  return <Json props={props} result={result} paginationProps={{ page, lastPage, setPage }} />;
 };
 
 export default () => {

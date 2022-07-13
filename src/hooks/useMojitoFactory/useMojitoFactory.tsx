@@ -1,6 +1,6 @@
 import isEqual from 'lodash.isequal';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
-import { QueryObserver, useQueryClient, UseQueryOptions } from 'react-query';
+import { QueryObserver, QueryObserverOptions, useQueryClient, UseQueryOptions } from 'react-query';
 import { EOptionKey } from '../../domain/enums/state.enum';
 import { defaultQueryFn } from '../../domain/utils/gqlRequest.util';
 import { normalizeQueryResult } from '../../domain/utils/gqlResult.utils';
@@ -30,7 +30,7 @@ export function useMojitoFactory<
 >(
   {
     as,
-    queryKey: queryKey,
+    queryKey,
     options,
     onQueryStart,
     onQueryEnd,
@@ -63,32 +63,9 @@ export function useMojitoFactory<
       : _query.state.data;
   }, [deps, _query.state.dataUpdatedAt]);
 
-  useEffect(() => {
-    if (onlyAuthenticated) {
-      generateAuthObserver();
-    } else {
-      generateObserver();
-    }
-
-    return () => {
-      _unsubscribe.current?.();
-      observer.current?.destroy();
-
-      _authUnsubscribe.current?.();
-      authObserver.current?.destroy();
-    };
-  }, []);
-
-  useEffect(() => {
-    if (force) {
-      _query.reset();
-      data = undefined;
-      generateObserver();
-    }
-  }, deps);
-
-  function getQueryOptions() {
+  function getQueryOptions(): QueryObserverOptions<TResponse, TError> {
     const _isAuthorized = !!queryClient.getQueryData<boolean>(authQueryKey);
+    const variables = queryKey[1];
 
     return {
       ...options,
@@ -103,6 +80,7 @@ export function useMojitoFactory<
       },
       meta: { ...options?.meta, authorization: queryClient.getQueryData(authQueryKey) },
       enabled: options?.enabled !== false && (!onlyAuthenticated || _isAuthorized),
+      keepPreviousData: options?.keepPreviousData ?? variables?.page !== undefined,
     };
   }
 
@@ -114,8 +92,10 @@ export function useMojitoFactory<
       if (selectorFn) {
         if (result.data) {
           const _selectorResult = selectorFn(result.data as unknown as TSelectorData);
+
           if (!isEqual(_selectorResult, data)) {
             data = _selectorResult;
+
             forceUpdate();
           }
         }
@@ -136,6 +116,7 @@ export function useMojitoFactory<
     });
 
     _authUnsubscribe.current?.();
+
     _authUnsubscribe.current = authObserver.current.subscribe((result) => {
       if (onlyAuthenticated && _isAuthorized != !!result.data) {
         generateObserver();
@@ -143,16 +124,42 @@ export function useMojitoFactory<
     });
   }
 
+  useEffect(() => {
+    if (onlyAuthenticated) {
+      generateAuthObserver();
+    } else {
+      generateObserver();
+    }
+
+    return () => {
+      _unsubscribe.current?.();
+      observer.current?.destroy();
+
+      _authUnsubscribe.current?.();
+      authObserver.current?.destroy();
+    };
+  }, []);
+
   //@ts-ignore
   _result.data = data;
+
   //@ts-ignore
   _result.refetch = () => {
-    _unsubscribe.current?.();
     _query.reset();
-
     data = undefined;
     generateObserver();
   };
+
+  useEffect(() => {
+    // TODO: Probably no need for `force`, only deps.length:
+    if (force) _result.refetch();
+  }, deps);
+
+  /*
+  useEffect(() => {
+    _result.refetch();
+  }, queryKey);
+  */
 
   return normalizeQueryResult(as, _result);
 }

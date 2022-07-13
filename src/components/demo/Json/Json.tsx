@@ -4,13 +4,16 @@ import { QUERY_CLIENT_STALE_TIME } from '../../../domain/utils/gqlRequest.util';
 import { isBrowser } from '../../../domain/utils/isBrowser.util';
 import { ProgressBar } from '../ProgressBar/ProgressBar';
 import {
-  ROOT_STYLE,
   ACTIONS_STYLE,
   BUTTON_STYLE,
+  CHECKBOX_STYLE,
   HEADER_STYLE,
   LABEL_STYLE,
-  CHECKBOX_STYLE,
+  PROPS_CONTROLS_STYLE,
+  PROPS_WRAPPER_STYLE,
+  ROOT_STYLE,
 } from './Json.constants';
+import { Pagination, PaginationProps } from '../Pagination/Pagination';
 
 function jsonReplacerFunctions(key: string, value: any) {
   if (key === 'refetch' || typeof value === 'function') return '() => { ... }';
@@ -42,11 +45,20 @@ function getQueryResultLabel(result: Omit<QueryResult<string>, 'refetch'>) {
 const showQueryResultKey = 'showQueryResult';
 
 export interface JsonProps {
+  paginationProps: PaginationProps;
+  controls?: React.ReactNode;
+  props?: Record<string, any>;
   result: QueryResult<string> | Omit<QueryResult<string>, 'refetch'>;
   staleTime?: number;
 }
 
-export const Json: React.FC<JsonProps> = ({ result, staleTime = QUERY_CLIENT_STALE_TIME }) => {
+export const Json: React.FC<JsonProps> = ({
+  paginationProps,
+  controls,
+  props,
+  result,
+  staleTime = QUERY_CLIENT_STALE_TIME,
+}) => {
   const [refetchResult, setRefetchResult] = useState(null);
   const dataUpdatedAt = result.queryResult.dataUpdatedAt;
   const refetch =
@@ -84,8 +96,21 @@ export const Json: React.FC<JsonProps> = ({ result, staleTime = QUERY_CLIENT_STA
 
   return (
     <div style={ROOT_STYLE}>
+      {(paginationProps || controls || props) && (
+        <div style={PROPS_WRAPPER_STYLE}>
+          {(paginationProps || controls) && (
+            <div style={PROPS_CONTROLS_STYLE}>
+              {paginationProps && <Pagination {...paginationProps} />}
+              {controls}
+            </div>
+          )}
+
+          {props && <pre>{JSON.stringify(props, null, '  ')}</pre>}
+        </div>
+      )}
+
       <div style={HEADER_STYLE}>
-        <ProgressBar start={dataUpdatedAt} duration={QUERY_CLIENT_STALE_TIME} />
+        <ProgressBar start={dataUpdatedAt} duration={staleTime} />
 
         {refetchResult ? 'Refetch' : getQueryResultLabel(result)}
 
