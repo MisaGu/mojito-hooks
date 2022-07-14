@@ -17,7 +17,7 @@ const DemoContent: React.FC = () => {
   const [lastPage, setLastPage] = useState(1);
 
   const props: UseCollectionProps = {
-    slug: 'pace-gallery',
+    slug: 'metaverso',
     page,
     itemsPerPage: page ? PAGE_SIZE : undefined,
   };

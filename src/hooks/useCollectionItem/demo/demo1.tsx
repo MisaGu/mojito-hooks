@@ -21,7 +21,7 @@ const DemoContent: React.FC = () => {
   ];
 
   const props: UseCollectionProps = {
-    collectionSlug: 'pace-gallery',
+    collectionSlug: 'metaverso',
     id: ids[idx],
   };
 
